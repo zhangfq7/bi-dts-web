@@ -1,0 +1,1 @@
+define(["view/box","bace"],function(a,c){var b={init:function(){$(document).keydown(function(d){if(d.ctrlKey==true&&d.keyCode==83){if(a.main.reportId){}else{}return false}})}};return b});

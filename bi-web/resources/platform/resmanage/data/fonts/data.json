@@ -1,0 +1,19 @@
+{
+	"rows":[
+		{"category_id":"1","name":"用户基本信息","description":"记录用户的基本信息指标","founder":"管理员","foundtime":"2015-08-24 12:33:33","lft":"1","rgt":"10","level":"0","uiicon":""},
+		{"category_id":"2","name":"归属信息","description":"记录用户的归属信息","founder":"管理员","foundtime":"2015-08-24 12:33:33","lft":"2","rgt":"9","level":"1","uiicon":""},
+		{"category_id":"3","name":"户籍信息","description":"","founder":"管理员","foundtime":"2015-08-24 15:33:33","lft":"3","rgt":"8","level":"2","uiicon":""},
+		{"category_id":"4","name":"籍贯","description":"","founder":"管理员","foundtime":"2015-08-24 18:33:33","lft":"4","rgt":"5","level":"3","uiicon":"ui-icon-image"},
+		{"category_id":"5","name":"具备证书","description":"","founder":"管理员","foundtime":"2015-08-26 12:33:33","lft":"6","rgt":"7","level":"3","uiicon":"ui-icon-document"},
+	    {"category_id":"6","name":"用户费用信息","description":"","founder":"管理员","foundtime":"2015-08-28 12:33:33","lft":"11","rgt":"18","level":"0","uiicon":""},
+		{"category_id":"7","name":"账户余额","description":"","founder":"管理员","foundtime":"2015-08-28 12:33:33","lft":"12","rgt":"13","level":"1","uiicon":""},
+		{"category_id":"8","name":"当月费用","description":"","founder":"管理员","foundtime":"2015-08-28 12:33:33","lft":"14","rgt":"15","level":"1","uiicon":""},
+		{"category_id":"9","name":"充值费用","description":"","founder":"管理员","foundtime":"2015-08-28 12:33:33","lft":"16","rgt":"17","level":"1","uiicon":""},
+		{"category_id":"10","name":"教育经历","description":"","founder":"管理员","foundtime":"2015-08-28 12:33:33","lft":"19","rgt":"30","level":"0","uiicon":""},
+	    {"category_id":"11","name":"学历","description":"","founder":"管理员","foundtime":"2015-08-28 12:33:33","lft":"20","rgt":"27","level":"1","uiicon":""},
+	    {"category_id":"13","name":"初中","description":"","founder":"管理员","foundtime":"2015-08-28 12:33:33","lft":"21","rgt":"22","level":"2","uiicon":""},
+	    {"category_id":"14","name":"高中","description":"","founder":"管理员","foundtime":"2015-08-28 12:33:33","lft":"23","rgt":"24","level":"2","uiicon":""},
+	    {"category_id":"15","name":"大学","description":"","founder":"管理员","foundtime":"2015-08-28 12:33:33","lft":"25","rgt":"26","level":"2","uiicon":""},
+		{"category_id":"12","name":"实习经历","description":"","founder":"管理员","foundtime":"2015-08-28 12:33:33","lft":"28","rgt":"29","level":"1","uiicon":""}
+	]
+}

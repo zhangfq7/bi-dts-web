@@ -1,0 +1,151 @@
+// @borderColor:#D7D7D7;
+// @background:#F5F5F5;
+// @color:#444;
+// @rowOverBgColor:#F5F5F5;
+// @rowOverColor:#444;
+// @selectColor:#333;
+// @selectBgColor:#E8E8E8;
+// @pageBgColor:#fff;
+// @pageButtonColor:#444;
+// @pageButtonHoverColor:#D7D7D7;
+// @themeName:bi-gray;
+ 
+ @borderColor:#A3C0E8;
+ @background:#E2F0FF;
+ @color:#444;
+ @rowOverBgColor:#F1FBFF;
+ @rowOverColor:#444;
+ @selectColor:#444;
+ @selectBgColor:#E2F0FF;
+ @pageBgColor:#fff;
+ @pageButtonColor:#33BBEE;
+ @pageButtonHoverColor:#B1E5F9;
+@themeName:bi-blue;
+
+// @borderColor:#F9B1AA;
+// @background:#F29291;
+// @color:#fff;
+// @rowOverBgColor:#F8A6A8;
+// @rowOverColor:#fff;
+// @selectColor:#fff;
+// @selectBgColor:#F18788;
+// @pageBgColor:#fff;
+// @pageButtonColor:#E52C3C;
+// @pageButtonHoverColor:#FAC3BD;
+// @themeName:bi-red;
+
+
+
+.@{themeName}.l-panel {
+    
+    border: 1px solid @borderColor;
+    width:100%!important;
+    .l-panel-bwarp {
+        margin-top: -1px; //表格主体向上提升1px
+        
+        .l-grid-row-over .l-grid-row-cell,
+        .l-grid-row-over {
+            color:@rowOverColor;
+            background: @rowOverBgColor;
+        }
+        .l-selected .l-grid-row-cell,
+        .l-selected {
+            background: @selectBgColor;
+            color: @selectColor;
+        }
+        
+        //头部背景边框色
+        .l-grid-header{
+            border-bottom: 1px solid  @borderColor;
+            background: @background;
+            
+            //头部单元格
+            .l-grid-hd-cell{
+                color:@color;
+                border-right: 1px solid @borderColor;
+            }
+            .l-grid-hd-cell-mul{
+                border-bottom: 1px solid @borderColor;
+            }
+        }
+        
+        
+     }
+     //序号边框色
+        .l-grid-row-cell {
+            border-right: 1px solid @borderColor;
+            border-bottom: 1px solid @borderColor;
+        }
+        //序号列背景色
+        .l-grid-row-alt .l-grid-row-cell-rownumbers,
+        .l-selected .l-grid-row-cell-rownumbers,
+        .l-grid-row-over .l-grid-row-cell-rownumbers,
+        .l-grid-row-cell-rownumbers {
+            background: @background;
+            color:@color
+        }
+        //分页栏
+        .l-panel-bar{
+            background: @pageBgColor;
+            border-top: 1px solid @borderColor;
+            
+            .l-panel-bbar-inner {
+                min-width: auto
+            }
+            
+            .l-bar-group{
+                line-height: 24px;
+                
+                .l-bar-button {
+                    margin-top: 1px;
+                    padding-top: 1px;
+                    padding-left: 1px;
+                    
+                    .l-disabled {
+                        opacity: .4;
+                    }
+                    
+                }
+                .l-bar-button-over {
+                    color: #fff;
+                    border-radius: 3px;
+                    background: @pageButtonHoverColor;
+                }
+                
+                .l-bar-text {
+                    display: inline-block;
+                    line-height: 24px;
+                    height: 24px;
+                }
+                
+                .pcontrol input {
+                    text-align: center;
+                    height: 18px;
+                    line-height: 18px;
+                    border: none;
+                }
+                
+                select {
+                    border: 1px solid #D7D7D7;
+                    margin-top: 3px;
+                }
+                
+            }
+            
+            .l-bar-btnlast span,
+            .l-bar-btnnext span,
+            .l-bar-btnprev span,
+            .l-bar-btnfirst span,
+            .l-bar-btnload span {
+                line-height: 17px;
+                text-align: center;
+                background: none;
+                color:@pageButtonColor
+            }
+        }
+}
+
+.ui-resizable-se{
+    bottom: -3px!important;
+}
+

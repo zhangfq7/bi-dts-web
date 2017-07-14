@@ -1,0 +1,185 @@
+2016-01-05 14:49:50 ERROR [localhost-startStop-1] org.bi.webbace.util.InitParamUtil.<init>(InitParamUtil.java:88) - 初始化系统配置文件时出现错误：java.util.NoSuchElementException: 'appDistributedDispatch' doesn't map to an existing object
+2016-01-05 15:36:30 ERROR [GROUPID0_host-10-1-235-12-1451978535018-c576835e_watcher_executor] kafka.utils.Logging$class.error(Logging.scala:103) - [GROUPID0_host-10-1-235-12-1451978535018-c576835e], error during syncedRebalance
+kafka.common.ConsumerRebalanceFailedException: GROUPID0_host-10-1-235-12-1451978535018-c576835e can't rebalance after 4 retries
+	at kafka.consumer.ZookeeperConsumerConnector$ZKRebalancerListener.syncedRebalance(ZookeeperConsumerConnector.scala:633)
+	at kafka.consumer.ZookeeperConsumerConnector$ZKRebalancerListener$$anon$1.run(ZookeeperConsumerConnector.scala:551)
+2016-01-05 15:36:30 ERROR [GROUPID0_host-10-1-235-12-1451978534406-8f2c34a3_watcher_executor] kafka.utils.Logging$class.error(Logging.scala:103) - [GROUPID0_host-10-1-235-12-1451978534406-8f2c34a3], error during syncedRebalance
+kafka.common.ConsumerRebalanceFailedException: GROUPID0_host-10-1-235-12-1451978534406-8f2c34a3 can't rebalance after 4 retries
+	at kafka.consumer.ZookeeperConsumerConnector$ZKRebalancerListener.syncedRebalance(ZookeeperConsumerConnector.scala:633)
+	at kafka.consumer.ZookeeperConsumerConnector$ZKRebalancerListener$$anon$1.run(ZookeeperConsumerConnector.scala:551)
+2016-01-05 15:36:31 ERROR [GROUPID0_host-10-1-235-12-1451978535258-4724cbd7_watcher_executor] kafka.utils.Logging$class.error(Logging.scala:103) - [GROUPID0_host-10-1-235-12-1451978535258-4724cbd7], error during syncedRebalance
+kafka.common.ConsumerRebalanceFailedException: GROUPID0_host-10-1-235-12-1451978535258-4724cbd7 can't rebalance after 4 retries
+	at kafka.consumer.ZookeeperConsumerConnector$ZKRebalancerListener.syncedRebalance(ZookeeperConsumerConnector.scala:633)
+	at kafka.consumer.ZookeeperConsumerConnector$ZKRebalancerListener$$anon$1.run(ZookeeperConsumerConnector.scala:551)
+2016-01-05 15:36:38 ERROR [GROUPID0_host-10-1-235-12-1451978535018-c576835e_watcher_executor] kafka.utils.Logging$class.error(Logging.scala:103) - [GROUPID0_host-10-1-235-12-1451978535018-c576835e], error during syncedRebalance
+kafka.common.ConsumerRebalanceFailedException: GROUPID0_host-10-1-235-12-1451978535018-c576835e can't rebalance after 4 retries
+	at kafka.consumer.ZookeeperConsumerConnector$ZKRebalancerListener.syncedRebalance(ZookeeperConsumerConnector.scala:633)
+	at kafka.consumer.ZookeeperConsumerConnector$ZKRebalancerListener$$anon$1.run(ZookeeperConsumerConnector.scala:551)
+2016-01-05 15:36:38 ERROR [GROUPID0_host-10-1-235-12-1451978534406-8f2c34a3_watcher_executor] kafka.utils.Logging$class.error(Logging.scala:103) - [GROUPID0_host-10-1-235-12-1451978534406-8f2c34a3], error during syncedRebalance
+kafka.common.ConsumerRebalanceFailedException: GROUPID0_host-10-1-235-12-1451978534406-8f2c34a3 can't rebalance after 4 retries
+	at kafka.consumer.ZookeeperConsumerConnector$ZKRebalancerListener.syncedRebalance(ZookeeperConsumerConnector.scala:633)
+	at kafka.consumer.ZookeeperConsumerConnector$ZKRebalancerListener$$anon$1.run(ZookeeperConsumerConnector.scala:551)
+2016-01-05 15:36:39 ERROR [GROUPID0_host-10-1-235-12-1451978535258-4724cbd7_watcher_executor] kafka.utils.Logging$class.error(Logging.scala:103) - [GROUPID0_host-10-1-235-12-1451978535258-4724cbd7], error during syncedRebalance
+kafka.common.ConsumerRebalanceFailedException: GROUPID0_host-10-1-235-12-1451978535258-4724cbd7 can't rebalance after 4 retries
+	at kafka.consumer.ZookeeperConsumerConnector$ZKRebalancerListener.syncedRebalance(ZookeeperConsumerConnector.scala:633)
+	at kafka.consumer.ZookeeperConsumerConnector$ZKRebalancerListener$$anon$1.run(ZookeeperConsumerConnector.scala:551)
+2016-01-05 15:37:08 ERROR [GROUPID0_host-10-1-235-12-1451978534406-8f2c34a3_watcher_executor] kafka.utils.Logging$class.error(Logging.scala:103) - [GROUPID0_host-10-1-235-12-1451978534406-8f2c34a3], error during syncedRebalance
+kafka.common.ConsumerRebalanceFailedException: GROUPID0_host-10-1-235-12-1451978534406-8f2c34a3 can't rebalance after 4 retries
+	at kafka.consumer.ZookeeperConsumerConnector$ZKRebalancerListener.syncedRebalance(ZookeeperConsumerConnector.scala:633)
+	at kafka.consumer.ZookeeperConsumerConnector$ZKRebalancerListener$$anon$1.run(ZookeeperConsumerConnector.scala:551)
+2016-01-05 15:37:08 ERROR [GROUPID0_host-10-1-235-12-1451978535258-4724cbd7_watcher_executor] kafka.utils.Logging$class.error(Logging.scala:103) - [GROUPID0_host-10-1-235-12-1451978535258-4724cbd7], error during syncedRebalance
+kafka.common.ConsumerRebalanceFailedException: GROUPID0_host-10-1-235-12-1451978535258-4724cbd7 can't rebalance after 4 retries
+	at kafka.consumer.ZookeeperConsumerConnector$ZKRebalancerListener.syncedRebalance(ZookeeperConsumerConnector.scala:633)
+	at kafka.consumer.ZookeeperConsumerConnector$ZKRebalancerListener$$anon$1.run(ZookeeperConsumerConnector.scala:551)
+2016-01-05 15:37:08 ERROR [GROUPID0_host-10-1-235-12-1451978535018-c576835e_watcher_executor] kafka.utils.Logging$class.error(Logging.scala:103) - [GROUPID0_host-10-1-235-12-1451978535018-c576835e], error during syncedRebalance
+kafka.common.ConsumerRebalanceFailedException: GROUPID0_host-10-1-235-12-1451978535018-c576835e can't rebalance after 4 retries
+	at kafka.consumer.ZookeeperConsumerConnector$ZKRebalancerListener.syncedRebalance(ZookeeperConsumerConnector.scala:633)
+	at kafka.consumer.ZookeeperConsumerConnector$ZKRebalancerListener$$anon$1.run(ZookeeperConsumerConnector.scala:551)
+2016-01-05 15:37:16 ERROR [GROUPID0_host-10-1-235-12-1451978534406-8f2c34a3_watcher_executor] kafka.utils.Logging$class.error(Logging.scala:103) - [GROUPID0_host-10-1-235-12-1451978534406-8f2c34a3], error during syncedRebalance
+kafka.common.ConsumerRebalanceFailedException: GROUPID0_host-10-1-235-12-1451978534406-8f2c34a3 can't rebalance after 4 retries
+	at kafka.consumer.ZookeeperConsumerConnector$ZKRebalancerListener.syncedRebalance(ZookeeperConsumerConnector.scala:633)
+	at kafka.consumer.ZookeeperConsumerConnector$ZKRebalancerListener$$anon$1.run(ZookeeperConsumerConnector.scala:551)
+2016-01-05 15:40:17 ERROR [GROUPID0_host-10-1-235-12-1451978535018-c576835e_watcher_executor] kafka.utils.Logging$class.error(Logging.scala:103) - [GROUPID0_host-10-1-235-12-1451978535018-c576835e], error during syncedRebalance
+kafka.common.ConsumerRebalanceFailedException: GROUPID0_host-10-1-235-12-1451978535018-c576835e can't rebalance after 4 retries
+	at kafka.consumer.ZookeeperConsumerConnector$ZKRebalancerListener.syncedRebalance(ZookeeperConsumerConnector.scala:633)
+	at kafka.consumer.ZookeeperConsumerConnector$ZKRebalancerListener$$anon$1.run(ZookeeperConsumerConnector.scala:551)
+2016-01-05 15:40:17 ERROR [GROUPID0_host-10-1-235-12-1451978535258-4724cbd7_watcher_executor] kafka.utils.Logging$class.error(Logging.scala:103) - [GROUPID0_host-10-1-235-12-1451978535258-4724cbd7], error during syncedRebalance
+kafka.common.ConsumerRebalanceFailedException: GROUPID0_host-10-1-235-12-1451978535258-4724cbd7 can't rebalance after 4 retries
+	at kafka.consumer.ZookeeperConsumerConnector$ZKRebalancerListener.syncedRebalance(ZookeeperConsumerConnector.scala:633)
+	at kafka.consumer.ZookeeperConsumerConnector$ZKRebalancerListener$$anon$1.run(ZookeeperConsumerConnector.scala:551)
+2016-01-05 15:40:17 ERROR [GROUPID0_host-10-1-235-12-1451978534406-8f2c34a3_watcher_executor] kafka.utils.Logging$class.error(Logging.scala:103) - [GROUPID0_host-10-1-235-12-1451978534406-8f2c34a3], error during syncedRebalance
+kafka.common.ConsumerRebalanceFailedException: GROUPID0_host-10-1-235-12-1451978534406-8f2c34a3 can't rebalance after 4 retries
+	at kafka.consumer.ZookeeperConsumerConnector$ZKRebalancerListener.syncedRebalance(ZookeeperConsumerConnector.scala:633)
+	at kafka.consumer.ZookeeperConsumerConnector$ZKRebalancerListener$$anon$1.run(ZookeeperConsumerConnector.scala:551)
+2016-01-05 15:48:13 ERROR [GROUPID0_host-10-1-235-12-1451978535018-c576835e_watcher_executor] kafka.utils.Logging$class.error(Logging.scala:103) - [GROUPID0_host-10-1-235-12-1451978535018-c576835e], error during syncedRebalance
+kafka.common.ConsumerRebalanceFailedException: GROUPID0_host-10-1-235-12-1451978535018-c576835e can't rebalance after 4 retries
+	at kafka.consumer.ZookeeperConsumerConnector$ZKRebalancerListener.syncedRebalance(ZookeeperConsumerConnector.scala:633)
+	at kafka.consumer.ZookeeperConsumerConnector$ZKRebalancerListener$$anon$1.run(ZookeeperConsumerConnector.scala:551)
+2016-01-05 15:48:38 ERROR [GROUPID0_host-10-1-235-12-1451978535258-4724cbd7_watcher_executor] kafka.utils.Logging$class.error(Logging.scala:103) - [GROUPID0_host-10-1-235-12-1451978535258-4724cbd7], error during syncedRebalance
+kafka.common.ConsumerRebalanceFailedException: GROUPID0_host-10-1-235-12-1451978535258-4724cbd7 can't rebalance after 4 retries
+	at kafka.consumer.ZookeeperConsumerConnector$ZKRebalancerListener.syncedRebalance(ZookeeperConsumerConnector.scala:633)
+	at kafka.consumer.ZookeeperConsumerConnector$ZKRebalancerListener$$anon$1.run(ZookeeperConsumerConnector.scala:551)
+2016-01-05 15:50:29 ERROR [GROUPID0_host-10-1-235-12-1451978534406-8f2c34a3_watcher_executor] kafka.utils.Logging$class.error(Logging.scala:103) - [GROUPID0_host-10-1-235-12-1451978534406-8f2c34a3], error during syncedRebalance
+kafka.common.ConsumerRebalanceFailedException: GROUPID0_host-10-1-235-12-1451978534406-8f2c34a3 can't rebalance after 4 retries
+	at kafka.consumer.ZookeeperConsumerConnector$ZKRebalancerListener.syncedRebalance(ZookeeperConsumerConnector.scala:633)
+	at kafka.consumer.ZookeeperConsumerConnector$ZKRebalancerListener$$anon$1.run(ZookeeperConsumerConnector.scala:551)
+2016-01-05 15:52:21 ERROR [GROUPID0_host-10-1-235-12-1451978535258-4724cbd7_watcher_executor] kafka.utils.Logging$class.error(Logging.scala:103) - [GROUPID0_host-10-1-235-12-1451978535258-4724cbd7], error during syncedRebalance
+kafka.common.ConsumerRebalanceFailedException: GROUPID0_host-10-1-235-12-1451978535258-4724cbd7 can't rebalance after 4 retries
+	at kafka.consumer.ZookeeperConsumerConnector$ZKRebalancerListener.syncedRebalance(ZookeeperConsumerConnector.scala:633)
+	at kafka.consumer.ZookeeperConsumerConnector$ZKRebalancerListener$$anon$1.run(ZookeeperConsumerConnector.scala:551)
+2016-01-05 15:52:21 ERROR [GROUPID0_host-10-1-235-12-1451978534406-8f2c34a3_watcher_executor] kafka.utils.Logging$class.error(Logging.scala:103) - [GROUPID0_host-10-1-235-12-1451978534406-8f2c34a3], error during syncedRebalance
+kafka.common.ConsumerRebalanceFailedException: GROUPID0_host-10-1-235-12-1451978534406-8f2c34a3 can't rebalance after 4 retries
+	at kafka.consumer.ZookeeperConsumerConnector$ZKRebalancerListener.syncedRebalance(ZookeeperConsumerConnector.scala:633)
+	at kafka.consumer.ZookeeperConsumerConnector$ZKRebalancerListener$$anon$1.run(ZookeeperConsumerConnector.scala:551)
+2016-01-05 15:52:21 ERROR [GROUPID0_host-10-1-235-12-1451978535018-c576835e_watcher_executor] kafka.utils.Logging$class.error(Logging.scala:103) - [GROUPID0_host-10-1-235-12-1451978535018-c576835e], error during syncedRebalance
+kafka.common.ConsumerRebalanceFailedException: GROUPID0_host-10-1-235-12-1451978535018-c576835e can't rebalance after 4 retries
+	at kafka.consumer.ZookeeperConsumerConnector$ZKRebalancerListener.syncedRebalance(ZookeeperConsumerConnector.scala:633)
+	at kafka.consumer.ZookeeperConsumerConnector$ZKRebalancerListener$$anon$1.run(ZookeeperConsumerConnector.scala:551)
+2016-01-05 16:03:21 ERROR [http-bio-10008-exec-9] org.bi.platform.service.resmanage.module.DataModule.delCompanyTable(DataModule.java:3626) - 删除企业数据库表失败:org.postgresql.util.PSQLException: ERROR: table "t12553_tmp" does not exist
+2016-01-05 17:23:39 ERROR [http-bio-10008-exec-10] org.apache.log4j.Logger.error(Logger.java:249) - org.mybatis.spring.MyBatisSystemException: nested exception is org.apache.ibatis.exceptions.TooManyResultsException: Expected one result (or null) to be returned by selectOne(), but found: 4
+ExceptionStackTrace: ---------------start------------------------
+	org.mybatis.spring.MyBatisExceptionTranslator.translateExceptionIfPossible(MyBatisExceptionTranslator.java:75)
+	org.mybatis.spring.SqlSessionTemplate$SqlSessionInterceptor.invoke(SqlSessionTemplate.java:371)
+	$Proxy9.selectOne(Unknown Source)
+	org.mybatis.spring.SqlSessionTemplate.selectOne(SqlSessionTemplate.java:163)
+	org.bi.platform.service.sysmanage.module.UserModule.findIpAddress(UserModule.java:387)
+	org.bi.platform.service.sysmanage.controller.UserController.companyPersonsafety(UserController.java:156)
+	org.bi.platform.service.sysmanage.controller.UserController$$FastClassBySpringCGLIB$$c268e886.invoke(<generated>)
+	org.springframework.cglib.proxy.MethodProxy.invoke(MethodProxy.java:204)
+	org.springframework.aop.framework.CglibAopProxy$DynamicAdvisedInterceptor.intercept(CglibAopProxy.java:629)
+	org.bi.platform.service.sysmanage.controller.UserController$$EnhancerBySpringCGLIB$$81374f4c.companyPersonsafety(<generated>)
+	sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:39)
+	sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:25)
+	java.lang.reflect.Method.invoke(Method.java:597)
+	org.springframework.web.method.support.InvocableHandlerMethod.invoke(InvocableHandlerMethod.java:215)
+	org.springframework.web.method.support.InvocableHandlerMethod.invokeForRequest(InvocableHandlerMethod.java:132)
+	org.springframework.web.servlet.mvc.method.annotation.ServletInvocableHandlerMethod.invokeAndHandle(ServletInvocableHandlerMethod.java:104)
+	org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.invokeHandleMethod(RequestMappingHandlerAdapter.java:745)
+	org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.handleInternal(RequestMappingHandlerAdapter.java:686)
+	org.springframework.web.servlet.mvc.method.AbstractHandlerMethodAdapter.handle(AbstractHandlerMethodAdapter.java:80)
+	org.springframework.web.servlet.DispatcherServlet.doDispatch(DispatcherServlet.java:925)
+	org.springframework.web.servlet.DispatcherServlet.doService(DispatcherServlet.java:856)
+	org.springframework.web.servlet.FrameworkServlet.processRequest(FrameworkServlet.java:953)
+	org.springframework.web.servlet.FrameworkServlet.doGet(FrameworkServlet.java:844)
+	javax.servlet.http.HttpServlet.service(HttpServlet.java:624)
+	org.springframework.web.servlet.FrameworkServlet.service(FrameworkServlet.java:829)
+	javax.servlet.http.HttpServlet.service(HttpServlet.java:731)
+	org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:303)
+	org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:208)
+	org.springframework.web.filter.CharacterEncodingFilter.doFilterInternal(CharacterEncodingFilter.java:88)
+	org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:107)
+	org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:241)
+	org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:208)
+	org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:220)
+	org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:122)
+	org.apache.catalina.authenticator.AuthenticatorBase.invoke(AuthenticatorBase.java:505)
+	com.radiadesign.catalina.session.RedisSessionHandlerValve.invoke(RedisSessionHandlerValve.java:26)
+	org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:170)
+	org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:103)
+	org.apache.catalina.valves.AccessLogValve.invoke(AccessLogValve.java:956)
+	org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:116)
+	org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:423)
+	org.apache.coyote.http11.AbstractHttp11Processor.process(AbstractHttp11Processor.java:1079)
+	org.apache.coyote.AbstractProtocol$AbstractConnectionHandler.process(AbstractProtocol.java:625)
+	org.apache.tomcat.util.net.JIoEndpoint$SocketProcessor.run(JIoEndpoint.java:318)
+	java.util.concurrent.ThreadPoolExecutor$Worker.runTask(ThreadPoolExecutor.java:886)
+	java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:908)
+	org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:61)
+	java.lang.Thread.run(Thread.java:662)
+ExceptionStackTrace: ---------------end------------------------
+
+2016-01-05 17:23:59 ERROR [http-bio-10008-exec-4] org.apache.log4j.Logger.error(Logger.java:249) - org.mybatis.spring.MyBatisSystemException: nested exception is org.apache.ibatis.exceptions.TooManyResultsException: Expected one result (or null) to be returned by selectOne(), but found: 4
+ExceptionStackTrace: ---------------start------------------------
+	org.mybatis.spring.MyBatisExceptionTranslator.translateExceptionIfPossible(MyBatisExceptionTranslator.java:75)
+	org.mybatis.spring.SqlSessionTemplate$SqlSessionInterceptor.invoke(SqlSessionTemplate.java:371)
+	$Proxy9.selectOne(Unknown Source)
+	org.mybatis.spring.SqlSessionTemplate.selectOne(SqlSessionTemplate.java:163)
+	org.bi.platform.service.sysmanage.module.UserModule.findIpAddress(UserModule.java:387)
+	org.bi.platform.service.sysmanage.controller.UserController.companyPersonsafety(UserController.java:156)
+	org.bi.platform.service.sysmanage.controller.UserController$$FastClassBySpringCGLIB$$c268e886.invoke(<generated>)
+	org.springframework.cglib.proxy.MethodProxy.invoke(MethodProxy.java:204)
+	org.springframework.aop.framework.CglibAopProxy$DynamicAdvisedInterceptor.intercept(CglibAopProxy.java:629)
+	org.bi.platform.service.sysmanage.controller.UserController$$EnhancerBySpringCGLIB$$81374f4c.companyPersonsafety(<generated>)
+	sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:39)
+	sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:25)
+	java.lang.reflect.Method.invoke(Method.java:597)
+	org.springframework.web.method.support.InvocableHandlerMethod.invoke(InvocableHandlerMethod.java:215)
+	org.springframework.web.method.support.InvocableHandlerMethod.invokeForRequest(InvocableHandlerMethod.java:132)
+	org.springframework.web.servlet.mvc.method.annotation.ServletInvocableHandlerMethod.invokeAndHandle(ServletInvocableHandlerMethod.java:104)
+	org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.invokeHandleMethod(RequestMappingHandlerAdapter.java:745)
+	org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.handleInternal(RequestMappingHandlerAdapter.java:686)
+	org.springframework.web.servlet.mvc.method.AbstractHandlerMethodAdapter.handle(AbstractHandlerMethodAdapter.java:80)
+	org.springframework.web.servlet.DispatcherServlet.doDispatch(DispatcherServlet.java:925)
+	org.springframework.web.servlet.DispatcherServlet.doService(DispatcherServlet.java:856)
+	org.springframework.web.servlet.FrameworkServlet.processRequest(FrameworkServlet.java:953)
+	org.springframework.web.servlet.FrameworkServlet.doGet(FrameworkServlet.java:844)
+	javax.servlet.http.HttpServlet.service(HttpServlet.java:624)
+	org.springframework.web.servlet.FrameworkServlet.service(FrameworkServlet.java:829)
+	javax.servlet.http.HttpServlet.service(HttpServlet.java:731)
+	org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:303)
+	org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:208)
+	org.springframework.web.filter.CharacterEncodingFilter.doFilterInternal(CharacterEncodingFilter.java:88)
+	org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:107)
+	org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:241)
+	org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:208)
+	org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:220)
+	org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:122)
+	org.apache.catalina.authenticator.AuthenticatorBase.invoke(AuthenticatorBase.java:505)
+	com.radiadesign.catalina.session.RedisSessionHandlerValve.invoke(RedisSessionHandlerValve.java:26)
+	org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:170)
+	org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:103)
+	org.apache.catalina.valves.AccessLogValve.invoke(AccessLogValve.java:956)
+	org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:116)
+	org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:423)
+	org.apache.coyote.http11.AbstractHttp11Processor.process(AbstractHttp11Processor.java:1079)
+	org.apache.coyote.AbstractProtocol$AbstractConnectionHandler.process(AbstractProtocol.java:625)
+	org.apache.tomcat.util.net.JIoEndpoint$SocketProcessor.run(JIoEndpoint.java:318)
+	java.util.concurrent.ThreadPoolExecutor$Worker.runTask(ThreadPoolExecutor.java:886)
+	java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:908)
+	org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:61)
+	java.lang.Thread.run(Thread.java:662)
+ExceptionStackTrace: ---------------end------------------------
+
+2016-01-05 19:01:27 ERROR [http-bio-10008-exec-3] org.bi.platform.service.resmanage.module.DataModule.delCompanyTable(DataModule.java:3617) - 删除企业数据库表失败:org.postgresql.util.PSQLException: ERROR: table "t12565_tmp" does not exist

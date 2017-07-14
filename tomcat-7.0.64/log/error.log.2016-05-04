@@ -1,0 +1,19 @@
+2016-05-04 10:42:48 ERROR [Thread-15] org.apache.log4j.Logger.error(Logger.java:249) - org.springframework.dao.DuplicateKeyException: WebMapper.insertVisitLog (batch index #1) failed. Cause: java.sql.BatchUpdateException: Batch entry 0 insert into bi.manage_visit_log_201605(log_id, func_id, user_id, visit_time, visit_url, visit_param, ip_address, browser_info)
+	    values
+	       
+	      ('LOG89FBF897B538489D81C4991F48D7C571', 'MANAGE_REPORT', 'U1000000', '2016-05-04 10:42:48', '/platform/myreport/view/get-all-Data', '{"pageNameTag":"manage_report"}'::JSON, '10.1.0.38', 'Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/50.0.2661.75 Safari/537.36') was aborted.  Call getNextException to see the cause.
+; SQL []; ERROR: duplicate key value violates unique constraint "pk_sa_manage_visit_log_201605"
+  Detail: Key (log_id)=(LOG89FBF897B538489D81C4991F48D7C571) already exists.; nested exception is org.postgresql.util.PSQLException: ERROR: duplicate key value violates unique constraint "pk_sa_manage_visit_log_201605"
+  Detail: Key (log_id)=(LOG89FBF897B538489D81C4991F48D7C571) already exists.
+ExceptionStackTrace: ---------------start------------------------
+	org.springframework.jdbc.support.SQLErrorCodeSQLExceptionTranslator.doTranslate(SQLErrorCodeSQLExceptionTranslator.java:245)
+	org.springframework.jdbc.support.AbstractFallbackSQLExceptionTranslator.translate(AbstractFallbackSQLExceptionTranslator.java:72)
+	org.mybatis.spring.MyBatisExceptionTranslator.translateExceptionIfPossible(MyBatisExceptionTranslator.java:73)
+	org.mybatis.spring.SqlSessionTemplate$SqlSessionInterceptor.invoke(SqlSessionTemplate.java:371)
+	$Proxy9.insert(Unknown Source)
+	org.mybatis.spring.SqlSessionTemplate.insert(SqlSessionTemplate.java:240)
+	org.bi.webbace.util.VisitLoggerUtil$VisitLogThread.run(VisitLoggerUtil.java:171)
+ExceptionStackTrace: ---------------end------------------------
+
+2016-05-04 10:42:52 ERROR [Thread-15] org.bi.webbace.util.VisitLoggerUtil$VisitLogThread.run(VisitLoggerUtil.java:194) - 记录访问日志出现异常，需要将其存入日志文件中：[
+访问日志信息：[logId=LOG89FBF897B538489D81C4991F48D7C571, funcId=MANAGE_REPORT, userID=U1000000, visitTime=2016-05-04 10:42:48, visitUrl=/platform/myreport/view/get-all-Data, visitParam={"pageNameTag":"manage_report"}, ipAddress=10.1.0.38, browserInfo=Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/50.0.2661.75 Safari/537.36, logTableDate=201605]]

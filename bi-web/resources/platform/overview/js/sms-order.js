@@ -1,0 +1,1 @@
+define(["sabace"],function(a){var b=document.getElementById("sms-order");jQuery("#sendbtn").on("click",c);function c(){jQuery(".line-color").css("background","#66CD00");jQuery(".ui-viewstep-last-item").css("color","#1da653");jQuery(".circle2").css("border","1px solid #1da653");b.style.display=="none"}});

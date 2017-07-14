@@ -1,0 +1,13 @@
+2016-03-23 09:35:17 ERROR [http-bio-10008-exec-1] org.bi.platform.service.resmanage.module.DataModule.queryColumnInfoAndData(DataModule.java:4139) - 查询列信息和列数据信息失败:org.postgresql.util.PSQLException: ERROR: relation "bi.t10013_tmp" does not exist
+  Position: 443
+2016-03-23 09:45:51 ERROR [http-bio-10008-exec-3] org.bi.platform.service.resmanage.module.DataModule.queryColumnInfoAndData(DataModule.java:4139) - 查询列信息和列数据信息失败:org.postgresql.util.PSQLException: ERROR: relation "bi.t10013_tmp" does not exist
+  Position: 443
+2016-03-23 13:52:01 ERROR [http-bio-10008-exec-7] org.bi.platform.service.resmanage.module.DataModule.queryColumnInfoAndData(DataModule.java:4139) - 查询列信息和列数据信息失败:org.postgresql.util.PSQLException: ERROR: relation "bi.t10013_tmp" does not exist
+  Position: 443
+2016-03-23 15:32:55 ERROR [http-bio-10008-exec-3] org.bi.platform.service.resmanage.module.DataModule.queryUserConfigTableInfo(DataModule.java:2138) - 数据库表查询失败！java.lang.NullPointerException
+2016-03-23 15:34:22 ERROR [http-bio-10008-exec-3] org.bi.platform.service.resmanage.module.DataModule.queryUserConfigTableInfo(DataModule.java:2138) - 数据库表查询失败！java.lang.NullPointerException
+2016-03-23 15:35:06 ERROR [http-bio-10008-exec-7] org.bi.platform.service.resmanage.module.DataModule.queryUserConfigTableInfo(DataModule.java:2138) - 数据库表查询失败！java.lang.NullPointerException
+2016-03-23 15:38:45 ERROR [http-bio-10008-exec-6] org.bi.platform.service.resmanage.module.DataModule.queryUserConfigTableInfo(DataModule.java:2138) - 数据库表查询失败！java.lang.NullPointerException
+2016-03-23 15:41:38 ERROR [http-bio-10008-exec-10] org.bi.platform.service.resmanage.module.DataModule.queryUserConfigTableInfo(DataModule.java:2138) - 数据库表查询失败！java.lang.NullPointerException
+2016-03-23 15:47:19 ERROR [http-bio-10008-exec-7] org.bi.platform.service.resmanage.module.DataModule.queryUserConfigTableInfo(DataModule.java:2138) - 数据库表查询失败！java.lang.NullPointerException
+2016-03-23 15:52:03 ERROR [http-bio-10008-exec-3] org.bi.platform.service.resmanage.module.DataModule.queryUserConfigTableInfo(DataModule.java:2138) - 数据库表查询失败！java.lang.NullPointerException

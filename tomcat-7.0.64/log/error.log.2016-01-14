@@ -1,0 +1,7 @@
+2016-01-14 09:45:56 ERROR [http-bio-10008-exec-1] org.bi.platform.service.resmanage.module.DataModule.processFunc(DataModule.java:813) - 函数生成数据异常:org.postgresql.util.PSQLException: ERROR: column "undefined" does not exist
+  Position: 9
+2016-01-14 09:46:11 ERROR [http-bio-10008-exec-5] org.bi.platform.service.resmanage.module.DataModule.processFunc(DataModule.java:813) - 函数生成数据异常:org.postgresql.util.PSQLException: ERROR: syntax error at or near ")"
+  Position: 9
+2016-01-14 10:22:23 ERROR [http-bio-10008-exec-1] org.bi.platform.service.resmanage.module.DataModule.processFunc(DataModule.java:813) - 函数生成数据异常:org.postgresql.util.PSQLException: ERROR: column "undefined" does not exist
+  Position: 9
+2016-01-14 12:53:53 ERROR [http-bio-10008-exec-6] org.bi.platform.service.resmanage.module.DataModule.createFileTmpTable(DataModule.java:2966) - 数据修改时创建临时表异常:java.lang.StringIndexOutOfBoundsException: String index out of range: -1

@@ -1,0 +1,399 @@
+2016-07-25 10:49:48 ERROR [http-bio-10008-exec-131] org.apache.log4j.Logger.error(Logger.java:249) - org.postgresql.util.PSQLException: ERROR: relation "bi.c10000" does not exist
+  Position: 92
+ExceptionStackTrace: ---------------start------------------------
+	org.postgresql.core.v3.QueryExecutorImpl.receiveErrorResponse(QueryExecutorImpl.java:2270)
+	org.postgresql.core.v3.QueryExecutorImpl.processResults(QueryExecutorImpl.java:1998)
+	org.postgresql.core.v3.QueryExecutorImpl.execute(QueryExecutorImpl.java:255)
+	org.postgresql.jdbc2.AbstractJdbc2Statement.execute(AbstractJdbc2Statement.java:570)
+	org.postgresql.jdbc2.AbstractJdbc2Statement.executeWithFlags(AbstractJdbc2Statement.java:420)
+	org.postgresql.jdbc2.AbstractJdbc2Statement.executeQuery(AbstractJdbc2Statement.java:305)
+	org.bi.webbace.util.ViewDataUitl.getTreeData(ViewDataUitl.java:84)
+	org.bi.platform.service.dataview.controller.DataViewController.getTreeData(DataViewController.java:184)
+	sun.reflect.GeneratedMethodAccessor410.invoke(Unknown Source)
+	sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:25)
+	java.lang.reflect.Method.invoke(Method.java:597)
+	org.springframework.web.method.support.InvocableHandlerMethod.invoke(InvocableHandlerMethod.java:215)
+	org.springframework.web.method.support.InvocableHandlerMethod.invokeForRequest(InvocableHandlerMethod.java:132)
+	org.springframework.web.servlet.mvc.method.annotation.ServletInvocableHandlerMethod.invokeAndHandle(ServletInvocableHandlerMethod.java:104)
+	org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.invokeHandleMethod(RequestMappingHandlerAdapter.java:745)
+	org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.handleInternal(RequestMappingHandlerAdapter.java:686)
+	org.springframework.web.servlet.mvc.method.AbstractHandlerMethodAdapter.handle(AbstractHandlerMethodAdapter.java:80)
+	org.springframework.web.servlet.DispatcherServlet.doDispatch(DispatcherServlet.java:925)
+	org.springframework.web.servlet.DispatcherServlet.doService(DispatcherServlet.java:856)
+	org.springframework.web.servlet.FrameworkServlet.processRequest(FrameworkServlet.java:953)
+	org.springframework.web.servlet.FrameworkServlet.doPost(FrameworkServlet.java:855)
+	javax.servlet.http.HttpServlet.service(HttpServlet.java:650)
+	org.springframework.web.servlet.FrameworkServlet.service(FrameworkServlet.java:829)
+	javax.servlet.http.HttpServlet.service(HttpServlet.java:731)
+	org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:303)
+	org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:208)
+	org.springframework.web.filter.CharacterEncodingFilter.doFilterInternal(CharacterEncodingFilter.java:88)
+	org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:107)
+	org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:241)
+	org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:208)
+	org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:220)
+	org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:122)
+	org.apache.catalina.authenticator.AuthenticatorBase.invoke(AuthenticatorBase.java:505)
+	com.radiadesign.catalina.session.RedisSessionHandlerValve.invoke(RedisSessionHandlerValve.java:26)
+	org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:170)
+	org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:103)
+	org.apache.catalina.valves.AccessLogValve.invoke(AccessLogValve.java:956)
+	org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:116)
+	org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:423)
+	org.apache.coyote.http11.AbstractHttp11Processor.process(AbstractHttp11Processor.java:1079)
+	org.apache.coyote.AbstractProtocol$AbstractConnectionHandler.process(AbstractProtocol.java:625)
+	org.apache.tomcat.util.net.JIoEndpoint$SocketProcessor.run(JIoEndpoint.java:318)
+	java.util.concurrent.ThreadPoolExecutor$Worker.runTask(ThreadPoolExecutor.java:886)
+	java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:908)
+	org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:61)
+	java.lang.Thread.run(Thread.java:662)
+ExceptionStackTrace: ---------------end------------------------
+
+2016-07-25 10:54:49 ERROR [http-bio-10008-exec-132] org.apache.log4j.Logger.error(Logger.java:249) - org.postgresql.util.PSQLException: ERROR: relation "bi.c10000" does not exist
+  Position: 92
+ExceptionStackTrace: ---------------start------------------------
+	org.postgresql.core.v3.QueryExecutorImpl.receiveErrorResponse(QueryExecutorImpl.java:2270)
+	org.postgresql.core.v3.QueryExecutorImpl.processResults(QueryExecutorImpl.java:1998)
+	org.postgresql.core.v3.QueryExecutorImpl.execute(QueryExecutorImpl.java:255)
+	org.postgresql.jdbc2.AbstractJdbc2Statement.execute(AbstractJdbc2Statement.java:570)
+	org.postgresql.jdbc2.AbstractJdbc2Statement.executeWithFlags(AbstractJdbc2Statement.java:420)
+	org.postgresql.jdbc2.AbstractJdbc2Statement.executeQuery(AbstractJdbc2Statement.java:305)
+	org.bi.webbace.util.ViewDataUitl.getTreeData(ViewDataUitl.java:84)
+	org.bi.platform.service.dataview.controller.DataViewController.getTreeData(DataViewController.java:184)
+	sun.reflect.GeneratedMethodAccessor410.invoke(Unknown Source)
+	sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:25)
+	java.lang.reflect.Method.invoke(Method.java:597)
+	org.springframework.web.method.support.InvocableHandlerMethod.invoke(InvocableHandlerMethod.java:215)
+	org.springframework.web.method.support.InvocableHandlerMethod.invokeForRequest(InvocableHandlerMethod.java:132)
+	org.springframework.web.servlet.mvc.method.annotation.ServletInvocableHandlerMethod.invokeAndHandle(ServletInvocableHandlerMethod.java:104)
+	org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.invokeHandleMethod(RequestMappingHandlerAdapter.java:745)
+	org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.handleInternal(RequestMappingHandlerAdapter.java:686)
+	org.springframework.web.servlet.mvc.method.AbstractHandlerMethodAdapter.handle(AbstractHandlerMethodAdapter.java:80)
+	org.springframework.web.servlet.DispatcherServlet.doDispatch(DispatcherServlet.java:925)
+	org.springframework.web.servlet.DispatcherServlet.doService(DispatcherServlet.java:856)
+	org.springframework.web.servlet.FrameworkServlet.processRequest(FrameworkServlet.java:953)
+	org.springframework.web.servlet.FrameworkServlet.doPost(FrameworkServlet.java:855)
+	javax.servlet.http.HttpServlet.service(HttpServlet.java:650)
+	org.springframework.web.servlet.FrameworkServlet.service(FrameworkServlet.java:829)
+	javax.servlet.http.HttpServlet.service(HttpServlet.java:731)
+	org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:303)
+	org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:208)
+	org.springframework.web.filter.CharacterEncodingFilter.doFilterInternal(CharacterEncodingFilter.java:88)
+	org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:107)
+	org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:241)
+	org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:208)
+	org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:220)
+	org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:122)
+	org.apache.catalina.authenticator.AuthenticatorBase.invoke(AuthenticatorBase.java:505)
+	com.radiadesign.catalina.session.RedisSessionHandlerValve.invoke(RedisSessionHandlerValve.java:26)
+	org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:170)
+	org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:103)
+	org.apache.catalina.valves.AccessLogValve.invoke(AccessLogValve.java:956)
+	org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:116)
+	org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:423)
+	org.apache.coyote.http11.AbstractHttp11Processor.process(AbstractHttp11Processor.java:1079)
+	org.apache.coyote.AbstractProtocol$AbstractConnectionHandler.process(AbstractProtocol.java:625)
+	org.apache.tomcat.util.net.JIoEndpoint$SocketProcessor.run(JIoEndpoint.java:316)
+	java.util.concurrent.ThreadPoolExecutor$Worker.runTask(ThreadPoolExecutor.java:886)
+	java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:908)
+	org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:61)
+	java.lang.Thread.run(Thread.java:662)
+ExceptionStackTrace: ---------------end------------------------
+
+2016-07-25 13:56:06 ERROR [DefaultQuartzScheduler_Worker-1] kafka.utils.Logging$class.error(Logging.scala:97) - Failed to collate messages by topic, partition due to: Failed to fetch topic metadata for topic: BIAPP-149
+2016-07-25 13:56:06 ERROR [DefaultQuartzScheduler_Worker-1] kafka.utils.Logging$class.error(Logging.scala:97) - Failed to collate messages by topic, partition due to: Failed to fetch topic metadata for topic: BIAPP-149
+2016-07-25 13:56:06 ERROR [DefaultQuartzScheduler_Worker-1] kafka.utils.Logging$class.error(Logging.scala:97) - Failed to collate messages by topic, partition due to: Failed to fetch topic metadata for topic: BIAPP-149
+2016-07-25 13:56:06 ERROR [DefaultQuartzScheduler_Worker-1] kafka.utils.Logging$class.error(Logging.scala:97) - Failed to collate messages by topic, partition due to: Failed to fetch topic metadata for topic: BIAPP-149
+2016-07-25 13:56:06 ERROR [DefaultQuartzScheduler_Worker-1] kafka.utils.Logging$class.error(Logging.scala:97) - Failed to send requests for topics BIAPP-149 with correlation ids in [0,8]
+2016-07-25 13:56:06 ERROR [DefaultQuartzScheduler_Worker-1] org.apache.log4j.Logger.error(Logger.java:249) - kafka.common.FailedToSendMessageException: Failed to send messages after 3 tries.
+ExceptionStackTrace: ---------------start------------------------
+	kafka.producer.async.DefaultEventHandler.handle(DefaultEventHandler.scala:90)
+	kafka.producer.Producer.send(Producer.scala:77)
+	kafka.javaapi.producer.Producer.send(Producer.scala:33)
+	org.bi.kafka.client.KafkaClient.sendMessage(KafkaClient.java:36)
+	org.bi.manage.app.dispatch.DistributeMessage.start(DistributeMessage.java:87)
+	org.bi.manage.app.dispatch.DistributeMessage.sendDataPacket(DistributeMessage.java:114)
+	org.bi.manage.app.job.TableImportJob.execute(TableImportJob.java:55)
+	org.quartz.core.JobRunShell.run(JobRunShell.java:202)
+	org.quartz.simpl.SimpleThreadPool$WorkerThread.run(SimpleThreadPool.java:573)
+ExceptionStackTrace: ---------------end------------------------
+
+2016-07-25 13:56:06 ERROR [DefaultQuartzScheduler_Worker-1] org.bi.manage.app.dispatch.DistributeMessage.start(DistributeMessage.java:96) - 调度服务编号[BIAPP-149]通讯失败,本次分发调度失败
+2016-07-25 14:32:46 ERROR [DefaultQuartzScheduler_Worker-5] kafka.utils.Logging$class.error(Logging.scala:97) - Failed to collate messages by topic, partition due to: Failed to fetch topic metadata for topic: BIAPP-151
+2016-07-25 14:32:46 ERROR [DefaultQuartzScheduler_Worker-5] kafka.utils.Logging$class.error(Logging.scala:97) - Failed to collate messages by topic, partition due to: Failed to fetch topic metadata for topic: BIAPP-151
+2016-07-25 14:32:46 ERROR [DefaultQuartzScheduler_Worker-5] kafka.utils.Logging$class.error(Logging.scala:97) - Failed to collate messages by topic, partition due to: Failed to fetch topic metadata for topic: BIAPP-151
+2016-07-25 14:32:46 ERROR [DefaultQuartzScheduler_Worker-5] kafka.utils.Logging$class.error(Logging.scala:97) - Failed to collate messages by topic, partition due to: Failed to fetch topic metadata for topic: BIAPP-151
+2016-07-25 14:32:46 ERROR [DefaultQuartzScheduler_Worker-5] kafka.utils.Logging$class.error(Logging.scala:97) - Failed to send requests for topics BIAPP-151 with correlation ids in [0,8]
+2016-07-25 14:32:46 ERROR [DefaultQuartzScheduler_Worker-5] org.apache.log4j.Logger.error(Logger.java:249) - kafka.common.FailedToSendMessageException: Failed to send messages after 3 tries.
+ExceptionStackTrace: ---------------start------------------------
+	kafka.producer.async.DefaultEventHandler.handle(DefaultEventHandler.scala:90)
+	kafka.producer.Producer.send(Producer.scala:77)
+	kafka.javaapi.producer.Producer.send(Producer.scala:33)
+	org.bi.kafka.client.KafkaClient.sendMessage(KafkaClient.java:36)
+	org.bi.manage.app.dispatch.DistributeMessage.start(DistributeMessage.java:87)
+	org.bi.manage.app.dispatch.DistributeMessage.sendDataPacket(DistributeMessage.java:114)
+	org.bi.manage.app.job.TableImportJob.execute(TableImportJob.java:55)
+	org.quartz.core.JobRunShell.run(JobRunShell.java:202)
+	org.quartz.simpl.SimpleThreadPool$WorkerThread.run(SimpleThreadPool.java:573)
+ExceptionStackTrace: ---------------end------------------------
+
+2016-07-25 14:32:46 ERROR [DefaultQuartzScheduler_Worker-5] org.bi.manage.app.dispatch.DistributeMessage.start(DistributeMessage.java:96) - 调度服务编号[BIAPP-151]通讯失败,本次分发调度失败
+2016-07-25 14:37:56 ERROR [DefaultQuartzScheduler_Worker-5] kafka.utils.Logging$class.error(Logging.scala:97) - Failed to collate messages by topic, partition due to: Failed to fetch topic metadata for topic: BIAPP-151
+2016-07-25 14:37:56 ERROR [DefaultQuartzScheduler_Worker-5] kafka.utils.Logging$class.error(Logging.scala:97) - Failed to collate messages by topic, partition due to: Failed to fetch topic metadata for topic: BIAPP-151
+2016-07-25 14:37:56 ERROR [DefaultQuartzScheduler_Worker-5] kafka.utils.Logging$class.error(Logging.scala:97) - Failed to collate messages by topic, partition due to: Failed to fetch topic metadata for topic: BIAPP-151
+2016-07-25 14:37:56 ERROR [DefaultQuartzScheduler_Worker-5] kafka.utils.Logging$class.error(Logging.scala:97) - Failed to collate messages by topic, partition due to: Failed to fetch topic metadata for topic: BIAPP-151
+2016-07-25 14:37:56 ERROR [DefaultQuartzScheduler_Worker-5] kafka.utils.Logging$class.error(Logging.scala:97) - Failed to send requests for topics BIAPP-151 with correlation ids in [0,8]
+2016-07-25 14:37:56 ERROR [DefaultQuartzScheduler_Worker-5] org.apache.log4j.Logger.error(Logger.java:249) - kafka.common.FailedToSendMessageException: Failed to send messages after 3 tries.
+ExceptionStackTrace: ---------------start------------------------
+	kafka.producer.async.DefaultEventHandler.handle(DefaultEventHandler.scala:90)
+	kafka.producer.Producer.send(Producer.scala:77)
+	kafka.javaapi.producer.Producer.send(Producer.scala:33)
+	org.bi.kafka.client.KafkaClient.sendMessage(KafkaClient.java:36)
+	org.bi.manage.app.dispatch.DistributeMessage.start(DistributeMessage.java:87)
+	org.bi.manage.app.dispatch.DistributeMessage.sendDataPacket(DistributeMessage.java:114)
+	org.bi.manage.app.job.TableImportJob.execute(TableImportJob.java:55)
+	org.quartz.core.JobRunShell.run(JobRunShell.java:202)
+	org.quartz.simpl.SimpleThreadPool$WorkerThread.run(SimpleThreadPool.java:573)
+ExceptionStackTrace: ---------------end------------------------
+
+2016-07-25 14:37:56 ERROR [DefaultQuartzScheduler_Worker-5] org.bi.manage.app.dispatch.DistributeMessage.start(DistributeMessage.java:96) - 调度服务编号[BIAPP-151]通讯失败,本次分发调度失败
+2016-07-25 14:38:06 ERROR [DefaultQuartzScheduler_Worker-1] kafka.utils.Logging$class.error(Logging.scala:97) - Failed to collate messages by topic, partition due to: Failed to fetch topic metadata for topic: BIAPP-151
+2016-07-25 14:38:06 ERROR [DefaultQuartzScheduler_Worker-1] kafka.utils.Logging$class.error(Logging.scala:97) - Failed to collate messages by topic, partition due to: Failed to fetch topic metadata for topic: BIAPP-151
+2016-07-25 14:38:06 ERROR [DefaultQuartzScheduler_Worker-1] kafka.utils.Logging$class.error(Logging.scala:97) - Failed to collate messages by topic, partition due to: Failed to fetch topic metadata for topic: BIAPP-151
+2016-07-25 14:38:06 ERROR [DefaultQuartzScheduler_Worker-1] kafka.utils.Logging$class.error(Logging.scala:97) - Failed to collate messages by topic, partition due to: Failed to fetch topic metadata for topic: BIAPP-151
+2016-07-25 14:38:06 ERROR [DefaultQuartzScheduler_Worker-1] kafka.utils.Logging$class.error(Logging.scala:97) - Failed to send requests for topics BIAPP-151 with correlation ids in [0,8]
+2016-07-25 14:38:06 ERROR [DefaultQuartzScheduler_Worker-1] org.apache.log4j.Logger.error(Logger.java:249) - kafka.common.FailedToSendMessageException: Failed to send messages after 3 tries.
+ExceptionStackTrace: ---------------start------------------------
+	kafka.producer.async.DefaultEventHandler.handle(DefaultEventHandler.scala:90)
+	kafka.producer.Producer.send(Producer.scala:77)
+	kafka.javaapi.producer.Producer.send(Producer.scala:33)
+	org.bi.kafka.client.KafkaClient.sendMessage(KafkaClient.java:36)
+	org.bi.manage.app.dispatch.DistributeMessage.start(DistributeMessage.java:87)
+	org.bi.manage.app.dispatch.DistributeMessage.sendDataPacket(DistributeMessage.java:114)
+	org.bi.manage.app.job.TableImportJob.execute(TableImportJob.java:55)
+	org.quartz.core.JobRunShell.run(JobRunShell.java:202)
+	org.quartz.simpl.SimpleThreadPool$WorkerThread.run(SimpleThreadPool.java:573)
+ExceptionStackTrace: ---------------end------------------------
+
+2016-07-25 14:38:06 ERROR [DefaultQuartzScheduler_Worker-1] org.bi.manage.app.dispatch.DistributeMessage.start(DistributeMessage.java:96) - 调度服务编号[BIAPP-151]通讯失败,本次分发调度失败
+2016-07-25 14:44:28 ERROR [ConsumerFetcherThread-GROUPID0_host-10-1-235-12-1464862068794-25f09076-0-12] kafka.utils.Logging$class.error(Logging.scala:97) - [ConsumerFetcherThread-GROUPID0_host-10-1-235-12-1464862068794-25f09076-0-12], Error for partition [KAFKA_APP_ACK_TOPIC,0] to broker 12:class kafka.common.NotLeaderForPartitionException
+2016-07-25 14:44:28 ERROR [ConsumerFetcherThread-GROUPID0_host-10-1-235-12-1464862068794-25f09076-0-12] kafka.utils.Logging$class.error(Logging.scala:97) - [ConsumerFetcherThread-GROUPID0_host-10-1-235-12-1464862068794-25f09076-0-12], Error for partition [KAFKA_APP_ACK_TOPIC,1] to broker 12:class kafka.common.NotLeaderForPartitionException
+2016-07-25 14:44:28 ERROR [ConsumerFetcherThread-GROUPID0_host-10-1-235-12-1464862068794-25f09076-0-12] kafka.utils.Logging$class.error(Logging.scala:97) - [ConsumerFetcherThread-GROUPID0_host-10-1-235-12-1464862068794-25f09076-0-12], Error for partition [KAFKA_APP_ACK_TOPIC,2] to broker 12:class kafka.common.NotLeaderForPartitionException
+2016-07-25 14:44:28 ERROR [ConsumerFetcherThread-GROUPID0_host-10-1-235-12-1464862068794-25f09076-0-12] kafka.utils.Logging$class.error(Logging.scala:97) - [ConsumerFetcherThread-GROUPID0_host-10-1-235-12-1464862068794-25f09076-0-12], Error for partition [KAFKA_APP_ACK_TOPIC,3] to broker 12:class kafka.common.NotLeaderForPartitionException
+2016-07-25 14:44:28 ERROR [ConsumerFetcherThread-GROUPID0_host-10-1-235-12-1464862067510-35b47cd2-0-12] kafka.utils.Logging$class.error(Logging.scala:97) - [ConsumerFetcherThread-GROUPID0_host-10-1-235-12-1464862067510-35b47cd2-0-12], Error for partition [KAFKA_HEARTBEAT_TOPIC,2] to broker 12:class kafka.common.NotLeaderForPartitionException
+2016-07-25 14:44:28 ERROR [ConsumerFetcherThread-GROUPID0_host-10-1-235-12-1464862067510-35b47cd2-0-12] kafka.utils.Logging$class.error(Logging.scala:97) - [ConsumerFetcherThread-GROUPID0_host-10-1-235-12-1464862067510-35b47cd2-0-12], Error for partition [KAFKA_HEARTBEAT_TOPIC,3] to broker 12:class kafka.common.NotLeaderForPartitionException
+2016-07-25 14:44:28 ERROR [ConsumerFetcherThread-GROUPID0_host-10-1-235-12-1464862067510-35b47cd2-0-12] kafka.utils.Logging$class.error(Logging.scala:97) - [ConsumerFetcherThread-GROUPID0_host-10-1-235-12-1464862067510-35b47cd2-0-12], Error for partition [KAFKA_HEARTBEAT_TOPIC,1] to broker 12:class kafka.common.NotLeaderForPartitionException
+2016-07-25 14:44:28 ERROR [ConsumerFetcherThread-GROUPID0_host-10-1-235-12-1464862067510-35b47cd2-0-12] kafka.utils.Logging$class.error(Logging.scala:97) - [ConsumerFetcherThread-GROUPID0_host-10-1-235-12-1464862067510-35b47cd2-0-12], Error for partition [KAFKA_HEARTBEAT_TOPIC,0] to broker 12:class kafka.common.NotLeaderForPartitionException
+2016-07-25 14:44:28 ERROR [ConsumerFetcherThread-GROUPID0_host-10-1-235-12-1464862068551-4c6b940d-0-12] kafka.utils.Logging$class.error(Logging.scala:97) - [ConsumerFetcherThread-GROUPID0_host-10-1-235-12-1464862068551-4c6b940d-0-12], Error for partition [KAFKA_BUSINESS_TOPIC,0] to broker 12:class kafka.common.NotLeaderForPartitionException
+2016-07-25 14:44:28 ERROR [ConsumerFetcherThread-GROUPID0_host-10-1-235-12-1464862068551-4c6b940d-0-12] kafka.utils.Logging$class.error(Logging.scala:97) - [ConsumerFetcherThread-GROUPID0_host-10-1-235-12-1464862068551-4c6b940d-0-12], Error for partition [KAFKA_BUSINESS_TOPIC,2] to broker 12:class kafka.common.NotLeaderForPartitionException
+2016-07-25 14:44:28 ERROR [ConsumerFetcherThread-GROUPID0_host-10-1-235-12-1464862068551-4c6b940d-0-12] kafka.utils.Logging$class.error(Logging.scala:97) - [ConsumerFetcherThread-GROUPID0_host-10-1-235-12-1464862068551-4c6b940d-0-12], Error for partition [KAFKA_BUSINESS_TOPIC,1] to broker 12:class kafka.common.NotLeaderForPartitionException
+2016-07-25 14:44:28 ERROR [ConsumerFetcherThread-GROUPID0_host-10-1-235-12-1464862068551-4c6b940d-0-12] kafka.utils.Logging$class.error(Logging.scala:97) - [ConsumerFetcherThread-GROUPID0_host-10-1-235-12-1464862068551-4c6b940d-0-12], Error for partition [KAFKA_BUSINESS_TOPIC,3] to broker 12:class kafka.common.NotLeaderForPartitionException
+2016-07-25 15:15:39 ERROR [http-bio-10008-exec-127] org.bi.platform.service.resmanage.util.DBConfigUtil.getConnection(DBConfigUtil.java:197) - 获取数据库的连接信息时出现错误！错误信息：java.sql.SQLException: Io exception: The Network Adapter could not establish the connection；DBConfigBean [dbId=DB10001, dbName=oracle-45, dbUrl=jdbc:oracle:thin:@192.168.11.5:1521:orabi, dbType=oracle, dbDriver=oracle.jdbc.driver.OracleDriver, dbUser=data_smartshow, dbPassword=data_smartshow, createId=null, createTime=null, adminId=null, adminTime=null, isShare=null, dbDesc=oracle]
+2016-07-25 15:15:39 ERROR [http-bio-10008-exec-127] org.apache.log4j.Logger.error(Logger.java:261) - 检查数据库连接信息java.lang.NullPointerException
+ExceptionStackTrace: ---------------start------------------------
+	org.bi.platform.service.resmanage.util.DBConfigUtil.checkDBConnect(DBConfigUtil.java:104)
+	org.bi.platform.service.resmanage.module.DBModule.editDB(DBModule.java:71)
+	org.bi.platform.service.resmanage.module.DBModule$$FastClassBySpringCGLIB$$e8fc39ac.invoke(<generated>)
+	org.springframework.cglib.proxy.MethodProxy.invoke(MethodProxy.java:204)
+	org.springframework.aop.framework.CglibAopProxy$CglibMethodInvocation.invokeJoinpoint(CglibAopProxy.java:700)
+	org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:150)
+	org.springframework.transaction.interceptor.TransactionInterceptor$1.proceedWithInvocation(TransactionInterceptor.java:96)
+	org.springframework.transaction.interceptor.TransactionAspectSupport.invokeWithinTransaction(TransactionAspectSupport.java:260)
+	org.springframework.transaction.interceptor.TransactionInterceptor.invoke(TransactionInterceptor.java:94)
+	org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:172)
+	org.springframework.aop.framework.CglibAopProxy$DynamicAdvisedInterceptor.intercept(CglibAopProxy.java:633)
+	org.bi.platform.service.resmanage.module.DBModule$$EnhancerBySpringCGLIB$$57ae2240.editDB(<generated>)
+	org.bi.platform.service.resmanage.controller.DBController.editDB(DBController.java:68)
+	sun.reflect.GeneratedMethodAccessor1047.invoke(Unknown Source)
+	sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:25)
+	java.lang.reflect.Method.invoke(Method.java:597)
+	org.springframework.web.method.support.InvocableHandlerMethod.invoke(InvocableHandlerMethod.java:215)
+	org.springframework.web.method.support.InvocableHandlerMethod.invokeForRequest(InvocableHandlerMethod.java:132)
+	org.springframework.web.servlet.mvc.method.annotation.ServletInvocableHandlerMethod.invokeAndHandle(ServletInvocableHandlerMethod.java:104)
+	org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.invokeHandleMethod(RequestMappingHandlerAdapter.java:745)
+	org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.handleInternal(RequestMappingHandlerAdapter.java:686)
+	org.springframework.web.servlet.mvc.method.AbstractHandlerMethodAdapter.handle(AbstractHandlerMethodAdapter.java:80)
+	org.springframework.web.servlet.DispatcherServlet.doDispatch(DispatcherServlet.java:925)
+	org.springframework.web.servlet.DispatcherServlet.doService(DispatcherServlet.java:856)
+	org.springframework.web.servlet.FrameworkServlet.processRequest(FrameworkServlet.java:953)
+	org.springframework.web.servlet.FrameworkServlet.doPost(FrameworkServlet.java:855)
+	javax.servlet.http.HttpServlet.service(HttpServlet.java:650)
+	org.springframework.web.servlet.FrameworkServlet.service(FrameworkServlet.java:829)
+	javax.servlet.http.HttpServlet.service(HttpServlet.java:731)
+	org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:303)
+	org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:208)
+	org.springframework.web.filter.CharacterEncodingFilter.doFilterInternal(CharacterEncodingFilter.java:88)
+	org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:107)
+	org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:241)
+	org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:208)
+	org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:220)
+	org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:122)
+	org.apache.catalina.authenticator.AuthenticatorBase.invoke(AuthenticatorBase.java:505)
+	com.radiadesign.catalina.session.RedisSessionHandlerValve.invoke(RedisSessionHandlerValve.java:26)
+	org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:170)
+	org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:103)
+	org.apache.catalina.valves.AccessLogValve.invoke(AccessLogValve.java:956)
+	org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:116)
+	org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:423)
+	org.apache.coyote.http11.AbstractHttp11Processor.process(AbstractHttp11Processor.java:1079)
+	org.apache.coyote.AbstractProtocol$AbstractConnectionHandler.process(AbstractProtocol.java:625)
+	org.apache.tomcat.util.net.JIoEndpoint$SocketProcessor.run(JIoEndpoint.java:318)
+	java.util.concurrent.ThreadPoolExecutor$Worker.runTask(ThreadPoolExecutor.java:886)
+	java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:908)
+	org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:61)
+	java.lang.Thread.run(Thread.java:662)
+ExceptionStackTrace: ---------------end------------------------
+
+2016-07-25 15:43:14 ERROR [http-bio-10008-exec-130] org.apache.log4j.Logger.error(Logger.java:249) - org.postgresql.util.PSQLException: ERROR: relation "bi.c10000" does not exist
+  Position: 92
+ExceptionStackTrace: ---------------start------------------------
+	org.postgresql.core.v3.QueryExecutorImpl.receiveErrorResponse(QueryExecutorImpl.java:2270)
+	org.postgresql.core.v3.QueryExecutorImpl.processResults(QueryExecutorImpl.java:1998)
+	org.postgresql.core.v3.QueryExecutorImpl.execute(QueryExecutorImpl.java:255)
+	org.postgresql.jdbc2.AbstractJdbc2Statement.execute(AbstractJdbc2Statement.java:570)
+	org.postgresql.jdbc2.AbstractJdbc2Statement.executeWithFlags(AbstractJdbc2Statement.java:420)
+	org.postgresql.jdbc2.AbstractJdbc2Statement.executeQuery(AbstractJdbc2Statement.java:305)
+	org.bi.webbace.util.ViewDataUitl.getTreeData(ViewDataUitl.java:84)
+	org.bi.platform.service.dataview.controller.DataViewController.getTreeData(DataViewController.java:184)
+	sun.reflect.GeneratedMethodAccessor410.invoke(Unknown Source)
+	sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:25)
+	java.lang.reflect.Method.invoke(Method.java:597)
+	org.springframework.web.method.support.InvocableHandlerMethod.invoke(InvocableHandlerMethod.java:215)
+	org.springframework.web.method.support.InvocableHandlerMethod.invokeForRequest(InvocableHandlerMethod.java:132)
+	org.springframework.web.servlet.mvc.method.annotation.ServletInvocableHandlerMethod.invokeAndHandle(ServletInvocableHandlerMethod.java:104)
+	org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.invokeHandleMethod(RequestMappingHandlerAdapter.java:745)
+	org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.handleInternal(RequestMappingHandlerAdapter.java:686)
+	org.springframework.web.servlet.mvc.method.AbstractHandlerMethodAdapter.handle(AbstractHandlerMethodAdapter.java:80)
+	org.springframework.web.servlet.DispatcherServlet.doDispatch(DispatcherServlet.java:925)
+	org.springframework.web.servlet.DispatcherServlet.doService(DispatcherServlet.java:856)
+	org.springframework.web.servlet.FrameworkServlet.processRequest(FrameworkServlet.java:953)
+	org.springframework.web.servlet.FrameworkServlet.doPost(FrameworkServlet.java:855)
+	javax.servlet.http.HttpServlet.service(HttpServlet.java:650)
+	org.springframework.web.servlet.FrameworkServlet.service(FrameworkServlet.java:829)
+	javax.servlet.http.HttpServlet.service(HttpServlet.java:731)
+	org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:303)
+	org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:208)
+	org.springframework.web.filter.CharacterEncodingFilter.doFilterInternal(CharacterEncodingFilter.java:88)
+	org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:107)
+	org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:241)
+	org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:208)
+	org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:220)
+	org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:122)
+	org.apache.catalina.authenticator.AuthenticatorBase.invoke(AuthenticatorBase.java:505)
+	com.radiadesign.catalina.session.RedisSessionHandlerValve.invoke(RedisSessionHandlerValve.java:26)
+	org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:170)
+	org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:103)
+	org.apache.catalina.valves.AccessLogValve.invoke(AccessLogValve.java:956)
+	org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:116)
+	org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:423)
+	org.apache.coyote.http11.AbstractHttp11Processor.process(AbstractHttp11Processor.java:1079)
+	org.apache.coyote.AbstractProtocol$AbstractConnectionHandler.process(AbstractProtocol.java:625)
+	org.apache.tomcat.util.net.JIoEndpoint$SocketProcessor.run(JIoEndpoint.java:316)
+	java.util.concurrent.ThreadPoolExecutor$Worker.runTask(ThreadPoolExecutor.java:886)
+	java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:908)
+	org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:61)
+	java.lang.Thread.run(Thread.java:662)
+ExceptionStackTrace: ---------------end------------------------
+
+2016-07-25 15:43:16 ERROR [http-bio-10008-exec-125] org.apache.log4j.Logger.error(Logger.java:249) - org.postgresql.util.PSQLException: ERROR: relation "bi.c10000" does not exist
+  Position: 92
+ExceptionStackTrace: ---------------start------------------------
+	org.postgresql.core.v3.QueryExecutorImpl.receiveErrorResponse(QueryExecutorImpl.java:2270)
+	org.postgresql.core.v3.QueryExecutorImpl.processResults(QueryExecutorImpl.java:1998)
+	org.postgresql.core.v3.QueryExecutorImpl.execute(QueryExecutorImpl.java:255)
+	org.postgresql.jdbc2.AbstractJdbc2Statement.execute(AbstractJdbc2Statement.java:570)
+	org.postgresql.jdbc2.AbstractJdbc2Statement.executeWithFlags(AbstractJdbc2Statement.java:420)
+	org.postgresql.jdbc2.AbstractJdbc2Statement.executeQuery(AbstractJdbc2Statement.java:305)
+	org.bi.webbace.util.ViewDataUitl.getTreeData(ViewDataUitl.java:84)
+	org.bi.platform.service.dataview.controller.DataViewController.getTreeData(DataViewController.java:184)
+	sun.reflect.GeneratedMethodAccessor410.invoke(Unknown Source)
+	sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:25)
+	java.lang.reflect.Method.invoke(Method.java:597)
+	org.springframework.web.method.support.InvocableHandlerMethod.invoke(InvocableHandlerMethod.java:215)
+	org.springframework.web.method.support.InvocableHandlerMethod.invokeForRequest(InvocableHandlerMethod.java:132)
+	org.springframework.web.servlet.mvc.method.annotation.ServletInvocableHandlerMethod.invokeAndHandle(ServletInvocableHandlerMethod.java:104)
+	org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.invokeHandleMethod(RequestMappingHandlerAdapter.java:745)
+	org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.handleInternal(RequestMappingHandlerAdapter.java:686)
+	org.springframework.web.servlet.mvc.method.AbstractHandlerMethodAdapter.handle(AbstractHandlerMethodAdapter.java:80)
+	org.springframework.web.servlet.DispatcherServlet.doDispatch(DispatcherServlet.java:925)
+	org.springframework.web.servlet.DispatcherServlet.doService(DispatcherServlet.java:856)
+	org.springframework.web.servlet.FrameworkServlet.processRequest(FrameworkServlet.java:953)
+	org.springframework.web.servlet.FrameworkServlet.doPost(FrameworkServlet.java:855)
+	javax.servlet.http.HttpServlet.service(HttpServlet.java:650)
+	org.springframework.web.servlet.FrameworkServlet.service(FrameworkServlet.java:829)
+	javax.servlet.http.HttpServlet.service(HttpServlet.java:731)
+	org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:303)
+	org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:208)
+	org.springframework.web.filter.CharacterEncodingFilter.doFilterInternal(CharacterEncodingFilter.java:88)
+	org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:107)
+	org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:241)
+	org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:208)
+	org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:220)
+	org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:122)
+	org.apache.catalina.authenticator.AuthenticatorBase.invoke(AuthenticatorBase.java:505)
+	com.radiadesign.catalina.session.RedisSessionHandlerValve.invoke(RedisSessionHandlerValve.java:26)
+	org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:170)
+	org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:103)
+	org.apache.catalina.valves.AccessLogValve.invoke(AccessLogValve.java:956)
+	org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:116)
+	org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:423)
+	org.apache.coyote.http11.AbstractHttp11Processor.process(AbstractHttp11Processor.java:1079)
+	org.apache.coyote.AbstractProtocol$AbstractConnectionHandler.process(AbstractProtocol.java:625)
+	org.apache.tomcat.util.net.JIoEndpoint$SocketProcessor.run(JIoEndpoint.java:318)
+	java.util.concurrent.ThreadPoolExecutor$Worker.runTask(ThreadPoolExecutor.java:886)
+	java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:908)
+	org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:61)
+	java.lang.Thread.run(Thread.java:662)
+ExceptionStackTrace: ---------------end------------------------
+
+2016-07-25 15:46:52 ERROR [http-bio-10008-exec-122] org.apache.log4j.Logger.error(Logger.java:249) - org.postgresql.util.PSQLException: ERROR: relation "bi.c10000" does not exist
+  Position: 92
+ExceptionStackTrace: ---------------start------------------------
+	org.postgresql.core.v3.QueryExecutorImpl.receiveErrorResponse(QueryExecutorImpl.java:2270)
+	org.postgresql.core.v3.QueryExecutorImpl.processResults(QueryExecutorImpl.java:1998)
+	org.postgresql.core.v3.QueryExecutorImpl.execute(QueryExecutorImpl.java:255)
+	org.postgresql.jdbc2.AbstractJdbc2Statement.execute(AbstractJdbc2Statement.java:570)
+	org.postgresql.jdbc2.AbstractJdbc2Statement.executeWithFlags(AbstractJdbc2Statement.java:420)
+	org.postgresql.jdbc2.AbstractJdbc2Statement.executeQuery(AbstractJdbc2Statement.java:305)
+	org.bi.webbace.util.ViewDataUitl.getTreeData(ViewDataUitl.java:84)
+	org.bi.platform.service.dataview.controller.DataViewController.getTreeData(DataViewController.java:184)
+	sun.reflect.GeneratedMethodAccessor410.invoke(Unknown Source)
+	sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:25)
+	java.lang.reflect.Method.invoke(Method.java:597)
+	org.springframework.web.method.support.InvocableHandlerMethod.invoke(InvocableHandlerMethod.java:215)
+	org.springframework.web.method.support.InvocableHandlerMethod.invokeForRequest(InvocableHandlerMethod.java:132)
+	org.springframework.web.servlet.mvc.method.annotation.ServletInvocableHandlerMethod.invokeAndHandle(ServletInvocableHandlerMethod.java:104)
+	org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.invokeHandleMethod(RequestMappingHandlerAdapter.java:745)
+	org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.handleInternal(RequestMappingHandlerAdapter.java:686)
+	org.springframework.web.servlet.mvc.method.AbstractHandlerMethodAdapter.handle(AbstractHandlerMethodAdapter.java:80)
+	org.springframework.web.servlet.DispatcherServlet.doDispatch(DispatcherServlet.java:925)
+	org.springframework.web.servlet.DispatcherServlet.doService(DispatcherServlet.java:856)
+	org.springframework.web.servlet.FrameworkServlet.processRequest(FrameworkServlet.java:953)
+	org.springframework.web.servlet.FrameworkServlet.doPost(FrameworkServlet.java:855)
+	javax.servlet.http.HttpServlet.service(HttpServlet.java:650)
+	org.springframework.web.servlet.FrameworkServlet.service(FrameworkServlet.java:829)
+	javax.servlet.http.HttpServlet.service(HttpServlet.java:731)
+	org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:303)
+	org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:208)
+	org.springframework.web.filter.CharacterEncodingFilter.doFilterInternal(CharacterEncodingFilter.java:88)
+	org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:107)
+	org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:241)
+	org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:208)
+	org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:220)
+	org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:122)
+	org.apache.catalina.authenticator.AuthenticatorBase.invoke(AuthenticatorBase.java:505)
+	com.radiadesign.catalina.session.RedisSessionHandlerValve.invoke(RedisSessionHandlerValve.java:26)
+	org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:170)
+	org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:103)
+	org.apache.catalina.valves.AccessLogValve.invoke(AccessLogValve.java:956)
+	org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:116)
+	org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:423)
+	org.apache.coyote.http11.AbstractHttp11Processor.process(AbstractHttp11Processor.java:1079)
+	org.apache.coyote.AbstractProtocol$AbstractConnectionHandler.process(AbstractProtocol.java:625)
+	org.apache.tomcat.util.net.JIoEndpoint$SocketProcessor.run(JIoEndpoint.java:316)
+	java.util.concurrent.ThreadPoolExecutor$Worker.runTask(ThreadPoolExecutor.java:886)
+	java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:908)
+	org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:61)
+	java.lang.Thread.run(Thread.java:662)
+ExceptionStackTrace: ---------------end------------------------
+

@@ -1,0 +1,1 @@
+define(["bace","view/box","view/component/reportUtil","view/widgets/plugins/echarts/tpl"],function(c,a,b,e){var d={};d.control={};d.view={importLayout:function(){e.show(null,"import")}};d.model={configData:{id:"tabs_template",groups:[{tools:[{id:"importLayout",text:"引用模版",iconCls:"icon-start-importLayout",click:d.view.importLayout}]}]}};return{config:d.model.configData}});

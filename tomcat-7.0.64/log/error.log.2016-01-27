@@ -1,0 +1,6 @@
+2016-01-27 08:57:03 ERROR [http-bio-10008-exec-3] org.bi.platform.service.resmanage.module.DataLinkModule.getResultList(DataLinkModule.java:743) - org.postgresql.util.PSQLException: ERROR: column t13332.a1056821 does not exist
+  Position: 46
+2016-01-27 08:57:20 ERROR [http-bio-10008-exec-3] org.bi.platform.service.resmanage.module.DataLinkModule.getResultList(DataLinkModule.java:743) - org.postgresql.util.PSQLException: ERROR: column t13332.a1056821 does not exist
+  Position: 46
+2016-01-27 11:11:57 ERROR [http-bio-10008-exec-9] org.bi.platform.service.resmanage.module.DataLinkModule.getResultList(DataLinkModule.java:750) - org.postgresql.util.PSQLException: ERROR: syntax error at or near "from"
+  Position: 63

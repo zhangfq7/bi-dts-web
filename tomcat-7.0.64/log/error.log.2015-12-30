@@ -1,0 +1,292 @@
+2015-12-30 15:49:19 ERROR [http-bio-10008-exec-1] org.bi.webbace.util.RequestUrlUtil.checkRequestSkipFlag(RequestUrlUtil.java:123) - x-forwarded-for:null
+2015-12-30 15:49:19 ERROR [http-bio-10008-exec-1] org.bi.webbace.util.RequestUrlUtil.checkRequestSkipFlag(RequestUrlUtil.java:127) - ipAddress:10.1.235.14
+2015-12-30 15:49:20 ERROR [http-bio-10008-exec-2] org.bi.webbace.util.RequestUrlUtil.checkRequestSkipFlag(RequestUrlUtil.java:123) - x-forwarded-for:null
+2015-12-30 15:49:20 ERROR [http-bio-10008-exec-2] org.bi.webbace.util.RequestUrlUtil.checkRequestSkipFlag(RequestUrlUtil.java:127) - ipAddress:10.1.235.14
+2015-12-30 15:49:24 ERROR [http-bio-10008-exec-3] org.bi.webbace.util.RequestUrlUtil.checkRequestSkipFlag(RequestUrlUtil.java:123) - x-forwarded-for:null
+2015-12-30 15:49:24 ERROR [http-bio-10008-exec-3] org.bi.webbace.util.RequestUrlUtil.checkRequestSkipFlag(RequestUrlUtil.java:127) - ipAddress:10.1.235.14
+2015-12-30 15:49:25 ERROR [http-bio-10008-exec-4] org.bi.webbace.util.RequestUrlUtil.checkRequestSkipFlag(RequestUrlUtil.java:123) - x-forwarded-for:null
+2015-12-30 15:49:25 ERROR [http-bio-10008-exec-4] org.bi.webbace.util.RequestUrlUtil.checkRequestSkipFlag(RequestUrlUtil.java:127) - ipAddress:10.1.235.14
+2015-12-30 15:49:26 ERROR [http-bio-10008-exec-5] org.bi.webbace.util.RequestUrlUtil.checkRequestSkipFlag(RequestUrlUtil.java:123) - x-forwarded-for:null
+2015-12-30 15:49:26 ERROR [http-bio-10008-exec-5] org.bi.webbace.util.RequestUrlUtil.checkRequestSkipFlag(RequestUrlUtil.java:127) - ipAddress:10.1.235.14
+2015-12-30 15:49:27 ERROR [http-bio-10008-exec-6] org.bi.webbace.util.RequestUrlUtil.checkRequestSkipFlag(RequestUrlUtil.java:123) - x-forwarded-for:null
+2015-12-30 15:49:27 ERROR [http-bio-10008-exec-6] org.bi.webbace.util.RequestUrlUtil.checkRequestSkipFlag(RequestUrlUtil.java:127) - ipAddress:10.1.235.14
+2015-12-30 15:49:28 ERROR [http-bio-10008-exec-7] org.bi.webbace.util.RequestUrlUtil.checkRequestSkipFlag(RequestUrlUtil.java:123) - x-forwarded-for:null
+2015-12-30 15:49:28 ERROR [http-bio-10008-exec-7] org.bi.webbace.util.RequestUrlUtil.checkRequestSkipFlag(RequestUrlUtil.java:127) - ipAddress:10.1.235.14
+2015-12-30 15:49:29 ERROR [http-bio-10008-exec-8] org.bi.webbace.util.RequestUrlUtil.checkRequestSkipFlag(RequestUrlUtil.java:123) - x-forwarded-for:null
+2015-12-30 15:49:29 ERROR [http-bio-10008-exec-8] org.bi.webbace.util.RequestUrlUtil.checkRequestSkipFlag(RequestUrlUtil.java:127) - ipAddress:10.1.235.14
+2015-12-30 15:49:59 ERROR [http-bio-10008-exec-9] org.bi.webbace.util.RequestUrlUtil.checkRequestSkipFlag(RequestUrlUtil.java:123) - x-forwarded-for:null
+2015-12-30 15:49:59 ERROR [http-bio-10008-exec-9] org.bi.webbace.util.RequestUrlUtil.checkRequestSkipFlag(RequestUrlUtil.java:127) - ipAddress:10.1.235.14
+2015-12-30 15:51:29 ERROR [http-bio-10008-exec-10] org.bi.webbace.util.RequestUrlUtil.checkRequestSkipFlag(RequestUrlUtil.java:123) - x-forwarded-for:null
+2015-12-30 15:51:29 ERROR [http-bio-10008-exec-10] org.bi.webbace.util.RequestUrlUtil.checkRequestSkipFlag(RequestUrlUtil.java:127) - ipAddress:10.1.235.14
+2015-12-30 15:52:59 ERROR [http-bio-10008-exec-1] org.bi.webbace.util.RequestUrlUtil.checkRequestSkipFlag(RequestUrlUtil.java:123) - x-forwarded-for:null
+2015-12-30 15:52:59 ERROR [http-bio-10008-exec-1] org.bi.webbace.util.RequestUrlUtil.checkRequestSkipFlag(RequestUrlUtil.java:127) - ipAddress:10.1.235.14
+2015-12-30 15:54:29 ERROR [http-bio-10008-exec-2] org.bi.webbace.util.RequestUrlUtil.checkRequestSkipFlag(RequestUrlUtil.java:123) - x-forwarded-for:null
+2015-12-30 15:54:29 ERROR [http-bio-10008-exec-2] org.bi.webbace.util.RequestUrlUtil.checkRequestSkipFlag(RequestUrlUtil.java:127) - ipAddress:10.1.235.14
+2015-12-30 15:55:08 ERROR [http-bio-10008-exec-3] org.bi.webbace.util.RequestUrlUtil.checkRequestSkipFlag(RequestUrlUtil.java:123) - x-forwarded-for:10.21.56.42
+2015-12-30 15:55:10 ERROR [http-bio-10008-exec-4] org.bi.webbace.util.RequestUrlUtil.checkRequestSkipFlag(RequestUrlUtil.java:123) - x-forwarded-for:10.21.56.42
+2015-12-30 15:55:12 ERROR [http-bio-10008-exec-5] org.bi.webbace.util.RequestUrlUtil.checkRequestSkipFlag(RequestUrlUtil.java:123) - x-forwarded-for:10.21.56.42
+2015-12-30 15:55:13 ERROR [http-bio-10008-exec-6] org.bi.webbace.util.RequestUrlUtil.checkRequestSkipFlag(RequestUrlUtil.java:123) - x-forwarded-for:10.21.56.42
+2015-12-30 15:55:21 ERROR [http-bio-10008-exec-8] org.bi.webbace.util.RequestUrlUtil.checkRequestSkipFlag(RequestUrlUtil.java:123) - x-forwarded-for:10.21.56.42
+2015-12-30 15:57:17 ERROR [http-bio-10008-exec-10] org.bi.webbace.util.RequestUrlUtil.checkRequestSkipFlag(RequestUrlUtil.java:123) - x-forwarded-for:10.21.56.42
+2015-12-30 15:57:38 ERROR [http-bio-10008-exec-2] org.bi.webbace.util.RequestUrlUtil.checkRequestSkipFlag(RequestUrlUtil.java:123) - x-forwarded-for:10.21.56.42
+2015-12-30 15:58:26 ERROR [http-bio-10008-exec-3] org.bi.webbace.util.RequestUrlUtil.checkRequestSkipFlag(RequestUrlUtil.java:123) - x-forwarded-for:10.21.56.42
+2015-12-30 15:58:41 ERROR [http-bio-10008-exec-4] org.bi.webbace.util.RequestUrlUtil.checkRequestSkipFlag(RequestUrlUtil.java:123) - x-forwarded-for:10.21.56.42
+2015-12-30 15:58:46 ERROR [http-bio-10008-exec-5] org.bi.webbace.util.RequestUrlUtil.checkRequestSkipFlag(RequestUrlUtil.java:123) - x-forwarded-for:10.21.56.42
+2015-12-30 15:59:45 ERROR [http-bio-10008-exec-7] org.bi.webbace.util.RequestUrlUtil.checkRequestSkipFlag(RequestUrlUtil.java:123) - x-forwarded-for:10.21.56.42
+2015-12-30 15:59:45 ERROR [http-bio-10008-exec-8] org.bi.webbace.util.RequestUrlUtil.checkRequestSkipFlag(RequestUrlUtil.java:123) - x-forwarded-for:10.21.56.42
+2015-12-30 15:59:46 ERROR [http-bio-10008-exec-9] org.bi.webbace.util.RequestUrlUtil.checkRequestSkipFlag(RequestUrlUtil.java:123) - x-forwarded-for:10.21.56.42
+2015-12-30 15:59:50 ERROR [http-bio-10008-exec-10] org.bi.webbace.util.RequestUrlUtil.checkRequestSkipFlag(RequestUrlUtil.java:123) - x-forwarded-for:10.21.56.42
+2015-12-30 15:59:51 ERROR [http-bio-10008-exec-1] org.bi.webbace.util.RequestUrlUtil.checkRequestSkipFlag(RequestUrlUtil.java:123) - x-forwarded-for:10.21.56.42
+2015-12-30 15:59:52 ERROR [http-bio-10008-exec-2] org.bi.webbace.util.RequestUrlUtil.checkRequestSkipFlag(RequestUrlUtil.java:123) - x-forwarded-for:10.21.56.42
+2015-12-30 15:59:53 ERROR [http-bio-10008-exec-3] org.bi.webbace.util.RequestUrlUtil.checkRequestSkipFlag(RequestUrlUtil.java:123) - x-forwarded-for:10.21.56.42
+2015-12-30 16:01:27 ERROR [http-bio-10008-exec-4] org.bi.webbace.util.RequestUrlUtil.checkRequestSkipFlag(RequestUrlUtil.java:123) - x-forwarded-for:10.21.56.42
+2015-12-30 16:01:28 ERROR [http-bio-10008-exec-5] org.bi.webbace.util.RequestUrlUtil.checkRequestSkipFlag(RequestUrlUtil.java:123) - x-forwarded-for:10.21.56.42
+2015-12-30 16:01:29 ERROR [http-bio-10008-exec-6] org.bi.webbace.util.RequestUrlUtil.checkRequestSkipFlag(RequestUrlUtil.java:123) - x-forwarded-for:10.21.56.42
+2015-12-30 16:01:30 ERROR [http-bio-10008-exec-7] org.bi.webbace.util.RequestUrlUtil.checkRequestSkipFlag(RequestUrlUtil.java:123) - x-forwarded-for:10.21.56.42
+2015-12-30 16:01:31 ERROR [http-bio-10008-exec-8] org.bi.webbace.util.RequestUrlUtil.checkRequestSkipFlag(RequestUrlUtil.java:123) - x-forwarded-for:10.21.56.42
+2015-12-30 16:01:32 ERROR [http-bio-10008-exec-9] org.bi.webbace.util.RequestUrlUtil.checkRequestSkipFlag(RequestUrlUtil.java:123) - x-forwarded-for:10.21.56.42
+2015-12-30 16:02:02 ERROR [http-bio-10008-exec-10] org.bi.webbace.util.RequestUrlUtil.checkRequestSkipFlag(RequestUrlUtil.java:123) - x-forwarded-for:10.21.56.42
+2015-12-30 16:02:28 ERROR [http-bio-10008-exec-1] org.bi.webbace.util.RequestUrlUtil.checkRequestSkipFlag(RequestUrlUtil.java:123) - x-forwarded-for:10.21.56.42
+2015-12-30 16:02:29 ERROR [http-bio-10008-exec-2] org.bi.webbace.util.RequestUrlUtil.checkRequestSkipFlag(RequestUrlUtil.java:123) - x-forwarded-for:10.21.56.42
+2015-12-30 16:02:31 ERROR [http-bio-10008-exec-3] org.bi.webbace.util.RequestUrlUtil.checkRequestSkipFlag(RequestUrlUtil.java:123) - x-forwarded-for:10.21.56.42
+2015-12-30 16:02:31 ERROR [http-bio-10008-exec-4] org.bi.webbace.util.RequestUrlUtil.checkRequestSkipFlag(RequestUrlUtil.java:123) - x-forwarded-for:10.21.56.42
+2015-12-30 16:02:34 ERROR [http-bio-10008-exec-5] org.bi.webbace.util.RequestUrlUtil.checkRequestSkipFlag(RequestUrlUtil.java:123) - x-forwarded-for:10.21.56.42
+2015-12-30 16:02:34 ERROR [http-bio-10008-exec-6] org.bi.webbace.util.RequestUrlUtil.checkRequestSkipFlag(RequestUrlUtil.java:123) - x-forwarded-for:10.21.56.42
+2015-12-30 16:02:43 ERROR [http-bio-10008-exec-7] org.bi.webbace.util.RequestUrlUtil.checkRequestSkipFlag(RequestUrlUtil.java:123) - x-forwarded-for:10.21.56.42
+2015-12-30 16:02:43 ERROR [http-bio-10008-exec-8] org.bi.webbace.util.RequestUrlUtil.checkRequestSkipFlag(RequestUrlUtil.java:123) - x-forwarded-for:10.21.56.42
+2015-12-30 16:03:43 ERROR [http-bio-10008-exec-9] org.bi.webbace.util.RequestUrlUtil.checkRequestSkipFlag(RequestUrlUtil.java:123) - x-forwarded-for:10.21.56.42
+2015-12-30 16:04:19 ERROR [http-bio-10008-exec-10] org.bi.webbace.util.RequestUrlUtil.checkRequestSkipFlag(RequestUrlUtil.java:123) - x-forwarded-for:null
+2015-12-30 16:04:19 ERROR [http-bio-10008-exec-10] org.bi.webbace.util.RequestUrlUtil.checkRequestSkipFlag(RequestUrlUtil.java:127) - ipAddress:10.1.235.14
+2015-12-30 16:04:20 ERROR [http-bio-10008-exec-1] org.bi.webbace.util.RequestUrlUtil.checkRequestSkipFlag(RequestUrlUtil.java:123) - x-forwarded-for:null
+2015-12-30 16:04:20 ERROR [http-bio-10008-exec-1] org.bi.webbace.util.RequestUrlUtil.checkRequestSkipFlag(RequestUrlUtil.java:127) - ipAddress:10.1.235.14
+2015-12-30 16:04:22 ERROR [http-bio-10008-exec-2] org.bi.webbace.util.RequestUrlUtil.checkRequestSkipFlag(RequestUrlUtil.java:123) - x-forwarded-for:null
+2015-12-30 16:04:22 ERROR [http-bio-10008-exec-2] org.bi.webbace.util.RequestUrlUtil.checkRequestSkipFlag(RequestUrlUtil.java:127) - ipAddress:10.1.235.14
+2015-12-30 16:04:23 ERROR [http-bio-10008-exec-3] org.bi.webbace.util.RequestUrlUtil.checkRequestSkipFlag(RequestUrlUtil.java:123) - x-forwarded-for:null
+2015-12-30 16:04:23 ERROR [http-bio-10008-exec-3] org.bi.webbace.util.RequestUrlUtil.checkRequestSkipFlag(RequestUrlUtil.java:127) - ipAddress:10.1.235.14
+2015-12-30 16:04:25 ERROR [http-bio-10008-exec-4] org.bi.webbace.util.RequestUrlUtil.checkRequestSkipFlag(RequestUrlUtil.java:123) - x-forwarded-for:null
+2015-12-30 16:04:25 ERROR [http-bio-10008-exec-4] org.bi.webbace.util.RequestUrlUtil.checkRequestSkipFlag(RequestUrlUtil.java:127) - ipAddress:10.1.235.14
+2015-12-30 16:04:26 ERROR [http-bio-10008-exec-5] org.bi.webbace.util.RequestUrlUtil.checkRequestSkipFlag(RequestUrlUtil.java:123) - x-forwarded-for:null
+2015-12-30 16:04:26 ERROR [http-bio-10008-exec-5] org.bi.webbace.util.RequestUrlUtil.checkRequestSkipFlag(RequestUrlUtil.java:127) - ipAddress:10.1.235.14
+2015-12-30 16:04:56 ERROR [http-bio-10008-exec-6] org.bi.webbace.util.RequestUrlUtil.checkRequestSkipFlag(RequestUrlUtil.java:123) - x-forwarded-for:null
+2015-12-30 16:04:56 ERROR [http-bio-10008-exec-6] org.bi.webbace.util.RequestUrlUtil.checkRequestSkipFlag(RequestUrlUtil.java:127) - ipAddress:10.1.235.14
+2015-12-30 16:05:54 ERROR [http-bio-10008-exec-7] org.bi.webbace.util.RequestUrlUtil.checkRequestSkipFlag(RequestUrlUtil.java:123) - x-forwarded-for:null
+2015-12-30 16:05:54 ERROR [http-bio-10008-exec-7] org.bi.webbace.util.RequestUrlUtil.checkRequestSkipFlag(RequestUrlUtil.java:127) - ipAddress:10.1.235.14
+2015-12-30 16:05:54 ERROR [http-bio-10008-exec-8] org.bi.webbace.util.RequestUrlUtil.checkRequestSkipFlag(RequestUrlUtil.java:123) - x-forwarded-for:null
+2015-12-30 16:05:54 ERROR [http-bio-10008-exec-8] org.bi.webbace.util.RequestUrlUtil.checkRequestSkipFlag(RequestUrlUtil.java:127) - ipAddress:10.1.235.14
+2015-12-30 16:05:56 ERROR [http-bio-10008-exec-9] org.bi.webbace.util.RequestUrlUtil.checkRequestSkipFlag(RequestUrlUtil.java:123) - x-forwarded-for:null
+2015-12-30 16:05:56 ERROR [http-bio-10008-exec-9] org.bi.webbace.util.RequestUrlUtil.checkRequestSkipFlag(RequestUrlUtil.java:127) - ipAddress:10.1.235.14
+2015-12-30 16:05:57 ERROR [http-bio-10008-exec-10] org.bi.webbace.util.RequestUrlUtil.checkRequestSkipFlag(RequestUrlUtil.java:123) - x-forwarded-for:null
+2015-12-30 16:05:57 ERROR [http-bio-10008-exec-10] org.bi.webbace.util.RequestUrlUtil.checkRequestSkipFlag(RequestUrlUtil.java:127) - ipAddress:10.1.235.14
+2015-12-30 16:05:58 ERROR [http-bio-10008-exec-1] org.bi.webbace.util.RequestUrlUtil.checkRequestSkipFlag(RequestUrlUtil.java:123) - x-forwarded-for:null
+2015-12-30 16:05:58 ERROR [http-bio-10008-exec-1] org.bi.webbace.util.RequestUrlUtil.checkRequestSkipFlag(RequestUrlUtil.java:127) - ipAddress:10.1.235.14
+2015-12-30 16:05:59 ERROR [http-bio-10008-exec-2] org.bi.webbace.util.RequestUrlUtil.checkRequestSkipFlag(RequestUrlUtil.java:123) - x-forwarded-for:null
+2015-12-30 16:05:59 ERROR [http-bio-10008-exec-2] org.bi.webbace.util.RequestUrlUtil.checkRequestSkipFlag(RequestUrlUtil.java:127) - ipAddress:10.1.235.14
+2015-12-30 16:06:58 ERROR [http-bio-10008-exec-3] org.bi.webbace.util.RequestUrlUtil.checkRequestSkipFlag(RequestUrlUtil.java:123) - x-forwarded-for:null
+2015-12-30 16:06:58 ERROR [http-bio-10008-exec-3] org.bi.webbace.util.RequestUrlUtil.checkRequestSkipFlag(RequestUrlUtil.java:127) - ipAddress:10.1.235.14
+2015-12-30 16:08:14 ERROR [http-bio-10008-exec-4] org.bi.webbace.util.RequestUrlUtil.checkRequestSkipFlag(RequestUrlUtil.java:123) - x-forwarded-for:10.21.56.42
+2015-12-30 16:08:14 ERROR [http-bio-10008-exec-5] org.bi.webbace.util.RequestUrlUtil.checkRequestSkipFlag(RequestUrlUtil.java:123) - x-forwarded-for:10.21.56.42
+2015-12-30 16:08:16 ERROR [http-bio-10008-exec-6] org.bi.webbace.util.RequestUrlUtil.checkRequestSkipFlag(RequestUrlUtil.java:123) - x-forwarded-for:10.21.56.42
+2015-12-30 16:08:16 ERROR [http-bio-10008-exec-7] org.bi.webbace.util.RequestUrlUtil.checkRequestSkipFlag(RequestUrlUtil.java:123) - x-forwarded-for:10.21.56.42
+2015-12-30 16:08:18 ERROR [http-bio-10008-exec-8] org.bi.webbace.util.RequestUrlUtil.checkRequestSkipFlag(RequestUrlUtil.java:123) - x-forwarded-for:10.21.56.42
+2015-12-30 16:08:19 ERROR [http-bio-10008-exec-9] org.bi.webbace.util.RequestUrlUtil.checkRequestSkipFlag(RequestUrlUtil.java:123) - x-forwarded-for:10.21.56.42
+2015-12-30 16:09:00 ERROR [http-bio-10008-exec-10] org.bi.webbace.util.RequestUrlUtil.checkRequestSkipFlag(RequestUrlUtil.java:123) - x-forwarded-for:10.21.56.42
+2015-12-30 16:09:00 ERROR [http-bio-10008-exec-1] org.bi.webbace.util.RequestUrlUtil.checkRequestSkipFlag(RequestUrlUtil.java:123) - x-forwarded-for:10.21.56.42
+2015-12-30 16:09:03 ERROR [http-bio-10008-exec-2] org.bi.webbace.util.RequestUrlUtil.checkRequestSkipFlag(RequestUrlUtil.java:123) - x-forwarded-for:10.21.56.42
+2015-12-30 16:09:03 ERROR [http-bio-10008-exec-3] org.bi.webbace.util.RequestUrlUtil.checkRequestSkipFlag(RequestUrlUtil.java:123) - x-forwarded-for:10.21.56.42
+2015-12-30 16:09:06 ERROR [http-bio-10008-exec-4] org.bi.webbace.util.RequestUrlUtil.checkRequestSkipFlag(RequestUrlUtil.java:123) - x-forwarded-for:10.21.56.42
+2015-12-30 16:09:06 ERROR [http-bio-10008-exec-5] org.bi.webbace.util.RequestUrlUtil.checkRequestSkipFlag(RequestUrlUtil.java:123) - x-forwarded-for:10.21.56.42
+2015-12-30 16:09:54 ERROR [http-bio-10008-exec-6] org.bi.webbace.util.RequestUrlUtil.checkRequestSkipFlag(RequestUrlUtil.java:123) - x-forwarded-for:10.21.56.42
+2015-12-30 16:09:55 ERROR [http-bio-10008-exec-7] org.bi.webbace.util.RequestUrlUtil.checkRequestSkipFlag(RequestUrlUtil.java:123) - x-forwarded-for:10.21.56.42
+2015-12-30 16:10:00 ERROR [http-bio-10008-exec-8] org.bi.webbace.util.RequestUrlUtil.checkRequestSkipFlag(RequestUrlUtil.java:123) - x-forwarded-for:10.21.56.42
+2015-12-30 16:10:01 ERROR [http-bio-10008-exec-9] org.bi.webbace.util.RequestUrlUtil.checkRequestSkipFlag(RequestUrlUtil.java:123) - x-forwarded-for:10.21.56.42
+2015-12-30 16:10:03 ERROR [http-bio-10008-exec-10] org.bi.webbace.util.RequestUrlUtil.checkRequestSkipFlag(RequestUrlUtil.java:123) - x-forwarded-for:10.21.56.42
+2015-12-30 16:10:04 ERROR [http-bio-10008-exec-1] org.bi.webbace.util.RequestUrlUtil.checkRequestSkipFlag(RequestUrlUtil.java:123) - x-forwarded-for:10.21.56.42
+2015-12-30 16:11:04 ERROR [http-bio-10008-exec-2] org.bi.webbace.util.RequestUrlUtil.checkRequestSkipFlag(RequestUrlUtil.java:123) - x-forwarded-for:10.21.56.42
+2015-12-30 16:12:34 ERROR [http-bio-10008-exec-3] org.bi.webbace.util.RequestUrlUtil.checkRequestSkipFlag(RequestUrlUtil.java:123) - x-forwarded-for:10.21.56.42
+2015-12-30 16:14:04 ERROR [http-bio-10008-exec-4] org.bi.webbace.util.RequestUrlUtil.checkRequestSkipFlag(RequestUrlUtil.java:123) - x-forwarded-for:10.21.56.42
+2015-12-30 16:15:04 ERROR [http-bio-10008-exec-5] org.bi.webbace.util.RequestUrlUtil.checkRequestSkipFlag(RequestUrlUtil.java:123) - x-forwarded-for:10.21.56.42
+2015-12-30 16:16:34 ERROR [http-bio-10008-exec-6] org.bi.webbace.util.RequestUrlUtil.checkRequestSkipFlag(RequestUrlUtil.java:123) - x-forwarded-for:10.21.56.42
+2015-12-30 16:18:04 ERROR [http-bio-10008-exec-7] org.bi.webbace.util.RequestUrlUtil.checkRequestSkipFlag(RequestUrlUtil.java:123) - x-forwarded-for:10.21.56.42
+2015-12-30 16:19:36 ERROR [http-bio-10008-exec-8] org.bi.webbace.util.RequestUrlUtil.checkRequestSkipFlag(RequestUrlUtil.java:123) - x-forwarded-for:10.21.56.42
+2015-12-30 16:21:06 ERROR [http-bio-10008-exec-9] org.bi.webbace.util.RequestUrlUtil.checkRequestSkipFlag(RequestUrlUtil.java:123) - x-forwarded-for:10.21.56.42
+2015-12-30 16:22:37 ERROR [http-bio-10008-exec-10] org.bi.webbace.util.RequestUrlUtil.checkRequestSkipFlag(RequestUrlUtil.java:123) - x-forwarded-for:10.21.56.42
+2015-12-30 16:24:07 ERROR [http-bio-10008-exec-1] org.bi.webbace.util.RequestUrlUtil.checkRequestSkipFlag(RequestUrlUtil.java:123) - x-forwarded-for:10.21.56.42
+2015-12-30 16:25:37 ERROR [http-bio-10008-exec-2] org.bi.webbace.util.RequestUrlUtil.checkRequestSkipFlag(RequestUrlUtil.java:123) - x-forwarded-for:10.21.56.42
+2015-12-30 16:26:59 ERROR [http-bio-10008-exec-5] org.apache.log4j.Logger.error(Logger.java:249) - java.lang.NullPointerException
+ExceptionStackTrace: ---------------start------------------------
+	com.radiadesign.catalina.session.RedisSession.setAttribute(RedisSession.java:54)
+	org.apache.catalina.session.StandardSessionFacade.setAttribute(StandardSessionFacade.java:154)
+	org.bi.platform.service.myreport.module.AnalysisModule.queryMyHome(AnalysisModule.java:317)
+	org.bi.platform.service.myreport.controller.ReportViewController.queryMyHome(ReportViewController.java:100)
+	org.bi.platform.service.myreport.controller.ReportViewController$$FastClassBySpringCGLIB$$d46390b0.invoke(<generated>)
+	org.springframework.cglib.proxy.MethodProxy.invoke(MethodProxy.java:204)
+	org.springframework.aop.framework.CglibAopProxy$DynamicAdvisedInterceptor.intercept(CglibAopProxy.java:629)
+	org.bi.platform.service.myreport.controller.ReportViewController$$EnhancerBySpringCGLIB$$8f10103a.queryMyHome(<generated>)
+	sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:39)
+	sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:25)
+	java.lang.reflect.Method.invoke(Method.java:597)
+	org.springframework.web.method.support.InvocableHandlerMethod.invoke(InvocableHandlerMethod.java:215)
+	org.springframework.web.method.support.InvocableHandlerMethod.invokeForRequest(InvocableHandlerMethod.java:132)
+	org.springframework.web.servlet.mvc.method.annotation.ServletInvocableHandlerMethod.invokeAndHandle(ServletInvocableHandlerMethod.java:104)
+	org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.invokeHandleMethod(RequestMappingHandlerAdapter.java:745)
+	org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.handleInternal(RequestMappingHandlerAdapter.java:686)
+	org.springframework.web.servlet.mvc.method.AbstractHandlerMethodAdapter.handle(AbstractHandlerMethodAdapter.java:80)
+	org.springframework.web.servlet.DispatcherServlet.doDispatch(DispatcherServlet.java:925)
+	org.springframework.web.servlet.DispatcherServlet.doService(DispatcherServlet.java:856)
+	org.springframework.web.servlet.FrameworkServlet.processRequest(FrameworkServlet.java:953)
+	org.springframework.web.servlet.FrameworkServlet.doPost(FrameworkServlet.java:855)
+	javax.servlet.http.HttpServlet.service(HttpServlet.java:650)
+	org.springframework.web.servlet.FrameworkServlet.service(FrameworkServlet.java:829)
+	javax.servlet.http.HttpServlet.service(HttpServlet.java:731)
+	org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:303)
+	org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:208)
+	org.springframework.web.filter.CharacterEncodingFilter.doFilterInternal(CharacterEncodingFilter.java:88)
+	org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:107)
+	org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:241)
+	org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:208)
+	org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:220)
+	org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:122)
+	org.apache.catalina.authenticator.AuthenticatorBase.invoke(AuthenticatorBase.java:505)
+	com.radiadesign.catalina.session.RedisSessionHandlerValve.invoke(RedisSessionHandlerValve.java:26)
+	org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:170)
+	org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:103)
+	org.apache.catalina.valves.AccessLogValve.invoke(AccessLogValve.java:956)
+	org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:116)
+	org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:423)
+	org.apache.coyote.http11.AbstractHttp11Processor.process(AbstractHttp11Processor.java:1079)
+	org.apache.coyote.AbstractProtocol$AbstractConnectionHandler.process(AbstractProtocol.java:625)
+	org.apache.tomcat.util.net.JIoEndpoint$SocketProcessor.run(JIoEndpoint.java:316)
+	java.util.concurrent.ThreadPoolExecutor$Worker.runTask(ThreadPoolExecutor.java:886)
+	java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:908)
+	org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:61)
+	java.lang.Thread.run(Thread.java:662)
+ExceptionStackTrace: ---------------end------------------------
+
+2015-12-30 16:26:59 ERROR [http-bio-10008-exec-5] org.apache.log4j.Logger.error(Logger.java:249) - java.lang.NullPointerException
+ExceptionStackTrace: ---------------start------------------------
+	org.apache.catalina.connector.CoyoteWriter.write(CoyoteWriter.java:184)
+	org.bi.webbace.util.MyExceptionHandler.doResolveException(MyExceptionHandler.java:58)
+	org.springframework.web.servlet.handler.AbstractHandlerExceptionResolver.resolveException(AbstractHandlerExceptionResolver.java:136)
+	org.springframework.web.servlet.DispatcherServlet.processHandlerException(DispatcherServlet.java:1148)
+	org.springframework.web.servlet.DispatcherServlet.processDispatchResult(DispatcherServlet.java:985)
+	org.springframework.web.servlet.DispatcherServlet.doDispatch(DispatcherServlet.java:939)
+	org.springframework.web.servlet.DispatcherServlet.doService(DispatcherServlet.java:856)
+	org.springframework.web.servlet.FrameworkServlet.processRequest(FrameworkServlet.java:953)
+	org.springframework.web.servlet.FrameworkServlet.doPost(FrameworkServlet.java:855)
+	javax.servlet.http.HttpServlet.service(HttpServlet.java:650)
+	org.springframework.web.servlet.FrameworkServlet.service(FrameworkServlet.java:829)
+	javax.servlet.http.HttpServlet.service(HttpServlet.java:731)
+	org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:303)
+	org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:208)
+	org.springframework.web.filter.CharacterEncodingFilter.doFilterInternal(CharacterEncodingFilter.java:88)
+	org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:107)
+	org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:241)
+	org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:208)
+	org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:220)
+	org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:122)
+	org.apache.catalina.authenticator.AuthenticatorBase.invoke(AuthenticatorBase.java:505)
+	com.radiadesign.catalina.session.RedisSessionHandlerValve.invoke(RedisSessionHandlerValve.java:26)
+	org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:170)
+	org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:103)
+	org.apache.catalina.valves.AccessLogValve.invoke(AccessLogValve.java:956)
+	org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:116)
+	org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:423)
+	org.apache.coyote.http11.AbstractHttp11Processor.process(AbstractHttp11Processor.java:1079)
+	org.apache.coyote.AbstractProtocol$AbstractConnectionHandler.process(AbstractProtocol.java:625)
+	org.apache.tomcat.util.net.JIoEndpoint$SocketProcessor.run(JIoEndpoint.java:316)
+	java.util.concurrent.ThreadPoolExecutor$Worker.runTask(ThreadPoolExecutor.java:886)
+	java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:908)
+	org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:61)
+	java.lang.Thread.run(Thread.java:662)
+ExceptionStackTrace: ---------------end------------------------
+
+2015-12-30 16:27:33 ERROR [http-bio-10008-exec-9] org.apache.log4j.Logger.error(Logger.java:249) - java.lang.NullPointerException
+ExceptionStackTrace: ---------------start------------------------
+	com.radiadesign.catalina.session.RedisSession.setAttribute(RedisSession.java:54)
+	org.apache.catalina.session.StandardSessionFacade.setAttribute(StandardSessionFacade.java:154)
+	org.bi.platform.service.myreport.module.AnalysisModule.queryMyHome(AnalysisModule.java:317)
+	org.bi.platform.service.myreport.controller.ReportViewController.queryMyHome(ReportViewController.java:100)
+	org.bi.platform.service.myreport.controller.ReportViewController$$FastClassBySpringCGLIB$$d46390b0.invoke(<generated>)
+	org.springframework.cglib.proxy.MethodProxy.invoke(MethodProxy.java:204)
+	org.springframework.aop.framework.CglibAopProxy$DynamicAdvisedInterceptor.intercept(CglibAopProxy.java:629)
+	org.bi.platform.service.myreport.controller.ReportViewController$$EnhancerBySpringCGLIB$$8f10103a.queryMyHome(<generated>)
+	sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:39)
+	sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:25)
+	java.lang.reflect.Method.invoke(Method.java:597)
+	org.springframework.web.method.support.InvocableHandlerMethod.invoke(InvocableHandlerMethod.java:215)
+	org.springframework.web.method.support.InvocableHandlerMethod.invokeForRequest(InvocableHandlerMethod.java:132)
+	org.springframework.web.servlet.mvc.method.annotation.ServletInvocableHandlerMethod.invokeAndHandle(ServletInvocableHandlerMethod.java:104)
+	org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.invokeHandleMethod(RequestMappingHandlerAdapter.java:745)
+	org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.handleInternal(RequestMappingHandlerAdapter.java:686)
+	org.springframework.web.servlet.mvc.method.AbstractHandlerMethodAdapter.handle(AbstractHandlerMethodAdapter.java:80)
+	org.springframework.web.servlet.DispatcherServlet.doDispatch(DispatcherServlet.java:925)
+	org.springframework.web.servlet.DispatcherServlet.doService(DispatcherServlet.java:856)
+	org.springframework.web.servlet.FrameworkServlet.processRequest(FrameworkServlet.java:953)
+	org.springframework.web.servlet.FrameworkServlet.doPost(FrameworkServlet.java:855)
+	javax.servlet.http.HttpServlet.service(HttpServlet.java:650)
+	org.springframework.web.servlet.FrameworkServlet.service(FrameworkServlet.java:829)
+	javax.servlet.http.HttpServlet.service(HttpServlet.java:731)
+	org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:303)
+	org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:208)
+	org.springframework.web.filter.CharacterEncodingFilter.doFilterInternal(CharacterEncodingFilter.java:88)
+	org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:107)
+	org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:241)
+	org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:208)
+	org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:220)
+	org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:122)
+	org.apache.catalina.authenticator.AuthenticatorBase.invoke(AuthenticatorBase.java:505)
+	com.radiadesign.catalina.session.RedisSessionHandlerValve.invoke(RedisSessionHandlerValve.java:26)
+	org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:170)
+	org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:103)
+	org.apache.catalina.valves.AccessLogValve.invoke(AccessLogValve.java:956)
+	org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:116)
+	org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:423)
+	org.apache.coyote.http11.AbstractHttp11Processor.process(AbstractHttp11Processor.java:1079)
+	org.apache.coyote.AbstractProtocol$AbstractConnectionHandler.process(AbstractProtocol.java:625)
+	org.apache.tomcat.util.net.JIoEndpoint$SocketProcessor.run(JIoEndpoint.java:316)
+	java.util.concurrent.ThreadPoolExecutor$Worker.runTask(ThreadPoolExecutor.java:886)
+	java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:908)
+	org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:61)
+	java.lang.Thread.run(Thread.java:662)
+ExceptionStackTrace: ---------------end------------------------
+
+2015-12-30 16:27:33 ERROR [http-bio-10008-exec-9] org.apache.log4j.Logger.error(Logger.java:249) - java.lang.NullPointerException
+ExceptionStackTrace: ---------------start------------------------
+	org.apache.catalina.connector.CoyoteWriter.write(CoyoteWriter.java:184)
+	org.bi.webbace.util.MyExceptionHandler.doResolveException(MyExceptionHandler.java:58)
+	org.springframework.web.servlet.handler.AbstractHandlerExceptionResolver.resolveException(AbstractHandlerExceptionResolver.java:136)
+	org.springframework.web.servlet.DispatcherServlet.processHandlerException(DispatcherServlet.java:1148)
+	org.springframework.web.servlet.DispatcherServlet.processDispatchResult(DispatcherServlet.java:985)
+	org.springframework.web.servlet.DispatcherServlet.doDispatch(DispatcherServlet.java:939)
+	org.springframework.web.servlet.DispatcherServlet.doService(DispatcherServlet.java:856)
+	org.springframework.web.servlet.FrameworkServlet.processRequest(FrameworkServlet.java:953)
+	org.springframework.web.servlet.FrameworkServlet.doPost(FrameworkServlet.java:855)
+	javax.servlet.http.HttpServlet.service(HttpServlet.java:650)
+	org.springframework.web.servlet.FrameworkServlet.service(FrameworkServlet.java:829)
+	javax.servlet.http.HttpServlet.service(HttpServlet.java:731)
+	org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:303)
+	org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:208)
+	org.springframework.web.filter.CharacterEncodingFilter.doFilterInternal(CharacterEncodingFilter.java:88)
+	org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:107)
+	org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:241)
+	org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:208)
+	org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:220)
+	org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:122)
+	org.apache.catalina.authenticator.AuthenticatorBase.invoke(AuthenticatorBase.java:505)
+	com.radiadesign.catalina.session.RedisSessionHandlerValve.invoke(RedisSessionHandlerValve.java:26)
+	org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:170)
+	org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:103)
+	org.apache.catalina.valves.AccessLogValve.invoke(AccessLogValve.java:956)
+	org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:116)
+	org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:423)
+	org.apache.coyote.http11.AbstractHttp11Processor.process(AbstractHttp11Processor.java:1079)
+	org.apache.coyote.AbstractProtocol$AbstractConnectionHandler.process(AbstractProtocol.java:625)
+	org.apache.tomcat.util.net.JIoEndpoint$SocketProcessor.run(JIoEndpoint.java:316)
+	java.util.concurrent.ThreadPoolExecutor$Worker.runTask(ThreadPoolExecutor.java:886)
+	java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:908)
+	org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:61)
+	java.lang.Thread.run(Thread.java:662)
+ExceptionStackTrace: ---------------end------------------------
+

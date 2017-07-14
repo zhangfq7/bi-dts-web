@@ -1,0 +1,4 @@
+2016-04-14 16:26:35 ERROR [http-bio-10008-exec-19] org.bi.platform.service.resmanage.module.DataLinkModule.getResultList(DataLinkModule.java:703) - org.postgresql.util.PSQLException: ERROR: table name "t10065" specified more than once
+2016-04-14 16:28:46 ERROR [http-bio-10008-exec-21] org.bi.platform.service.resmanage.module.DataModule.queryColumnInfoAndData(DataModule.java:4170) - 查询列信息和列数据信息失败:org.postgresql.util.PSQLException: ERROR: relation "bi.t10158_tmp" does not exist
+  位置：55
+2016-04-14 16:29:22 ERROR [http-bio-10008-exec-18] org.bi.platform.service.resmanage.module.DataLinkModule.getResultList(DataLinkModule.java:703) - org.postgresql.util.PSQLException: ERROR: table name "t10065" specified more than once

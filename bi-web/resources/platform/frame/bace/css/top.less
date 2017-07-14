@@ -1,0 +1,148 @@
+@navBg:#027EBE;
+@navFontSize:14px;
+@navHeight:52px;
+@navlistColor:#fff;
+@navlistHoverBg:#0773AB;
+.bi-nav{
+    position: absolute;
+    left: 0;
+    right: 0;
+    height: @navHeight;
+    background: @navBg;
+    font-size: @navFontSize;
+    min-width: 1024px;
+    z-index:2;
+    >div{
+        position: absolute;
+        height: @navHeight;
+        line-height: @navHeight;
+    }   
+    .logo{
+        width: 300px;
+        margin: 0 10px;
+    }
+    .list{
+        margin-left: 300px;
+        >ul>li.checked{
+            color: #333!important;;
+            background: #fff!important;
+        }
+        >ul>li{
+            margin: 0;
+            padding: 0;
+            list-style-type: none;
+            float: left;
+            cursor:pointer; 
+            color: @navlistColor; 
+            >a{  
+                display: inline-block;
+                padding: 0 20px;
+                height: @navHeight;
+                color: inherit;
+                line-height: @navHeight;
+                .down{
+                    margin-left: 5px;
+                    margin-top: -3px;
+                    vertical-align: middle;
+                    color: inherit;
+                }
+            }
+            >span{
+                padding: 0 35px 0 20px;
+                color: @navlistColor; 
+            }
+            &:hover{
+                background: @navlistHoverBg;
+            }
+            .bi-nav-child {
+                position: absolute;
+                margin-top: 0px;
+                background: #fff;
+                width: 732px;
+                @media screen and (max-width: 1200px) {
+                    width: 560px;
+                }
+                border-radius: 0!important;
+                font-size: 14px;
+                // box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+                box-shadow: 1px 1px 8px rgba(0,0,0,0.2);
+                visibility: hidden;
+                z-index: -1;
+                -webkit-animation: flipInY .6s 0s ease both;
+                -moz-animation: flipInY .6s 0s ease both;
+               
+               li {
+                    list-style-type: none;
+                    display:inline-block;
+                    width: 160px;
+                    
+                    .nav-list-title {
+                        padding-left: 3px;
+                        border-bottom: 1px solid #d7d7d7;
+                        height: 23px;
+                        line-height: 22px;
+                        color: #999999;
+                        font-size: 14px;
+                    }
+                    .nav-list {
+                        margin-top: 5px;
+                        color: #4B4B4B;
+                        >a {
+                            display: block;
+                            color: #444;
+                            padding-left: 5px;
+                            height: 26px;
+                            line-height: 26px;
+                            cursor: pointer;
+                            &:hover {
+                                background: #EAEAEA;
+                            }
+                            span {
+                                margin: 0 7px;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+    .user{
+        width: 200px;
+        right: 0;
+        cursor: pointer;
+        .head-img{
+            position: relative;
+            width: 50px;
+            img{
+                width: 44px;
+                height: 44px;
+                border-radius: 50%;
+                margin-top: -1px;
+            }
+            .noreadNum{
+                position: absolute;
+                top:8px;
+                right:9px;
+            }
+        }
+        .head-font{
+            position: absolute;
+            top:2px;
+            right: 22px;
+            color: @navlistColor; 
+        }
+    }
+}
+
+@-webkit-keyframes flipInY{
+0%{-webkit-transform:perspective(2200px) rotateY(28deg);
+opacity:0}
+100%{-webkit-transform:perspective(2200px) rotateY(0deg);
+opacity:1}
+}
+@-moz-keyframes flipInY{
+0%{-moz-transform:perspective(2200px) rotateY(28deg);
+opacity:0}
+100%{-moz-transform:perspective(2200px) rotateY(0deg);
+opacity:1}
+}

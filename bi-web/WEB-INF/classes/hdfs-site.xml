@@ -1,0 +1,167 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-stylesheet type="text/xsl" href="configuration.xsl"?>
+<!--
+  Licensed under the Apache License, Version 2.0 (the "License");
+  you may not use this file except in compliance with the License.
+  You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License. See accompanying LICENSE file.
+-->
+
+<!-- Put site-specific property overrides in this file. -->
+
+<configuration>
+
+    <property>
+        <name>dfs.nameservices</name>
+        <value>qahd</value>
+    </property>
+
+    <property>
+        <name>dfs.ha.namenodes.qahd</name>
+        <value>nn1,nn2</value>
+    </property>
+
+    <property>
+        <name>dfs.namenode.rpc-address.qahd.nn1</name>
+        <value>hdnn01:8020</value>
+    </property>
+
+    <property>
+        <name>dfs.namenode.http-address.qahd.nn1</name>
+        <value>hdnn01:50070</value>
+    </property>
+
+    <property>
+        <name>dfs.namenode.secondary.http-address.qahd.nn1</name>
+        <value>hdnn01:50090</value>
+    </property>
+
+    <property>
+        <name>dfs.namenode.rpc-address.qahd.nn2</name>
+        <value>hdnn02:8020</value>
+    </property>
+
+    <property>
+        <name>dfs.namenode.http-address.qahd.nn2</name>
+        <value>hdnn02:50070</value>
+    </property>
+
+    <property>
+        <name>dfs.namenode.secondary.http-address.qahd.nn2</name>
+        <value>hdnn02:50090</value>
+    </property>
+
+    <property>
+        <name>dfs.namenode.shared.edits.dir</name>
+        <value>qjournal://hdzk1:8485;hdzk2:8485;hdzk3:8485/qahd</value>
+    </property>
+
+    <property>
+        <name>dfs.journalnode.edits.dir</name>
+        <value>/home/hadoop/default/journal</value>
+    </property>
+
+    <property>
+        <name>dfs.ha.automatic-failover.enabled</name>
+        <value>true</value>
+    </property>
+
+    <property>
+        <name>dfs.client.failover.proxy.provider.qahd</name>
+        <value>org.apache.hadoop.hdfs.server.namenode.ha.ConfiguredFailoverProxyProvider</value>
+    </property>
+
+    <property>
+        <name>dfs.ha.fencing.methods</name>
+        <value>sshfence</value>
+    </property>
+
+    <property>
+        <name>dfs.ha.fencing.ssh.private-key-files</name>
+        <value>/home/hadoop/.ssh/id_rsa</value>
+    </property>
+
+        <property>
+                <name>dfs.namenode.name.dir</name>
+                <value>/home/hadoop/default/namenode/repository</value>
+        </property>
+
+        <property>
+                <name>dfs.namenode.checkpoint.dir</name>
+                <value>/home/hadoop/default/namenode/checkpoint</value>
+        </property>
+
+        <property>
+                <name>dfs.datanode.data.dir</name>
+                <value>/hdfs/hadoop-2.3.0/datanode</value>
+        </property>
+
+        <property>
+                <name>dfs.replication</name>
+                <value>2</value>
+        </property>
+
+        <property>
+                <name>dfs.permissions.enabled</name>
+                <value>true</value>
+                <description>If "true", enable permission checking in HDFS. If "false", permission checking is turned off, but all other behavior is unchanged. Switching from one parameter value to the other does not change the mode, owner or group of files or directories.</description>
+        </property>
+
+        <property>
+                <name>dfs.qjournal.start-segment.timeout.ms</name>
+                <value>600000000</value>
+        </property>
+
+        <property>
+                <name>dfs.qjournal.prepare-recovery.timeout.ms</name>
+                <value>600000000</value>
+        </property>
+
+        <property>
+                <name>dfs.qjournal.accept-recovery.timeout.ms</name>
+                <value>600000000</value>
+        </property>
+
+        <property>
+                <name>dfs.qjournal.prepare-recovery.timeout.ms</name>
+                <value>600000000</value>
+        </property>
+
+        <property>
+                <name>dfs.qjournal.accept-recovery.timeout.ms</name>
+                <value>600000000</value>
+        </property>
+
+        <property>
+                <name>dfs.qjournal.finalize-segment.timeout.ms</name>
+                <value>600000000</value>
+        </property>
+
+        <property>
+                <name>dfs.qjournal.select-input-streams.timeout.ms</name>
+                <value>600000000</value>
+        </property>
+
+        <property>
+                <name>dfs.qjournal.get-journal-state.timeout.ms</name>
+                <value>600000000</value>
+        </property>
+
+        <property>
+                <name>dfs.qjournal.new-epoch.timeout.ms</name>
+                <value>600000000</value>
+        </property>
+
+        <property>
+                <name>dfs.qjournal.write-txns.timeout.ms</name>
+                <value>600000000</value>
+        </property>
+
+</configuration>

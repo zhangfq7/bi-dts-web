@@ -1,0 +1,1 @@
+var topMsgMap={"top.msg.logout":{zh:"退出",en:"Logout"},"top.msg.confrm.logout":{zh:"您确定要退出系统吗？",en:"Are you sure you want to exit the system?"}};

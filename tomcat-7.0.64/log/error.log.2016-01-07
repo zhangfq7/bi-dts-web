@@ -1,0 +1,2 @@
+2016-01-07 16:20:37 ERROR [http-bio-10008-exec-10] org.bi.platform.service.resmanage.module.DataModule.queryColumnDataList(DataModule.java:4104) - 数据生成后查看列表获取失败:org.postgresql.util.PSQLException: ERROR: relation "bi.t12640" does not exist
+  Position: 119

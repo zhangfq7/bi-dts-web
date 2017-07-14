@@ -1,0 +1,1 @@
+2016-03-29 14:58:03 ERROR [http-bio-10008-exec-5] org.bi.webbace.util.RequestUrlUtil.judgeUserRight(RequestUrlUtil.java:319) - 用户[ADMIN]没有功能模块[LOGIN]下URL：/manage/frame的访问权限

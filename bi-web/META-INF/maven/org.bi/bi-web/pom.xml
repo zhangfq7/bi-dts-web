@@ -1,0 +1,57 @@
+<?xml version="1.0"?>
+<project
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd"
+	xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<modelVersion>4.0.0</modelVersion>
+	<parent>
+		<artifactId>saas-bi</artifactId>
+		<groupId>org.bi</groupId>
+		<version>1.0.0-SNAPSHOT</version>
+		<relativePath>../saas-bi</relativePath>
+	</parent>
+	<groupId>org.bi</groupId>
+	<artifactId>bi-web</artifactId>
+	<version>1.0.0-SNAPSHOT</version>
+	<packaging>war</packaging>
+	<name>bi-web</name>
+	<url>http://maven.apache.org</url>
+	<properties>
+		<bi-web-platform.version>1.0.0-SNAPSHOT</bi-web-platform.version>
+		<bi-web-manage.version>1.0.0-SNAPSHOT</bi-web-manage.version>
+		<bi-web-mobile.version>1.0.0-SNAPSHOT</bi-web-mobile.version>
+		<bi-web-sso.version>1.0.0-SNAPSHOT</bi-web-sso.version>
+	    <bi-web-thirdface.version>1.0.0-SNAPSHOT</bi-web-thirdface.version>
+	    <bi-web-fetch.version>1.0.0-SNAPSHOT</bi-web-fetch.version>
+	</properties>
+	<dependencies>
+		<dependency>
+			<groupId>org.apache.tomcat</groupId>
+			<artifactId>servlet-api</artifactId>
+			<version>6.0.37</version>
+			<scope>provided</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.bi</groupId>
+			<artifactId>bi-web-platform</artifactId>
+			<version>${bi-web-platform.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.bi</groupId>
+			<artifactId>bi-web-manage</artifactId>
+			<version>${bi-web-manage.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.bi</groupId>
+			<artifactId>bi-web-sso</artifactId>
+			<version>${bi-web-sso.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.bi</groupId>
+			<artifactId>bi-web-thirdface</artifactId>
+			<version>${bi-web-thirdface.version}</version>
+		</dependency>
+	</dependencies>
+	<build>
+		<finalName>bi-web</finalName>
+	</build>
+</project>

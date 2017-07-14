@@ -1,0 +1,88 @@
+八月 08, 2016 11:25:27 上午 org.apache.catalina.startup.Catalina initDirs
+严重: Cannot find specified temporary folder at /home/zhujian/tomcat-7.0.64/temp
+八月 08, 2016 11:25:28 上午 org.apache.catalina.startup.VersionLoggerListener log
+信息: Server version:        Apache Tomcat/7.0.64
+八月 08, 2016 11:25:28 上午 org.apache.catalina.startup.VersionLoggerListener log
+信息: Server built:          Aug 19 2015 17:18:06 UTC
+八月 08, 2016 11:25:28 上午 org.apache.catalina.startup.VersionLoggerListener log
+信息: Server number:         7.0.64.0
+八月 08, 2016 11:25:28 上午 org.apache.catalina.startup.VersionLoggerListener log
+信息: OS Name:               Linux
+八月 08, 2016 11:25:28 上午 org.apache.catalina.startup.VersionLoggerListener log
+信息: OS Version:            3.10.0-327.el7.x86_64
+八月 08, 2016 11:25:28 上午 org.apache.catalina.startup.VersionLoggerListener log
+信息: Architecture:          amd64
+八月 08, 2016 11:25:28 上午 org.apache.catalina.startup.VersionLoggerListener log
+信息: Java Home:             /usr/lib/jvm/java-1.8.0-openjdk-1.8.0.65-3.b17.el7.x86_64/jre
+八月 08, 2016 11:25:28 上午 org.apache.catalina.startup.VersionLoggerListener log
+信息: JVM Version:           1.8.0_65-b17
+八月 08, 2016 11:25:28 上午 org.apache.catalina.startup.VersionLoggerListener log
+信息: JVM Vendor:            Oracle Corporation
+八月 08, 2016 11:25:28 上午 org.apache.catalina.startup.VersionLoggerListener log
+信息: CATALINA_BASE:         /home/zhujian/tomcat-7.0.64
+八月 08, 2016 11:25:28 上午 org.apache.catalina.startup.VersionLoggerListener log
+信息: CATALINA_HOME:         /home/zhujian/tomcat-7.0.64
+八月 08, 2016 11:25:28 上午 org.apache.catalina.startup.VersionLoggerListener log
+信息: Command line argument: -Djava.util.logging.config.file=/home/zhujian/tomcat-7.0.64/conf/logging.properties
+八月 08, 2016 11:25:28 上午 org.apache.catalina.startup.VersionLoggerListener log
+信息: Command line argument: -Djava.util.logging.manager=org.apache.juli.ClassLoaderLogManager
+八月 08, 2016 11:25:28 上午 org.apache.catalina.startup.VersionLoggerListener log
+信息: Command line argument: -Xms512m
+八月 08, 2016 11:25:28 上午 org.apache.catalina.startup.VersionLoggerListener log
+信息: Command line argument: -Xmx1024m
+八月 08, 2016 11:25:28 上午 org.apache.catalina.startup.VersionLoggerListener log
+信息: Command line argument: -XX:PermSize=512M
+八月 08, 2016 11:25:28 上午 org.apache.catalina.startup.VersionLoggerListener log
+信息: Command line argument: -XX:MaxPermSize=1025m
+八月 08, 2016 11:25:28 上午 org.apache.catalina.startup.VersionLoggerListener log
+信息: Command line argument: -Dorg.apache.catalina.security.SecurityListener.UMASK=0002
+八月 08, 2016 11:25:28 上午 org.apache.catalina.startup.VersionLoggerListener log
+信息: Command line argument: -Xdebug
+八月 08, 2016 11:25:28 上午 org.apache.catalina.startup.VersionLoggerListener log
+信息: Command line argument: -Xnoagent
+八月 08, 2016 11:25:28 上午 org.apache.catalina.startup.VersionLoggerListener log
+信息: Command line argument: -Djava.compiler=NONE
+八月 08, 2016 11:25:28 上午 org.apache.catalina.startup.VersionLoggerListener log
+信息: Command line argument: -Xrunjdwp:transport=dt_socket,server=y,suspend=n,address=5566
+八月 08, 2016 11:25:28 上午 org.apache.catalina.startup.VersionLoggerListener log
+信息: Command line argument: -Djava.endorsed.dirs=/home/zhujian/tomcat-7.0.64/endorsed
+八月 08, 2016 11:25:28 上午 org.apache.catalina.startup.VersionLoggerListener log
+信息: Command line argument: -Dcatalina.base=/home/zhujian/tomcat-7.0.64
+八月 08, 2016 11:25:28 上午 org.apache.catalina.startup.VersionLoggerListener log
+信息: Command line argument: -Dcatalina.home=/home/zhujian/tomcat-7.0.64
+八月 08, 2016 11:25:28 上午 org.apache.catalina.startup.VersionLoggerListener log
+信息: Command line argument: -Djava.io.tmpdir=/home/zhujian/tomcat-7.0.64/temp
+八月 08, 2016 11:25:28 上午 org.apache.catalina.core.AprLifecycleListener lifecycleEvent
+信息: The APR based Apache Tomcat Native library which allows optimal performance in production environments was not found on the java.library.path: /usr/java/packages/lib/amd64:/usr/lib64:/lib64:/lib:/usr/lib
+八月 08, 2016 11:25:28 上午 org.apache.coyote.AbstractProtocol init
+信息: Initializing ProtocolHandler ["http-bio-8080"]
+八月 08, 2016 11:25:28 上午 org.apache.coyote.AbstractProtocol init
+信息: Initializing ProtocolHandler ["ajp-bio-8009"]
+八月 08, 2016 11:25:28 上午 org.apache.catalina.startup.Catalina load
+信息: Initialization processed in 1592 ms
+八月 08, 2016 11:25:29 上午 org.apache.catalina.core.StandardService startInternal
+信息: Starting service Catalina
+八月 08, 2016 11:25:29 上午 org.apache.catalina.core.StandardEngine startInternal
+信息: Starting Servlet Engine: Apache Tomcat/7.0.64
+八月 08, 2016 11:25:29 上午 org.apache.coyote.AbstractProtocol start
+信息: Starting ProtocolHandler ["http-bio-8080"]
+八月 08, 2016 11:25:29 上午 org.apache.coyote.AbstractProtocol start
+信息: Starting ProtocolHandler ["ajp-bio-8009"]
+八月 08, 2016 11:25:29 上午 org.apache.catalina.startup.Catalina start
+信息: Server startup in 111 ms
+八月 08, 2016 11:25:43 上午 org.apache.catalina.core.StandardServer await
+信息: A valid shutdown command was received via the shutdown port. Stopping the Server instance.
+八月 08, 2016 11:25:43 上午 org.apache.coyote.AbstractProtocol pause
+信息: Pausing ProtocolHandler ["http-bio-8080"]
+八月 08, 2016 11:25:43 上午 org.apache.coyote.AbstractProtocol pause
+信息: Pausing ProtocolHandler ["ajp-bio-8009"]
+八月 08, 2016 11:25:43 上午 org.apache.catalina.core.StandardService stopInternal
+信息: Stopping service Catalina
+八月 08, 2016 11:25:43 上午 org.apache.coyote.AbstractProtocol stop
+信息: Stopping ProtocolHandler ["http-bio-8080"]
+八月 08, 2016 11:25:43 上午 org.apache.coyote.AbstractProtocol stop
+信息: Stopping ProtocolHandler ["ajp-bio-8009"]
+八月 08, 2016 11:25:43 上午 org.apache.coyote.AbstractProtocol destroy
+信息: Destroying ProtocolHandler ["http-bio-8080"]
+八月 08, 2016 11:25:43 上午 org.apache.coyote.AbstractProtocol destroy
+信息: Destroying ProtocolHandler ["ajp-bio-8009"]
