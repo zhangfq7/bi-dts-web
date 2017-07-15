@@ -1,7 +1,0 @@
-2016-01-20 09:37:26 ERROR [Thread-16] org.apache.log4j.Logger.error(Logger.java:249) - java.lang.IndexOutOfBoundsException: Index: 0, Size: 0
-ExceptionStackTrace: ---------------start------------------------
-	java.util.ArrayList.RangeCheck(ArrayList.java:547)
-	java.util.ArrayList.remove(ArrayList.java:387)
-	org.bi.webbace.util.VisitLoggerUtil$VisitLogThread.run(VisitLoggerUtil.java:154)
-ExceptionStackTrace: ---------------end------------------------
-

@@ -1,3 +1,0 @@
-2016-06-02 17:39:41 ERROR [http-bio-10008-exec-6] org.bi.webbace.util.RequestUrlUtil.judgeUserRight(RequestUrlUtil.java:319) - 用户[U1000039]没有功能模块[MANAGE_USER]下URL：/platform/sysmanage/safety/bind-mobile的访问权限
-2016-06-02 17:45:58 ERROR [http-bio-10008-exec-9] org.bi.webbace.util.RequestUrlUtil.judgeUserRight(RequestUrlUtil.java:319) - 用户[U1000039]没有功能模块[MANAGE_USER]下URL：/platform/sysmanage/safety/bind-mobile的访问权限
-2016-06-02 17:48:56 ERROR [http-bio-10008-exec-3] org.bi.webbace.util.RequestUrlUtil.judgeUserRight(RequestUrlUtil.java:319) - 用户[U1000039]没有功能模块[MANAGE_USER]下URL：/platform/sysmanage/safety/bind-mobile的访问权限

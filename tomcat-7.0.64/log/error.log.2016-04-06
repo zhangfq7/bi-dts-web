@@ -1,4 +1,0 @@
-2016-04-06 09:57:09 ERROR [http-bio-10008-exec-10] org.bi.webbace.util.RequestUrlUtil.judgeUserRight(RequestUrlUtil.java:319) - 用户[U1000000]没有功能模块[DATA_MANAGE]下URL：/platform/resmanage/datalink/data-dimension-filter的访问权限
-2016-04-06 09:57:09 ERROR [http-bio-10008-exec-7] org.bi.webbace.util.RequestUrlUtil.judgeUserRight(RequestUrlUtil.java:319) - 用户[U1000000]没有功能模块[DATA_MANAGE]下URL：/platform/resmanage/datalink/getTreeData的访问权限
-2016-04-06 09:57:14 ERROR [http-bio-10008-exec-2] org.bi.webbace.util.RequestUrlUtil.judgeUserRight(RequestUrlUtil.java:319) - 用户[U1000000]没有功能模块[DATA_MANAGE]下URL：/platform/resmanage/datalink/data-dimension-filter的访问权限
-2016-04-06 09:57:14 ERROR [http-bio-10008-exec-8] org.bi.webbace.util.RequestUrlUtil.judgeUserRight(RequestUrlUtil.java:319) - 用户[U1000000]没有功能模块[DATA_MANAGE]下URL：/platform/resmanage/datalink/getTreeData的访问权限

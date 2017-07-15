@@ -1,7 +1,0 @@
-2016-01-12 16:24:30 ERROR [http-bio-10008-exec-9] org.bi.platform.service.resmanage.module.DataModule.getTableData(DataModule.java:2851) - 导入数据库表获取源数据库数据失败:org.postgresql.util.PSQLException: ERROR: column "a1053720_tmp" does not exist
-  Position: 8
-2016-01-12 16:24:30 ERROR [http-bio-10008-exec-9] org.bi.platform.service.resmanage.module.DataModule.createFileTmpTable(DataModule.java:2946) - 数据修改时创建临时表异常:java.lang.StringIndexOutOfBoundsException: String index out of range: -1
-2016-01-12 18:33:11 ERROR [http-bio-10008-exec-10] org.bi.platform.service.resmanage.module.DataModule.delCompanyTable(DataModule.java:3980) - 删除企业数据库表失败:org.postgresql.util.PSQLException: ERROR: table "t12699_tmp" does not exist
-2016-01-12 18:43:00 ERROR [http-bio-10008-exec-1] org.bi.platform.service.resmanage.module.DataModule.getTableData(DataModule.java:2864) - 导入数据库表获取源数据库数据失败:org.postgresql.util.PSQLException: ERROR: column "a1053790_tmp" does not exist
-  Position: 8
-2016-01-12 18:43:00 ERROR [http-bio-10008-exec-1] org.bi.platform.service.resmanage.module.DataModule.createTableTmpTable(DataModule.java:3084) - 数据修改时创建临时表异常:java.lang.StringIndexOutOfBoundsException: String index out of range: -1

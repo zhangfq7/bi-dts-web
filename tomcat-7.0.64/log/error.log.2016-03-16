@@ -1,7 +1,0 @@
-2016-03-16 10:14:03 ERROR [http-bio-10008-exec-4] org.bi.platform.service.resmanage.module.DataModule.processFunc(DataModule.java:1175) - 函数生成数据异常:org.postgresql.util.PSQLException: ERROR: column "山东" does not exist
-  Position: 21
-2016-03-16 10:14:27 ERROR [http-bio-10008-exec-7] org.bi.platform.service.resmanage.module.DataModule.processFunc(DataModule.java:1175) - 函数生成数据异常:org.postgresql.util.PSQLException: ERROR: operator does not exist: character varying == unknown
-  Hint: No operator matches the given name and argument type(s). You might need to add explicit type casts.
-  Position: 20
-2016-03-16 10:15:21 ERROR [http-bio-10008-exec-6] org.bi.platform.service.resmanage.module.DataModule.processFunc(DataModule.java:1175) - 函数生成数据异常:org.postgresql.util.PSQLException: ERROR: syntax error at or near "else"
-  Position: 33

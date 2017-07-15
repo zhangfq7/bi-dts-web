@@ -1,2 +1,0 @@
-2016-05-18 10:32:32 ERROR [http-bio-10008-exec-6] org.bi.platform.service.resmanage.module.DataModule.getTableData(DataModule.java:3406) - 导入数据库表获取源数据库数据失败:org.postgresql.util.PSQLException: ERROR: relation "bi.t10202" does not exist
-  Position: 116

@@ -1,8 +1,0 @@
-2016-01-28 13:56:21 ERROR [http-bio-10008-exec-10] org.bi.platform.service.resmanage.module.DataModule.queryDimName(DataModule.java:1471) - 维度切换查询维度失败:org.postgresql.util.PSQLException: ERROR: syntax error at or near ")"
-  Position: 89
-2016-01-28 19:45:35 ERROR [http-bio-10008-exec-2] org.bi.platform.service.resmanage.module.DataModule.processFunc(DataModule.java:943) - 函数生成数据异常:org.postgresql.util.PSQLException: ERROR: column "a" does not exist
-  Position: 8
-2016-01-28 19:46:00 ERROR [http-bio-10008-exec-6] org.bi.platform.service.resmanage.module.DataModule.processFunc(DataModule.java:943) - 函数生成数据异常:org.postgresql.util.PSQLException: ERROR: column "a" does not exist
-  Position: 12
-2016-01-28 19:46:15 ERROR [http-bio-10008-exec-6] org.bi.platform.service.resmanage.module.DataModule.processFunc(DataModule.java:943) - 函数生成数据异常:org.postgresql.util.PSQLException: ERROR: column "a" does not exist
-  Position: 12

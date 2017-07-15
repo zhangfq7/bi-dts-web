@@ -1,6 +1,0 @@
-2016-07-27 17:42:00 ERROR [http-bio-10008-exec-136] org.bi.platform.service.resmanage.module.DataModule.processFunc(DataModule.java:1210) - 函数生成数据异常:org.postgresql.util.PSQLException: ERROR: operator does not exist: character varying + character varying
-  Hint: No operator matches the given name and argument type(s). You might need to add explicit type casts.
-  Position: 14
-2016-07-27 17:42:16 ERROR [http-bio-10008-exec-142] org.bi.platform.service.resmanage.module.DataModule.processFunc(DataModule.java:1210) - 函数生成数据异常:org.postgresql.util.PSQLException: ERROR: operator does not exist: character varying | character varying
-  Hint: No operator matches the given name and argument type(s). You might need to add explicit type casts.
-  Position: 14

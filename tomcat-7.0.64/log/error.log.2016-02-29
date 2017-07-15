@@ -1,2 +1,0 @@
-2016-02-29 17:08:56 ERROR [http-bio-10008-exec-7] org.bi.platform.service.resmanage.module.DataModule.createFileTmpTable(DataModule.java:3336) - 数据修改时创建临时表异常:org.postgresql.util.PSQLException: ERROR: duplicate key value violates unique constraint "pg_type_typname_nsp_index"
-  Detail: Key (typname, typnamespace)=(t13511_tmp, 16403) already exists.

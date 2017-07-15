@@ -1,6 +1,0 @@
-2016-04-16 13:12:49 ERROR [ZkClient-EventThread-33-10.1.235.12:2181] org.I0Itec.zkclient.ZkEventThread.run(ZkEventThread.java:77) - Error handling event ZkEvent[New session event sent to kafka.consumer.ZookeeperConsumerConnector$ZKSessionExpireListener@180b97a9]
-kafka.common.ConsumerRebalanceFailedException: GROUPID0_host-10-1-235-12-1460698962808-c42ff644 can't rebalance after 4 retries
-	at kafka.consumer.ZookeeperConsumerConnector$ZKRebalancerListener.syncedRebalance(ZookeeperConsumerConnector.scala:633)
-	at kafka.consumer.ZookeeperConsumerConnector$ZKSessionExpireListener.handleNewSession(ZookeeperConsumerConnector.scala:487)
-	at org.I0Itec.zkclient.ZkClient$4.run(ZkClient.java:472)
-	at org.I0Itec.zkclient.ZkEventThread.run(ZkEventThread.java:71)
