@@ -48,6 +48,8 @@ ENV dts_IS_LOG_PUSH_ON=0
 ENV dts_URL_INFO_NUM=8
 ENV dts_net_type=rpc
 
+ENV dts_citic_oc_rest_url=10.247.33.82:8080
+
 RUN chmod 755 /usr/java/jdk1.7.0_79/bin/*
 WORKDIR $CATALINA_HOME/bin
 RUN  chmod 755 *.sh
