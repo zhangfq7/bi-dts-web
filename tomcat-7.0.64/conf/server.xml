@@ -140,7 +140,7 @@
          <Context path="/bi-web" docBase="/home/dts/bi-web" workDir="/home/dts/tmp/work" debug="0" reloadable="false" crossContext="true">
                 <Valve className="com.radiadesign.catalina.session.RedisSessionHandlerValve" />
                 <Manager className="com.radiadesign.catalina.session.RedisSessionManager"
-                        host="redis"
+                        host="10.247.33.85"
                         port="6379"
                         database="0"
                         password="banana"
