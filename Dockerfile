@@ -14,6 +14,7 @@ ENV dts_docker=1
 
 ENV dts_zk_address=10.247.33.85:2181
 
+ENV dts_db_type=postgresql
 ENV dts_driver_class_name=org.postgresql.Driver
 ENV dts_jdbc_url=jdbc:postgresql://10.247.33.85:5432/dts
 ENV dts_jdbc_user_name=dts01
