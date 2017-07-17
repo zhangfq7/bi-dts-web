@@ -34,7 +34,7 @@ ENV dts_redis_ip=10.247.33.85
 ENV dts_redis_port=6379
 ENV dts_redis_database=1
 ENV dts_redis_auth=true
-ENV dts_redis_password=foobaredd
+ENV dts_redis_password=foobared
 
 ENV dts_runMode=debug
 ENV dts_repeatLogin=1
