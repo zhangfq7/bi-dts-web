@@ -326,7 +326,8 @@ function ajax(config) {
 					cssClass: 'timeout-dialog',
 					onshown: function(){
 						setTimeout(function() {
-							top.document.location.href = webpath + "/platform/login/page";
+							//top.document.location.href = webpath + "/platform/login/page";
+							top.document.location.href = "portal.dev-citic.dataos.io/bi-web/sso/union-entry";
 						},5000);
 					}
 				});

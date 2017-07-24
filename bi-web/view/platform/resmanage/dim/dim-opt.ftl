@@ -20,7 +20,22 @@
 <div id="firstStep-div" class="step-div">
 	<div class="content-div">
 	<form class="form-horizontal validationEngineContainer">
+	
+
+	 
 		<fieldset>
+		
+	   <div class="form-group form-group-sm">
+	   <label class="my-label-30">选择对应的租户：</label>
+	   		<div class="my-text-40 text-left">
+				 <select id="projectId">
+			<#list projectList as projectBean>
+	            <option value="${projectBean.labelCode}">${projectBean.labelName}</option>
+			</#list>
+	        </select>
+			</div>
+	 </div>
+	 
 			<div class="form-group form-group-sm">
 				<label class="my-label-30"><@spring.message code="dim.opt.label.dimName"/></label>
 				<div class="my-text-40">

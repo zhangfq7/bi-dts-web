@@ -73,6 +73,13 @@ var publishType = '${publishType}';
 var webpath = '${webpath}';
 var sessionUserId='${Session.UserSessBean.userID}';
 var jobIds='';
+var navyMenuShow ='${isNavyShow}';
+if(navyMenuShow!="0"){
+    $("#nav").show();
+}else{
+    $("#nav").hide();
+}
+
 <#list Session.UserSessBean.jobIdArray as jobId>
 	jobIds +='${jobId}';
 </#list>
@@ -86,6 +93,7 @@ _require(
 },
 'reportManage'
 );
+
 </script>
 
 

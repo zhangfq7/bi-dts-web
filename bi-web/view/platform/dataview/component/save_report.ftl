@@ -50,7 +50,7 @@
 				</#list>
 		</div>
 	</div>
-	<div >
+	<div id="navShow">
 		<div class="form-label" style="vertical-align:top">一级导航：</div>
 		<div class="form-control">
 			<select id="naviLevel1" style="width:150px">
@@ -62,5 +62,9 @@
 			</select>
 		</div>
 	</div>
-
 </div>
+<script>
+    var isNavyShow = '${isNavyShow}';
+	(isNavyShow!="0")?$("#navShow").show():$("#navShow").hide();
+
+</script>

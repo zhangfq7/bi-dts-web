@@ -52,6 +52,20 @@
 
 <div style="display:none">
 	<div id="add-page" class="validationEngineContainer">
+        <div class="add-group-dialog">
+            <label class="col-xs-3 control-label">
+			<@spring.message code="group.label.projectName" />
+            </label>
+            <div class="add-group-list-div col-xs-6">
+                <select class="chosen-select form-control" id="groupProjectId">
+                    <option value="">请选择租户</option>
+				<#list projectLabelBeanList as labelBean>
+                        <option value="${labelBean.labelCode}">${labelBean.labelName}</option>
+				</#list>
+                </select>
+            </div>
+            <div style="clear:both;"></div>
+        </div>
 		<div class="add-group-dialog">
 			<label class="col-xs-3 control-label">
 				<@spring.message code="group.label.parentGroupName" />
