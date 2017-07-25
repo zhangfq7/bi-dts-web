@@ -137,7 +137,7 @@
         <Valve className="org.apache.catalina.valves.AccessLogValve" directory="logs"
                prefix="localhost_access_log." suffix=".txt"
                pattern="%h %l %u %t &quot;%r&quot; %s %b" />
-         <Context path="/bi-web" docBase="/home/dts/bi-web" workDir="/home/dts/tmp/work" debug="0" reloadable="false" crossContext="true">
+         <Context path="/DTS" docBase="/home/dts/bi-web" workDir="/home/dts/tmp/work" debug="0" reloadable="false" crossContext="true">
                 <Valve className="com.radiadesign.catalina.session.RedisSessionHandlerValve" />
                 <Manager className="com.radiadesign.catalina.session.RedisSessionManager"
                         host="10.247.33.85"
