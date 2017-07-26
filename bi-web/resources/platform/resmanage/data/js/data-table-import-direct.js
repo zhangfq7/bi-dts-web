@@ -187,15 +187,10 @@ define(['sabace'], function(sabace) {
 				success: function(req) {
 					// 查询成功
 					initClassify(req.classifyList);
+					jQuery("#classifySel").val(tableConfigInfo.classifyId).trigger("chosen:updated");
 				},
 				error: function(req) {}
 			});
-			
-			jQuery("#classifySel").val(tableConfigInfo.classifyId);
-			alert('tableConfigInfo.classifyId:'+tableConfigInfo.classifyId);
-			jQuery("#classifySel").find("option[value='"+tableConfigInfo.classifyId+"']").attr("selected",true);
-			
-			jQuery("#classifySel").trigger("chosen:updated");
 			
 			jQuery('#dataTable').val(tableConfigInfo.dataTable);
 			jQuery('#dataName').val(tableConfigInfo.dataName);
