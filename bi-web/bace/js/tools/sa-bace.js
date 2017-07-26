@@ -322,12 +322,13 @@ function ajax(config) {
 				bi.dialog.show({
 					type:bi.dialog.TYPE_INFO,
 					title: '系统提醒',
-					message: msg + '<a href="'+webpath+'/platform/login/page">点我登陆</a>',
+					//message: msg + '<a href="'+webpath+'/platform/login/page">点我登陆</a>',
+					message: msg + '<a href="#" onclick="onshown()">点我登陆</a>',
 					cssClass: 'timeout-dialog',
 					onshown: function(){
 						setTimeout(function() {
 							//top.document.location.href = webpath + "/platform/login/page";
-							top.document.location.href = "portal.dev-citic.dataos.io/bi-web/sso/union-entry";
+							top.document.location.href ="http://portal.dev-citic.dataos.io/bi-web/sso/union-entry";
 						},5000);
 					}
 				});

@@ -102,7 +102,8 @@ document.getElementById("button").innerText = msgMap.button[lang];
 })();
 
 function goLoginPage() {
-	top.document.location.href = "${webpath}/";
+	//top.document.location.href = "${webpath}/";
+	top.document.location.href ="http://portal.dev-citic.dataos.io/bi-web/sso/union-entry";
 }
 </script>
 </html>
