@@ -43,7 +43,7 @@
 				</div>
 			</div>
 			
-			<div class="form-group form-group-sm">
+			<div id="parentDimNameDivId"  class="form-group form-group-sm">
 				<label class="my-label-30"><@spring.message code="dim.opt.label.parentDimName"/></label>
 				<div class="my-text-40">
 					<input id="parentDimName" type="text" class="form-control" placeholder="<@spring.message code='dim.opt.message.placeholder.parentDim'/>" readOnly/>
