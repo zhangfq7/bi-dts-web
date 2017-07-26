@@ -33,7 +33,7 @@ define(['sabace'], function(sabace) {
 		// 下拉框初始化
 		jQuery('.chosen-select').chosen();
 		// 查询业务分类
-		queryClassify();
+		//queryClassify();
 		// 设置时间查询
 		jQuery("#setTableTimeSql").on("click",function(){
 			setTableTimeSql();
@@ -180,8 +180,23 @@ define(['sabace'], function(sabace) {
 		} else {
 			jQuery("#dbName").val(tableConfigInfo.dbName);
 			// 设置业务分类
+			
+			sabace.ajax({
+				url: sabace.handleUrlParam("/platform/resmanage/data/query-classify-list"),
+				data: {dbId:tableConfigInfo.dbId},
+				success: function(req) {
+					// 查询成功
+					initClassify(req.classifyList);
+				},
+				error: function(req) {}
+			});
+			
 			jQuery("#classifySel").val(tableConfigInfo.classifyId);
+			alert('tableConfigInfo.classifyId:'+tableConfigInfo.classifyId);
+			jQuery("#classifySel").find("option[value='"+tableConfigInfo.classifyId+"']").attr("selected",true);
+			
 			jQuery("#classifySel").trigger("chosen:updated");
+			
 			jQuery('#dataTable').val(tableConfigInfo.dataTable);
 			jQuery('#dataName').val(tableConfigInfo.dataName);
 			jQuery('#tableTime').val(tableConfigInfo.tableTime);
@@ -234,7 +249,25 @@ define(['sabace'], function(sabace) {
                         dbProId[dbId]=proId;
 					}
 					jQuery('#selectDB').append(html);
-					jQuery("#selectDB").trigger("chosen:updated");
+					
+					jQuery("#selectDB").trigger("chosen:updated").change(function(){
+						var dbPara = $(this).val()
+						var para = {dbId:dbPara};
+						sabace.ajax({
+							url: sabace.handleUrlParam("/platform/resmanage/data/query-classify-list"),
+							data: para,
+							success: function(req) 
+							{
+								// 查询成功
+								initClassify(req.classifyList);
+							},
+							error: function(req) {}
+						});
+
+					});
+					
+					
+					
 				} else {
 					bi.dialog.show({
 						type: bi.dialog.TYPE_DANGER,
