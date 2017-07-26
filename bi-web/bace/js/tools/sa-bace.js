@@ -328,7 +328,7 @@ function ajax(config) {
 					onshown: function(){
 						setTimeout(function() {
 							//top.document.location.href = webpath + "/platform/login/page";
-							top.document.location.href ="http://portal.dev-citic.dataos.io/bi-web/sso/union-entry";
+							top.document.location.href ="http://portal.dev-citic.dataos.io/dts/sso/union-entry";
 						},5000);
 					}
 				});
