@@ -1,1 +1,77 @@
-.panel{padding:10px}.ui-jqgrid-view{overflow:hidden}.ui-jqgrid-bdiv{overflow:hidden!important}.form-control{padding:4px 9px;height:27px;width:100%;margin:5px 0;display:inline}.dialog-content-label{text-align:right;padding:7px 5px 7px 0;width:12%;vertical-align:middle}#param-div{border:1px dashed #bbbccc;border-radius:4px;padding:5px 10px 5px 0}.use-openapi-dialog .modal-dialog{width:65%}.control-label{margin:0}.table-param-label{width:30%;text-align:center;padding-right:4px}.btn-default,.btn-info{padding:5px 9px}.result-div{margin:5px 0;border:1px dashed #bbbccc;border-radius:4px;padding:2px 0 2px 5px}.resultItem{float:left;margin-right:8px}label{line-height:1.6}.first-update-time{display:none}.storage-type{display:none}#updateType_chosen .chosen-search{display:none!important}#storageType_chosen .chosen-search{display:none!important}#businessType_chosen .chosen-drop .chosen-results li{width:100%;white-space:nowrap;text-overflow:ellipsis;overflow:hidden}
+.panel{
+	padding:10px;
+}
+.ui-jqgrid-view{
+	overflow: hidden;
+}
+.ui-jqgrid-bdiv{
+	overflow: hidden !important;
+}
+.form-control{
+	padding: 4px 9px;
+	height: 27px;
+	width: 100%;
+	margin: 5px 0px;
+	display: inline;
+}
+.dialog-content-label{
+	text-align: right;
+	padding: 7px 5px 7px 0px;
+	width:12%;
+	vertical-align: middle;
+}
+#param-div{
+	border: 1px dashed #bbbccc;
+	border-radius:4px;
+	padding: 5px 10px 5px 0px;
+}
+.use-openapi-dialog  .modal-dialog{
+	width:65%;
+}
+.control-label{
+	margin: 0px;
+}
+.table-param-label{
+	width: 30%;
+	text-align: center;
+	padding-right: 4px;
+}
+.btn-default,.btn-info{
+	padding:5px 9px;
+}
+.result-div{
+	margin:5px 0px;
+	border: 1px dashed #bbbccc;
+	border-radius:4px;
+	padding: 2px 0px 2px 5px;
+}
+.resultItem{
+	float: left;
+	margin-right: 8px;
+}
+
+label{
+	line-height:1.6;
+}
+.first-update-time {
+	display: none;
+}
+
+.storage-type {
+	display: none;
+}
+
+#updateType_chosen .chosen-search {
+	display: none !important;
+}
+
+#storageType_chosen .chosen-search {
+	display: none !important;
+}
+
+#businessType_chosen .chosen-drop .chosen-results li {
+	width: 100%;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+}

@@ -1,1 +1,113 @@
-define(["sabace","safety/message"],function(b,c){function f(){jQuery("#validate-sub").on("click",d)}function d(){var j=/^([a-zA-Z0-9]+[_|\_|\.]?)*[a-zA-Z0-9]+@([a-zA-Z0-9]+[_|\_|\.]?)*[a-zA-Z0-9]+\.[a-zA-Z]{2,3}$/;var k=jQuery("#oldEmail").val();var h=jQuery("#newEmail").val();var i=jQuery("#reNewEmail").val();if(b.IsEmpty(k)){a(b.getMessage("safety.msg.oldEmail.empty"));return}if(b.IsEmpty(h)){a(b.getMessage("safety.msg.newEmail.empty"));return}if(b.IsEmpty(i)){a(b.getMessage("safety.msg.reNewEmail.empty"));return}if(!j.test(k)){a(b.getMessage("safety.msg.oldEmail.error"));return}if(!j.test(h)){a(b.getMessage("safety.msg.newEmail.error"));return}if(h!=i){a(b.getMessage("safety.msg.email.diff"));return}var g={type:"edit",oldEmail:k.toLowerCase(),newEmail:h.toLowerCase()};b.ajax({url:b.handleUrlParam("/platform/sysmanage/safety/edit-email"),data:g,success:function(l){if(!l.validateFlag){bi.dialog.alert({type:bi.dialog.TYPE_DANGER,title:b.getMessage("safety.msg.error"),message:b.getMessage(l.errorMsg),callback:function(m){if(l.expireFlag){var n={};n.type=2;e(b.handleUrlParam("/platform/sysmanage/safety/validate"),n)}}})}else{bi.dialog.show({title:b.getMessage("safety.msg.success"),message:b.getMessage("safety.msg.successfully"),closeByBackdrop:false,closeByKeyboard:false,});b.timeout(function(){top.document.location.href=b.handleUrlParam("/platform/sysmanage/user/safety")},3000)}},error:function(l){bi.dialog.show({type:bi.dialog.TYPE_DANGER,title:b.getMessage("user.label.error"),message:l.responseText||b.getMessage("safety.msg.exception")})}})}function e(i,k){var j="";for(var h in k){j+="<input name='"+h+"' value='"+k[h]+"'/>"}var g=jQuery("<form></form>",{method:"post",action:i,html:j});jQuery("body").append(g);g.submit();jQuery(g).remove()}function a(g){bi.dialog.show({type:"type-warning",title:b.getMessage("safety.msg.prompt"),message:g})}return{init:f}});
+define(['sabace','safety/message'], function(sabace,message) {
+	function init(){	
+		//绑定修改按钮事件
+		jQuery("#validate-sub").on("click",submit);
+	}
+	
+	function submit(){
+		var emailReg = /^([a-zA-Z0-9]+[_|\_|\.]?)*[a-zA-Z0-9]+@([a-zA-Z0-9]+[_|\_|\.]?)*[a-zA-Z0-9]+\.[a-zA-Z]{2,3}$/;
+		var oldEmail = jQuery("#oldEmail").val();
+		var newEmail = jQuery("#newEmail").val();
+		var reNewEmail = jQuery("#reNewEmail").val();
+		//校验信息
+		if (sabace.IsEmpty(oldEmail)) {
+			validateFalse(sabace.getMessage('safety.msg.oldEmail.empty'));
+        	return ;
+		}
+		if (sabace.IsEmpty(newEmail)) {
+			validateFalse(sabace.getMessage('safety.msg.newEmail.empty'));
+        	return ;
+		}
+		if (sabace.IsEmpty(reNewEmail)) {
+			validateFalse(sabace.getMessage('safety.msg.reNewEmail.empty'));
+        	return ;
+		}
+		
+		if (!emailReg.test(oldEmail)) {
+			validateFalse(sabace.getMessage('safety.msg.oldEmail.error'));
+        	return ;
+		}
+		if (!emailReg.test(newEmail)) {
+			validateFalse(sabace.getMessage('safety.msg.newEmail.error'));
+        	return ;
+		}
+		if (newEmail!=reNewEmail) {
+			validateFalse(sabace.getMessage('safety.msg.email.diff'));
+        	return ;
+		}
+		
+		var paramData={
+				type:"edit",
+				oldEmail:oldEmail.toLowerCase(),
+				newEmail:newEmail.toLowerCase()
+			};
+			sabace.ajax({
+				url: sabace.handleUrlParam("/platform/sysmanage/safety/edit-email"),
+				data: paramData,
+				success: function(req) {
+					// 如果验证失败
+					if (!req.validateFlag) {
+						bi.dialog.alert({
+							type: bi.dialog.TYPE_DANGER,
+							title: sabace.getMessage('safety.msg.error'),
+							message: sabace.getMessage(req.errorMsg),
+							callback: function(result) {
+								if (req.expireFlag) {
+									var params = {};
+									params.type = 2;
+									redirecPage(sabace.handleUrlParam("/platform/sysmanage/safety/validate"), params);
+								}
+				            }
+						});
+					} else {
+						bi.dialog.show({
+							title: sabace.getMessage('safety.msg.success'),
+							message: sabace.getMessage('safety.msg.successfully'),
+							closeByBackdrop: false,
+							closeByKeyboard: false,
+						});
+						sabace.timeout(function(){top.document.location.href = sabace.handleUrlParam("/platform/sysmanage/user/safety")},3000);
+					}
+				},
+				error: function(req) {
+					bi.dialog.show({
+						type: bi.dialog.TYPE_DANGER,
+						title: sabace.getMessage('user.label.error'),
+						message: req.responseText || sabace.getMessage('safety.msg.exception')
+					});
+				}
+			});
+		
+	}
+	
+	// 页面跳转方法
+	function redirecPage(url, params){
+		var html = "";
+		// 遍历参数
+		for(var name in params){
+			html += "<input name='" + name + "' value='" + params[name] + "'/>";
+		}
+		var formTemp = jQuery("<form></form>",{
+			"method":"post",
+			"action": url,
+			"html": html
+		});
+		jQuery('body').append(formTemp);
+		formTemp.submit();
+		jQuery(formTemp).remove();
+	}
+	
+	//显示错误
+	function validateFalse(errorMsg) {
+		bi.dialog.show({
+			type: 'type-warning',
+			title: sabace.getMessage('safety.msg.prompt'),
+			message: errorMsg
+		});
+	}
+	
+	//返回页面所需方法
+	return {
+		init:init
+	}
+});

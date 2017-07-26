@@ -1,1 +1,44 @@
-#userSearchForm{margin-left:20px}#userSearchForm .formWidth{margin-left:20px;width:200px}#userSearchForm .searchButton{margin-top:-3px;margin-left:30px;height:32px;line-height:13px}.div-list{margin-top:10px;width:100%}.div-left{float:left;width:380px}.div-right{float:left;width:380px}.div-center{float:left;margin-right:44px;color:#509ec4}.div-center ul{list-style:none;padding:0}.div-center ul li{display:block;margin:80px 0;cursor:pointer}#leftListGridPager #leftListGridPager_left{width:0}#leftListGridPager #leftListGridPager_center{width:280px!important}
+#userSearchForm { margin-left: 20px; }
+#userSearchForm .formWidth { 
+	margin-left: 20px;
+	width: 200px; 
+}
+#userSearchForm .searchButton { 
+	margin-top: -3px;
+	margin-left: 30px; 
+	height: 32px;
+    line-height: 13px;
+}
+
+.div-list { 
+	margin-top: 10px;
+	width: 100%; 
+}
+.div-left { 
+	float: left;     
+	width: 380px;
+}
+.div-right { 
+	float: left; 
+	width: 380px;
+}
+.div-center {
+	float: left;
+	margin-right: 44px;
+	color: #509ec4
+}
+.div-center ul {
+	list-style: none;
+	padding: 0px;
+}
+.div-center ul li {
+	display: block;
+	margin: 80px 0;
+	cursor: pointer;
+}
+#leftListGridPager #leftListGridPager_left {
+	width: 0px;
+}
+#leftListGridPager #leftListGridPager_center {
+	width: 280px !important;
+}

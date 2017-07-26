@@ -1,1 +1,299 @@
-.panel{width:100%;padding:10px;min-width:1024px}.mypanel{min-height:550px}.tab-pane{width:98%;padding:0;margin-top:-8px;margin-bottom:-8px}.tab-pane>li{list-style-type:none;width:100%;margin:auto!important;padding:5px 40px 0 0}.label-class{text-align:right;width:10%;padding:5px 12px;vertical-align:top;float:left;margin-top:-5px}.search-class{text-align:left;width:14%;vertical-align:text-top}.search-class input{height:28px!important}.search-class .chosen-container-single .chosen-single{height:28px!important;line-height:28px}.search-class .chosen-container-single .chosen-single div b{margin-top:-2px}.search-class .chosen-container .chosen-results li{padding:4px 4px;text-align:left}.search-class .chosen-results{margin-top:6px}.button-class{width:80px}.oper-pane{width:98%;margin:0;margin-top:-10px;padding:0 0 10px 0}.oper-pane>li{list-style-type:none;width:90%;margin:auto!important;padding:0;text-align:right}.list-pane{width:100%;margin:0;padding:0}.list-pane>li{list-style-type:none;width:100%;margin:auto!important;padding:0}.ui-jqgrid-bdiv{overflow-x:hidden!important}.persionalSet-dialog .modal-dialog{width:970px}.modal-content{position:relative;background-color:#fff;-webkit-background-clip:padding-box;background-clip:padding-box;border:1px solid #999;border:1px solid rgba(0,0,0,.2);border-radius:6px;outline:0;-webkit-box-shadow:0 3px 9px rgba(0,0,0,.5);box-shadow:0 3px 9px rgba(0,0,0,.5)}.modal-body{position:relative;padding:15px}.bootstrap-dialog .bootstrap-dialog-message{font-size:14px}.ui-jqgrid-bdiv{overflow-x:hidden!important}.ui-jqgrid-view{overflow-x:hidden!important}.data-attrname-dialog .modal-dialog{width:660px}.data-attrname-dialog .modal-body{height:70px}.orderusernum{cursor:pointer}.butRow .input-group{float:right;right:3%}.normal-button{background:#fff;color:black;transition:opacity 0s,linear background 0s}.clicked-button{color:#fff!important}.normal-button:hover{opacity:.5}.mysql-icon{width:71px;height:67px;margin:0 auto;background:url(../img/database.png) no-repeat -62px 0}.oracle-icon{width:71px;height:67px;margin:0 auto;background:url(../img/database.png) no-repeat -128px 0}.db2-icon{width:71px;height:67px;margin:0 auto;background:url(../img/database.png) no-repeat -194px 0}.postgresql-icon{width:71px;height:67px;margin:0 auto;background:url(../img/database.png) no-repeat -266px 0}.data-source .modal-dialog{width:760px}.data-source .modal-body{height:360px}.data-userList .modal-dialog{width:900px}.data-userList .modal-body{height:460px}.ui-jqgrid-view{overflow-x:hidden!important}.form-horizontal{margin-top:25px}.form-horizontal .form-group{margin-bottom:10px;width:750px}.form-group .label-left{width:140px;text-align:right;float:left}.form-group .div-left{float:left;width:348px}.form-group .div-left .lable-v{font-size:13px;padding-top:2px;white-space:nowrap;text-overflow:ellipsis;overflow:hidden}.bottom-buttons{margin-top:51px;width:auto;height:70px;background:#f5f5f5}.bottom-buttons button{margin-right:20px;margin-top:15px;float:right;width:80px}#dataSource{padding-top:9px}.db-type-span{margin-left:16px}.db-type-pic{height:130px}.db-type-soon{height:130px}.db-type-border{margin-top:10px;margin-left:20px;padding-top:12px;float:left;height:100px;width:100px;border:1px solid #e9e9e9;cursor:pointer}.dbCheck{float:right;width:20px;height:20px;background:rgba(23,153,236,0.65);color:#fff;text-align:center}.gray{-webkit-filter:grayscale(100%);-moz-filter:grayscale(100%);-ms-filter:grayscale(100%);-o-filter:grayscale(100%);filter:grayscale(100%);filter:gray}#dbInfo .col-xs-3 .icon-div{width:100px;height:100px;border:1px solid #e9e9e9;margin:42px 20px}.col-xs-3{z-index:0}.dacp-database-list-dialog .modal-dialog{width:76%}.dacp-database-list-dialog .modal-body{max-height:350px;overflow-y:auto;overflow-x:hidden}
+.panel {
+	width: 100%;
+	padding: 10px;
+	min-width: 1024px;
+}
+
+.mypanel{
+	min-height:550px;
+}
+
+.tab-pane {
+	width: 98%;
+	padding: 0;
+	margin-top: -8px;
+    margin-bottom: -8px;
+}
+
+.tab-pane>li {
+	list-style-type: none;
+	width: 100%;
+	margin: auto !important;
+	padding: 5px 40px 0px 0px;
+}
+
+.label-class {
+	text-align: right; 
+	width: 10%;
+	padding: 5px 12px;
+	vertical-align: top;
+	float: left;
+    margin-top: -5px;
+}
+
+.search-class {
+	text-align: left; 
+	width: 14%;
+	vertical-align: text-top;
+}
+
+.search-class input {
+	height: 28px !important;
+}
+
+.search-class .chosen-container-single .chosen-single {
+	height: 28px !important;
+	line-height: 28px;
+}
+
+.search-class .chosen-container-single .chosen-single div b {
+	margin-top: -2px;
+}
+
+.search-class .chosen-container .chosen-results li {
+	padding: 4px 4px;
+	text-align: left;
+}
+
+.search-class .chosen-results {
+	margin-top: 6px;
+}
+
+.button-class {
+	width: 80px;
+}
+
+.oper-pane {
+  width: 98%;
+  margin: 0;
+  margin-top: -10px;
+  padding: 0 0 10px 0;
+}
+
+.oper-pane>li {
+	list-style-type: none;
+	width: 90%;
+	margin: auto !important;
+	padding: 0;
+	text-align: right;
+}
+
+.list-pane {
+	width: 100%;
+	margin: 0;
+	padding: 0;
+}
+
+.list-pane>li {
+	list-style-type: none;
+	width: 100%;
+	margin: auto !important;
+	padding: 0;
+}
+
+.ui-jqgrid-bdiv {
+	overflow-x: hidden !important;
+}
+
+
+.persionalSet-dialog .modal-dialog{
+	  width: 970px;
+}
+
+.modal-content{
+	  position: relative;
+	  background-color: #fff;
+	  -webkit-background-clip: padding-box;
+	  background-clip: padding-box;
+	  border: 1px solid #999;
+	  border: 1px solid rgba(0, 0, 0, .2);
+	  border-radius: 6px;
+	  outline: 0;
+	  -webkit-box-shadow: 0 3px 9px rgba(0, 0, 0, .5);
+	  box-shadow: 0 3px 9px rgba(0, 0, 0, .5);
+}
+
+.modal-body{
+	  position: relative;
+	  padding: 15px;
+/* 	  height: 575px;
+ */
+}
+
+.bootstrap-dialog .bootstrap-dialog-message {
+  font-size: 14px;
+ /*  height: 575px; */
+  
+}
+
+.ui-jqgrid-bdiv {
+	overflow-x:hidden!important;
+}
+
+.ui-jqgrid-view {
+	overflow-x:hidden!important;
+}
+
+.data-attrname-dialog .modal-dialog {
+	width: 660px;
+}
+
+.data-attrname-dialog .modal-body {
+	height: 70px;
+}
+.orderusernum{
+	cursor:pointer;
+}
+
+.butRow .input-group{
+	float: right;
+    right: 3%;
+}
+
+/* 按钮组按钮正常的样式 */
+.normal-button{
+	background : #FFFFFF;
+	color : black;
+    transition: opacity 0s ,linear background 0s;
+}
+/* 点击过后的按钮样式 */
+.clicked-button{
+	color : #FFFFFF!important;
+}
+.normal-button:hover{
+	opacity:.5;
+}
+
+.mysql-icon {
+	width: 71px;
+	height: 67px;
+	margin: 0 auto;
+	background: url(../img/database.png) no-repeat -62px 0;
+}
+.oracle-icon {
+	width: 71px;
+	height: 67px;
+	margin: 0 auto;
+	background: url(../img/database.png) no-repeat -128px 0;
+}
+.db2-icon {
+	width: 71px;
+	height: 67px;
+	margin: 0 auto;
+	background: url(../img/database.png) no-repeat -194px 0;
+}
+.postgresql-icon {
+	width: 71px;
+	height: 67px;
+	margin: 0 auto;
+	background: url(../img/database.png) no-repeat -266px 0;
+}
+
+
+.data-source .modal-dialog{
+	width: 760px;
+}
+.data-source .modal-body {
+	height: 360px;
+}
+.data-userList .modal-dialog{
+	width: 900px;
+}
+.data-userList .modal-body {
+	height: 460px;
+}
+
+.ui-jqgrid-view {
+	overflow-x:hidden !important;
+}
+
+.form-horizontal { margin-top: 25px; }
+.form-horizontal .form-group {
+	margin-bottom:10px ;
+	width: 750px;
+	
+}
+.form-group .label-left{
+	width: 140px;
+	text-align:right;
+	float: left;
+}
+.form-group .div-left {
+	float: left;
+	width: 348px;
+}
+.form-group .div-left .lable-v{
+	font-size: 13px;
+    padding-top: 2px;
+    white-space:nowrap; 
+	text-overflow:ellipsis; 
+	overflow: hidden;
+}
+.bottom-buttons {
+	margin-top: 51px;
+	width: auto;
+	height: 70px;
+	background: #F5F5F5;
+}
+.bottom-buttons button {
+	margin-right: 20px;
+	margin-top: 15px;
+	float: right;
+	width: 80px;
+}
+#dataSource {
+	padding-top: 9px;
+}
+.db-type-span {
+	margin-left: 16px;
+}
+.db-type-pic {
+	height: 130px;
+}
+.db-type-soon {
+	height: 130px;
+}
+.db-type-border {
+	margin-top: 10px;
+	margin-left: 20px;
+	padding-top: 12px;
+    float: left;
+    height: 100px;
+    width: 100px;
+    border: 1px solid #E9E9E9;
+    cursor: pointer;
+}
+.dbCheck{
+	float: right;
+    width: 20px;
+    height: 20px;
+    background: rgba(23,153,236,0.65);
+    color: #fff;
+    text-align: center;
+}
+.gray { 
+    -webkit-filter: grayscale(100%);
+    -moz-filter: grayscale(100%);
+    -ms-filter: grayscale(100%);
+    -o-filter: grayscale(100%);
+    filter: grayscale(100%);
+    filter: gray;
+}
+#dbInfo .col-xs-3 .icon-div{
+	width:100px;
+	height:100px;
+	border:1px solid rgb(233,233,233);
+	margin:42px 20px;
+}
+.col-xs-3{
+	z-index: 0;
+}
+.dacp-database-list-dialog  .modal-dialog{
+	width:76%;
+}
+.dacp-database-list-dialog  .modal-body{
+	max-height:350px;
+	overflow-y: auto;
+	overflow-x: hidden;
+}
+

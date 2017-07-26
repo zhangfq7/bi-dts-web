@@ -1,1 +1,407 @@
-define(["sabace"],function(h){function l(){j();$("#dimId").chosen({disable_search:false});jQuery("#dimId").on("change",a);jQuery("#searchUser").on("click",d);jQuery("#right-arrow").on("click",c);jQuery("#left-arrow").on("click",b);jQuery("#toRightDim").on("click",f);jQuery("#toLeftDim").on("click",g)}function b(){var n=jQuery("#selectUserGrid").jqGrid("getGridParam","selarrrow");var m=jQuery(n).length;if(m==0){bi.dialog.show({type:bi.dialog.TYPE_DANGER,title:h.getMessage("authority.title.tips"),message:h.getMessage("authority.message.user.select")});return}else{for(i=0;i<m;i++){jQuery("#selectUserGrid").jqGrid("delRowData",n[0])}d()}}function g(){var n=jQuery("#selectDimValueGrid").jqGrid("getGridParam","selarrrow");var m=jQuery(n).length;if(m==0){bi.dialog.show({type:bi.dialog.TYPE_DANGER,title:h.getMessage("authority.title.tips"),message:h.getMessage("authority.message.dim.select")});return}else{for(i=0;i<m;i++){jQuery("#selectDimValueGrid").jqGrid("delRowData",n[0])}k()}}function d(){var o="";jQuery.each(jQuery("#selectUserGrid").jqGrid("getRowData"),function(q,p){if(q==0){o+=p.userID}else{o+=","+p.userID}});var m={};var n=$("#user-name").val();m.userIds=o;m.userName=n;jQuery("#unSelectUserGrid").jqGrid("setGridParam",{postData:m}).trigger("reloadGrid");return false}function k(){var o="";jQuery.each(jQuery("#selectDimValueGrid").jqGrid("getRowData"),function(q,p){if(q==0){o+=p.dimCodeAttr}else{o+=","+p.dimCodeAttr}});var m={};var n=jQuery("#dimId").val();m.dimId=n;m.dimValueCodes=o;jQuery("#unSelectDimValueGrid").jqGrid("setGridParam",{postData:m}).trigger("reloadGrid");return false}function c(){var n=jQuery("#unSelectUserGrid").jqGrid("getGridParam","selarrrow");var m=jQuery(n).length;if(m==0){bi.dialog.show({type:bi.dialog.TYPE_DANGER,title:h.getMessage("authority.title.tips"),message:h.getMessage("authority.message.user.unselect")});return}else{var q=jQuery("#selectUserGrid").jqGrid("getDataIDs");var o=1;if(q.length>0){o=q.length+1}else{jQuery(".div-right .ui-jqgrid-bdiv>div").show();jQuery(".div-right .ui-jqgrid-bdiv .noResult").hide()}for(i=0;i<m;i++){var p=jQuery("#unSelectUserGrid").jqGrid("getRowData",n[i]);jQuery("#selectUserGrid").jqGrid("addRowData",o+i,p)}d()}}function f(){var n=jQuery("#unSelectDimValueGrid").jqGrid("getGridParam","selarrrow");var m=jQuery(n).length;if(m==0){bi.dialog.show({type:bi.dialog.TYPE_DANGER,title:h.getMessage("authority.title.tips"),message:h.getMessage("authority.message.dim.unselect")});return}else{var q=jQuery("#selectDimValueGrid").jqGrid("getDataIDs");var o=1;if(q.length>0){o=q.length+1}else{jQuery(".div-right .ui-jqgrid-bdiv>div").show();jQuery(".div-right .ui-jqgrid-bdiv .noResult").hide()}for(i=0;i<m;i++){var p=jQuery("#unSelectDimValueGrid").jqGrid("getRowData",n[i]);jQuery("#selectDimValueGrid").jqGrid("addRowData",o+i,p)}k()}}function j(){var m={};$("#unSelectUserGrid").jqGrid({url:h.handleUrlParam("/platform/resmanage/authority/user-list"),styleUI:"Bootstrap",autowidth:true,postData:m,height:"auto",mtype:"post",regional:"cn",datatype:"json",viewrecords:true,forceFit:true,width:430,height:170,caption:h.getMessage("authority.label.user.unselect"),multiselect:true,colModel:[{label:h.getMessage("authority.label.user.code"),name:"userID",width:200,align:"left",hlign:"center",sortable:false},{label:h.getMessage("authority.label.user.name"),name:"userName",width:200,align:"left",hlign:"center",sortable:false}],rowNum:5,rowList:[5],pager:"#unSelectUserGridPager",jsonReader:{records:"total",total:"totalPages"}});$("#selectUserGrid").jqGrid({url:"",styleUI:"Bootstrap",autowidth:true,height:"auto",mtype:"post",regional:"cn",viewrecords:true,forceFit:true,caption:h.getMessage("authority.label.user.select"),multiselect:true,width:430,height:204,rowNum:10000,colModel:[{label:h.getMessage("authority.label.user.code"),name:"userID",width:200,align:"left",hlign:"center",sortable:false},{label:h.getMessage("authority.label.user.name"),name:"userName",width:200,align:"left",hlign:"center",sortable:false}]});var n={};var o=jQuery("#dimId").val();n.dimId=o;$("#unSelectDimValueGrid").jqGrid({url:h.handleUrlParam("/platform/resmanage/authority/dim-value-list"),styleUI:"Bootstrap",autowidth:true,postData:n,height:"auto",mtype:"post",regional:"cn",datatype:"json",viewrecords:true,forceFit:true,caption:h.getMessage("authority.label.dim.unselect"),multiselect:true,width:430,height:170,colModel:[{label:h.getMessage("authority.label.dim.code"),name:"dimCodeAttr",width:200,align:"left",hlign:"center",sortable:false},{label:h.getMessage("authority.label.dim.name"),name:"dimCodeName",width:200,align:"left",hlign:"center",sortable:false}],rowNum:5,rowList:[5],pager:"#unSelectDimValueGridPager",jsonReader:{records:"total",total:"totalPages"}});$("#selectDimValueGrid").jqGrid({url:h.handleUrlParam("/platform/resmanage/authority/selected-dim-value-list"),styleUI:"Bootstrap",autowidth:true,height:"auto",mtype:"post",regional:"cn",viewrecords:true,forceFit:true,caption:h.getMessage("authority.label.dim.select"),multiselect:true,width:430,height:204,rowNum:10000,colModel:[{label:h.getMessage("authority.label.dim.code"),name:"dimCodeAttr",width:200,align:"left",hlign:"center",sortable:false},{label:h.getMessage("authority.label.dim.name"),name:"dimCodeName",width:200,align:"left",hlign:"center",sortable:false}]})}function e(n){var p="";jQuery.each(jQuery("#selectUserGrid").jqGrid("getRowData"),function(s,r){if(s==0){p+=r.userID}else{p+=","+r.userID}});if(""==p){bi.dialog.show({title:h.getMessage("authority.title.tips"),message:h.getMessage("authority.message.select.user"),nl2br:false,closable:true});return}var m=jQuery("#dimId").val();var q="";jQuery.each(jQuery("#selectDimValueGrid").jqGrid("getRowData"),function(s,r){if(s==0){q+=r.dimCodeAttr}else{q+=","+r.dimCodeAttr}});if(""==q){bi.dialog.show({title:h.getMessage("authority.title.tips"),message:h.getMessage("authority.message.select.dim"),nl2br:false,closable:true});return}var o={};o.dimId=m;o.userIds=p;o.dimValueCodes=q;bi.dialog.confirm({title:h.getMessage("authority.title.confirm"),message:h.getMessage("authority.message.save.confirm"),callback:function(r){if(r){var s=h.handleUrlParam("/platform/resmanage/authority/save-user-dim");h.ajax({data:o,url:s,success:function(u){var t=u.saveFlag;if("0"==t){bi.dialog.show({title:h.getMessage("authority.title.save.success"),message:h.getMessage("authority.message.save.success"),buttons:[{label:h.getMessage("authority.button.confirm"),cssClass:"btn-info",action:function(v){jQuery("#search").trigger("click");v.close();n.close()}}]})}else{bi.dialog.show({type:bi.dialog.TYPE_DANGER,title:h.getMessage("authority.title.save.failure"),message:h.getMessage("authority.message.save.failure")})}},error:function(t){bi.dialog.show({type:bi.dialog.TYPE_DANGER,title:h.getMessage("authority.title.save.failure"),message:t.responseText||h.getMessage("authority.message.save.failure")})}})}}})}function a(){jQuery("#selectDimValueGrid").jqGrid("clearGridData");var m={};var n=jQuery("#dimId").val();m.dimId=n;m.dimValueCodes="";jQuery("#unSelectDimValueGrid").jqGrid("setGridParam",{postData:m}).trigger("reloadGrid");jQuery("#selectDimValueGrid").jqGrid("setGridParam").trigger("reloadGrid")}return{init:l,saveUserDimConfig:e}});
+define(['sabace'], function(sabace) {
+ 
+	function init(){
+		initInfoList();
+		
+		$('#dimId').chosen({
+			disable_search: false
+		});
+		
+		jQuery('#dimId').on("change",dimChanged);
+		
+		jQuery('#searchUser').on("click",queryUnSelectUser);
+		
+		jQuery("#right-arrow").on("click", userToRight);
+		jQuery("#left-arrow").on("click", userToLeft);
+		
+		jQuery("#toRightDim").on("click", dimToRight);
+		jQuery("#toLeftDim").on("click", dimToLeft);
+	}
+	
+	function userToLeft(){
+		var selectRow = jQuery('#selectUserGrid').jqGrid('getGridParam','selarrrow');
+		var len = jQuery(selectRow).length;
+		if(len == 0){
+			bi.dialog.show({
+				type: bi.dialog.TYPE_DANGER,
+				title: sabace.getMessage('authority.title.tips'),
+				message: sabace.getMessage('authority.message.user.select')
+			});
+			return;
+		}else{
+			for (i = 0; i < len; i++) {
+				jQuery('#selectUserGrid').jqGrid('delRowData',selectRow[0]);
+			}
+			queryUnSelectUser();
+		}
+	}
+	function dimToLeft(){
+		var selectRow = jQuery('#selectDimValueGrid').jqGrid('getGridParam','selarrrow');
+		var len = jQuery(selectRow).length;
+		if(len == 0){
+			bi.dialog.show({
+				type: bi.dialog.TYPE_DANGER,
+				title: sabace.getMessage('authority.title.tips'),
+				message: sabace.getMessage('authority.message.dim.select')
+			});
+			return;
+		}else{
+			for (i = 0; i < len; i++) {
+				jQuery('#selectDimValueGrid').jqGrid('delRowData',selectRow[0]);
+			}
+			queryUnSelectDimValue();
+		}
+	}
+	
+	function queryUnSelectUser(){
+		var userIds = '';
+		jQuery.each(jQuery('#selectUserGrid').jqGrid("getRowData"), function(index, user) {
+			if (index == 0) {
+				userIds += user.userID;
+			} else {
+				userIds += ',' + user.userID;
+			}
+		});
+		var postData = {};
+		var userName = $("#user-name").val();
+		postData.userIds = userIds;
+		postData.userName = userName;
+		jQuery("#unSelectUserGrid").jqGrid("setGridParam", {
+			postData:postData
+		}).trigger("reloadGrid");
+		return false;
+	}
+	
+	function queryUnSelectDimValue(){
+		var dimValueCodes = '';
+		jQuery.each(jQuery('#selectDimValueGrid').jqGrid("getRowData"), function(index, user) {
+			if (index == 0) {
+				dimValueCodes += user.dimCodeAttr;
+			} else {
+				dimValueCodes += ',' + user.dimCodeAttr;
+			}
+		});
+		
+		var dimParam = {};
+		var dimId = jQuery("#dimId").val();
+		dimParam.dimId = dimId;
+		dimParam.dimValueCodes = dimValueCodes;
+		jQuery("#unSelectDimValueGrid").jqGrid("setGridParam", {
+			postData:dimParam
+		}).trigger("reloadGrid");
+		return false;
+	}
+	
+	function userToRight(){
+		var selectRow = jQuery('#unSelectUserGrid').jqGrid('getGridParam','selarrrow');
+		var len = jQuery(selectRow).length;
+		if(len == 0){
+			bi.dialog.show({
+				type: bi.dialog.TYPE_DANGER,
+				title: sabace.getMessage('authority.title.tips'),
+				message: sabace.getMessage('authority.message.user.unselect')
+			});
+			return;
+		}else{
+			var ids = jQuery('#selectUserGrid').jqGrid('getDataIDs');
+			var index = 1;
+			if(ids.length > 0){
+				index = ids.length + 1;
+			}else{
+				jQuery(".div-right .ui-jqgrid-bdiv>div").show();
+				jQuery(".div-right .ui-jqgrid-bdiv .noResult").hide();
+			}
+			for (i = 0; i < len; i++) {
+				var newData = jQuery('#unSelectUserGrid').jqGrid('getRowData',selectRow[i]);
+				jQuery('#selectUserGrid').jqGrid('addRowData', index + i, newData);
+			}
+			queryUnSelectUser();
+		}
+	}
+	function dimToRight(){
+		var selectRow = jQuery('#unSelectDimValueGrid').jqGrid('getGridParam','selarrrow');
+		var len = jQuery(selectRow).length;
+		if(len == 0){
+			bi.dialog.show({
+				type: bi.dialog.TYPE_DANGER,
+				title: sabace.getMessage('authority.title.tips'),
+				message: sabace.getMessage('authority.message.dim.unselect')
+			});
+			return;
+		}else{
+			var ids = jQuery('#selectDimValueGrid').jqGrid('getDataIDs');
+			var index = 1;
+			if(ids.length > 0){
+				index = ids.length + 1;
+			}else{
+				jQuery(".div-right .ui-jqgrid-bdiv>div").show();
+				jQuery(".div-right .ui-jqgrid-bdiv .noResult").hide();
+			}
+			for (i = 0; i < len; i++) {
+				var newData = jQuery('#unSelectDimValueGrid').jqGrid('getRowData',selectRow[i]);
+				jQuery('#selectDimValueGrid').jqGrid('addRowData', index + i, newData);
+			}
+			queryUnSelectDimValue();
+		}
+	}
+
+	function initInfoList(){
+		var userParam = {};
+		$("#unSelectUserGrid").jqGrid({
+			url: sabace.handleUrlParam('/platform/resmanage/authority/user-list'),
+			styleUI: 'Bootstrap',
+			autowidth: true,
+			postData: userParam,
+			height: 'auto',
+			mtype: 'post',
+			regional: 'cn',
+			datatype: "json",
+			viewrecords: true, 
+			forceFit: true,
+			width: 430,
+			height: 170,
+			caption: sabace.getMessage("authority.label.user.unselect"),
+			multiselect: true,
+			//rownumbers: true,
+			colModel: [{
+				label: sabace.getMessage("authority.label.user.code"),
+				name: 'userID',
+				width: 200,
+				align: 'left',
+				hlign: 'center',
+				sortable: false
+			}, {
+				label: sabace.getMessage("authority.label.user.name"),
+				name: 'userName',
+				width: 200,
+				align: 'left',
+				hlign: 'center',
+				sortable: false
+			}],
+			rowNum: 5,
+			rowList: [5],
+			pager: "#unSelectUserGridPager",
+			jsonReader: {
+				records: "total",
+				total: "totalPages"
+			}
+		});
+		$("#selectUserGrid").jqGrid({
+			url: "",
+			styleUI: 'Bootstrap',
+			autowidth: true,
+			height: 'auto',
+			mtype: 'post',
+			regional: 'cn',
+			viewrecords: true, 
+			forceFit: true,
+			caption: sabace.getMessage("authority.label.user.select"),
+			//rownumbers: true,
+			multiselect: true,
+			width: 430,
+			height: 204,
+			rowNum: 10000,
+			colModel: [{
+				label: sabace.getMessage("authority.label.user.code"),
+				name: 'userID',
+				width: 200,
+				align: 'left',
+				hlign: 'center',
+				sortable: false
+			}, {
+				label: sabace.getMessage("authority.label.user.name"),
+				name: 'userName',
+				width: 200,
+				align: 'left',
+				hlign: 'center',
+				sortable: false
+			}]
+		});
+		var dimParam = {};
+		var dimId = jQuery("#dimId").val();
+		dimParam.dimId = dimId;
+		$("#unSelectDimValueGrid").jqGrid({
+			url: sabace.handleUrlParam('/platform/resmanage/authority/dim-value-list'),
+			styleUI: 'Bootstrap',
+			autowidth: true,
+			postData: dimParam,
+			height: 'auto',
+			mtype: 'post',
+			regional: 'cn',
+			datatype: "json",
+			viewrecords: true, 
+			forceFit: true,
+			caption: sabace.getMessage("authority.label.dim.unselect"),
+			multiselect: true,
+			width: 430,
+			height: 170,
+			//rownumbers: true,
+			colModel: [{
+				label: sabace.getMessage("authority.label.dim.code"),
+				name: 'dimCodeAttr',
+				width: 200,
+				align: 'left',
+				hlign: 'center',
+				sortable: false
+			}, { 
+				label: sabace.getMessage("authority.label.dim.name"),
+				name: 'dimCodeName',
+				width: 200,
+				align: 'left',
+				hlign: 'center',
+				sortable: false
+			}],
+			rowNum: 5,
+			rowList: [5],
+			pager: "#unSelectDimValueGridPager",
+			jsonReader: {
+				records: "total",
+				total: "totalPages"
+			}
+		});
+		$("#selectDimValueGrid").jqGrid({
+			url: sabace.handleUrlParam('/platform/resmanage/authority/selected-dim-value-list'),
+			styleUI: 'Bootstrap',
+			autowidth: true,
+			height: 'auto',
+			mtype: 'post',
+			regional: 'cn',
+			viewrecords: true, 
+			forceFit: true,
+			caption: sabace.getMessage("authority.label.dim.select"),
+			//rownumbers: true,
+			multiselect: true,
+			width: 430,
+			height: 204,
+			rowNum: 10000,
+			colModel: [{
+				label: sabace.getMessage("authority.label.dim.code"),
+				name: 'dimCodeAttr',
+				width: 200,
+				align: 'left',
+				hlign: 'center',
+				sortable: false
+			}, {
+				label: sabace.getMessage("authority.label.dim.name"),
+				name: 'dimCodeName',
+				width: 200,
+				align: 'left',
+				hlign: 'center',
+				sortable: false
+			}]
+		});
+	}
+	
+	function saveUserDimConfig(dialog){
+		var userIds = '';
+		jQuery.each(jQuery('#selectUserGrid').jqGrid("getRowData"), function(index, user) {
+			if (index == 0) {
+				userIds += user.userID;
+			} else {
+				userIds += ',' + user.userID;
+			}
+		});
+		
+		if('' == userIds){
+			bi.dialog.show({
+				title: sabace.getMessage("authority.title.tips"),
+				message: sabace.getMessage("authority.message.select.user"),
+				nl2br: false,
+				closable: true
+			});
+			return;
+		}
+		
+		var dimId = jQuery("#dimId").val();
+		var dimValueCodes = '';
+		jQuery.each(jQuery('#selectDimValueGrid').jqGrid("getRowData"), function(index, user) {
+			if (index == 0) {
+				dimValueCodes += user.dimCodeAttr;
+			} else {
+				dimValueCodes += ',' + user.dimCodeAttr;
+			}
+		});
+
+		
+		if('' == dimValueCodes){
+			bi.dialog.show({
+				title: sabace.getMessage("authority.title.tips"),
+				message: sabace.getMessage("authority.message.select.dim"),
+				nl2br: false,
+				closable: true
+			});
+			return;
+		}
+		var param = {};
+		param.dimId = dimId;
+		param.userIds = userIds;
+		param.dimValueCodes = dimValueCodes;
+		bi.dialog.confirm({
+			title: sabace.getMessage("authority.title.confirm"),
+			message: sabace.getMessage("authority.message.save.confirm"),
+			callback: function(result) {
+				if (result) {
+					var url = sabace.handleUrlParam('/platform/resmanage/authority/save-user-dim');
+					//开始执行保存操作
+					sabace.ajax({
+						data: param,
+						url: url,
+						success: function(req) {
+
+							var saveFlag = req.saveFlag;
+							if ('0' == saveFlag) {
+								bi.dialog.show({
+									title: sabace.getMessage("authority.title.save.success"),
+									message: sabace.getMessage("authority.message.save.success"),
+									buttons: [{
+										label: sabace.getMessage("authority.button.confirm"),
+										cssClass: 'btn-info',
+										action: function(dialogItself) {
+											jQuery("#search").trigger("click");
+											dialogItself.close();
+											dialog.close();
+										}
+									}]
+								});
+
+							} else {
+
+								bi.dialog.show({
+									type: bi.dialog.TYPE_DANGER,
+									title: sabace.getMessage('authority.title.save.failure'),
+									message: sabace.getMessage('authority.message.save.failure')
+								});
+							}
+
+						},
+						error: function(req) {
+							bi.dialog.show({
+								type: bi.dialog.TYPE_DANGER,
+								title: sabace.getMessage('authority.title.save.failure'),
+								message: req.responseText || sabace.getMessage('authority.message.save.failure')
+							});
+						}
+					});
+				}
+			}
+		});
+	}
+	
+	function dimChanged(){
+		jQuery("#selectDimValueGrid").jqGrid("clearGridData");
+		var dimParam = {};
+		var dimId = jQuery("#dimId").val();
+		dimParam.dimId = dimId;
+		dimParam.dimValueCodes = "";
+		jQuery("#unSelectDimValueGrid").jqGrid("setGridParam", {
+			postData:dimParam
+		}).trigger("reloadGrid");
+		jQuery("#selectDimValueGrid").jqGrid("setGridParam").trigger("reloadGrid");
+	}
+	
+	return {
+		init: init,
+		saveUserDimConfig: saveUserDimConfig
+	}
+	
+});

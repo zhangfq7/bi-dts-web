@@ -1,1 +1,135 @@
-.panel{background:#f1f1f1;width:100%;height:100%;border-radius:5px;padding:16px 22px;padding-right:25px}.search div{float:left}.search .title{line-height:30px;width:9%;margin-left:15px}.search .input{width:21%}.search input{height:30px}.search .sextitle{line-height:30px;width:5%;margin-left:15px}.search .sexInput{width:12%}.search span,.content .head span{font-size:12px;font-family:微软雅黑;font-weight:bold}.search button{line-height:15px;margin-left:30px;padding:0 18px;height:30px}.chosen-single{height:30px!important;line-height:29px!important}.content{margin-left:0;width:98%;height:360px;background:#fff;margin-top:2%;padding:10px 5px}.foot{margin-top:1%;margin-left:0;display:inline-block}.foot span{font-size:13px}.foot .number{color:#e94949}.foot div{float:right;margin-top:2%}.foot button{line-height:15px;padding:0 18px;height:27px}.tableBody>div{float:left}.tableBody .leftImg{width:40%}.tableBody .leftImg .userNameDiv{margin-bottom:10px}.tableBody .leftright{width:13%;margin:100px -5px 0 50px;padding-left:12px}.tableBody .leftright>img{display:block}.tableBody .leftright img{height:26px;width:26px;border-color:#1b7fae;cursor:pointer}.tableBody .leftright .right{background:#23739a url('../../myreport/img/tabs_icons.png') no-repeat -10px center;margin-bottom:60px}.tableBody .leftright .left{background:#23739a url('../../myreport/img/tabs_icons.png') no-repeat 6px center}.tableBody .rightImg{width:40%}.table-responsive{overflow-x:hidden}
+.panel{
+	background : #F1F1F1;
+	width : 100%;
+	height :100%;
+	border-radius:5px;
+	padding : 16px 22px;
+	padding-right:25px;
+} 
+
+.search div{
+	float:left;
+}
+
+.search .title{
+	line-height:30px;
+	width:9%;  
+	margin-left:15px;
+}
+
+.search .input{
+	width:21%;
+}
+
+.search input{
+	height:30px;
+}
+
+.search .sextitle{
+	line-height:30px;
+	width:5%;
+	margin-left:15px;
+}
+
+.search .sexInput{
+	width:12%;
+}
+
+.search span ,.content .head span{
+	font-size :12px;
+	font-family:微软雅黑;
+	font-weight: bold;
+}
+
+.search button {
+	line-height:15px;
+	margin-left:30px;
+	padding:0 18px;
+	height:30px;
+}
+
+.chosen-single{
+	height:30px!important;
+	line-height:29px!important;
+}
+
+.content{
+	margin-left:0px;
+	width:98%;
+	height:360px;
+	background:#FFFFFF;
+	margin-top: 2%;
+	padding : 10px 5px;
+}
+
+.foot {
+	margin-top: 1%;
+	margin-left:0px;
+	display:inline-block;
+}
+
+.foot span{
+	font-size:13px;
+}
+
+.foot .number{
+	color:#E94949;
+}
+
+.foot div{
+	float:right;
+	margin-top: 2%;
+}
+
+.foot button{
+	line-height:15px;
+	padding:0 18px;
+	height:27px;
+}
+
+.tableBody>div{
+	float:left;
+}
+
+.tableBody .leftImg{
+	width:40%;
+}
+
+.tableBody .leftImg .userNameDiv{
+	margin-bottom:10px;
+}
+
+.tableBody .leftright{
+	width:13%;
+	margin: 100px -5px 0 50px;
+	padding-left: 12px;
+}
+
+.tableBody .leftright>img{
+	display:block
+}
+
+.tableBody .leftright img{
+	height:26px;
+	width:26px;
+	border-color: #1B7FAE;
+	cursor:pointer;
+}
+
+.tableBody .leftright .right{
+	background:  #23739a url('../../myreport/img/tabs_icons.png') no-repeat -10px center;
+	margin-bottom: 60px;
+}
+
+.tableBody .leftright .left{
+	background:  #23739a url('../../myreport/img/tabs_icons.png') no-repeat 6px center;
+}
+
+.tableBody .rightImg{
+	width:40%;
+	
+}
+
+.table-responsive{
+	overflow-x:hidden;
+}

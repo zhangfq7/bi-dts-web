@@ -1,1 +1,134 @@
-.grey{color:#999}.orange{color:#ffa302}.red{color:#f52a15}.blue{color:#1180ba}.bolder{font-weight:bolder}.panel{width:100%;padding:10px;min-width:1024px}.tab-pane{width:96%;margin:auto;padding:0}.tab-pane>li{list-style-type:none;width:95%;margin:auto!important;padding:5px 0;text-align:center}.tab-pane>li:first-child{margin-top:20px!important}.tab-pane>li>div{display:inline-block;vertical-align:top}.label-class{width:60%;vertical-align:top;text-align:left}.label-class>div{display:inline-block;margin-left:24px}.explain-class{margin-left:40px}.input-class{width:20%;margin-left:22px!important}.title-img-class{width:40px;height:40px;background-image:url("../img/recharge.png");background-position:6px 6px;background-repeat:no-repeat}.title-span-class{height:40px;line-height:40px}.pay-wechat{width:146px;height:46px;position:relative;border:2px solid #c4c4c4;cursor:pointer;background-image:url("../img/recharge.png");background-position:-46px 7px;background-repeat:no-repeat}.pay-alipay{width:146px;height:46px;position:relative;border:2px solid #c4c4c4;cursor:pointer;background-image:url("../img/recharge.png");background-position:-180px 7px;background-repeat:no-repeat}.pay-qq{width:146px;height:46px;position:relative;border:2px solid #c4c4c4;cursor:pointer;background-image:url("../img/recharge.png");background-position:-327px 6px;background-repeat:no-repeat}.pay-type-select{border:3px solid #f39800}.pay-type-select>div{display:block!important}.pay-select{display:none;width:20px;height:20px;position:absolute;right:0;bottom:0;background-image:url("../img/recharge.png");background-position:-487px -3px;background-repeat:no-repeat}
+.grey {
+	color: #999999;
+}
+
+.orange {
+	color: #ffa302;
+}
+
+.red {
+	color: #f52a15;
+}
+
+.blue {
+	color: #1180ba;
+}
+
+.bolder {
+	font-weight:bolder;
+}
+
+.panel {
+	width: 100%;
+	padding: 10px;
+	min-width: 1024px;
+}
+
+.tab-pane {
+	width: 96%;
+	margin: auto;
+	padding: 0;
+}
+
+.tab-pane>li {
+	list-style-type: none;
+	width: 95%;
+	margin: auto !important;
+	padding: 5px 0px;
+	text-align: center;
+}
+
+.tab-pane>li:first-child {
+	margin-top: 20px !important;
+}
+
+.tab-pane>li>div {
+	display: inline-block;
+	vertical-align: top;
+}
+
+.label-class {
+	width: 60%;
+	vertical-align: top;
+	text-align: left;
+}
+
+.label-class>div {
+	display: inline-block;
+	margin-left: 24px;
+}
+
+.explain-class {
+	margin-left: 40px;
+}
+
+.input-class {
+	width: 20%;
+	margin-left: 22px !important;
+}
+
+.title-img-class {
+	width: 40px;
+	height: 40px;
+	background-image: url("../img/recharge.png");
+	background-position: 6px 6px;
+	background-repeat: no-repeat;
+}
+
+.title-span-class {
+	height: 40px;
+	line-height: 40px;
+}
+
+.pay-wechat {
+	width: 146px;
+	height: 46px;
+	position:relative;
+	border: 2px solid #c4c4c4;
+	cursor: pointer;
+	background-image: url("../img/recharge.png");
+	background-position: -46px 7px;
+	background-repeat: no-repeat;
+}
+
+.pay-alipay {
+	width: 146px;
+	height: 46px;
+	position:relative;
+	border: 2px solid #c4c4c4;
+	cursor: pointer;
+	background-image: url("../img/recharge.png");
+	background-position: -180px 7px;
+	background-repeat: no-repeat;
+}
+
+.pay-qq {
+	width: 146px;
+	height: 46px;
+	position:relative;
+	border: 2px solid #c4c4c4;
+	cursor: pointer;
+	background-image: url("../img/recharge.png");
+	background-position: -327px 6px;
+	background-repeat: no-repeat;
+}
+
+.pay-type-select {
+	border: 3px solid #f39800;
+}
+
+.pay-type-select>div {
+	display: block !important;
+}
+
+.pay-select {
+	display: none;
+	width: 20px;
+	height: 20px;
+	position: absolute;
+	right: 0;
+	bottom: 0;
+	background-image: url("../img/recharge.png");
+	background-position: -487px -3px;
+	background-repeat: no-repeat;
+}

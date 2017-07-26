@@ -5,4 +5,277 @@
  * Copyright 2011, 2015 Mathias Bynens
  * Released under the MIT license
  */
-(function(a){if(typeof define==="function"&&define.amd&&!jQuery){define(["jquery"],a)}else{if(typeof module==="object"&&module.exports){a(require("jquery"))}else{a(jQuery)}}}(function(g){var n=false;var b=Object.prototype.toString.call(window.operamini)==="[object OperaMini]";var a="placeholder" in document.createElement("input")&&!b&&!n;var h="placeholder" in document.createElement("textarea")&&!b&&!n;var f=g.valHooks;var c=g.propHooks;var l;var k;var e={};if(a&&h){k=g.fn.placeholder=function(){return this};k.input=true;k.textarea=true}else{k=g.fn.placeholder=function(o){var p={customClass:"placeholder"};e=g.extend({},p,o);return this.filter((a?"textarea":":input")+"["+(n?"placeholder-x":"placeholder")+"]").not("."+e.customClass).not(":radio, :checkbox, :hidden").bind({"focus.placeholder":d,"blur.placeholder":i}).data("placeholder-enabled",true).trigger("blur.placeholder")};k.input=a;k.textarea=h;l={get:function(p){var o=g(p);var q=o.data("placeholder-password");if(q){return q[0].value}return o.data("placeholder-enabled")&&o.hasClass(e.customClass)?"":p.value},set:function(p,r){var o=g(p);var s;var q;if(r!==""){s=o.data("placeholder-textinput");q=o.data("placeholder-password");if(s){d.call(s[0],true,r)||(p.value=r);s[0].value=r}else{if(q){d.call(p,true,r)||(q[0].value=r);p.value=r}}}if(!o.data("placeholder-enabled")){p.value=r;return o}if(r===""){p.value=r;if(p!=m()){i.call(p)}}else{if(o.hasClass(e.customClass)){d.call(p)}p.value=r}return o}};if(!a){f.input=l;c.value=l}if(!h){f.textarea=l;c.value=l}g(function(){g(document).delegate("form","submit.placeholder",function(){var o=g("."+e.customClass,this).each(function(){d.call(this,true,"")});setTimeout(function(){o.each(i)},10)})});g(window).bind("beforeunload.placeholder",function(){var p=true;try{if(document.activeElement.toString()==="javascript:void(0)"){p=false}}catch(o){}if(p){g("."+e.customClass).each(function(){this.value=""})}})}function j(p){var o={};var q=/^jQuery\d+$/;g.each(p.attributes,function(s,r){if(r.specified&&!q.test(r.name)){o[r.name]=r.value}});return o}function d(p,q){var o=this;var r=g(this);if(o.value===r.attr((n?"placeholder-x":"placeholder"))&&r.hasClass(e.customClass)){o.value="";r.removeClass(e.customClass);if(r.data("placeholder-password")){r=r.hide().nextAll('input[type="password"]:first').show().attr("id",r.removeAttr("id").data("placeholder-id"));if(p===true){r[0].value=q;return q}r.focus()}else{o==m()&&o.select()}}}function i(q){var u;var o=this;var t=g(this);var s=o.id;if(q&&q.type==="blur"&&t.hasClass(e.customClass)){return}if(o.value===""){if(o.type==="password"){if(!t.data("placeholder-textinput")){try{u=t.clone().prop({type:"text"})}catch(r){u=g("<input>").attr(g.extend(j(this),{type:"text"}))}u.removeAttr("name").data({"placeholder-enabled":true,"placeholder-password":t,"placeholder-id":s}).bind("focus.placeholder",d);t.data({"placeholder-textinput":u,"placeholder-id":s}).before(u)}o.value="";t=t.removeAttr("id").hide().prevAll('input[type="text"]:first').attr("id",t.data("placeholder-id")).show()}else{var p=t.data("placeholder-password");if(p){p[0].value="";t.attr("id",t.data("placeholder-id")).show().nextAll('input[type="password"]:last').hide().removeAttr("id")}}t.addClass(e.customClass);t[0].value=t.attr((n?"placeholder-x":"placeholder"))}else{t.removeClass(e.customClass)}}function m(){try{return document.activeElement}catch(o){}}}));
+(function(factory) {
+    if (typeof define === 'function' && define.amd && !jQuery) {
+        // AMD
+        define(['jquery'], factory);
+    } else if (typeof module === 'object' && module.exports) {
+        factory(require('jquery'));
+    } else {
+        // Browser globals
+        factory(jQuery);
+    }
+}(function($) {
+
+    /****
+     * Allows plugin behavior simulation in modern browsers for easier debugging. 
+     * When setting to true, use attribute "placeholder-x" rather than the usual "placeholder" in your inputs/textareas 
+     * i.e. <input type="text" placeholder-x="my placeholder text" />
+     */
+    var debugMode = false; 
+
+    // Opera Mini v7 doesn't support placeholder although its DOM seems to indicate so
+    var isOperaMini = Object.prototype.toString.call(window.operamini) === '[object OperaMini]';
+    var isInputSupported = 'placeholder' in document.createElement('input') && !isOperaMini && !debugMode;
+    var isTextareaSupported = 'placeholder' in document.createElement('textarea') && !isOperaMini && !debugMode;
+    var valHooks = $.valHooks;
+    var propHooks = $.propHooks;
+    var hooks;
+    var placeholder;
+    var settings = {};
+
+    if (isInputSupported && isTextareaSupported) {
+
+        placeholder = $.fn.placeholder = function() {
+            return this;
+        };
+
+        placeholder.input = true;
+        placeholder.textarea = true;
+
+    } else {
+
+        placeholder = $.fn.placeholder = function(options) {
+
+            var defaults = {customClass: 'placeholder'};
+            settings = $.extend({}, defaults, options);
+
+            return this.filter((isInputSupported ? 'textarea' : ':input') + '[' + (debugMode ? 'placeholder-x' : 'placeholder') + ']')
+                .not('.'+settings.customClass)
+                .not(':radio, :checkbox, :hidden')
+                .bind({
+                    'focus.placeholder': clearPlaceholder,
+                    'blur.placeholder': setPlaceholder
+                })
+                .data('placeholder-enabled', true)
+                .trigger('blur.placeholder');
+        };
+
+        placeholder.input = isInputSupported;
+        placeholder.textarea = isTextareaSupported;
+
+        hooks = {
+            'get': function(element) {
+
+                var $element = $(element);
+                var $passwordInput = $element.data('placeholder-password');
+
+                if ($passwordInput) {
+                    return $passwordInput[0].value;
+                }
+
+                return $element.data('placeholder-enabled') && $element.hasClass(settings.customClass) ? '' : element.value;
+            },
+            'set': function(element, value) {
+
+                var $element = $(element);
+                var $replacement;
+                var $passwordInput;
+
+                if (value !== '') {
+
+                    $replacement = $element.data('placeholder-textinput');
+                    $passwordInput = $element.data('placeholder-password');
+
+                    if ($replacement) {
+                        clearPlaceholder.call($replacement[0], true, value) || (element.value = value);
+                        $replacement[0].value = value;
+
+                    } else if ($passwordInput) {
+                        clearPlaceholder.call(element, true, value) || ($passwordInput[0].value = value);
+                        element.value = value;
+                    }
+                }
+
+                if (!$element.data('placeholder-enabled')) {
+                    element.value = value;
+                    return $element;
+                }
+
+                if (value === '') {
+                    
+                    element.value = value;
+                    
+                    // Setting the placeholder causes problems if the element continues to have focus.
+                    if (element != safeActiveElement()) {
+                        // We can't use `triggerHandler` here because of dummy text/password inputs :(
+                        setPlaceholder.call(element);
+                    }
+
+                } else {
+                    
+                    if ($element.hasClass(settings.customClass)) {
+                        clearPlaceholder.call(element);
+                    }
+
+                    element.value = value;
+                }
+                // `set` can not return `undefined`; see http://jsapi.info/jquery/1.7.1/val#L2363
+                return $element;
+            }
+        };
+
+        if (!isInputSupported) {
+            valHooks.input = hooks;
+            propHooks.value = hooks;
+        }
+
+        if (!isTextareaSupported) {
+            valHooks.textarea = hooks;
+            propHooks.value = hooks;
+        }
+
+        $(function() {
+            // Look for forms
+            $(document).delegate('form', 'submit.placeholder', function() {
+                
+                // Clear the placeholder values so they don't get submitted
+                var $inputs = $('.'+settings.customClass, this).each(function() {
+                    clearPlaceholder.call(this, true, '');
+                });
+
+                setTimeout(function() {
+                    $inputs.each(setPlaceholder);
+                }, 10);
+            });
+        });
+
+        // Clear placeholder values upon page reload
+        $(window).bind('beforeunload.placeholder', function() {
+
+            var clearPlaceholders = true;
+
+            try {
+                // Prevent IE javascript:void(0) anchors from causing cleared values
+                if (document.activeElement.toString() === 'javascript:void(0)') {
+                    clearPlaceholders = false;
+                }
+            } catch (exception) { }
+
+            if (clearPlaceholders) {
+                $('.'+settings.customClass).each(function() {
+                    this.value = '';
+                });
+            }
+        });
+    }
+
+    function args(elem) {
+        // Return an object of element attributes
+        var newAttrs = {};
+        var rinlinejQuery = /^jQuery\d+$/;
+
+        $.each(elem.attributes, function(i, attr) {
+            if (attr.specified && !rinlinejQuery.test(attr.name)) {
+                newAttrs[attr.name] = attr.value;
+            }
+        });
+
+        return newAttrs;
+    }
+
+    function clearPlaceholder(event, value) {
+        
+        var input = this;
+        var $input = $(this);
+        
+        if (input.value === $input.attr((debugMode ? 'placeholder-x' : 'placeholder')) && $input.hasClass(settings.customClass)) {
+            
+            input.value = '';
+            $input.removeClass(settings.customClass);
+
+            if ($input.data('placeholder-password')) {
+
+                $input = $input.hide().nextAll('input[type="password"]:first').show().attr('id', $input.removeAttr('id').data('placeholder-id'));
+                
+                // If `clearPlaceholder` was called from `$.valHooks.input.set`
+                if (event === true) {
+                    $input[0].value = value;
+
+                    return value;
+                }
+
+                $input.focus();
+
+            } else {
+                input == safeActiveElement() && input.select();
+            }
+        }
+    }
+
+    function setPlaceholder(event) {
+        var $replacement;
+        var input = this;
+        var $input = $(this);
+        var id = input.id;
+
+        // If the placeholder is activated, triggering blur event (`$input.trigger('blur')`) should do nothing.
+        if (event && event.type === 'blur' && $input.hasClass(settings.customClass)) {
+            return;
+        }
+
+        if (input.value === '') {
+            if (input.type === 'password') {
+                if (!$input.data('placeholder-textinput')) {
+                    
+                    try {
+                        $replacement = $input.clone().prop({ 'type': 'text' });
+                    } catch(e) {
+                        $replacement = $('<input>').attr($.extend(args(this), { 'type': 'text' }));
+                    }
+
+                    $replacement
+                        .removeAttr('name')
+                        .data({
+                            'placeholder-enabled': true,
+                            'placeholder-password': $input,
+                            'placeholder-id': id
+                        })
+                        .bind('focus.placeholder', clearPlaceholder);
+
+                    $input
+                        .data({
+                            'placeholder-textinput': $replacement,
+                            'placeholder-id': id
+                        })
+                        .before($replacement);
+                }
+
+                input.value = '';
+                $input = $input.removeAttr('id').hide().prevAll('input[type="text"]:first').attr('id', $input.data('placeholder-id')).show();
+
+            } else {
+                
+                var $passwordInput = $input.data('placeholder-password');
+
+                if ($passwordInput) {
+                    $passwordInput[0].value = '';
+                    $input.attr('id', $input.data('placeholder-id')).show().nextAll('input[type="password"]:last').hide().removeAttr('id');
+                }
+            }
+
+            $input.addClass(settings.customClass);
+            $input[0].value = $input.attr((debugMode ? 'placeholder-x' : 'placeholder'));
+
+        } else {
+            $input.removeClass(settings.customClass);
+        }
+    }
+
+    function safeActiveElement() {
+        // Avoid IE9 `document.activeElement` of death
+        try {
+            return document.activeElement;
+        } catch (exception) {}
+    }
+}));

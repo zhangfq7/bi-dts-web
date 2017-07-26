@@ -1,1 +1,225 @@
-#conditionSet{width:100%;height:100%}.condition-set{width:600px;height:350px}#conditionSetPanel>table{width:100%;border-bottom:1px solid #ddd}#conditionSetPanel>table .search{border-left:1px solid #ddd;width:44px;color:#00bdef;text-align:center;cursor:pointer;transition:background-color .3s ease,color .3s ease}#conditionSetPanel table .search:hover{background:#00bdef;color:#fff!important}#conditionSetPanel table .search i{font-size:15px;transition:font-size .3s ease}#conditionSetPanel .filter-panel{position:relative;margin:5px 4px;min-height:45px}#conditionSetPanel .filter-panel .filter-attr{white-space:nowrap;display:inline-block;cursor:pointer}#conditionSetPanel .filter-attr{margin:2px;border:1px solid transparent;border-radius:3px;height:34px;transition:background-color .2s ease}#conditionSetPanel .filter-attr.hover{border:1px solid #26a0c2;border-style:dashed;background:#fbfdfe}#conditionSetPanel .filter-attr.hover .icon-filter-tools{visibility:visible}#conditionSetPanel .icon-filter-hover{font-size:14px!important;color:#18a}#conditionSetPanel .filter-panel .icon-filter-tools:nth-child(1){border-left:none;border-right:1px dashed #26a0c2}#conditionSetPanel .filter-attr .label{padding:0 2px!important}#conditionSetPanel .filter-attr .label label{vertical-align:middle;width:73px;height:24px;line-height:24px;text-align:right;display:inline-block;cursor:move;white-space:nowrap;text-overflow:ellipsis;overflow:hidden}#conditionSetPanel .filter-attr .label .label-global{width:54px!important}#conditionSetPanel .icon-filter-tools{display:inline-block;border-left:1px dashed #26a0c2;width:19px;height:32px;line-height:34px;text-align:center;visibility:hidden;cursor:pointer}#conditionSetPanel .icon-filter-tools-global{width:38px!important}#conditionSetPanel .intervalGroup{position:relative;display:inline-block;width:250px;border:1px solid #ddd;height:24px;border-radius:3px;color:#4f4f4f;outline:0;vertical-align:2px;background:#fff;transition:border-color ease-in-out .15s,-webkit-box-shadow ease-in-out .15s}#conditionSetPanel .intervalGroup.like .intervalInput{width:150px}#conditionSetPanel .intervalGroup>div{display:inline-block;vertical-align:top}#conditionSetPanel .intervalGroup .intervalInput{border:0;width:187px;height:22px;line-height:22px;outline:0;padding-left:3px;padding-right:2px}#conditionSetPanel .intervalGroup .intervalInput{width:78px}#conditionSetPanel .and{padding-left:1px;width:18px;height:23px;line-height:24px;border-left:1px solid #ddd;text-align:center}#conditionSetPanel .intervalGroup .chooseType{position:relative;left:-1px;top:-1px}#conditionSetPanel .intervalGroup .chooseType.end{margin-left:2px}#conditionSetPanel .intervalGroup .chooseType.end .chosen-container-single .chosen-single{border-radius:0}#conditionSetPanel .intervalGroup .chosen-container-single .chosen-single{border-color:#ddd;border-radius:3px 0 0 3px;height:25px;height:24px;line-height:24px;text-align:center}#conditionSetPanel .intervalGroup .chosen-container-single .chosen-single div{width:16px;border:0}#conditionSetPanel .intervalGroup .chosen-container-active.chosen-with-drop .chosen-single div{border-left:none;width:16px;right:1px}#conditionSetPanel .intervalGroup .chosen-container-active .chosen-single{box-shadow:none!important}#conditionSetPanel .intervalGroup .chosen-container .chosen-drop,#conditionSetPanel .intervalGroup .chosen-container-active.chosen-with-drop .chosen-single{border-color:#ddd;box-shadow:none!important;border-radius:0}#conditionSetPanel .intervalGroup .chosen-container .chosen-results li{padding:4px}#conditionSetPanel .intervalGroup .chosen-container .chosen-results{margin-top:5px}#conditionSetPanel .intervalGroup .chosen-container-single .chosen-single div div{display:block;width:100%;height:100%;border-left:none!important;background:url(../../js/jquery/chosen/chosen-sprite.png) no-repeat 4px 2px}#conditionSetPanel .intervalGroup .chosen-container-active.chosen-with-drop .chosen-single div div{background-position:-12px 2px}#conditionSetPanel .intervalGroup .chosen-container-single .chosen-single{padding-left:4px}#conditionSetPanel .intervalGroup .chosen-container-single .chosen-single span{width:36px;margin-left:0}#conditionSetPanel .chooseType.end .chosen-single>span{margin-left:-13px}
+#conditionSet{
+    width: 100%;
+    height: 100%;
+}
+
+.condition-set{
+    width:600px;
+    height: 350px;
+}
+
+#conditionSetPanel >table {
+    width: 100%;
+    border-bottom: 1px solid #ddd;
+}
+#conditionSetPanel >table .search {
+    border-left: 1px solid #ddd;
+    width: 44px;
+    color: #00BDEF;
+    text-align: center;
+    cursor: pointer;
+    transition: background-color .3s ease, color .3s ease;
+}
+#conditionSetPanel table .search:hover {
+    background: #00BDEF;
+    color: #fff!important;
+}
+#conditionSetPanel table .search i {
+    font-size: 15px;
+    transition: font-size .3s ease;
+}
+#conditionSetPanel .filter-panel {
+    position: relative;
+    margin: 5px 4px;
+    min-height: 45px;
+    /* overflow: hidden; */
+}
+#conditionSetPanel .filter-panel .filter-attr {
+    white-space: nowrap;
+    /* padding-right: 2px; */
+    display: inline-block;
+    cursor: pointer;
+}
+#conditionSetPanel .filter-attr {
+    margin: 2px;
+    border: 1px solid transparent;
+    border-radius: 3px;
+    height: 34px;
+    transition: background-color .2s ease
+}
+#conditionSetPanel .filter-attr.hover{
+    border: 1px solid #26A0C2;
+    border-style: dashed;
+    background: rgb(251, 253, 254);
+}
+#conditionSetPanel .filter-attr.hover .icon-filter-tools {
+    visibility: visible;
+}
+#conditionSetPanel .icon-filter-hover {
+    font-size: 14px!important;
+    color: #1188aa;
+}
+#conditionSetPanel .filter-panel .icon-filter-tools:nth-child(1) {
+    border-left: none;
+    border-right: 1px dashed #26A0C2;
+}
+#conditionSetPanel .filter-attr .label {
+    padding: 0 2px!important;
+}
+#conditionSetPanel .filter-attr .label label {
+    vertical-align: middle;
+    /* padding-left: 5px; */
+    width: 73px;
+    height: 24px;
+    line-height: 24px;
+    text-align: right;
+    display: inline-block;
+    cursor: move;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+}
+#conditionSetPanel .filter-attr .label .label-global {
+    width: 54px !important;
+}
+
+#conditionSetPanel .icon-filter-tools {
+    display: inline-block;
+    border-left: 1px dashed #26A0C2;
+    width: 19px;
+    height: 32px;
+    line-height: 34px;
+    text-align: center;
+    visibility: hidden;
+    cursor: pointer;
+}
+#conditionSetPanel .icon-filter-tools-global {
+    width: 38px !important;
+}
+
+#conditionSetPanel .intervalGroup {
+    /* z-index: 99999; */
+    position: relative;
+    display: inline-block;
+    width: 250px;
+    border: 1px solid #ddd;
+    height: 24px;
+    border-radius: 3px;
+    color: #4F4F4F;
+    outline: none;
+    vertical-align: 2px;
+    background: #fff;
+    transition: border-color ease-in-out .15s,
+    -webkit-box-shadow ease-in-out .15s;
+}
+
+#conditionSetPanel .intervalGroup.like .intervalInput{
+    width: 150px;
+}
+
+#conditionSetPanel .intervalGroup>div {
+    display: inline-block;
+    vertical-align: top;
+}
+
+#conditionSetPanel .intervalGroup .intervalInput {
+    border: none;
+    width: 187px;
+    height: 22px;
+    line-height: 22px;
+    outline: none;
+    padding-left: 3px;
+    padding-right: 2px;
+}
+
+#conditionSetPanel .intervalGroup .intervalInput{
+    width: 78px;
+}
+
+#conditionSetPanel .and{
+    padding-left: 1px;
+    width: 18px;
+    height: 23px;
+    line-height: 24px;
+    border-left: 1px solid #ddd;
+    text-align: center;
+}
+
+#conditionSetPanel .intervalGroup .chooseType {
+    position: relative;
+    left: -1px;
+    top: -1px
+}
+
+#conditionSetPanel .intervalGroup .chooseType.end{
+    margin-left: 2px;
+}
+
+#conditionSetPanel .intervalGroup .chooseType.end .chosen-container-single .chosen-single{
+    border-radius: 0px;
+}
+
+#conditionSetPanel .intervalGroup .chosen-container-single .chosen-single {
+    border-color: #ddd;
+    border-radius: 3px 0 0 3px;
+    height: 25px;
+    height: 24px;
+    line-height: 24px;
+    text-align: center;
+}
+
+#conditionSetPanel .intervalGroup .chosen-container-single .chosen-single div {
+    width: 16px;
+    border: none;
+}
+
+#conditionSetPanel .intervalGroup   .chosen-container-active.chosen-with-drop .chosen-single div{
+    border-left:none;
+    width: 16px;
+    right: 1px;
+}
+
+#conditionSetPanel .intervalGroup .chosen-container-active .chosen-single {
+    box-shadow: none!important;
+}
+
+#conditionSetPanel .intervalGroup .chosen-container .chosen-drop,
+#conditionSetPanel .intervalGroup .chosen-container-active.chosen-with-drop .chosen-single {
+    border-color: #ddd;
+    box-shadow: none!important;
+    border-radius: 0;
+
+}
+
+#conditionSetPanel .intervalGroup .chosen-container .chosen-results li {
+    padding:4px;
+}
+
+#conditionSetPanel .intervalGroup .chosen-container .chosen-results {
+    margin-top: 5px;
+}
+
+#conditionSetPanel .intervalGroup .chosen-container-single .chosen-single div div {
+    display: block;
+    width: 100%;
+    height: 100%;
+    border-left: none!important;
+    background: url(../../js/jquery/chosen/chosen-sprite.png) no-repeat 4px 2px;
+}
+
+#conditionSetPanel .intervalGroup .chosen-container-active.chosen-with-drop .chosen-single div div {
+    background-position: -12px 2px;
+}
+
+#conditionSetPanel .intervalGroup .chosen-container-single .chosen-single{
+    padding-left: 4px;
+}
+
+#conditionSetPanel  .intervalGroup  .chosen-container-single .chosen-single span{
+    width: 36px;
+    margin-left: 0px;
+}
+
+#conditionSetPanel .chooseType.end .chosen-single >span{
+    margin-left: -13px;
+}

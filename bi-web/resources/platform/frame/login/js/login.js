@@ -1,1 +1,586 @@
-define(["sabace"],function(a){jQuery("#username,#pswd").val("");var b={init:function(){var c=window.location.toString();var d=c.split("#")[1]||"login";if(d=="login"){b.view.showLogin("init")}else{b.view.showRegister("init")}jQuery("body").removeClass("hidden");b.view.bindEvent()},checkMobile:function(c){return/^(0|86|17951)?(13[0-9]|15[012356789]|17[678]|18[0-9]|14[57])[0-9]{8}$/.test(c)},checkEmail:function(c){return/^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/.test(c)},login:function(){jQuery(".contanier").removeClass("moveX");var d=jQuery("#username");var k=jQuery("#pswd");var g=jQuery("#login_picCode");var f=d.val();var c=k.val();if(!f){b.showError(d,a.getMessage("login.msg.inputUsername"));return}else{if(!c){b.showError(k,a.getMessage("login.msg.inputPassword"));return}}var j={userID:a.encode64(f),userPassword:a.encode64(c),updateFlag:b.module.updateFlag};if(b.module.errorFlag==1||jQuery("#errorCount").val()>=3){var e=g.val();if(!e){b.showError(g,a.getMessage("login.msg.inputCaptcha"));return}j.captcha=e}jQuery(".login-button,.passwordPanel .load").toggle();var i=jQuery("#rememberCode");if(i.hasClass("checked")){jQuery.cookie("username",f,{expires:7})}else{jQuery.cookie("username","")}jQuery("#username,#pswd").prop("disabled",true);var h=respath_js+"/resources/platform/frame/login/img/head-error.png";a.ajax({url:webpath+"/platform/login/validate-login/validate",data:j,success:function(m){jQuery("#username,#pswd").prop("disabled",false);if(!m.validateFlag){if("password"==m.showObject){b.showError(d,a.getMessage(m.errorMsg))}else{if("captcha"==m.showObject){b.showError(g,a.getMessage(m.errorMsg))}}if(m.errorFlag==true){jQuery("#login_picCodePanel").fadeIn();b.module.errorFlag=1}jQuery(".contanier").addClass("moveX");jQuery(".login-button,.passwordPanel .load").toggle();return}else{function o(){jQuery(".loginPanel").fadeOut();if(jQuery("#opt-type").prev().size()==0){jQuery("#opt-type").before('<span class="hidden">'+a.getMessage("login.msg.welcome")+"</span>").prev().fadeIn(100)}jQuery(".login-logo").animate({"margin-top":"100px"},500);jQuery(".login-text").animate({"margin-top":"10px"},500);setTimeout(function(){document.location.href=webpath+"/platform/frame/login"},200)}var l="";l+='<div class="bg-color-move">';l+='<div class="sorrytitle">';l+='<img src="'+h+'"/>';if(m.updateFlag=="1"){b.module.updateFlag="1";l+="<span>数据迁移中.....</span>";l+="</div></div>";jQuery(".warning").append(l).parent().show();b.login()}else{if(m.updateFlag=="2"){l+="<span>数据还没有迁移完毕，再等等.....</span>";l+="</div></div>";jQuery(".warning").append(l).parent().show()}else{if(m.retMsg!=undefined){var n="";n+='<div class="bg-color-move">';n+='<div class="sorrytitle">';n+='<img src="'+h+'"/>';n+="<span>"+a.getMessage(m.retMsg)+"</span>";n+="</div></div>";jQuery(".warning").empty().append(n).parent().show();setTimeout(function(){o()},4000)}else{o()}}}}},error:function(o){var n="";n+='<div class="bg-color">';n+='<div class="sorrytitle">';n+='<img src="'+h+'"/>';n+="<span>抱歉，您访问的页面生病了</span>";n+="</div>";n+='<div class="closetitle">';n+="<span>5</span>秒后页面自动关闭";n+="</div></div>";jQuery(".bg .warning").append(n);jQuery(".login-button,.passwordPanel .load").toggle();jQuery(".bg").show();var m=5;var l=setInterval(function(){m--;$(".bg .warning .bg-color .closetitle span").text(m);if(m==0){$(".bg .warning .bg-color").remove();clearInterval(l);jQuery(".bg").hide();jQuery("#username,#pswd").prop("disabled",false)}},1000)}})},register:function(){if(a.IsEmpty(b.checkRegisterForm())){return}jQuery(".register-button span,.register-button .load").toggle();a.ajax({url:webpath+"/platform/register/register-user/register",data:b.checkRegisterForm(),success:function(c){if(!c.validateFlag){if("validateCode"==c.showObject){b.showError(jQuery("#validateCode"),a.getMessage(c.errorMsg))}else{if("password"==c.showObject){b.showError(jQuery("#reg_pswd1"),a.getMessage(c.errorMsg))}else{b.showError(jQuery("#reg_username"),a.getMessage(c.errorMsg))}}jQuery(".register-button span,.register-button .load").toggle()}else{jQuery(".contanier").removeClass("reg");jQuery(".login-text,.registerPanel").fadeOut();jQuery(".login-logo").animate({"margin-top":"80px"},800);jQuery("<div id='sucessTip' class='login-text'> "+a.getMessage("register.msg.success")+"</div>").appendTo("body");jQuery("#sucessTip").animate({"margin-top":"300px"},900);setTimeout(function(){document.location.href=webpath+"/platform/login/page"},2000)}},error:function(c){jQuery(".warning").text("系统发生异常！").parent().show()}})},checkRegisterForm:function(){if(jQuery(".registerPanel").find(".error").length){return null}var d=jQuery("#reg_username");var g=jQuery("#reg_pswd1");var e=jQuery("#reg_pswd2");var f=d.val().toLowerCase();var c=g.val();var l=e.val();var k={};var j=jQuery("#reg_username").data("userName");var i=jQuery("#validateCode");var h=jQuery("#validateCode").val();if(!f){b.showError(d,a.getMessage("login.msg.inputUsername"));return null}if(c.length<=0){b.showError(g,a.getMessage("login.msg.inputPassword"));return null}if(c!=l){b.showError(e,a.getMessage("register.msg.diffPassword"));return null}if(f!=j){b.showError(i,a.getMessage("register.msg.validateCodeError"));return null}if(!h){b.showError(i,a.getMessage("register.msg.inputValidateCode"));return null}if(b.checkMobile(f)){k.mobileNum=f;k.email="";k.validateCode=h;k.way="phone"}else{if(b.checkEmail(f)){k.email=f;k.validateCode=h;k.mobileNum="";k.way="email"}}k.userPassword=g.val();return k},sendValidateCode:function(e){var d=jQuery("#reg_username");userName=d.val().toLowerCase();if(b.checkMobile(userName)){jQuery("#reg_username").data("userName",userName);var f="mobileNum"}else{jQuery("#reg_username").data("userName",userName);var f="email"}e.fadeOut(100,function(){jQuery("#time").fadeIn()});var c=30;b.module.timer=setInterval(function(){c--;jQuery("#time span").text(c);if(c==0){b.restartTime()}},1000)},restartTime:function(){clearInterval(b.module.timer);jQuery("#time").fadeOut(100,function(){jQuery("#sendValidateCode").fadeIn();jQuery("#time span").text(30)})},showSuccess:function(c){c.after("<div class='successPanel'></div>")},showError:function(d,c){b.removeTip(d);d.parent().addClass("error");d.after("<div class='errorPanel'>"+c+"</div>")},removeTip:function(c){c.parent().removeClass("error").find(".errorPanel,.successPanel").remove()}};b.module={type:"login",errorFlag:0,updateFlag:"0",email:{"qq.com":"http://mail.qq.com","gmail.com":"http://mail.google.com","sina.com":"http://mail.sina.com.cn","163.com":"http://mail.163.com","126.com":"http://mail.126.com","yeah.net":"http://www.yeah.net/","sohu.com":"http://mail.sohu.com/","tom.com":"http://mail.tom.com/","sogou.com":"http://mail.sogou.com/","139.com":"http://mail.10086.cn/","hotmail.com":"http://www.hotmail.com","live.com":"http://login.live.com/","live.cn":"http://login.live.cn/","live.com.cn":"http://login.live.com.cn","189.com":"http://webmail16.189.cn/webmail/","yahoo.com.cn":"http://mail.cn.yahoo.com/","yahoo.cn":"http://mail.cn.yahoo.com/","eyou.com":"http://www.eyou.com/","21cn.com":"http://mail.21cn.com/","188.com":"http://www.188.com/","foxmail.com":"http://www.foxmail.com","outlook.com":"http://www.outlook.com"}};b.view={showLogin:function(e){jQuery(".registerPanel").fadeOut(e?0:300,function(){jQuery("#opt-type").text(a.getMessage("login.label.login"));jQuery(".contanier").removeClass("reg");jQuery(".loginPanel").fadeIn()});b.module.type="login";var c=jQuery.cookie("username");if(c){var d=jQuery("#username");d.prev().hide();d.val(c);jQuery("#rememberCode").addClass("checked")}else{jQuery("#rememberCode").removeClass("checked")}},showRegister:function(c){jQuery(".loginPanel").fadeOut(c?0:300,function(){jQuery("#opt-type").text(a.getMessage("register.label.register"));jQuery(".contanier").addClass("reg");jQuery(".registerPanel").fadeIn()});b.module.type="register"},bindEvent:function(){jQuery("#username,#pswd,#reg_username,#reg_pswd1,#reg_pswd2,#validateCode,#login_picCode").on("keyup input",function(){var c=jQuery(this);c.prev()[c.val()?"hide":"fadeIn"]()});jQuery("#username,#pswd,#reg_username,#reg_pswd1,#reg_pswd2").on("focus",function(){jQuery(this).parent().addClass("active")}).on("blur",function(){jQuery(this).parent().removeClass("active");setTimeout(function(){if(jQuery(".active").length==0){jQuery("body").animate({scrollTop:0},500)}},800)});jQuery(".bg").on("click",function(c){if(!jQuery(c.target).hasClass("warning")){jQuery(this).hide()}});jQuery(".icon-checkbox").on("click",function(){jQuery(this).toggleClass("checked")});jQuery(".regPanel").click(function(){b.view.showRegister();document.location.hash="#register"});jQuery(".goLoginPanel").click(function(){b.view.showLogin();document.location.hash="#login"});jQuery(".forgetPanel").click(function(){document.location.href=webpath+"/platform/retripsd/enter-page/retripsd"});jQuery(".register-button").click(function(){b.register()});jQuery("#sendValidateCode").on("click",function(){b.sendValidateCode($(this))});jQuery(".chinese,.english").on("click",function(){var c="";if(jQuery(this).hasClass("chinese")){c=webpath+"/platform/login/index?lang=zh"}else{c=webpath+"/platform/login/index?lang=en"}if(b.module.type=="login"){c+="#login"}else{c+="#register"}location.href=c});jQuery(".codePanel img").on("click",function(){jQuery(this).attr("src",webpath+"/ImageServlet?"+Math.random())});document.addEventListener("touchmove",function(c){c.preventDefault()});jQuery("#reg_username").on("blur",function(){var e=jQuery(this);var d=e.val();if(d!=e.data("tempName")){jQuery("#validateCodePanel").hide()}var c=jQuery("#reg_username");userName=c.val().toLowerCase();if(b.checkMobile(userName)){jQuery("#reg_username").data("userName",userName);var f="mobileNum"}else{jQuery("#reg_username").data("userName",userName);var f="email"}a.ajax({type:"post",cache:false,dataType:"json",data:{userName:userName,userType:f},url:webpath+"/platform/register/send-sms/register",success:function(g){if(!g.validateFlag){b.showError(jQuery("#reg_username"),a.getMessage(g.errorMsg));return}else{if(b.checkMobile(d)||b.checkEmail(d)){jQuery("#validateCodePanel").show();b.restartTime()}else{b.showError(e,a.getMessage("register.msg.formatError"));return}b.showSuccess(e);e.data("tempName",d)}},error:function(g){b.showError($phoneNum,a.getMessage("login.msg.exception"))}})});jQuery("#reg_pswd1").on("blur",function(){var d=jQuery(this);var c=d.val();if(c.length<6&&c.length!=0){b.showError(d,a.getMessage("register.msg.lengthError"))}else{if(c.length>=6){b.showSuccess(d)}}});jQuery("#reg_pswd2").on("blur",function(){var e=jQuery(this);var f=jQuery("#reg_pswd1");var d=e.val();if(!d){return}var c=f.val();b.removeTip(e);if(d!=c){if(!f.parent().hasClass("error")){b.showError(e,a.getMessage("register.msg.diffPassword"))}}else{b.showSuccess(e)}});jQuery("#validateCode,#username,#pswd,#reg_pswd1,#reg_pswd2,#reg_username,#login_picCode").on("focus",function(){b.removeTip($(this))});jQuery(".login-button").on("click",function(){b.login()});$("body").on("keypress",function(e){if(b.module.type=="login"){var g=jQuery("#username");var f=jQuery("#pswd");if(!g.val()&&jQuery(":focus").length==0){g.focus();return}if(e.keyCode=="13"){if(!f.val()){f.focus()}else{b.login()}}}else{var h=jQuery("#reg_username"),d=jQuery("#reg_pswd1"),c=jQuery("#reg_pswd2");if(!h.val()&&jQuery(":focus").length==0){h.focus();return}if(e.keyCode=="13"){if(!d.val()){d.focus()}else{if(!c.val()){c.focus()}else{if(!c.val()){c.focus()}}}}}})}};b.init()});
+define(['sabace'], function(sabace) {
+	jQuery("#username,#pswd").val("");
+	var Login = {
+		init: function() {
+			var url = window.location.toString();
+			var type = url.split("#")[1] || "login";
+			if (type == 'login') {
+				Login.view.showLogin("init");
+			} else {
+				Login.view.showRegister("init");
+			}
+			jQuery("body").removeClass("hidden");
+			Login.view.bindEvent();
+		},
+		checkMobile: function(phoneNum) {
+			return /^(0|86|17951)?(13[0-9]|15[012356789]|17[678]|18[0-9]|14[57])[0-9]{8}$/.test(phoneNum)
+		},
+		checkEmail: function(email) {
+			return /^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/.test(email);
+		},
+		login: function() {
+			jQuery(".contanier").removeClass("moveX");
+			var $username = jQuery("#username");
+			var $pswd = jQuery("#pswd");
+			var $picCode = jQuery("#login_picCode");
+			var $username_val = $username.val();
+			var $pswd_val = $pswd.val();
+			
+			
+			if (!$username_val) {
+				Login.showError($username, sabace.getMessage('login.msg.inputUsername'))
+				return ;
+			}  else if (!$pswd_val) {
+				Login.showError($pswd, sabace.getMessage('login.msg.inputPassword'))
+				return;
+			} 
+			
+			//ajax param参数
+			var paramData = {
+				userID:sabace.encode64($username_val),
+				userPassword:sabace.encode64($pswd_val),
+				updateFlag: Login.module.updateFlag
+			}
+			
+			if (Login.module.errorFlag == 1 || jQuery("#errorCount").val() >= 3) {
+				var $picCode_val =  $picCode.val();
+				if (!$picCode_val) {
+					Login.showError($picCode, sabace.getMessage('login.msg.inputCaptcha'))
+					return;
+				}
+				paramData.captcha = $picCode_val;
+			}
+			
+			//出现loading的样式
+			jQuery(".login-button,.passwordPanel .load").toggle();
+			
+			
+			//通过验证,判断是否记住帐号
+			var $this = jQuery("#rememberCode");
+			if ($this.hasClass("checked")) {
+				jQuery.cookie('username', $username_val, {expires: 7});
+			} else {
+				jQuery.cookie('username', '');
+			}
+			
+		    jQuery("#username,#pswd").prop("disabled",true);
+		    var js_path = respath_js+'/resources/platform/frame/login/img/head-error.png';
+			sabace.ajax({
+				url: webpath + "/platform/login/validate-login/validate",
+				data: paramData,
+				success: function(req) {
+					jQuery("#username,#pswd").prop("disabled",false);
+					// 如果验证失败
+					if (!req.validateFlag) {
+						if ("password" == req.showObject) {
+							Login.showError($username, sabace.getMessage(req.errorMsg));
+						} else if("captcha" == req.showObject){
+							Login.showError($picCode, sabace.getMessage(req.errorMsg));
+						}
+						if(req.errorFlag == true){
+							jQuery("#login_picCodePanel").fadeIn();
+							Login.module.errorFlag = 1;
+						}
+						jQuery(".contanier").addClass("moveX");
+						jQuery(".login-button,.passwordPanel .load").toggle();
+						return;
+					} else {
+						function success() {
+							jQuery(".loginPanel").fadeOut();
+							if(jQuery("#opt-type").prev().size() == 0){
+								jQuery("#opt-type").before('<span class="hidden">' + sabace.getMessage('login.msg.welcome') + '</span>').prev().fadeIn(100);
+							}
+							jQuery(".login-logo").animate({
+								"margin-top": "100px"
+							}, 500);
+							jQuery(".login-text").animate({
+								"margin-top": "10px"
+							}, 500);
+							
+							setTimeout(function() {
+								document.location.href = webpath + "/platform/frame/login";
+							}, 200);
+						}
+						
+						var qianyiHtml = '';
+						qianyiHtml += '<div class="bg-color-move">';
+						qianyiHtml += '<div class="sorrytitle">';
+						qianyiHtml += '<img src="'+js_path+'"/>';
+						// updateFlag=1，表示需要做数据迁移
+						if (req.updateFlag == "1") {
+							Login.module.updateFlag = "1";
+							qianyiHtml += '<span>数据迁移中.....</span>';
+							qianyiHtml += '</div></div>';
+							jQuery(".warning").append(qianyiHtml).parent().show();
+							Login.login();
+
+							// 启动每隔5秒查询数据迁移进度的方法
+							//success();
+						} else if (req.updateFlag == "2") {
+							qianyiHtml += '<span>数据还没有迁移完毕，再等等.....</span>';
+							qianyiHtml += '</div></div>';
+							// updateFlag=2，表示数据正在迁移过程中
+							jQuery(".warning").append(qianyiHtml).parent().show();
+						} else {
+							if (req.retMsg != undefined) {
+								var qianyiHtml2 = '';
+								qianyiHtml2 += '<div class="bg-color-move">';
+								qianyiHtml2 += '<div class="sorrytitle">';
+								qianyiHtml2 += '<img src="'+js_path+'"/>';
+								qianyiHtml2 += '<span>'+sabace.getMessage(req.retMsg)+'</span>';
+								qianyiHtml2 += '</div></div>';
+								jQuery(".warning").empty().append(qianyiHtml2).parent().show();
+								setTimeout(function() {
+									success();
+								}, 4000);
+							} else {
+								success();
+							}
+						}
+					}
+				},
+				error: function(req) {
+					var errorHtml = '';
+					errorHtml += '<div class="bg-color">';
+					errorHtml += '<div class="sorrytitle">';
+					errorHtml += '<img src="'+js_path+'"/>';
+					errorHtml += '<span>抱歉，您访问的页面生病了</span>';
+					errorHtml += '</div>';
+					errorHtml += '<div class="closetitle">';
+					errorHtml += '<span>5</span>秒后页面自动关闭';
+					errorHtml += '</div></div>';
+					jQuery(".bg .warning").append(errorHtml);
+					jQuery(".login-button,.passwordPanel .load").toggle();
+					jQuery(".bg").show();
+					var sond = 5;
+					var sInterval = setInterval(function() {
+						sond--;
+						$('.bg .warning .bg-color .closetitle span').text(sond);
+						if (sond == 0) {
+							$('.bg .warning .bg-color').remove();
+							clearInterval(sInterval);
+							jQuery(".bg").hide();
+							jQuery("#username,#pswd").prop("disabled",false);
+						}
+					}, 1000);
+				}
+			});
+
+		},
+		register: function() {
+			if (sabace.IsEmpty(Login.checkRegisterForm())) {
+				return;
+			}
+			jQuery(".register-button span,.register-button .load").toggle();
+			sabace.ajax({
+				url: webpath + "/platform/register/register-user/register",
+				data: Login.checkRegisterForm(),
+				success: function(req) {
+					// 如果验证失败
+					if (!req.validateFlag) {
+						if("validateCode"==req.showObject){
+		            		Login.showError(jQuery("#validateCode"),sabace.getMessage(req.errorMsg)); 
+		            	}
+						else if("password"==req.showObject){
+							Login.showError(jQuery("#reg_pswd1"),sabace.getMessage(req.errorMsg));
+						}
+		            	else{
+		            		Login.showError(jQuery("#reg_username"), sabace.getMessage(req.errorMsg)); 
+		            	}
+						jQuery(".register-button span,.register-button .load").toggle();
+					} else {
+						jQuery(".contanier").removeClass("reg");
+						jQuery(".login-text,.registerPanel").fadeOut();
+						jQuery(".login-logo").animate({
+							"margin-top": "80px"
+						}, 800);
+						jQuery("<div id='sucessTip' class='login-text'> "+sabace.getMessage('register.msg.success')+"</div>").appendTo("body");
+						jQuery("#sucessTip").animate({
+							"margin-top": "300px"
+						}, 900);						
+						setTimeout(function() {
+							document.location.href = webpath + "/platform/login/page";;
+						  },2000);					
+					}
+				},
+				error: function(req) {
+					jQuery(".warning").text("系统发生异常！").parent().show();
+					//Login.showError($phoneCode, '222');
+				}
+			});
+		},
+		checkRegisterForm: function() {
+
+			//如果注册面板存在错误告警 终止操作
+			if (jQuery(".registerPanel").find(".error").length) {
+				return null;
+			}
+
+			var $username = jQuery("#reg_username");
+			var $reg_pswd1 = jQuery("#reg_pswd1");
+			var $reg_pswd2 = jQuery("#reg_pswd2");
+			
+			var $username_val=$username.val().toLowerCase();
+			var $reg_pswd1_val=$reg_pswd1.val();
+			var $reg_pswd2_val=$reg_pswd2.val();
+            var paramData={};
+			//已验证的账户名
+			var userName = jQuery("#reg_username").data("userName");
+
+			var $validateCode = jQuery("#validateCode");
+			var $validateCode_val = jQuery("#validateCode").val();
+			if (!$username_val) {
+				Login.showError($username, sabace.getMessage('login.msg.inputUsername'));
+				return null;
+			}
+			if ($reg_pswd1_val.length <= 0) {
+				Login.showError($reg_pswd1, sabace.getMessage('login.msg.inputPassword'));
+				return null;
+			}
+			if ($reg_pswd1_val != $reg_pswd2_val) {
+				Login.showError($reg_pswd2, sabace.getMessage('register.msg.diffPassword'));
+				return null;
+			}
+			if ($username_val != userName) {
+				Login.showError($validateCode, sabace.getMessage('register.msg.validateCodeError'));
+				return null;
+			}
+			if (!$validateCode_val) {
+				Login.showError($validateCode, sabace.getMessage('register.msg.inputValidateCode'));
+				return null;
+			}
+			if (Login.checkMobile($username_val)) {		
+				paramData.mobileNum = $username_val;
+				paramData.email = "";
+				paramData.validateCode = $validateCode_val;
+				paramData.way = "phone";
+			} else if (Login.checkEmail($username_val)) {
+				paramData.email = $username_val;
+				paramData.validateCode = $validateCode_val;
+				paramData.mobileNum = "";
+				paramData.way = "email";
+			}			
+			paramData.userPassword =$reg_pswd1.val()
+            return paramData;
+			
+		},
+		sendValidateCode: function($this) {
+			var $userName = jQuery("#reg_username");
+			userName=$userName.val().toLowerCase();
+			//记录此时系统发送的需要验证的账户名
+			if(Login.checkMobile(userName)){
+				jQuery("#reg_username").data("userName", userName);				
+				var userType="mobileNum"
+			}else{
+				jQuery("#reg_username").data("userName", userName);
+				var userType="email"
+			}
+			
+			//开始倒计时
+			$this.fadeOut(100, function() {
+				jQuery("#time").fadeIn();
+			});
+			
+			var timeNum = 30;
+			Login.module.timer = setInterval(function() {
+				timeNum--;
+				jQuery("#time span").text(timeNum);
+				if (timeNum == 0) {
+					Login.restartTime();
+				}
+			}, 1000)
+		},
+		restartTime:function(){
+			clearInterval(Login.module.timer);
+			jQuery("#time").fadeOut(100, function() {
+				jQuery("#sendValidateCode").fadeIn();
+				jQuery("#time span").text(30)
+			});
+		},
+		showSuccess: function($this) {
+			//Login.removeTip($this);
+			$this.after("<div class='successPanel'></div>");
+		},
+		showError: function($this, errorText) {
+			Login.removeTip($this);
+			$this.parent().addClass("error");
+			$this.after("<div class='errorPanel'>" + errorText + "</div>");
+		},
+		removeTip: function($this) {
+			$this.parent().removeClass("error").find(".errorPanel,.successPanel").remove();
+		}
+	};
+	Login.module = {
+		type: 'login',//当前页面类型
+		errorFlag: 0,//错误标识 ,后面要改成seesion返回
+		updateFlag: '0',//是否需要迁移数据
+		email: {
+			'qq.com': 'http://mail.qq.com',
+			'gmail.com': 'http://mail.google.com',
+			'sina.com': 'http://mail.sina.com.cn',
+			'163.com': 'http://mail.163.com',
+			'126.com': 'http://mail.126.com',
+			'yeah.net': 'http://www.yeah.net/',
+			'sohu.com': 'http://mail.sohu.com/',
+			'tom.com': 'http://mail.tom.com/',
+			'sogou.com': 'http://mail.sogou.com/',
+			'139.com': 'http://mail.10086.cn/',
+			'hotmail.com': 'http://www.hotmail.com',
+			'live.com': 'http://login.live.com/',
+			'live.cn': 'http://login.live.cn/',
+			'live.com.cn': 'http://login.live.com.cn',
+			'189.com': 'http://webmail16.189.cn/webmail/',
+			'yahoo.com.cn': 'http://mail.cn.yahoo.com/',
+			'yahoo.cn': 'http://mail.cn.yahoo.com/',
+			'eyou.com': 'http://www.eyou.com/',
+			'21cn.com': 'http://mail.21cn.com/',
+			'188.com': 'http://www.188.com/',
+			'foxmail.com': 'http://www.foxmail.com',
+			'outlook.com': 'http://www.outlook.com'
+		}
+	};
+	Login.view = {
+		showLogin: function(init) {
+			jQuery(".registerPanel").fadeOut(init ? 0 : 300, function() {
+				jQuery("#opt-type").text(sabace.getMessage('login.label.login'));
+				jQuery(".contanier").removeClass("reg");
+				jQuery(".loginPanel").fadeIn();
+			});
+			Login.module.type = 'login';
+			var username_cookie = jQuery.cookie('username');
+			if (username_cookie) {
+				var $username = jQuery("#username");
+				$username.prev().hide();
+				$username.val(username_cookie);
+				jQuery("#rememberCode").addClass("checked");
+			} else {
+				jQuery("#rememberCode").removeClass("checked");
+			}
+			
+		},
+		showRegister: function(init) {
+			jQuery(".loginPanel").fadeOut(init ? 0 : 300, function() {
+				jQuery("#opt-type").text(sabace.getMessage('register.label.register') );
+				jQuery(".contanier").addClass("reg");
+				jQuery(".registerPanel").fadeIn();
+			});
+			Login.module.type = 'register';
+		},
+		bindEvent: function() {
+
+			//绑定placeholder
+			jQuery("#username,#pswd,#reg_username,#reg_pswd1,#reg_pswd2,#validateCode,#login_picCode").on("keyup input", function() {
+				var $this = jQuery(this);
+				$this.prev()[$this.val() ? "hide" : "fadeIn"]();
+			});
+
+			//绑定获取焦点边框高亮
+			jQuery("#username,#pswd,#reg_username,#reg_pswd1,#reg_pswd2").on("focus", function() {
+				jQuery(this).parent().addClass('active');
+			}).on("blur", function() {
+				jQuery(this).parent().removeClass('active');
+				//兼容手机端
+				setTimeout(function() {
+					if (jQuery(".active").length == 0) {
+						jQuery("body").animate({
+							scrollTop: 0
+						}, 500);
+					}
+				}, 800)
+			});
+
+			jQuery(".bg").on("click",function(event){
+				if(!jQuery(event.target).hasClass("warning"))jQuery(this).hide();
+			})
+			
+			//绑定复选框事件
+			jQuery(".icon-checkbox").on('click', function() {
+				jQuery(this).toggleClass('checked');
+			})
+
+			//绑定显示注册面板事件
+			jQuery(".regPanel").click(function() {
+				Login.view.showRegister();
+				document.location.hash = '#register';
+			})
+
+			//绑定显示登录面板事件
+			jQuery(".goLoginPanel").click(function() {
+				Login.view.showLogin();
+				document.location.hash = '#login';
+			});
+			
+			//绑定忘记密码链接暂时的
+			jQuery(".forgetPanel").click(function() {
+				document.location.href = webpath + "/platform/retripsd/enter-page/retripsd";
+			});
+
+			//点击注册按钮
+			jQuery(".register-button").click(function() {
+				Login.register();
+			})
+
+			//点击发送验证嘛
+			jQuery("#sendValidateCode").on("click", function() {
+				Login.sendValidateCode($(this));
+			})
+
+			//国际化点击切换
+			jQuery('.chinese,.english').on("click", function() {
+				var url = "";
+				if (jQuery(this).hasClass("chinese")) {
+					url = webpath + '/platform/login/index?lang=zh';
+				} else {
+					url = webpath + '/platform/login/index?lang=en';
+				}
+				if (Login.module.type == "login") {
+					url += '#login';
+				} else {
+					url += '#register';
+				}
+				location.href = url;
+			});
+
+			jQuery(".codePanel img").on("click", function() {
+				jQuery(this).attr('src', webpath + "/ImageServlet?" + Math.random());
+			})
+
+			//兼容手机
+			document.addEventListener('touchmove', function(event) {
+				event.preventDefault();
+			})
+
+			//注册用户名失去焦点事件
+			jQuery("#reg_username").on("blur", function() {
+				var $this = jQuery(this);
+				var value = $this.val();
+                if(value != $this.data("tempName"))
+                {
+                	jQuery("#validateCodePanel").hide();
+                }
+                var $userName = jQuery("#reg_username");
+				userName=$userName.val().toLowerCase();
+				//记录此时系统发送的需要验证的账户名
+				if(Login.checkMobile(userName)){
+					jQuery("#reg_username").data("userName", userName);				
+					var userType="mobileNum"
+				}else{
+					jQuery("#reg_username").data("userName", userName);
+					var userType="email"
+				}
+				sabace.ajax({
+					type: "post",
+					cache: false,
+					dataType: "json",
+					data: {
+						   userName:userName,
+						   userType:userType
+						  },
+					url: webpath + "/platform/register/send-sms/register",
+					success: function(req) {
+						if (!req.validateFlag) {
+							Login.showError(jQuery("#reg_username"), sabace.getMessage(req.errorMsg));
+							return;
+						}else{
+							if (Login.checkMobile(value)||Login.checkEmail(value)) {
+								jQuery("#validateCodePanel").show();
+								Login.restartTime();
+							}else {
+								Login.showError($this, sabace.getMessage('register.msg.formatError')); //格式不正确
+								return;
+							}
+							
+							Login.showSuccess($this); //显示正确提示
+							$this.data("tempName", value);
+						}
+					},
+					error: function(req) {
+						Login.showError($phoneNum, sabace.getMessage('login.msg.exception'));
+					}
+				});
+				
+			});
+
+			//密码失去焦点事件
+			jQuery("#reg_pswd1").on("blur", function() {
+				var $this = jQuery(this);
+				var value = $this.val();
+				if (value.length < 6 && value.length != 0) {
+					Login.showError($this,  sabace.getMessage('register.msg.lengthError'));
+				} else if (value.length >= 6) {
+					Login.showSuccess($this); //显示正确提示
+				}
+			});
+
+			//确认密码失去焦点事件
+			jQuery("#reg_pswd2").on("blur", function() {
+				var $this = jQuery(this);
+				var $this1 = jQuery("#reg_pswd1");
+
+				var value = $this.val();
+				if (!value) return;
+				var value1 = $this1.val();
+				Login.removeTip($this);
+				if (value != value1) {
+					if (!$this1.parent().hasClass("error")) {
+						Login.showError($this,  sabace.getMessage('register.msg.diffPassword'));
+					}
+				} else {
+					Login.showSuccess($this); //显示正确提示
+				}
+			});
+
+			//验证码框获得焦点时，去除错误信息
+			jQuery("#validateCode,#username,#pswd,#reg_pswd1,#reg_pswd2,#reg_username,#login_picCode").on('focus', function() {
+				Login.removeTip($(this));
+			})
+
+			jQuery(".login-button").on("click", function() {
+				Login.login();
+			})
+
+			//用户快捷操作
+			$('body').on('keypress', function(event) {
+
+				//用户登录操作
+				if (Login.module.type == "login") {
+
+					var $username = jQuery("#username");
+					var $pswd = jQuery("#pswd");
+
+					if (!$username.val() && jQuery(':focus').length==0) {
+						$username.focus();
+						return;
+					}
+					if (event.keyCode == "13") {
+						if (!$pswd.val()) {
+							$pswd.focus();
+						} else {
+							Login.login();
+						}
+					}
+
+				} else { //用户注册操作
+					var $reg_username = jQuery("#reg_username"),
+						$reg_pswd1 = jQuery("#reg_pswd1"),
+						$reg_pswd2 = jQuery("#reg_pswd2");
+					if (!$reg_username.val() && jQuery(':focus').length==0) {
+						$reg_username.focus();
+						return;
+					}
+					if (event.keyCode == "13") {
+						if (!$reg_pswd1.val()) {
+							$reg_pswd1.focus();
+						} else if (!$reg_pswd2.val()) {
+							$reg_pswd2.focus();
+						} else if (!$reg_pswd2.val()) {
+							$reg_pswd2.focus();
+						}
+					}
+				}
+
+			})
+		}
+	};
+	Login.init();
+})

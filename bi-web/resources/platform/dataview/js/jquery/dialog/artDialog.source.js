@@ -7,4 +7,2072 @@
  * This is licensed under the GNU LGPL, version 2.1 or later.
  * For details, see: http://creativecommons.org/licenses/LGPL/2.1/
  */
-(function(k,g){var j=k.art=function(q,r){return new j.fn.init(q,r)},l=false,o=[],m,c="opacity" in document.documentElement.style,b=/^(?:[^<]*(<[\w\W]+>)[^>]*$|#([\w\-]+)$)/,f=/[\n\t]/g,h=/alpha\([^)]*\)/i,p=/opacity=([^)]*)/,e=/^([+-]=)?([\d+-.]+)(.*)$/;if(k.$===g){k.$=j}j.fn=j.prototype={constructor:j,ready:function(q){j.bindReady();if(j.isReady){q.call(document,j)}else{if(o){o.push(q)}}return this},hasClass:function(q){var r=" "+q+" ";if((" "+this[0].className+" ").replace(f," ").indexOf(r)>-1){return true}return false},addClass:function(q){if(!this.hasClass(q)){this[0].className+=" "+q}return this},removeClass:function(q){var r=this[0];if(!q){r.className=""}else{if(this.hasClass(q)){r.className=r.className.replace(q," ")}}return this},css:function(q,t){var r,s=this[0],u=arguments[0];if(typeof q==="string"){if(t===g){return j.css(s,q)}else{q==="opacity"?j.opacity.set(s,t):s.style[q]=t}}else{for(r in u){r==="opacity"?j.opacity.set(s,u[r]):s.style[r]=u[r]}}return this},show:function(){return this.css("display","block")},hide:function(){return this.css("display","none")},offset:function(){var s=this[0],u=s.getBoundingClientRect(),y=s.ownerDocument,v=y.body,q=y.documentElement,t=q.clientTop||v.clientTop||0,w=q.clientLeft||v.clientLeft||0,x=u.top+(self.pageYOffset||q.scrollTop)-t,r=u.left+(self.pageXOffset||q.scrollLeft)-w;return{left:r,top:x}},html:function(r){var q=this[0];if(r===g){return q.innerHTML}j.cleanData(q.getElementsByTagName("*"));q.innerHTML=r;return this},remove:function(){var q=this[0];j.cleanData(q.getElementsByTagName("*"));j.cleanData([q]);q.parentNode.removeChild(q);return this},bind:function(q,r){j.event.add(this[0],q,r);return this},unbind:function(q,r){j.event.remove(this[0],q,r);return this}};j.fn.init=function(q,s){var r,t;s=s||document;if(!q){return this}if(q.nodeType){this[0]=q;return this}if(q==="body"&&s.body){this[0]=s.body;return this}if(q==="head"||q==="html"){this[0]=s.getElementsByTagName(q)[0];return this}if(typeof q==="string"){r=b.exec(q);if(r&&r[2]){t=s.getElementById(r[2]);if(t&&t.parentNode){this[0]=t}return this}}if(typeof q==="function"){return j(document).ready(q)}this[0]=q;return this};j.fn.init.prototype=j.fn;j.noop=function(){};j.isWindow=function(q){return q&&typeof q==="object"&&"setInterval" in q};j.isArray=function(q){return Object.prototype.toString.call(q)==="[object Array]"};j.fn.find=function(t){var s,r=this[0],q=t.split(".")[1];if(q){if(document.getElementsByClassName){s=r.getElementsByClassName(q)}else{s=n(q,r)}}else{s=r.getElementsByTagName(t)}return j(s[0])};function n(w,r,y){r=r||document;y=y||"*";var u=0,t=0,x=[],s=r.getElementsByTagName(y),q=s.length,v=new RegExp("(^|\\s)"+w+"(\\s|$)");for(;u<q;u++){if(v.test(s[u].className)){x[t]=s[u];t++}}return x}j.each=function(v,w){var r,s=0,t=v.length,q=t===g;if(q){for(r in v){if(w.call(v[r],r,v[r])===false){break}}}else{for(var u=v[0];s<t&&w.call(u,s,u)!==false;u=v[++s]){}}return v};j.data=function(s,r,t){var q=j.cache,u=a(s);if(r===g){return q[u]}if(!q[u]){q[u]={}}if(t!==g){q[u][r]=t}return q[u][r]};j.removeData=function(s,r){var u=true,x=j.expando,q=j.cache,w=a(s),t=w&&q[w];if(!t){return}if(r){delete t[r];for(var v in t){u=false}if(u){delete j.cache[w]}}else{delete q[w];if(s.removeAttribute){s.removeAttribute(x)}else{s[x]=null}}};j.uuid=0;j.cache={};j.expando="@cache"+ +new Date;function a(q){var s=j.expando,r=q===k?0:q[s];if(r===g){q[s]=r=++j.uuid}return r}j.event={add:function(u,s,w){var q,r,t=j.event,v=j.data(u,"@events")||j.data(u,"@events",{});q=v[s]=v[s]||{};r=q.listeners=q.listeners||[];r.push(w);if(!q.handler){q.elem=u;q.handler=t.handler(q);u.addEventListener?u.addEventListener(s,q.handler,false):u.attachEvent("on"+s,q.handler)}},remove:function(s,x,z){var u,q,y,w=j.event,v=true,t=j.data(s,"@events");if(!t){return}if(!x){for(u in t){w.remove(s,u)}return}q=t[x];if(!q){return}y=q.listeners;if(z){for(u=0;u<y.length;u++){y[u]===z&&y.splice(u--,1)}}else{q.listeners=[]}if(q.listeners.length===0){s.removeEventListener?s.removeEventListener(x,q.handler,false):s.detachEvent("on"+x,q.handler);delete t[x];q=j.data(s,"@events");for(var r in q){v=false}if(v){j.removeData(s,"@events")}}},handler:function(q){return function(t){t=j.event.fix(t||k.event);for(var r=0,u=q.listeners,s;s=u[r++];){if(s.call(q.elem,t)===false){t.preventDefault();t.stopPropagation()}}}},fix:function(s){if(s.target){return s}var q={target:s.srcElement||document,preventDefault:function(){s.returnValue=false},stopPropagation:function(){s.cancelBubble=true}};for(var r in s){q[r]=s[r]}return q}};j.cleanData=function(r){var s=0,t,q=r.length,u=j.event.remove,v=j.removeData;for(;s<q;s++){t=r[s];u(t);v(t)}};j.isReady=false;j.ready=function(){if(!j.isReady){if(!document.body){return setTimeout(j.ready,13)}j.isReady=true;if(o){var r,q=0;while((r=o[q++])){r.call(document,j)}o=null}}};j.bindReady=function(){if(l){return}l=true;if(document.readyState==="complete"){return j.ready()}if(document.addEventListener){document.addEventListener("DOMContentLoaded",m,false);k.addEventListener("load",j.ready,false)}else{if(document.attachEvent){document.attachEvent("onreadystatechange",m);k.attachEvent("onload",j.ready);var q=false;try{q=k.frameElement==null}catch(r){}if(document.documentElement.doScroll&&q){i()}}}};if(document.addEventListener){m=function(){document.removeEventListener("DOMContentLoaded",m,false);j.ready()}}else{if(document.attachEvent){m=function(){if(document.readyState==="complete"){document.detachEvent("onreadystatechange",m);j.ready()}}}}function i(){if(j.isReady){return}try{document.documentElement.doScroll("left")}catch(q){setTimeout(i,1);return}j.ready()}j.css="defaultView" in document&&"getComputedStyle" in document.defaultView?function(r,q){return document.defaultView.getComputedStyle(r,false)[q]}:function(s,r){var q=r==="opacity"?j.opacity.get(s):s.currentStyle[r];return q||""};j.opacity={get:function(q){return c?document.defaultView.getComputedStyle(q,false).opacity:p.test((q.currentStyle?q.currentStyle.filter:q.style.filter)||"")?(parseFloat(RegExp.$1)/100)+"":1},set:function(t,u){if(c){return t.style.opacity=u}var s=t.style;s.zoom=1;var q="alpha(opacity="+u*100+")",r=s.filter||"";s.filter=h.test(r)?r.replace(h,q):s.filter+" "+q}};j.each(["Left","Top"],function(r,q){var s="scroll"+q;j.fn[s]=function(){var t=this[0],u;u=d(t);return u?("pageXOffset" in u)?u[r?"pageYOffset":"pageXOffset"]:u.document.documentElement[s]||u.document.body[s]:t[s]}});function d(q){return j.isWindow(q)?q:q.nodeType===9?q.defaultView||q.parentWindow:false}j.each(["Height","Width"],function(r,q){var s=q.toLowerCase();j.fn[s]=function(t){var u=this[0];if(!u){return t==null?null:this}return j.isWindow(u)?u.document.documentElement["client"+q]||u.document.body["client"+q]:(u.nodeType===9)?Math.max(u.documentElement["client"+q],u.body["scroll"+q],u.documentElement["scroll"+q],u.body["offset"+q],u.documentElement["offset"+q]):null}});j.ajax=function(s){var u=k.XMLHttpRequest?new XMLHttpRequest():new ActiveXObject("Microsoft.XMLHTTP"),r=s.url;if(s.cache===false){var t=+new Date,q=r.replace(/([?&])_=[^&]*/,"$1_="+t);r=q+((q===r)?(/\?/.test(r)?"&":"?")+"_="+t:"")}u.onreadystatechange=function(){if(u.readyState===4&&u.status===200){s.success&&s.success(u.responseText);u.onreadystatechange=j.noop}};u.open("GET",r,1);u.send(null)};j.fn.animate=function(q,t,z,B){t=t||400;if(typeof z==="function"){B=z}z=z&&j.easing[z]?z:"swing";var u=this[0],v,w,y,s,x,A,r={speed:t,easing:z,callback:function(){if(v!=null){u.style.overflow=""}B&&B()}};r.curAnim={};j.each(q,function(C,D){r.curAnim[C]=D});j.each(q,function(C,D){w=new j.fx(u,r,C);y=e.exec(D);s=parseFloat(C==="opacity"||(u.style&&u.style[C]!=null)?j.css(u,C):u[C]);x=parseFloat(y[2]);A=y[3];if(C==="height"||C==="width"){x=Math.max(0,x);v=[u.style.overflow,u.style.overflowX,u.style.overflowY]}w.custom(s,x,A)});if(v!=null){u.style.overflow="hidden"}return this};j.timers=[];j.fx=function(r,q,s){this.elem=r;this.options=q;this.prop=s};j.fx.prototype={custom:function(v,u,s){var r=this;r.startTime=j.fx.now();r.start=v;r.end=u;r.unit=s;r.now=r.start;r.state=r.pos=0;function q(){return r.step()}q.elem=r.elem;q();j.timers.push(q);if(!j.timerId){j.timerId=setInterval(j.fx.tick,13)}},step:function(){var u=this,s=j.fx.now(),q=true;if(s>=u.options.speed+u.startTime){u.now=u.end;u.state=u.pos=1;u.update();u.options.curAnim[u.prop]=true;for(var r in u.options.curAnim){if(u.options.curAnim[r]!==true){q=false}}if(q){u.options.callback.call(u.elem)}return false}else{var v=s-u.startTime;u.state=v/u.options.speed;u.pos=j.easing[u.options.easing](u.state,v,0,1,u.options.speed);u.now=u.start+((u.end-u.start)*u.pos);u.update();return true}},update:function(){var q=this;if(q.prop==="opacity"){j.opacity.set(q.elem,q.now)}else{if(q.elem.style&&q.elem.style[q.prop]!=null){q.elem.style[q.prop]=q.now+q.unit}else{q.elem[q.prop]=q.now}}}};j.fx.now=function(){return +new Date};j.easing={linear:function(s,t,q,r){return q+r*s},swing:function(s,t,q,r){return((-Math.cos(s*Math.PI)/2)+0.5)*r+q}};j.fx.tick=function(){var r=j.timers;for(var q=0;q<r.length;q++){!r[q]()&&r.splice(q--,1)}!r.length&&j.fx.stop()};j.fx.stop=function(){clearInterval(j.timerId);j.timerId=null};j.fn.stop=function(){var r=j.timers;for(var q=r.length-1;q>=0;q--){if(r[q].elem===this[0]){r.splice(q,1)}}return this};return j}(window));(function(d,l,g){d.noop=d.noop||function(){};var n,b,j,c,r=0,s=d(l),h=d(document),f=d("html"),m=document.documentElement,a=l.VBArray&&!l.XMLHttpRequest,p="createTouch" in document&&!("onmousemove" in m)||/(iPhone|iPad|iPod)/i.test(navigator.userAgent),o="artDialog"+ +new Date;var k=function(e,u,x){e=e||{};if(typeof e==="string"||e.nodeType===1){e={content:e,fixed:!p}}var v,y=k.defaults,w=e.follow=this.nodeType===1&&this||e.follow;for(var t in y){if(e[t]===g){e[t]=y[t]}}d.each({ok:"yesFn",cancel:"noFn",close:"closeFn",init:"initFn",okVal:"yesText",cancelVal:"noText"},function(z,A){e[z]=e[z]!==g?e[z]:e[A]});if(typeof w==="string"){w=d(w)[0]}e.id=w&&w[o+"follow"]||e.id||o+r;v=k.list[e.id];if(w&&v){return v.follow(w).zIndex().focus()}if(v){return v.zIndex().focus()}if(p){e.fixed=false}if(!d.isArray(e.button)){e.button=e.button?[e.button]:[]}if(u!==g){e.ok=u}if(x!==g){e.cancel=x}e.ok&&e.button.push({name:e.okVal,callback:e.ok,focus:true});e.cancel&&e.button.push({name:e.cancelVal,callback:e.cancel});k.defaults.zIndex=e.zIndex;r++;return k.list[e.id]=n?n._init(e):new k.fn._init(e)};k.fn=k.prototype={version:"4.1.7",closed:true,_init:function(e){var v=this,u,t=e.icon,w=t&&(a?{png:"icons/"+t+".png"}:{backgroundImage:"url('"+e.path+"/skins/icons/"+t+".png')"});v.closed=false;v.config=e;v.DOM=u=v.DOM||v._getDOM();u.wrap.addClass(e.skin);u.close[e.cancel===false?"hide":"show"]();u.icon[0].style.display=t?"":"none";u.iconBg.css(w||{background:"none"});u.se.css("cursor",e.resize?"se-resize":"auto");u.title.css("cursor",e.drag?"move":"auto");u.content.css("padding",e.padding);v[e.show?"show":"hide"](true);v.button(e.button).title(e.title).content(e.content,true).size(e.width,e.height).time(e.time);e.follow?v.follow(e.follow):v.position(e.left,e.top);v.zIndex().focus();e.lock&&v.lock();v._addEvent();v._ie6PngFix();n=null;e.init&&e.init.call(v,l);return v},content:function(v){var x,y,E,B,z=this,G=z.DOM,u=G.wrap[0],t=u.offsetWidth,F=u.offsetHeight,w=parseInt(u.style.left),C=parseInt(u.style.top),D=u.style.width,e=G.content,A=e[0];z._elemBack&&z._elemBack();u.style.width="auto";if(v===g){return A}if(typeof v==="string"){e.html(v)}else{if(v&&v.nodeType===1){B=v.style.display;x=v.previousSibling;y=v.nextSibling;E=v.parentNode;z._elemBack=function(){if(x&&x.parentNode){x.parentNode.insertBefore(v,x.nextSibling)}else{if(y&&y.parentNode){y.parentNode.insertBefore(v,y)}else{if(E){E.appendChild(v)}}}v.style.display=B;z._elemBack=null};e.html("");A.appendChild(v);v.style.display="block"}}if(!arguments[1]){if(z.config.follow){z.follow(z.config.follow)}else{t=u.offsetWidth-t;F=u.offsetHeight-F;w=w-t/2;C=C-F/2;u.style.left=Math.max(w,0)+"px";u.style.top=Math.max(C,0)+"px"}if(D&&D!=="auto"){u.style.width=u.offsetWidth+"px"}z._autoPositionType()}z._ie6SelectFix();z._runScript(A);return z},title:function(w){var u=this.DOM,t=u.wrap,v=u.title,e="aui_state_noTitle";if(w===g){return v[0]}if(w===false){v.hide().html("");t.addClass(e)}else{v.show().html(w||"");t.removeClass(e)}return this},position:function(z,F){var E=this,x=E.config,u=E.DOM.wrap[0],A=a?false:x.fixed,D=a&&E.config.fixed,y=h.scrollLeft(),H=h.scrollTop(),C=A?0:y,v=A?0:H,B=s.width(),t=s.height(),w=u.offsetWidth,G=u.offsetHeight,e=u.style;if(z||z===0){E._left=z.toString().indexOf("%")!==-1?z:null;z=E._toNumber(z,B-w);if(typeof z==="number"){z=D?(z+=y):z+C;e.left=Math.max(z,C)+"px"}else{if(typeof z==="string"){e.left=z}}}if(F||F===0){E._top=F.toString().indexOf("%")!==-1?F:null;F=E._toNumber(F,t-G);if(typeof F==="number"){F=D?(F+=H):F+v;e.top=Math.max(F,v)+"px"}else{if(typeof F==="string"){e.top=F}}}if(z!==g&&F!==g){E._follow=null;E._autoPositionType()}return E},size:function(v,C){var A,B,e,E,y=this,w=y.config,D=y.DOM,u=D.wrap,x=D.main,z=u[0].style,t=x[0].style;if(v){y._width=v.toString().indexOf("%")!==-1?v:null;A=s.width()-u[0].offsetWidth+x[0].offsetWidth;e=y._toNumber(v,A);v=e;if(typeof v==="number"){z.width="auto";t.width=Math.max(y.config.minWidth,v)+"px";z.width=u[0].offsetWidth+"px"}else{if(typeof v==="string"){t.width=v;v==="auto"&&u.css("width","auto")}}}if(C){y._height=C.toString().indexOf("%")!==-1?C:null;B=s.height()-u[0].offsetHeight+x[0].offsetHeight;E=y._toNumber(C,B);C=E;if(typeof C==="number"){t.height=Math.max(y.config.minHeight,C)+"px"}else{if(typeof C==="string"){t.height=C}}}y._ie6SelectFix();return y},follow:function(N){var e,B=this,O=B.config;if(typeof N==="string"||N&&N.nodeType===1){e=d(N);N=e[0]}if(!N||!N.offsetWidth&&!N.offsetHeight){return B.position(B._left,B._top)}var z=o+"follow",E=s.width(),u=s.height(),w=h.scrollLeft(),y=h.scrollTop(),x=e.offset(),J=N.offsetWidth,I=N.offsetHeight,A=a?false:O.fixed,v=A?x.left-w:x.left,G=A?x.top-y:x.top,C=B.DOM.wrap[0],M=C.style,t=C.offsetWidth,L=C.offsetHeight,D=v-(t-J)/2,H=G+I,K=A?0:w,F=A?0:y;D=D<K?v:(D+t>E)&&(v-t>K)?v-t+J:D;H=(H+L>u+F)&&(G-L>F)?G-L:H;M.left=D+"px";M.top=H+"px";B._follow&&B._follow.removeAttribute(z);B._follow=N;N[z]=O.id;B._autoPositionType();return B},button:function(){var x=this,z=arguments,w=x.DOM,v=w.buttons,u=v[0],t="aui_state_highlight",e=x._listeners=x._listeners||{},y=d.isArray(z[0])?z[0]:[].slice.call(z);if(z[0]===g){return u}d.each(y,function(C,E){var A=E.name,D=!e[A],B=!D?e[A].elem:document.createElement("button");if(!e[A]){e[A]={}}if(E.callback){e[A].callback=E.callback}if(E.className){B.className=E.className}if(E.focus){x._focus&&x._focus.removeClass(t);x._focus=d(B).addClass(t);x.focus()}B.setAttribute("type","button");B[o+"callback"]=A;B.disabled=!!E.disabled;if(D){B.innerHTML=A;e[A].elem=B;u.appendChild(B)}});v[0].style.display=y.length?"":"none";x._ie6SelectFix();return x},show:function(){this.DOM.wrap.show();!arguments[0]&&this._lockMaskWrap&&this._lockMaskWrap.show();return this},hide:function(){this.DOM.wrap.hide();!arguments[0]&&this._lockMaskWrap&&this._lockMaskWrap.hide();return this},close:function(){if(this.closed){return this}var x=this,w=x.DOM,v=w.wrap,y=k.list,u=x.config.close,e=x.config.follow;x.time();if(typeof u==="function"&&u.call(x,l)===false){return x}x.unlock();x._elemBack&&x._elemBack();v[0].className=v[0].style.cssText="";w.title.html("");w.content.html("");w.buttons.html("");if(k.focus===x){k.focus=null}if(e){e.removeAttribute(o+"follow")}delete y[x.config.id];x._removeEvent();x.hide(true)._setAbsolute();for(var t in x){if(x.hasOwnProperty(t)&&t!=="DOM"){delete x[t]}}n?v.remove():n=x;return x},time:function(e){var u=this,t=u.config.cancelVal,v=u._timer;v&&clearTimeout(v);if(e){u._timer=setTimeout(function(){u._click(t)},1000*e)}return u},focus:function(){try{if(this.config.focus){var t=this._focus&&this._focus[0]||this.DOM.close[0];t&&t.focus()}}catch(u){}return this},zIndex:function(){var v=this,u=v.DOM,t=u.wrap,w=k.focus,e=k.defaults.zIndex++;t.css("zIndex",e);v._lockMask&&v._lockMask.css("zIndex",e-1);w&&w.DOM.wrap.removeClass("aui_state_focus");k.focus=v;t.addClass("aui_state_focus");return v},lock:function(){if(this._lock){return this}var x=this,y=k.defaults.zIndex-1,u=x.DOM.wrap,w=x.config,z=h.width(),C=h.height(),A=x._lockMaskWrap||d(document.body.appendChild(document.createElement("div"))),v=x._lockMask||d(A[0].appendChild(document.createElement("div"))),t="(document).documentElement",e=p?"width:"+z+"px;height:"+C+"px":"width:100%;height:100%",B=a?"position:absolute;left:expression("+t+".scrollLeft);top:expression("+t+".scrollTop);width:expression("+t+".clientWidth);height:expression("+t+".clientHeight)":"";x.zIndex();u.addClass("aui_state_lock");A[0].style.cssText=e+";position:fixed;z-index:"+y+";top:0;left:0;overflow:hidden;"+B;v[0].style.cssText="height:100%;background:"+w.background+";filter:alpha(opacity=0);opacity:0";if(a){v.html('<iframe src="about:blank" style="width:100%;height:100%;position:absolute;top:0;left:0;z-index:-1;filter:alpha(opacity=0)"></iframe>')}v.stop();v.bind("click",function(){x._reset()}).bind("dblclick",function(){});if(w.duration===0){v.css({opacity:w.opacity})}else{v.animate({opacity:w.opacity},w.duration)}x._lockMaskWrap=A;x._lockMask=v;x._lock=true;return x},unlock:function(){var w=this,u=w._lockMaskWrap,e=w._lockMask;if(!w._lock){return w}var v=u[0].style;var t=function(){if(a){v.removeExpression("width");v.removeExpression("height");v.removeExpression("left");v.removeExpression("top")}v.cssText="display:none";n&&u.remove()};e.stop().unbind();w.DOM.wrap.removeClass("aui_state_lock");if(!w.config.duration){t()}else{e.animate({opacity:0},w.config.duration,t)}w._lock=false;return w},_getDOM:function(){var x=document.createElement("div"),e=document.body;x.style.cssText="position:absolute;left:0;top:0";x.innerHTML=k._templates;e.insertBefore(x,e.firstChild);var u,w=0,y={wrap:d(x)},v=x.getElementsByTagName("*"),t=v.length;for(;w<t;w++){u=v[w].className.split("aui_")[1];if(u){y[u]=d(v[w])}}return y},_toNumber:function(e,u){if(!e&&e!==0||typeof e==="number"){return e}var t=e.length-1;if(e.lastIndexOf("px")===t){e=parseInt(e)}else{if(e.lastIndexOf("%")===t){e=parseInt(u*e.split("%")[0]/100)}}return e},_ie6PngFix:a?function(){var t=0,v,y,u,e,x=k.defaults.path+"/skins/",w=this.DOM.wrap[0].getElementsByTagName("*");for(;t<w.length;t++){v=w[t];y=v.currentStyle.png;if(y){u=x+y;e=v.runtimeStyle;e.backgroundImage="none";e.filter="progid:DXImageTransform.Microsoft.AlphaImageLoader(src='"+u+"',sizingMethod='crop')"}}}:d.noop,_ie6SelectFix:a?function(){var t=this.DOM.wrap,w=t[0],x=o+"iframeMask",v=t[x],u=w.offsetWidth,e=w.offsetHeight;u=u+"px";e=e+"px";if(v){v.style.width=u;v.style.height=e}else{v=w.appendChild(document.createElement("iframe"));t[x]=v;v.src="about:blank";v.style.cssText="position:absolute;z-index:-1;left:0;top:0;filter:alpha(opacity=0);width:"+u+";height:"+e}}:d.noop,_runScript:function(x){var e,v=0,y=0,u=x.getElementsByTagName("script"),w=u.length,t=[];for(;v<w;v++){if(u[v].type==="text/dialog"){t[y]=u[v].innerHTML;y++}}if(t.length){t=t.join("");e=new Function(t);e.call(this)}},_autoPositionType:function(){this[this.config.fixed?"_setFixed":"_setAbsolute"]()},_setFixed:(function(){a&&d(function(){var e="backgroundAttachment";if(f.css(e)!=="fixed"&&d("body").css(e)!=="fixed"){f.css({zoom:1,backgroundImage:"url(about:blank)",backgroundAttachment:"fixed"})}});return function(){var v=this.DOM.wrap,w=v[0].style;if(a){var y=parseInt(v.css("left")),x=parseInt(v.css("top")),u=h.scrollLeft(),t=h.scrollTop(),e="(document.documentElement)";this._setAbsolute();w.setExpression("left","eval("+e+".scrollLeft + "+(y-u)+') + "px"');w.setExpression("top","eval("+e+".scrollTop + "+(x-t)+') + "px"')}else{w.position="fixed"}}}()),_setAbsolute:function(){var e=this.DOM.wrap[0].style;if(a){e.removeExpression("left");e.removeExpression("top")}e.position="absolute"},_click:function(e){var u=this,t=u._listeners[e]&&u._listeners[e].callback;return typeof t!=="function"||t.call(u,l)!==false?u.close():u},_reset:function(y){var x,w=this,e=w._winSize||s.width()*s.height(),v=w._follow,t=w._width,A=w._height,u=w._left,z=w._top;if(y){x=w._winSize=s.width()*s.height();if(e===x){return}}if(t||A){w.size(t,A)}if(v){w.follow(v)}else{if(u||z){w.position(u,z)}}},_addEvent:function(){var e,w=this,t=w.config,u="CollectGarbage" in l,v=w.DOM;w._winResize=function(){e&&clearTimeout(e);e=setTimeout(function(){w._reset(u)},40)};s.bind("resize",w._winResize);v.wrap.bind("click",function(y){var z=y.target,x;if(z.disabled){return false}if(z===v.close[0]){w._click(t.cancelVal);return false}else{x=z[o+"callback"];x&&w._click(x)}w._ie6SelectFix()}).bind("mousedown",function(){w.zIndex()})},_removeEvent:function(){var t=this,e=t.DOM;e.wrap.unbind();s.unbind("resize",t._winResize)}};k.fn._init.prototype=k.fn;d.fn.dialog=d.fn.artDialog=function(){var e=arguments;this[this.live?"live":"bind"]("click",function(){k.apply(this,e);return false});return this};k.focus=null;k.get=function(e){return e===g?k.list:k.list[e]};k.list={};h.bind("keydown",function(u){var w=u.target,x=w.nodeName,e=/^INPUT|TEXTAREA$/,t=k.focus,v=u.keyCode;if(!t||!t.config.esc||e.test(x)){return}v===27&&t._click(t.config.cancelVal)});c=l._artDialog_path||(function(e,t,u){for(t in e){if(e[t].src&&e[t].src.indexOf("artDialog")!==-1){u=e[t]}}b=u||e[e.length-1];u=b.src.replace(/\\/g,"/");return u.lastIndexOf("/")<0?".":u.substring(0,u.lastIndexOf("/"))}(document.getElementsByTagName("script")));j=b.src.split("skin=")[1];if(j){var i=document.createElement("link");i.rel="stylesheet";i.href=c+"/skins/"+j+".css?"+k.fn.version;b.parentNode.insertBefore(i,b)}s.bind("load",function(){setTimeout(function(){if(r){return}k({left:"-9999em",time:9,fixed:false,lock:false,focus:false})},150)});try{document.execCommand("BackgroundImageCache",false,true)}catch(q){}k._templates='<div class="aui_outer"><table class="aui_border"><tbody><tr><td class="aui_nw"></td><td class="aui_n"></td><td class="aui_ne"></td></tr><tr><td class="aui_w"></td><td class="aui_c"><div class="aui_inner"><table class="aui_dialog"><tbody><tr><td colspan="2" class="aui_header"><div class="aui_titleBar"><div class="aui_title"></div><a class="aui_close" href="javascript:/*artDialog*/;">\xd7</a></div></td></tr><tr><td class="aui_icon"><div class="aui_iconBg"></div></td><td class="aui_main"><div class="aui_content"></div></td></tr><tr><td colspan="2" class="aui_footer"><div class="aui_buttons"></div></td></tr></tbody></table></div></td><td class="aui_e"></td></tr><tr><td class="aui_sw"></td><td class="aui_s"></td><td class="aui_se"></td></tr></tbody></table></div>';k.defaults={content:'<div class="aui_loading"><span>loading..</span></div>',title:"\u6d88\u606f",button:null,ok:null,cancel:null,init:null,close:null,okVal:"\u786E\u5B9A",cancelVal:"\u53D6\u6D88",width:"auto",height:"auto",minWidth:96,minHeight:32,padding:"20px 25px",skin:"",icon:null,time:null,esc:true,focus:true,show:true,follow:null,path:c,lock:false,background:"#000",opacity:0.7,duration:300,fixed:false,left:"50%",top:"38.2%",zIndex:1987,resize:true,drag:true};l.artDialog=d.dialog=d.artDialog=k}(this.art||this.jQuery&&(this.art=jQuery),this));(function(e){var h,b,a=e(window),d=e(document),i=document.documentElement,f=!("minWidth" in i.style),g="onlosecapture" in i,c="setCapture" in i;artDialog.dragEvent=function(){var k=this,j=function(l){var m=k[l];k[l]=function(){return m.apply(k,arguments)}};j("start");j("move");j("end")};artDialog.dragEvent.prototype={onstart:e.noop,start:function(j){d.bind("mousemove",this.move).bind("mouseup",this.end);this._sClientX=j.clientX;this._sClientY=j.clientY;this.onstart(j.clientX,j.clientY);return false},onmove:e.noop,move:function(j){this._mClientX=j.clientX;this._mClientY=j.clientY;this.onmove(j.clientX-this._sClientX,j.clientY-this._sClientY);return false},onend:e.noop,end:function(j){d.unbind("mousemove",this.move).unbind("mouseup",this.end);this.onend(j.clientX,j.clientY);return false}};b=function(j){var n,o,u,l,q,s,p=artDialog.focus,v=p.DOM,k=v.wrap,r=v.title,m=v.main;var t="getSelection" in window?function(){window.getSelection().removeAllRanges()}:function(){try{document.selection.empty()}catch(w){}};h.onstart=function(w,z){if(s){o=m[0].offsetWidth;u=m[0].offsetHeight}else{l=k[0].offsetLeft;q=k[0].offsetTop}d.bind("dblclick",h.end);!f&&g?r.bind("losecapture",h.end):a.bind("blur",h.end);c&&r[0].setCapture();k.addClass("aui_state_drag");p.focus()};h.onmove=function(z,F){if(s){var C=k[0].style,B=m[0].style,A=z+o,w=F+u;C.width="auto";B.width=Math.max(0,A)+"px";C.width=k[0].offsetWidth+"px";B.height=Math.max(0,w)+"px"}else{var B=k[0].style,E=Math.max(n.minX,Math.min(n.maxX,z+l)),D=Math.max(n.minY,Math.min(n.maxY,F+q));B.left=E+"px";B.top=D+"px"}t();p._ie6SelectFix()};h.onend=function(w,z){d.unbind("dblclick",h.end);!f&&g?r.unbind("losecapture",h.end):a.unbind("blur",h.end);c&&r[0].releaseCapture();f&&!p.closed&&p._autoPositionType();k.removeClass("aui_state_drag")};s=j.target===v.se[0]?true:false;n=(function(){var x,w,z=p.DOM.wrap[0],C=z.style.position==="fixed",B=z.offsetWidth,F=z.offsetHeight,D=a.width(),y=a.height(),E=C?0:d.scrollLeft(),A=C?0:d.scrollTop(),x=D-B+E;w=y-F+A;return{minX:E,minY:A,maxX:x,maxY:w}})();h.start(j)};d.bind("mousedown",function(m){var k=artDialog.focus;if(!k){return}var n=m.target,j=k.config,l=k.DOM;if(j.drag!==false&&n===l.title[0]||j.resize!==false&&n===l.se[0]){h=h||new artDialog.dragEvent();b(m);return false}})})(this.art||this.jQuery&&(this.art=jQuery));
+ 
+;(function (window, undefined) {
+//if (window.jQuery) return jQuery;
+
+var $ = window.art = function (selector, context) {
+    	return new $.fn.init(selector, context);
+	},
+    readyBound = false,
+    readyList = [],
+    DOMContentLoaded,
+	isOpacity = 'opacity' in document.documentElement.style,
+	quickExpr = /^(?:[^<]*(<[\w\W]+>)[^>]*$|#([\w\-]+)$)/,
+	rclass = /[\n\t]/g,
+	ralpha = /alpha\([^)]*\)/i,
+	ropacity = /opacity=([^)]*)/,
+    rfxnum = /^([+-]=)?([\d+-.]+)(.*)$/;
+
+if (window.$ === undefined) window.$ = $;
+$.fn = $.prototype = {
+	constructor: $,
+	
+    /**
+	 * DOM 就绪
+	 * @param	{Function}	回调函数
+	 */
+    ready: function (callback) {
+        $.bindReady();
+
+        if ($.isReady) {
+            callback.call(document, $);
+        } else if (readyList) {
+            readyList.push(callback);
+        };
+
+        return this;
+    },
+
+    /**
+	 * 判断样式类是否存在
+	 * @param	{String}	名称
+	 * @return	{Boolean}
+	 */
+    hasClass: function (name) {		
+		var className = ' ' + name + ' ';
+		if ((' ' + this[0].className + ' ').replace(rclass, ' ')
+		.indexOf(className) > -1) return true;
+
+		return false;
+    },
+
+    /**
+	 * 添加样式类
+	 * @param	{String}	名称
+	 */
+    addClass: function (name) {
+        if (!this.hasClass(name)) this[0].className += ' ' + name;
+
+        return this;
+    },
+
+    /**
+	 * 移除样式类
+	 * @param	{String}	名称
+	 */
+    removeClass: function (name) {
+        var elem = this[0];
+
+        if (!name) {
+            elem.className = '';
+        } else
+		if (this.hasClass(name)) {
+            elem.className = elem.className.replace(name, ' ');
+        };
+
+        return this;
+    },
+
+    /**
+	 * 读写样式<br />
+     * css(name) 访问第一个匹配元素的样式属性<br />
+     * css(properties) 把一个"名/值对"对象设置为所有匹配元素的样式属性<br />
+     * css(name, value) 在所有匹配的元素中，设置一个样式属性的值<br />
+	 */
+    css: function (name, value) {
+        var i, elem = this[0], obj = arguments[0];
+
+        if (typeof name === 'string') {
+            if (value === undefined) {
+                return $.css(elem, name);
+            } else {
+                name === 'opacity' ?
+					$.opacity.set(elem, value) :
+					elem.style[name] = value;
+            };
+        } else {
+            for (i in obj) {
+				i === 'opacity' ?
+					$.opacity.set(elem, obj[i]) :
+					elem.style[i] = obj[i];
+			};
+        };
+
+        return this;
+    },
+	
+	/** 显示元素 */
+	show: function () {
+		return this.css('display', 'block');
+	},
+	
+	/** 隐藏元素 */
+	hide: function () {
+		return this.css('display', 'none');
+	},
+
+    /**
+	 * 获取相对文档的坐标
+	 * @return	{Object}	返回left、top的数值
+	 */
+    offset: function () {
+        var elem = this[0],
+            box = elem.getBoundingClientRect(),
+            doc = elem.ownerDocument,
+            body = doc.body,
+            docElem = doc.documentElement,
+            clientTop = docElem.clientTop || body.clientTop || 0,
+            clientLeft = docElem.clientLeft || body.clientLeft || 0,
+            top = box.top + (self.pageYOffset || docElem.scrollTop) - clientTop,
+            left = box.left + (self.pageXOffset || docElem.scrollLeft) - clientLeft;
+
+        return {
+            left: left,
+            top: top
+        };
+    },
+	
+	/**
+	 * 读写HTML - (不支持文本框)
+	 * @param	{String}	内容
+	 */
+	html: function (content) {
+		var elem = this[0];
+		
+		if (content === undefined) return elem.innerHTML;
+		$.cleanData(elem.getElementsByTagName('*'));
+		elem.innerHTML = content;
+		
+		return this;
+	},
+	
+	/**
+	 * 移除节点
+	 */
+	remove: function () {
+		var elem = this[0];
+
+		$.cleanData(elem.getElementsByTagName('*'));
+		$.cleanData([elem]);
+		elem.parentNode.removeChild(elem);
+		
+		return this;
+	},
+
+	/**
+	 * 事件绑定
+	 * @param	{String}	类型
+	 * @param	{Function}	要绑定的函数
+	 */
+	bind: function (type, callback) {
+		$.event.add(this[0], type, callback);
+		return this;
+	},
+
+	/**
+	 * 移除事件
+	 * @param	{String}	类型
+	 * @param	{Function}	要卸载的函数
+	 */
+	unbind: function(type, callback) {
+		$.event.remove(this[0], type, callback);
+		return this;
+	}
+	
+};
+
+$.fn.init = function (selector, context) {
+	var match, elem;
+	context = context || document;
+	
+	if (!selector) return this;
+	
+	if (selector.nodeType) {
+		this[0] = selector;
+		return this;
+	};
+	
+	if (selector === 'body' && context.body) {
+		this[0] = context.body;
+		return this;
+	};
+	
+	if (selector === 'head' || selector === 'html') {
+		this[0] = context.getElementsByTagName(selector)[0];
+		return this;
+	};
+		
+	if (typeof selector === 'string') {
+		match = quickExpr.exec(selector);
+
+		if (match && match[2]) {
+			elem = context.getElementById(match[2]);
+			if (elem && elem.parentNode) this[0] = elem;
+			return this;
+		};
+	};
+	
+	if (typeof selector === 'function') return $(document).ready(selector);
+	
+	this[0] = selector;
+	
+	return this;
+};
+$.fn.init.prototype = $.fn;
+
+/** 空函数 */
+$.noop = function () {};
+
+/** 检测window */
+$.isWindow = function (obj) {
+	return obj && typeof obj === 'object' && 'setInterval' in obj;
+};
+
+/** 数组判定 */
+$.isArray = function (obj) {
+    return Object.prototype.toString.call(obj) === '[object Array]';
+};
+
+/**
+ * 搜索子元素
+ * 注意：只支持nodeName或.className的形式，并且只返回第一个元素
+ * @param	{String}
+ */
+$.fn.find = function (expr) {
+	var value, elem = this[0],
+		className = expr.split('.')[1];
+
+	if (className) {
+		if (document.getElementsByClassName) {
+			value = elem.getElementsByClassName(className);
+		} else {
+			value = getElementsByClassName(className, elem);
+		};
+	} else {
+		value = elem.getElementsByTagName(expr);
+	};
+	
+	return $(value[0]);
+};
+function getElementsByClassName (className, node, tag) {
+	node = node || document;
+	tag = tag || '*';
+	var i = 0,
+		j = 0,
+		classElements = [],
+		els = node.getElementsByTagName(tag),
+		elsLen = els.length,
+		pattern = new RegExp("(^|\\s)" + className + "(\\s|$)");
+		
+	for (; i < elsLen; i ++) {
+		if (pattern.test(els[i].className)) {
+			classElements[j] = els[i];
+			j ++;
+		};
+	};
+	return classElements;
+};
+
+/**
+ * 遍历
+ * @param {Object}
+ * @param {Function}
+ */
+$.each = function (obj, callback) {
+    var name, i = 0,
+        length = obj.length,
+        isObj = length === undefined;
+
+    if (isObj) {
+        for (name in obj) {
+            if (callback.call(obj[name], name, obj[name]) === false) break;
+        };
+    } else {
+        for (var value = obj[0];
+		i < length && callback.call(value, i, value) !== false;
+		value = obj[++i]) {};
+    };
+	
+	return obj;
+};
+
+/**
+ * 读写缓存
+ * @param		{HTMLElement}	元素
+ * @param		{String}		缓存名称
+ * @param		{Any}			数据
+ * @return		{Any}			如果无参数data则返回缓存数据
+ */
+$.data = function (elem, name, data) {
+	var cache = $.cache,
+		id = uuid(elem);
+	
+	if (name === undefined) return cache[id];
+	if (!cache[id]) cache[id] = {};
+	if (data !== undefined) cache[id][name] = data;
+	
+	return cache[id][name];
+};
+
+/**
+ * 删除缓存
+ * @param		{HTMLElement}	元素
+ * @param		{String}		缓存名称
+ */
+$.removeData = function (elem, name) {
+	var empty = true,
+		expando = $.expando,
+		cache = $.cache,
+		id = uuid(elem),
+		thisCache = id && cache[id];
+
+	if (!thisCache) return;
+	if (name) {
+		delete thisCache[name];
+		for (var n in thisCache) empty = false;
+		if (empty) delete $.cache[id];
+	} else {
+		delete cache[id];
+		if (elem.removeAttribute) {
+			elem.removeAttribute(expando);
+		} else {
+			elem[expando] = null;
+		};
+	};
+};
+
+$.uuid = 0;
+$.cache = {};
+$.expando = '@cache' + + new Date
+
+// 标记元素唯一身份
+function uuid (elem) {
+	var expando = $.expando,
+		id = elem === window ? 0 : elem[expando];
+	if (id === undefined) elem[expando] = id = ++ $.uuid;
+	return id;
+};
+
+
+/**
+ * 事件机制
+ * @namespace
+ * @requires	[$.data, $.removeData]
+ */
+$.event = {
+	
+	/**
+	 * 添加事件
+	 * @param		{HTMLElement}	元素
+	 * @param		{String}		事件类型
+	 * @param		{Function}		要添加的函数
+	 */
+	add: function (elem, type, callback) {
+		var cache, listeners,
+			that = $.event,
+			data = $.data(elem, '@events') || $.data(elem, '@events', {});
+		
+		cache = data[type] = data[type] || {};
+		listeners = cache.listeners = cache.listeners || [];
+		listeners.push(callback);
+		
+		if (!cache.handler) {
+			cache.elem = elem;
+			cache.handler = that.handler(cache);
+			
+			elem.addEventListener
+			? elem.addEventListener(type, cache.handler, false)
+			: elem.attachEvent('on' + type, cache.handler);
+		};
+	},
+	
+	/**
+	 * 卸载事件
+	 * @param		{HTMLElement}	元素
+	 * @param		{String}		事件类型
+	 * @param		{Function}		要卸载的函数
+	 */
+	remove: function (elem, type, callback) {
+		var i, cache, listeners,
+			that = $.event,
+			empty = true,
+			data = $.data(elem, '@events');
+		
+		if (!data) return;
+		if (!type) {
+			for (i in data) that.remove(elem, i);
+			return;
+		};
+		
+		cache = data[type];
+		if (!cache) return;
+		
+		listeners = cache.listeners;
+		if (callback) {
+			for (i = 0; i < listeners.length; i ++) {
+				listeners[i] === callback && listeners.splice(i--, 1);
+			};
+		} else {
+			cache.listeners = [];
+		};
+		
+		if (cache.listeners.length === 0) {
+			elem.removeEventListener
+			? elem.removeEventListener(type, cache.handler, false)
+			: elem.detachEvent('on' + type, cache.handler);
+			
+			delete data[type];
+			cache = $.data(elem, '@events');
+			for (var n in cache) empty = false;
+			if (empty) $.removeData(elem, '@events');
+		};
+	},
+	
+	/** @inner 事件句柄 */
+	handler: function (cache) {
+		return function (event) {
+			event = $.event.fix(event || window.event);
+			for (var i = 0, list = cache.listeners, fn; fn = list[i++];) {
+				if (fn.call(cache.elem, event) === false) {
+					event.preventDefault();
+					event.stopPropagation();
+				};
+			};
+		};
+	},
+	
+	/** @inner Event对象兼容处理 */
+	fix: function (event) {
+		if (event.target) return event;
+		
+		var event2 = {
+			target: event.srcElement || document,
+			preventDefault: function () {event.returnValue = false},
+			stopPropagation: function () {event.cancelBubble = true}
+		};
+		// IE6/7/8 在原生window.event对象写入数据会导致内存无法回收，应当采用拷贝
+		for (var i in event) event2[i] = event[i];
+		return event2;
+	}
+	
+};
+
+/**
+ * 清理元素集的事件与缓存
+ * @requires	[$.removeData, $.event]
+ * @param		{HTMLCollection}	元素集
+ */
+$.cleanData = function (elems) {
+	var i = 0, elem,
+		len = elems.length,
+		removeEvent = $.event.remove,
+		removeData = $.removeData;
+	
+	for (; i < len; i ++) {
+		elem = elems[i];
+		removeEvent(elem);
+		removeData(elem);
+	};
+};
+
+// DOM就绪事件
+$.isReady = false;
+$.ready = function () {
+    if (!$.isReady) {
+        if (!document.body) return setTimeout($.ready, 13);
+        $.isReady = true;
+
+        if (readyList) {
+            var fn, i = 0;
+            while ((fn = readyList[i++])) {
+                fn.call(document, $);
+            };
+            readyList = null;
+        };
+    };
+};
+$.bindReady = function () {
+    if (readyBound) return;
+
+    readyBound = true;
+
+    if (document.readyState === 'complete') {
+        return $.ready();
+    };
+
+    if (document.addEventListener) {
+        document.addEventListener('DOMContentLoaded', DOMContentLoaded, false);
+        window.addEventListener('load', $.ready, false);
+    } else if (document.attachEvent) {
+        document.attachEvent('onreadystatechange', DOMContentLoaded);
+        window.attachEvent('onload', $.ready);
+        var toplevel = false;
+        try {
+            toplevel = window.frameElement == null;
+        } catch (e) {};
+
+        if (document.documentElement.doScroll && toplevel) {
+            doScrollCheck();
+        };
+    };
+};
+
+if (document.addEventListener) {
+    DOMContentLoaded = function () {
+        document.removeEventListener('DOMContentLoaded', DOMContentLoaded, false);
+        $.ready();
+    };
+} else if (document.attachEvent) {
+    DOMContentLoaded = function () {
+        if (document.readyState === 'complete') {
+            document.detachEvent('onreadystatechange', DOMContentLoaded);
+            $.ready();
+        };
+    };
+};
+
+function doScrollCheck () {
+    if ($.isReady) return;
+
+    try {
+        document.documentElement.doScroll('left');
+    } catch (e) {
+        setTimeout(doScrollCheck, 1);
+        return;
+    };
+    $.ready();
+};
+
+// 获取css
+$.css = 'defaultView' in document && 'getComputedStyle' in document.defaultView ?
+	function (elem, name) {
+		return document.defaultView.getComputedStyle(elem, false)[name];
+} :
+	function (elem, name) {
+		var ret = name === 'opacity' ? $.opacity.get(elem) : elem.currentStyle[name];
+		return ret || '';
+};
+
+// 跨浏览器处理opacity
+$.opacity = {
+	get: function (elem) {
+		return isOpacity ?
+			document.defaultView.getComputedStyle(elem, false).opacity :
+			ropacity.test((elem.currentStyle
+				? elem.currentStyle.filter
+				: elem.style.filter) || '')
+				? (parseFloat(RegExp.$1) / 100) + ''
+				: 1;
+	},
+	set: function (elem, value) {
+		if (isOpacity) return elem.style.opacity = value;
+		var style = elem.style;
+		style.zoom = 1;
+
+		var opacity = 'alpha(opacity=' + value * 100 + ')',
+			filter = style.filter || '';
+
+		style.filter = ralpha.test(filter) ?
+			filter.replace(ralpha, opacity) :
+			style.filter + ' ' + opacity;
+	}
+};
+
+/**
+ * 获取滚动条位置 - [不支持写入]
+ * $.fn.scrollLeft, $.fn.scrollTop
+ * @example		获取文档垂直滚动条：$(document).scrollTop()
+ * @return		{Number}	返回滚动条位置
+ */
+$.each(['Left', 'Top'], function (i, name) {
+    var method = 'scroll' + name;
+
+    $.fn[method] = function () {
+        var elem = this[0], win;
+
+		win = getWindow(elem);
+		return win ?
+			('pageXOffset' in win) ?
+				win[i ? 'pageYOffset' : 'pageXOffset'] :
+				win.document.documentElement[method] || win.document.body[method] :
+			elem[method];
+    };
+});
+
+function getWindow (elem) {
+	return $.isWindow(elem) ?
+		elem :
+		elem.nodeType === 9 ?
+			elem.defaultView || elem.parentWindow :
+			false;
+};
+
+/**
+ * 获取窗口或文档尺寸 - [只支持window与document读取]
+ * @example 
+   获取文档宽度：$(document).width()
+   获取可视范围：$(window).width()
+ * @return	{Number}
+ */
+$.each(['Height', 'Width'], function (i, name) {
+    var type = name.toLowerCase();
+
+    $.fn[type] = function (size) {
+        var elem = this[0];
+        if (!elem) {
+            return size == null ? null : this;
+        };
+
+		return $.isWindow(elem) ?
+			elem.document.documentElement['client' + name] || elem.document.body['client' + name] :
+			(elem.nodeType === 9) ?
+				Math.max(
+					elem.documentElement['client' + name],
+					elem.body['scroll' + name], elem.documentElement['scroll' + name],
+					elem.body['offset' + name], elem.documentElement['offset' + name]
+				) : null;
+    };
+
+});
+
+/**
+ * 简单ajax支持
+ * @example
+ * $.ajax({
+ * 		url: url,
+ * 		success: callback,
+ * 		cache: cache
+ * });
+ */
+$.ajax = function (config) {
+	var ajax = window.XMLHttpRequest ?
+			new XMLHttpRequest() :
+			new ActiveXObject('Microsoft.XMLHTTP'),
+		url = config.url;
+	
+	if (config.cache === false) {
+		var ts = + new Date,
+			ret = url.replace(/([?&])_=[^&]*/, "$1_=" + ts );
+		url = ret + ((ret === url) ? (/\?/.test(url) ? "&" : "?") + "_=" + ts : "");
+	};
+	
+	ajax.onreadystatechange = function() {
+		if (ajax.readyState === 4 && ajax.status === 200) {
+			config.success && config.success(ajax.responseText);
+			ajax.onreadystatechange = $.noop;
+		};
+	};
+	ajax.open('GET', url, 1);
+	ajax.send(null);
+};
+
+/** 动画引擎 - [不支持链式列队操作] */
+$.fn.animate = function (prop, speed, easing, callback) {
+	
+	speed = speed || 400;
+	if (typeof easing === 'function') callback = easing;
+	easing = easing && $.easing[easing] ? easing : 'swing';
+	
+    var elem = this[0], overflow,
+        fx, parts, start, end, unit,
+		opt = {
+			speed: speed,
+			easing: easing,
+			callback: function () {
+				if (overflow != null) elem.style.overflow = '';
+				callback && callback();
+			}
+		};
+	
+	opt.curAnim = {};
+	$.each(prop, function (name, val) {
+		opt.curAnim[name] = val;
+	});
+	
+    $.each(prop, function (name, val) {
+        fx = new $.fx(elem, opt, name);
+        parts = rfxnum.exec(val);
+        start = parseFloat(name === 'opacity'
+			|| (elem.style && elem.style[name] != null) ?
+			$.css(elem, name) :
+			elem[name]);
+        end = parseFloat(parts[2]);
+        unit = parts[3];
+		if (name === 'height' || name === 'width') {
+			end = Math.max(0, end);
+			overflow = [elem.style.overflow,
+			elem.style.overflowX, elem.style.overflowY];
+		};
+		
+        fx.custom(start, end, unit);
+    });
+	
+	if (overflow != null) elem.style.overflow = 'hidden';
+
+    return this;
+};
+
+$.timers = [];
+$.fx = function (elem, options, prop) {
+    this.elem = elem;
+    this.options = options;
+    this.prop = prop;
+};
+
+$.fx.prototype = {
+    custom: function (from, to, unit) {
+		var that = this;
+        that.startTime = $.fx.now();
+        that.start = from;
+        that.end = to;
+        that.unit = unit;
+        that.now = that.start;
+        that.state = that.pos = 0;
+
+        function t() {
+            return that.step();
+        };
+        t.elem = that.elem;
+		t();
+        $.timers.push(t);
+        if (!$.timerId) $.timerId = setInterval($.fx.tick, 13);
+    },
+    step: function () {
+        var that = this, t = $.fx.now(), done = true;
+		
+        if (t >= that.options.speed + that.startTime) {
+            that.now = that.end;
+            that.state = that.pos = 1;
+            that.update();
+			
+			that.options.curAnim[that.prop] = true;
+			for (var i in that.options.curAnim) {
+				if (that.options.curAnim[i] !== true) {
+					done = false;
+				};
+			};
+			
+			if (done) that.options.callback.call(that.elem);
+			
+            return false;
+        } else {
+            var n = t - that.startTime;
+            that.state = n / that.options.speed;
+            that.pos = $.easing[that.options.easing](that.state, n, 0, 1, that.options.speed);
+            that.now = that.start + ((that.end - that.start) * that.pos);
+            that.update();
+            return true;
+        };
+    },
+    update: function () {
+		var that = this;
+		if (that.prop === 'opacity') {
+			$.opacity.set(that.elem, that.now);
+		} else
+		if (that.elem.style && that.elem.style[that.prop] != null) {
+			that.elem.style[that.prop] = that.now + that.unit;
+		} else {
+			that.elem[that.prop] = that.now;
+		};
+    }
+};
+
+$.fx.now = function () {
+    return + new Date;
+};
+
+$.easing = {
+    linear: function (p, n, firstNum, diff) {
+        return firstNum + diff * p;
+    },
+    swing: function (p, n, firstNum, diff) {
+        return ((-Math.cos(p * Math.PI) / 2) + 0.5) * diff + firstNum;
+    }
+};
+
+$.fx.tick = function () {
+	var timers = $.timers;
+    for (var i = 0; i < timers.length; i++) {
+        !timers[i]() && timers.splice(i--, 1);
+    };
+    !timers.length && $.fx.stop();
+};
+
+$.fx.stop = function () {
+    clearInterval($.timerId);
+    $.timerId = null;
+};
+
+$.fn.stop = function () {
+	var timers = $.timers;
+    for (var i = timers.length - 1; i >= 0; i--) {
+    	if (timers[i].elem === this[0]) timers.splice(i, 1);
+	};
+    return this;
+};
+
+//-------------end
+return $}(window));
+
+
+
+
+//------------------------------------------------
+// 对话框模块
+//------------------------------------------------
+;(function ($, window, undefined) {
+
+$.noop = $.noop || function () {}; // jQuery 1.3.2
+var _box, _thisScript, _skin, _path,
+	_count = 0,
+	_$window = $(window),
+	_$document = $(document),
+	_$html = $('html'),
+	_elem = document.documentElement,
+	_isIE6 = window.VBArray && !window.XMLHttpRequest,
+	_isMobile = 'createTouch' in document && !('onmousemove' in _elem)
+		|| /(iPhone|iPad|iPod)/i.test(navigator.userAgent),
+	_expando = 'artDialog' + + new Date;
+
+var artDialog = function (config, ok, cancel) {
+	config = config || {};
+	
+	if (typeof config === 'string' || config.nodeType === 1) {
+		config = {content: config, fixed: !_isMobile};
+	};
+	
+	var api,
+		defaults = artDialog.defaults,
+		elem = config.follow = this.nodeType === 1 && this || config.follow;
+		
+	// 合并默认配置
+	for (var i in defaults) {
+		if (config[i] === undefined) config[i] = defaults[i];		
+	};
+	
+	// 兼容v4.1.0之前的参数，未来版本将删除此
+	$.each({ok:"yesFn",cancel:"noFn",close:"closeFn",init:"initFn",okVal:"yesText",cancelVal:"noText"},
+	function(i,o){config[i]=config[i]!==undefined?config[i]:config[o]});
+	
+	// 返回跟随模式或重复定义的ID
+	if (typeof elem === 'string') elem = $(elem)[0];
+	config.id = elem && elem[_expando + 'follow'] || config.id || _expando + _count;
+	api = artDialog.list[config.id];
+	if (elem && api) return api.follow(elem).zIndex().focus();
+	if (api) return api.zIndex().focus();
+	
+	// 目前主流移动设备对fixed支持不好
+	if (_isMobile) config.fixed = false;
+	
+	// 按钮队列
+	if (!$.isArray(config.button)) {
+		config.button = config.button ? [config.button] : [];
+	};
+	if (ok !== undefined) config.ok = ok;
+	if (cancel !== undefined) config.cancel = cancel;
+	config.ok && config.button.push({
+		name: config.okVal,
+		callback: config.ok,
+		focus: true
+	});
+	config.cancel && config.button.push({
+		name: config.cancelVal,
+		callback: config.cancel
+	});
+	
+	// zIndex全局配置
+	artDialog.defaults.zIndex = config.zIndex;
+	
+	_count ++;
+	
+	return artDialog.list[config.id] = _box ?
+		_box._init(config) : new artDialog.fn._init(config);
+};
+
+artDialog.fn = artDialog.prototype = {
+
+	version: '4.1.7',
+	
+	closed: true,
+	
+	_init: function (config) {
+		var that = this, DOM,
+			icon = config.icon,
+			iconBg = icon && (_isIE6 ? {png: 'icons/' + icon + '.png'}
+			: {backgroundImage: 'url(\'' + config.path + '/skins/icons/' + icon + '.png\')'});
+		
+        that.closed = false;
+		that.config = config;
+		that.DOM = DOM = that.DOM || that._getDOM();
+		
+		DOM.wrap.addClass(config.skin);
+		DOM.close[config.cancel === false ? 'hide' : 'show']();
+		DOM.icon[0].style.display = icon ? '' : 'none';
+		DOM.iconBg.css(iconBg || {background: 'none'});
+		DOM.se.css('cursor', config.resize ? 'se-resize' : 'auto');
+		DOM.title.css('cursor', config.drag ? 'move' : 'auto');
+		DOM.content.css('padding', config.padding);
+		
+		that[config.show ? 'show' : 'hide'](true)
+		that.button(config.button)
+		.title(config.title)
+		.content(config.content, true)
+		.size(config.width, config.height)
+		.time(config.time);
+		
+		config.follow
+		? that.follow(config.follow)
+		: that.position(config.left, config.top);
+		
+		that.zIndex().focus();
+		config.lock && that.lock();
+		
+		that._addEvent();
+		that._ie6PngFix();
+		_box = null;
+		
+		config.init && config.init.call(that, window);
+		return that;
+	},
+	
+	/**
+	 * 设置内容
+	 * @param	{String, HTMLElement}	内容 (可选)
+	 * @return	{this, HTMLElement}		如果无参数则返回内容容器DOM对象
+	 */
+	content: function (msg) {
+		var prev, next, parent, display,
+			that = this,
+			DOM = that.DOM,
+			wrap = DOM.wrap[0],
+			width = wrap.offsetWidth,
+			height = wrap.offsetHeight,
+			left = parseInt(wrap.style.left),
+			top = parseInt(wrap.style.top),
+			cssWidth = wrap.style.width,
+			$content = DOM.content,
+			content = $content[0];
+		
+		that._elemBack && that._elemBack();
+		wrap.style.width = 'auto';
+		
+		if (msg === undefined) return content;
+		if (typeof msg === 'string') {
+			$content.html(msg);
+		} else if (msg && msg.nodeType === 1) {
+		
+			// 让传入的元素在对话框关闭后可以返回到原来的地方
+			display = msg.style.display;
+			prev = msg.previousSibling;
+			next = msg.nextSibling;
+			parent = msg.parentNode;
+			that._elemBack = function () {
+				if (prev && prev.parentNode) {
+					prev.parentNode.insertBefore(msg, prev.nextSibling);
+				} else if (next && next.parentNode) {
+					next.parentNode.insertBefore(msg, next);
+				} else if (parent) {
+					parent.appendChild(msg);
+				};
+				msg.style.display = display;
+				that._elemBack = null;
+			};
+			
+			$content.html('');
+			content.appendChild(msg);
+			msg.style.display = 'block';
+			
+		};
+		
+		// 新增内容后调整位置
+		if (!arguments[1]) {
+			if (that.config.follow) {
+				that.follow(that.config.follow);
+			} else {
+				width = wrap.offsetWidth - width;
+				height = wrap.offsetHeight - height;
+				left = left - width / 2;
+				top = top - height / 2;
+				wrap.style.left = Math.max(left, 0) + 'px';
+				wrap.style.top = Math.max(top, 0) + 'px';
+			};
+			if (cssWidth && cssWidth !== 'auto') {
+				wrap.style.width = wrap.offsetWidth + 'px';
+			};
+			that._autoPositionType();
+		};
+		
+		that._ie6SelectFix();
+		that._runScript(content);
+		
+		return that;
+	},
+	
+	/**
+	 * 设置标题
+	 * @param	{String, Boolean}	标题内容. 为false则隐藏标题栏
+	 * @return	{this, HTMLElement}	如果无参数则返回内容器DOM对象
+	 */
+	title: function (text) {
+		var DOM = this.DOM,
+			wrap = DOM.wrap,
+			title = DOM.title,
+			className = 'aui_state_noTitle';
+			
+		if (text === undefined) return title[0];
+		if (text === false) {
+			title.hide().html('');
+			wrap.addClass(className);
+		} else {
+			title.show().html(text || '');
+			wrap.removeClass(className);
+		};
+		
+		return this;
+	},
+	
+	/**
+	 * 位置(相对于可视区域)
+	 * @param	{Number, String}
+	 * @param	{Number, String}
+	 */
+	position: function (left, top) {
+		var that = this,
+			config = that.config,
+			wrap = that.DOM.wrap[0],
+			isFixed = _isIE6 ? false : config.fixed,
+			ie6Fixed = _isIE6 && that.config.fixed,
+			docLeft = _$document.scrollLeft(),
+			docTop = _$document.scrollTop(),
+			dl = isFixed ? 0 : docLeft,
+			dt = isFixed ? 0 : docTop,
+			ww = _$window.width(),
+			wh = _$window.height(),
+			ow = wrap.offsetWidth,
+			oh = wrap.offsetHeight,
+			style = wrap.style;
+		
+		if (left || left === 0) {
+			that._left = left.toString().indexOf('%') !== -1 ? left : null;
+			left = that._toNumber(left, ww - ow);
+			
+			if (typeof left === 'number') {
+				left = ie6Fixed ? (left += docLeft) : left + dl;
+				style.left = Math.max(left, dl) + 'px';
+			} else if (typeof left === 'string') {
+				style.left = left;
+			};
+		};
+		
+		if (top || top === 0) {
+			that._top = top.toString().indexOf('%') !== -1 ? top : null;
+			top = that._toNumber(top, wh - oh);
+			
+			if (typeof top === 'number') {
+				top = ie6Fixed ? (top += docTop) : top + dt;
+				style.top = Math.max(top, dt) + 'px';
+			} else if (typeof top === 'string') {
+				style.top = top;
+			};
+		};
+		
+		if (left !== undefined && top !== undefined) {
+			that._follow = null;
+			that._autoPositionType();
+		};
+		
+		return that;
+	},
+
+	/**
+	 *	尺寸
+	 *	@param	{Number, String}	宽度
+	 *	@param	{Number, String}	高度
+	 */
+	size: function (width, height) {
+		var maxWidth, maxHeight, scaleWidth, scaleHeight,
+			that = this,
+			config = that.config,
+			DOM = that.DOM,
+			wrap = DOM.wrap,
+			main = DOM.main,
+			wrapStyle = wrap[0].style,
+			style = main[0].style;
+			
+		if (width) {
+			that._width = width.toString().indexOf('%') !== -1 ? width : null;
+			maxWidth = _$window.width() - wrap[0].offsetWidth + main[0].offsetWidth;
+			scaleWidth = that._toNumber(width, maxWidth);
+			width = scaleWidth;
+			
+			if (typeof width === 'number') {
+				wrapStyle.width = 'auto';
+				style.width = Math.max(that.config.minWidth, width) + 'px';
+				wrapStyle.width = wrap[0].offsetWidth + 'px'; // 防止未定义宽度的表格遇到浏览器右边边界伸缩
+			} else if (typeof width === 'string') {
+				style.width = width;
+				width === 'auto' && wrap.css('width', 'auto');
+			};
+		};
+		
+		if (height) {
+			that._height = height.toString().indexOf('%') !== -1 ? height : null;
+			maxHeight = _$window.height() - wrap[0].offsetHeight + main[0].offsetHeight;
+			scaleHeight = that._toNumber(height, maxHeight);
+			height = scaleHeight;
+			
+			if (typeof height === 'number') {
+				style.height = Math.max(that.config.minHeight, height) + 'px';
+			} else if (typeof height === 'string') {
+				style.height = height;
+			};
+		};
+		
+		that._ie6SelectFix();
+		
+		return that;
+	},
+	
+	/**
+	 * 跟随元素
+	 * @param	{HTMLElement, String}
+	 */
+	follow: function (elem) {
+		var $elem, that = this, config = that.config;
+		
+		if (typeof elem === 'string' || elem && elem.nodeType === 1) {
+			$elem = $(elem);
+			elem = $elem[0];
+		};
+		
+		// 隐藏元素不可用
+		if (!elem || !elem.offsetWidth && !elem.offsetHeight) {
+			return that.position(that._left, that._top);
+		};
+		
+		var expando = _expando + 'follow',
+			winWidth = _$window.width(),
+			winHeight = _$window.height(),
+			docLeft =  _$document.scrollLeft(),
+			docTop = _$document.scrollTop(),
+			offset = $elem.offset(),
+			width = elem.offsetWidth,
+			height = elem.offsetHeight,
+			isFixed = _isIE6 ? false : config.fixed,
+			left = isFixed ? offset.left - docLeft : offset.left,
+			top = isFixed ? offset.top - docTop : offset.top,
+			wrap = that.DOM.wrap[0],
+			style = wrap.style,
+			wrapWidth = wrap.offsetWidth,
+			wrapHeight = wrap.offsetHeight,
+			setLeft = left - (wrapWidth - width) / 2,
+			setTop = top + height,
+			dl = isFixed ? 0 : docLeft,
+			dt = isFixed ? 0 : docTop;
+		
+		setLeft = setLeft < dl ? left :
+		(setLeft + wrapWidth > winWidth) && (left - wrapWidth > dl)
+		? left - wrapWidth + width
+		: setLeft;
+
+		setTop = (setTop + wrapHeight > winHeight + dt)
+		&& (top - wrapHeight > dt)
+		? top - wrapHeight
+		: setTop;
+		
+		style.left = setLeft + 'px';
+		style.top = setTop + 'px';
+		
+		that._follow && that._follow.removeAttribute(expando);
+		that._follow = elem;
+		elem[expando] = config.id;
+		that._autoPositionType();
+		return that;
+	},
+	
+	/**
+	 * 自定义按钮
+	 * @example
+		button({
+			name: 'login',
+			callback: function () {},
+			disabled: false,
+			focus: true
+		}, .., ..)
+	 */
+	button: function () {
+		var that = this,
+			ags = arguments,
+			DOM = that.DOM,
+			buttons = DOM.buttons,
+			elem = buttons[0],
+			strongButton = 'aui_state_highlight',
+			listeners = that._listeners = that._listeners || {},
+			list = $.isArray(ags[0]) ? ags[0] : [].slice.call(ags);
+		
+		if (ags[0] === undefined) return elem;
+		$.each(list, function (i, val) {
+			var name = val.name,
+				isNewButton = !listeners[name],
+				button = !isNewButton ?
+					listeners[name].elem :
+					document.createElement('button');
+					
+			if (!listeners[name]) listeners[name] = {};
+			if (val.callback) listeners[name].callback = val.callback;
+			if (val.className) button.className = val.className;
+			if (val.focus) {
+				that._focus && that._focus.removeClass(strongButton);
+				that._focus = $(button).addClass(strongButton);
+				that.focus();
+			};
+			
+			// Internet Explorer 的默认类型是 "button"，
+			// 而其他浏览器中（包括 W3C 规范）的默认值是 "submit"
+			// @see http://www.w3school.com.cn/tags/att_button_type.asp
+			button.setAttribute('type', 'button');
+			
+			button[_expando + 'callback'] = name;
+			button.disabled = !!val.disabled;
+
+			if (isNewButton) {
+				button.innerHTML = name;
+				listeners[name].elem = button;
+				elem.appendChild(button);
+			};
+		});
+		
+		buttons[0].style.display = list.length ? '' : 'none';
+		
+		that._ie6SelectFix();
+		return that;
+	},
+	
+	/** 显示对话框 */
+	show: function () {
+		this.DOM.wrap.show();
+		!arguments[0] && this._lockMaskWrap && this._lockMaskWrap.show();
+		return this;
+	},
+	
+	/** 隐藏对话框 */
+	hide: function () {
+		this.DOM.wrap.hide();
+		!arguments[0] && this._lockMaskWrap && this._lockMaskWrap.hide();
+		return this;
+	},
+	
+	/** 关闭对话框 */
+	close: function () {
+		if (this.closed) return this;
+		
+		var that = this,
+			DOM = that.DOM,
+			wrap = DOM.wrap,
+			list = artDialog.list,
+			fn = that.config.close,
+			follow = that.config.follow;
+		
+		that.time();
+		if (typeof fn === 'function' && fn.call(that, window) === false) {
+			return that;
+		};
+		
+		that.unlock();
+		
+		// 置空内容
+		that._elemBack && that._elemBack();
+		wrap[0].className = wrap[0].style.cssText = '';
+		DOM.title.html('');
+		DOM.content.html('');
+		DOM.buttons.html('');
+		
+		if (artDialog.focus === that) artDialog.focus = null;
+		if (follow) follow.removeAttribute(_expando + 'follow');
+		delete list[that.config.id];
+		that._removeEvent();
+		that.hide(true)._setAbsolute();
+		
+		// 清空除this.DOM之外临时对象，恢复到初始状态，以便使用单例模式
+		for (var i in that) {
+			if (that.hasOwnProperty(i) && i !== 'DOM') delete that[i];
+		};
+		
+		// 移除HTMLElement或重用
+		_box ? wrap.remove() : _box = that;
+		
+		return that;
+	},
+	
+	/**
+	 * 定时关闭
+	 * @param	{Number}	单位为秒, 无参数则停止计时器
+	 */
+	time: function (second) {
+		var that = this,
+			cancel = that.config.cancelVal,
+			timer = that._timer;
+			
+		timer && clearTimeout(timer);
+		
+		if (second) {
+			that._timer = setTimeout(function(){
+				that._click(cancel);
+			}, 1000 * second);
+		};
+		
+		return that;
+	},
+	
+	/** 设置焦点 */
+	focus: function () {
+		try {
+			if (this.config.focus) {
+				var elem = this._focus && this._focus[0] || this.DOM.close[0];
+				elem && elem.focus();
+			}
+		} catch (e) {}; // IE对不可见元素设置焦点会报错
+		return this;
+	},
+	
+	/** 置顶对话框 */
+	zIndex: function () {
+		var that = this,
+			DOM = that.DOM,
+			wrap = DOM.wrap,
+			top = artDialog.focus,
+			index = artDialog.defaults.zIndex ++;
+		
+		// 设置叠加高度
+		wrap.css('zIndex', index);
+		that._lockMask && that._lockMask.css('zIndex', index - 1);
+		
+		// 设置最高层的样式
+		top && top.DOM.wrap.removeClass('aui_state_focus');
+		artDialog.focus = that;
+		wrap.addClass('aui_state_focus');
+		
+		return that;
+	},
+	
+	/** 设置屏锁 */
+	lock: function () {
+		if (this._lock) return this;
+		
+		var that = this,
+			index = artDialog.defaults.zIndex - 1,
+			wrap = that.DOM.wrap,
+			config = that.config,
+			docWidth = _$document.width(),
+			docHeight = _$document.height(),
+			lockMaskWrap = that._lockMaskWrap || $(document.body.appendChild(document.createElement('div'))),
+			lockMask = that._lockMask || $(lockMaskWrap[0].appendChild(document.createElement('div'))),
+			domTxt = '(document).documentElement',
+			sizeCss = _isMobile ? 'width:' + docWidth + 'px;height:' + docHeight
+				+ 'px' : 'width:100%;height:100%',
+			ie6Css = _isIE6 ?
+				'position:absolute;left:expression(' + domTxt + '.scrollLeft);top:expression('
+				+ domTxt + '.scrollTop);width:expression(' + domTxt
+				+ '.clientWidth);height:expression(' + domTxt + '.clientHeight)'
+			: '';
+		
+		that.zIndex();
+		wrap.addClass('aui_state_lock');
+		
+		lockMaskWrap[0].style.cssText = sizeCss + ';position:fixed;z-index:'
+			+ index + ';top:0;left:0;overflow:hidden;' + ie6Css;
+		lockMask[0].style.cssText = 'height:100%;background:' + config.background
+			+ ';filter:alpha(opacity=0);opacity:0';
+		
+		// 让IE6锁屏遮罩能够盖住下拉控件
+		if (_isIE6) lockMask.html(
+			'<iframe src="about:blank" style="width:100%;height:100%;position:absolute;' +
+			'top:0;left:0;z-index:-1;filter:alpha(opacity=0)"></iframe>');
+			
+		lockMask.stop();
+		lockMask.bind('click', function () {
+			that._reset();
+		}).bind('dblclick', function () {
+			//that._click(that.config.cancelVal);
+		});
+		
+		if (config.duration === 0) {
+			lockMask.css({opacity: config.opacity});
+		} else {
+			lockMask.animate({opacity: config.opacity}, config.duration);
+		};
+		
+		that._lockMaskWrap = lockMaskWrap;
+		that._lockMask = lockMask;
+		
+		that._lock = true;
+		return that;
+	},
+	
+	/** 解开屏锁 */
+	unlock: function () {
+		var that = this,
+			lockMaskWrap = that._lockMaskWrap,
+			lockMask = that._lockMask;
+		
+		if (!that._lock) return that;
+		var style = lockMaskWrap[0].style;
+		var un = function () {
+			if (_isIE6) {
+				style.removeExpression('width');
+				style.removeExpression('height');
+				style.removeExpression('left');
+				style.removeExpression('top');
+			};
+			style.cssText = 'display:none';
+			
+			_box && lockMaskWrap.remove();
+		};
+		
+		lockMask.stop().unbind();
+		that.DOM.wrap.removeClass('aui_state_lock');
+		if (!that.config.duration) {// 取消动画，快速关闭
+			un();
+		} else {
+			lockMask.animate({opacity: 0}, that.config.duration, un);
+		};
+		
+		that._lock = false;
+		return that;
+	},
+	
+	// 获取元素
+	_getDOM: function () {	
+		var wrap = document.createElement('div'),
+			body = document.body;
+		wrap.style.cssText = 'position:absolute;left:0;top:0';
+		wrap.innerHTML = artDialog._templates;
+		body.insertBefore(wrap, body.firstChild);
+		
+		var name, i = 0,
+			DOM = {wrap: $(wrap)},
+			els = wrap.getElementsByTagName('*'),
+			elsLen = els.length;
+			
+		for (; i < elsLen; i ++) {
+			name = els[i].className.split('aui_')[1];
+			if (name) DOM[name] = $(els[i]);
+		};
+		
+		return DOM;
+	},
+	
+	// px与%单位转换成数值 (百分比单位按照最大值换算)
+	// 其他的单位返回原值
+	_toNumber: function (thisValue, maxValue) {
+		if (!thisValue && thisValue !== 0 || typeof thisValue === 'number') {
+			return thisValue;
+		};
+		
+		var last = thisValue.length - 1;
+		if (thisValue.lastIndexOf('px') === last) {
+			thisValue = parseInt(thisValue);
+		} else if (thisValue.lastIndexOf('%') === last) {
+			thisValue = parseInt(maxValue * thisValue.split('%')[0] / 100);
+		};
+		
+		return thisValue;
+	},
+	
+	// 让IE6 CSS支持PNG背景
+	_ie6PngFix: _isIE6 ? function () {
+		var i = 0, elem, png, pngPath, runtimeStyle,
+			path = artDialog.defaults.path + '/skins/',
+			list = this.DOM.wrap[0].getElementsByTagName('*');
+		
+		for (; i < list.length; i ++) {
+			elem = list[i];
+			png = elem.currentStyle['png'];
+			if (png) {
+				pngPath = path + png;
+				runtimeStyle = elem.runtimeStyle;
+				runtimeStyle.backgroundImage = 'none';
+				runtimeStyle.filter = "progid:DXImageTransform.Microsoft." +
+					"AlphaImageLoader(src='" + pngPath + "',sizingMethod='crop')";
+			};
+		};
+	} : $.noop,
+	
+	// 强制覆盖IE6下拉控件
+	_ie6SelectFix: _isIE6 ? function () {
+		var $wrap = this.DOM.wrap,
+			wrap = $wrap[0],
+			expando = _expando + 'iframeMask',
+			iframe = $wrap[expando],
+			width = wrap.offsetWidth,
+			height = wrap.offsetHeight;
+
+		width = width + 'px';
+		height = height + 'px';
+		if (iframe) {
+			iframe.style.width = width;
+			iframe.style.height = height;
+		} else {
+			iframe = wrap.appendChild(document.createElement('iframe'));
+			$wrap[expando] = iframe;
+			iframe.src = 'about:blank';
+			iframe.style.cssText = 'position:absolute;z-index:-1;left:0;top:0;'
+			+ 'filter:alpha(opacity=0);width:' + width + ';height:' + height;
+		};
+	} : $.noop,
+	
+	// 解析HTML片段中自定义类型脚本，其this指向artDialog内部
+	// <script type="text/dialog">/* [code] */</script>
+	_runScript: function (elem) {
+		var fun, i = 0, n = 0,
+			tags = elem.getElementsByTagName('script'),
+			length = tags.length,
+			script = [];
+			
+		for (; i < length; i ++) {
+			if (tags[i].type === 'text/dialog') {
+				script[n] = tags[i].innerHTML;
+				n ++;
+			};
+		};
+		
+		if (script.length) {
+			script = script.join('');
+			fun = new Function(script);
+			fun.call(this);
+		};
+	},
+	
+	// 自动切换定位类型
+	_autoPositionType: function () {
+		this[this.config.fixed ? '_setFixed' : '_setAbsolute']();/////////////
+	},
+	
+	
+	// 设置静止定位
+	// IE6 Fixed @see: http://www.planeart.cn/?p=877
+	_setFixed: (function () {
+		_isIE6 && $(function () {
+			var bg = 'backgroundAttachment';
+			if (_$html.css(bg) !== 'fixed' && $('body').css(bg) !== 'fixed') {
+				_$html.css({
+					zoom: 1,// 避免偶尔出现body背景图片异常的情况
+					backgroundImage: 'url(about:blank)',
+					backgroundAttachment: 'fixed'
+				});
+			};
+		});
+		
+		return function () {
+			var $elem = this.DOM.wrap,
+				style = $elem[0].style;
+			
+			if (_isIE6) {
+				var left = parseInt($elem.css('left')),
+					top = parseInt($elem.css('top')),
+					sLeft = _$document.scrollLeft(),
+					sTop = _$document.scrollTop(),
+					txt = '(document.documentElement)';
+				
+				this._setAbsolute();
+				style.setExpression('left', 'eval(' + txt + '.scrollLeft + '
+					+ (left - sLeft) + ') + "px"');
+				style.setExpression('top', 'eval(' + txt + '.scrollTop + '
+					+ (top - sTop) + ') + "px"');
+			} else {
+				style.position = 'fixed';
+			};
+		};
+	}()),
+	
+	// 设置绝对定位
+	_setAbsolute: function () {
+		var style = this.DOM.wrap[0].style;
+			
+		if (_isIE6) {
+			style.removeExpression('left');
+			style.removeExpression('top');
+		};
+
+		style.position = 'absolute';
+	},
+	
+	// 按钮回调函数触发
+	_click: function (name) {
+		var that = this,
+			fn = that._listeners[name] && that._listeners[name].callback;
+		return typeof fn !== 'function' || fn.call(that, window) !== false ?
+			that.close() : that;
+	},
+	
+	// 重置位置与尺寸
+	_reset: function (test) {
+		var newSize,
+			that = this,
+			oldSize = that._winSize || _$window.width() * _$window.height(),
+			elem = that._follow,
+			width = that._width,
+			height = that._height,
+			left = that._left,
+			top = that._top;
+		
+		if (test) {
+			// IE6~7 window.onresize bug
+			newSize = that._winSize =  _$window.width() * _$window.height();
+			if (oldSize === newSize) return;
+		};
+		
+		if (width || height) that.size(width, height);
+		
+		if (elem) {
+			that.follow(elem);
+		} else if (left || top) {
+			that.position(left, top);
+		};
+	},
+	
+	// 事件代理
+	_addEvent: function () {
+		var resizeTimer,
+			that = this,
+			config = that.config,
+			isIE = 'CollectGarbage' in window,
+			DOM = that.DOM;
+		
+		// 窗口调节事件
+		that._winResize = function () {
+			resizeTimer && clearTimeout(resizeTimer);
+			resizeTimer = setTimeout(function () {
+				that._reset(isIE);
+			}, 40);
+		};
+		_$window.bind('resize', that._winResize);
+		
+		// 监听点击
+		DOM.wrap
+		.bind('click', function (event) {
+			var target = event.target, callbackID;
+			
+			if (target.disabled) return false; // IE BUG
+			
+			if (target === DOM.close[0]) {
+				that._click(config.cancelVal);
+				return false;
+			} else {
+				callbackID = target[_expando + 'callback'];
+				callbackID && that._click(callbackID);
+			};
+			
+			that._ie6SelectFix();
+		})
+		.bind('mousedown', function () {
+			that.zIndex();
+		});
+	},
+	
+	// 卸载事件代理
+	_removeEvent: function () {
+		var that = this,
+			DOM = that.DOM;
+		
+		DOM.wrap.unbind();
+		_$window.unbind('resize', that._winResize);
+	}
+	
+};
+
+artDialog.fn._init.prototype = artDialog.fn;
+$.fn.dialog = $.fn.artDialog = function () {
+	var config = arguments;
+	this[this.live ? 'live' : 'bind']('click', function () {
+		artDialog.apply(this, config);
+		return false;
+	});
+	return this;
+};
+
+
+
+/** 最顶层的对话框API */
+artDialog.focus = null;
+
+
+/** 获取某对话框API */
+artDialog.get = function (id) {
+	return id === undefined
+	? artDialog.list
+	: artDialog.list[id];
+};
+
+artDialog.list = {};
+
+
+
+// 全局快捷键
+_$document.bind('keydown', function (event) {
+	var target = event.target,
+		nodeName = target.nodeName,
+		rinput = /^INPUT|TEXTAREA$/,
+		api = artDialog.focus,
+		keyCode = event.keyCode;
+
+	if (!api || !api.config.esc || rinput.test(nodeName)) return;
+		
+	keyCode === 27 && api._click(api.config.cancelVal);
+});
+
+
+
+// 获取artDialog路径
+_path = window['_artDialog_path'] || (function (script, i, me) {
+	for (i in script) {
+		// 如果通过第三方脚本加载器加载本文件，请保证文件名含有"artDialog"字符
+		if (script[i].src && script[i].src.indexOf('artDialog') !== -1) me = script[i];
+	};
+	
+	_thisScript = me || script[script.length - 1];
+	me = _thisScript.src.replace(/\\/g, '/');
+	return me.lastIndexOf('/') < 0 ? '.' : me.substring(0, me.lastIndexOf('/'));
+}(document.getElementsByTagName('script')));
+
+
+
+// 无阻塞载入CSS (如"artDialog.js?skin=aero")
+_skin = _thisScript.src.split('skin=')[1];
+if (_skin) {
+	var link = document.createElement('link');
+	link.rel = 'stylesheet';
+	link.href = _path + '/skins/' + _skin + '.css?' + artDialog.fn.version;
+	_thisScript.parentNode.insertBefore(link, _thisScript);
+};
+
+
+
+// 触发浏览器预先缓存背景图片
+_$window.bind('load', function () {
+	setTimeout(function () {
+		if (_count) return;
+		artDialog({left: '-9999em',time: 9,fixed: false,lock: false,focus: false});
+	}, 150);
+});
+
+
+
+// 开启IE6 CSS背景图片缓存
+try {
+	document.execCommand('BackgroundImageCache', false, true);
+} catch (e) {};
+
+
+
+
+// 使用uglifyjs压缩能够预先处理"+"号合并字符串
+// uglifyjs: http://marijnhaverbeke.nl/uglifyjs
+artDialog._templates =
+'<div class="aui_outer">'
++	'<table class="aui_border">'
++		'<tbody>'
++			'<tr>'
++				'<td class="aui_nw"></td>'
++				'<td class="aui_n"></td>'
++				'<td class="aui_ne"></td>'
++			'</tr>'
++			'<tr>'
++				'<td class="aui_w"></td>'
++				'<td class="aui_c">'
++					'<div class="aui_inner">'
++					'<table class="aui_dialog">'
++						'<tbody>'
++							'<tr>'
++								'<td colspan="2" class="aui_header">'
++									'<div class="aui_titleBar">'
++										'<div class="aui_title"></div>'
++										'<a class="aui_close" href="javascript:/*artDialog*/;">'
++											'\xd7'
++										'</a>'
++									'</div>'
++								'</td>'
++							'</tr>'
++							'<tr>'
++								'<td class="aui_icon">'
++									'<div class="aui_iconBg"></div>'
++								'</td>'
++								'<td class="aui_main">'
++									'<div class="aui_content"></div>'
++								'</td>'
++							'</tr>'
++							'<tr>'
++								'<td colspan="2" class="aui_footer">'
++									'<div class="aui_buttons"></div>'
++								'</td>'
++							'</tr>'
++						'</tbody>'
++					'</table>'
++					'</div>'
++				'</td>'
++				'<td class="aui_e"></td>'
++			'</tr>'
++			'<tr>'
++				'<td class="aui_sw"></td>'
++				'<td class="aui_s"></td>'
++				'<td class="aui_se"></td>'
++			'</tr>'
++		'</tbody>'
++	'</table>'
++'</div>';
+
+
+
+/**
+ * 默认配置
+ */
+artDialog.defaults = {
+								// 消息内容
+	content: '<div class="aui_loading"><span>loading..</span></div>',
+	title: '\u6d88\u606f',		// 标题. 默认'消息'
+	button: null,				// 自定义按钮
+	ok: null,					// 确定按钮回调函数
+	cancel: null,				// 取消按钮回调函数
+	init: null,					// 对话框初始化后执行的函数
+	close: null,				// 对话框关闭前执行的函数
+	okVal: '\u786E\u5B9A',		// 确定按钮文本. 默认'确定'
+	cancelVal: '\u53D6\u6D88',	// 取消按钮文本. 默认'取消'
+	width: 'auto',				// 内容宽度
+	height: 'auto',				// 内容高度
+	minWidth: 96,				// 最小宽度限制
+	minHeight: 32,				// 最小高度限制
+	padding: '20px 25px',		// 内容与边界填充距离
+	skin: '',					// 皮肤名(预留接口,尚未实现)
+	icon: null,					// 消息图标名称
+	time: null,					// 自动关闭时间
+	esc: true,					// 是否支持Esc键关闭
+	focus: true,				// 是否支持对话框按钮自动聚焦
+	show: true,					// 初始化后是否显示对话框
+	follow: null,				// 跟随某元素(即让对话框在元素附近弹出)
+	path: _path,				// artDialog路径
+	lock: false,				// 是否锁屏
+	background: '#000',			// 遮罩颜色
+	opacity: .7,				// 遮罩透明度
+	duration: 300,				// 遮罩透明度渐变动画速度
+	fixed: false,				// 是否静止定位
+	left: '50%',				// X轴坐标
+	top: '38.2%',				// Y轴坐标
+	zIndex: 1987,				// 对话框叠加高度值(重要：此值不能超过浏览器最大限制)
+	resize: true,				// 是否允许用户调节尺寸
+	drag: true					// 是否允许用户拖动位置
+	
+};
+
+window.artDialog = $.dialog = $.artDialog = artDialog;
+}(this.art || this.jQuery && (this.art = jQuery), this));
+
+
+
+
+
+
+//------------------------------------------------
+// 对话框模块-拖拽支持（可选外置模块）
+//------------------------------------------------
+;(function ($) {
+
+var _dragEvent, _use,
+	_$window = $(window),
+	_$document = $(document),
+	_elem = document.documentElement,
+	_isIE6 = !('minWidth' in _elem.style),
+	_isLosecapture = 'onlosecapture' in _elem,
+	_isSetCapture = 'setCapture' in _elem;
+
+// 拖拽事件
+artDialog.dragEvent = function () {
+	var that = this,
+		proxy = function (name) {
+			var fn = that[name];
+			that[name] = function () {
+				return fn.apply(that, arguments);
+			};
+		};
+		
+	proxy('start');
+	proxy('move');
+	proxy('end');
+};
+
+artDialog.dragEvent.prototype = {
+
+	// 开始拖拽
+	onstart: $.noop,
+	start: function (event) {
+		_$document
+		.bind('mousemove', this.move)
+		.bind('mouseup', this.end);
+			
+		this._sClientX = event.clientX;
+		this._sClientY = event.clientY;
+		this.onstart(event.clientX, event.clientY);
+
+		return false;
+	},
+	
+	// 正在拖拽
+	onmove: $.noop,
+	move: function (event) {		
+		this._mClientX = event.clientX;
+		this._mClientY = event.clientY;
+		this.onmove(
+			event.clientX - this._sClientX,
+			event.clientY - this._sClientY
+		);
+		
+		return false;
+	},
+	
+	// 结束拖拽
+	onend: $.noop,
+	end: function (event) {
+		_$document
+		.unbind('mousemove', this.move)
+		.unbind('mouseup', this.end);
+		
+		this.onend(event.clientX, event.clientY);
+		return false;
+	}
+	
+};
+
+_use = function (event) {
+	var limit, startWidth, startHeight, startLeft, startTop, isResize,
+		api = artDialog.focus,
+		//config = api.config,
+		DOM = api.DOM,
+		wrap = DOM.wrap,
+		title = DOM.title,
+		main = DOM.main;
+
+	// 清除文本选择
+	var clsSelect = 'getSelection' in window ? function () {
+		window.getSelection().removeAllRanges();
+	} : function () {
+		try {
+			document.selection.empty();
+		} catch (e) {};
+	};
+	
+	// 对话框准备拖动
+	_dragEvent.onstart = function (x, y) {
+		if (isResize) {
+			startWidth = main[0].offsetWidth;
+			startHeight = main[0].offsetHeight;
+		} else {
+			startLeft = wrap[0].offsetLeft;
+			startTop = wrap[0].offsetTop;
+		};
+		
+		_$document.bind('dblclick', _dragEvent.end);
+		!_isIE6 && _isLosecapture ?
+			title.bind('losecapture', _dragEvent.end) :
+			_$window.bind('blur', _dragEvent.end);
+		_isSetCapture && title[0].setCapture();
+		
+		wrap.addClass('aui_state_drag');
+		api.focus();
+	};
+	
+	// 对话框拖动进行中
+	_dragEvent.onmove = function (x, y) {
+		if (isResize) {
+			var wrapStyle = wrap[0].style,
+				style = main[0].style,
+				width = x + startWidth,
+				height = y + startHeight;
+			
+			wrapStyle.width = 'auto';
+			style.width = Math.max(0, width) + 'px';
+			wrapStyle.width = wrap[0].offsetWidth + 'px';
+			
+			style.height = Math.max(0, height) + 'px';
+			
+		} else {
+			var style = wrap[0].style,
+				left = Math.max(limit.minX, Math.min(limit.maxX, x + startLeft)),
+				top = Math.max(limit.minY, Math.min(limit.maxY, y + startTop));
+
+			style.left = left  + 'px';
+			style.top = top + 'px';
+		};
+			
+		clsSelect();
+		api._ie6SelectFix();
+	};
+	
+	// 对话框拖动结束
+	_dragEvent.onend = function (x, y) {
+		_$document.unbind('dblclick', _dragEvent.end);
+		!_isIE6 && _isLosecapture ?
+			title.unbind('losecapture', _dragEvent.end) :
+			_$window.unbind('blur', _dragEvent.end);
+		_isSetCapture && title[0].releaseCapture();
+		
+		_isIE6 && !api.closed && api._autoPositionType();
+		
+		wrap.removeClass('aui_state_drag');
+	};
+	
+	isResize = event.target === DOM.se[0] ? true : false;
+	limit = (function () {
+		var maxX, maxY,
+			wrap = api.DOM.wrap[0],
+			fixed = wrap.style.position === 'fixed',
+			ow = wrap.offsetWidth,
+			oh = wrap.offsetHeight,
+			ww = _$window.width(),
+			wh = _$window.height(),
+			dl = fixed ? 0 : _$document.scrollLeft(),
+			dt = fixed ? 0 : _$document.scrollTop(),
+			
+		// 坐标最大值限制
+		maxX = ww - ow + dl;
+		maxY = wh - oh + dt;
+		
+		return {
+			minX: dl,
+			minY: dt,
+			maxX: maxX,
+			maxY: maxY
+		};
+	})();
+	
+	_dragEvent.start(event);
+};
+
+// 代理 mousedown 事件触发对话框拖动
+_$document.bind('mousedown', function (event) {
+	var api = artDialog.focus;
+	if (!api) return;
+
+	var target = event.target,
+		config = api.config,
+		DOM = api.DOM;
+	
+	if (config.drag !== false && target === DOM.title[0]
+	|| config.resize !== false && target === DOM.se[0]) {
+		_dragEvent = _dragEvent || new artDialog.dragEvent();
+		_use(event);
+		return false;// 防止firefox与chrome滚屏
+	};
+});
+
+})(this.art || this.jQuery && (this.art = jQuery));
+

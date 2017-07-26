@@ -1,1 +1,436 @@
-define(["sabace","detail/message"],function(c,h){function g(){jQuery(".chosen-select").chosen();e();a();jQuery("#consume-time").on("click",function(){jQuery("#queryConsumeTime").focus()});jQuery("#recharge-time").on("click",function(){jQuery("#queryRechargeTime").focus()});var j=$(".consume-list-class").width()-5;i(j);b(j);$(window).resize(function(){var l=$(".consume-list-class").width()-5;var k=$(".recharge-list-class").width()-5;$("#consumeListGrid").setGridWidth(l>k?l:k);$("#rechargeListGrid").setGridWidth(l>k?l:k)});$("#rechargeListGrid").on("click",".recharge-oper",function(){alert($(this).attr("value"))});jQuery("#consumeSearcheButton").on("click",d);jQuery("#rechargeSearcheButton").on("click",f)}return{init:g};function d(){var k=jQuery("#serviceName").val();var j=jQuery("#queryConsumeTime").dateRange("getDate");var l=jQuery("#queryConsumeTime").val();postData={serviceName:encodeURI(k),queryStartAcyc:j.startDate,queryEndAcyc:j.endDate,};if(l==""||l==null){postData.queryStartAcyc="";postData.queryEndAcyc=""}jQuery("#consumeListGrid").jqGrid("setGridParam",{postData:postData}).trigger("reloadGrid")}function f(){var k=jQuery("#queryRechargeTime").dateRange("getDate");var j=jQuery("#rechargeType").val();var m=jQuery("#rechargeState").val();var l=jQuery("#queryRechargeTime").val();postData={rechargeStartTime:k.startDate,rechargeEndTime:k.endDate,rechargeType:j,rechargeState:m,};if(l==""||l==null){postData.rechargeStartTime="";postData.rechargeEndTime=""}jQuery("#rechargeListGrid").jqGrid("setGridParam",{postData:postData}).trigger("reloadGrid")}function i(m){var o=new Date();var k=o.getMonth()+1;var q=o.getFullYear();var l;var n;if((k-1)<=0){q=q-1;k=k+11}else{k=k-1}if((k-5)<=0){l=q-1;n=k+7}else{l=q;n=k-5}if(n<10){n="0"+n}if(k<10){k="0"+k}var j=l+"-"+n;var p=q+"-"+k;jQuery("#queryConsumeTime").val(j+"   ~   "+p);$("#consumeListGrid").jqGrid({url:c.handleUrlParam("/platform/sysmanage/finance/consume-list"),styleUI:"Bootstrap",datatype:"json",postData:{queryStartAcyc:j,queryEndAcyc:p,},width:m,height:"auto",regional:"cn",rownumbers:true,colModel:[{label:c.getMessage("finance.label.serviceName"),name:"serviceName",width:300,align:"left",hlign:"center",sortable:false},{label:c.getMessage("finance.label.serviceMonth"),name:"consumeAcyc",width:150,align:"center",hlign:"center",sortable:false},{label:c.getMessage("finance.label.orderTime"),name:"orderTime",width:150,align:"center",hlign:"center",sortable:false},{label:c.getMessage("finance.label.pointsTime"),name:"adminTime",width:150,align:"center",hlign:"center",sortable:false},{label:c.getMessage("finance.label.orderType"),name:"orderType",width:150,align:"right",hlign:"center",sortable:false,formatter:function(r,s,t){if(r==1){return c.getMessage("finance.label.orderType.times")}else{if(r==2){return c.getMessage("finance.label.orderType.days")}else{if(r==5){return c.getMessage("finance.label.orderType.month")}else{return c.getMessage("finance.label.orderType.year")}}}}},{label:c.getMessage("finance.label.costNum"),name:"consumeIntegral",width:150,align:"right",hlign:"center",sortable:false}],loadComplete:function(){var r=$("#consumeListGrid").getGridParam("records");var t=0;var u=jQuery("#consumeListGrid").jqGrid("getRowData");for(var s=0;s<u.length;s++){t=t+parseInt(u[s]["consumeIntegral"])}document.getElementById("integralsum").innerHTML=t}})}function b(j){var m=new Date();var k=m.getDate();var o=m.getMonth()+1;var r=m.getFullYear();var p;var q;if((o-5)<=0){p=r-1;q=o+7}else{p=r;q=o-5}if(q<10){q="0"+q}if(o<10){o="0"+o}var l=p+"-"+q+"-01";var n=r+"-"+o+"-"+k;jQuery("#queryRechargeTime").val(l+"   ~   "+n);$("#rechargeListGrid").jqGrid({url:c.handleUrlParam("/platform/sysmanage/finance/recharge-list"),styleUI:"Bootstrap",datatype:"json",postData:{rechargeStartTime:l,rechargeEndTime:n},width:j,height:"auto",regional:"cn",rownumbers:true,colModel:[{label:c.getMessage("finance.label.orderCode"),name:"rechargeId",width:250,align:"left",hlign:"center",sortable:false},{label:c.getMessage("finance.label.orderTime"),name:"rechargeTime",width:120,align:"center",hlign:"center",sortable:false},{label:c.getMessage("finance.label.payType"),name:"rechargeType",width:130,align:"left",hlign:"center",sortable:false,formatter:function(t,u,v){var s=v.rechargeType;if(s=="1"){return c.getMessage("finance.label.payType.alipay")}else{if(s=="2"){return c.getMessage("finance.label.payType.weChat")}else{if(s=="3"){return c.getMessage("finance.label.payType.CFT")}}}}},{label:c.getMessage("finance.label.payState"),name:"rechargeState",width:150,align:"left",hlign:"center",sortable:false,formatter:function(s,t,v){var u=v.rechargeState;if(u=="1"){return c.getMessage("finance.label.payState.notPaid")}else{if(u=="4"){return c.getMessage("finance.label.payState.failed")}else{if(u=="9"){return c.getMessage("finance.label.payState.succeed")}}}}},{label:c.getMessage("finance.label.payMoney"),name:"payMoney",width:100,align:"right",hlign:"center",sortable:false,formatter:function(s,t,u){return Number(s)/100+c.getMessage("finance.label.money.unit")}},{label:c.getMessage("finance.label.post.points"),name:"rechargeIntegral",width:100,align:"right",hlign:"center",sortable:false},{label:c.getMessage("finance.label.operate"),name:"rechargeOper",width:100,align:"center",hlign:"center",sortable:false,formatter:function(s,t,v){var u=v.rechargeState;if(u=="1"){return'<a href="javascript:void(0)" class="recharge-oper" value="'+v.rechargeId+'">'+c.getMessage("finance.label.toPay")+"</a>"}else{return""}}}],loadComplete:function(){var x=$("#rechargeListGrid").getGridParam("records");var s=0;var w=0;var u=0;var v=jQuery("#rechargeListGrid").jqGrid("getRowData");for(var t=0;t<v.length;t++){if(v[t]["rechargeState"]==c.getMessage("finance.label.paySuccess")){s=parseFloat(s)+parseFloat(v[t]["payMoney"]);w=w+parseInt(v[t]["rechargeIntegral"])}else{if(v[t]["rechargeState"]==c.getMessage("finance.label.payFailed")){u=parseFloat(u)+parseFloat(v[t]["payMoney"])}}}document.getElementById("paysucess").innerHTML=s;document.getElementById("rechargeIntegral").innerHTML=w;document.getElementById("payfailed").innerHTML=u}})}function e(){var n=new Date();var k=n.getMonth()+1;var p=n.getFullYear();var l;var m;if((k-1)<=0){p=p-1;k=k+11}else{k=k-1}if((k-5)<=0){l=p-1;m=k+7}else{l=p;m=k-5}if(m<10){m="0"+m}if(k<10){k="0"+k}var j=l+"-"+m;var o=p+"-"+k;jQuery("#queryConsumeTime").dateRange({format:"YYYY-MM",start:{maxDate:o,},end:{maxDate:o,},onhide:function(){var q=jQuery(this).dateRange("getDate")},startValue:j,endValue:o})}function a(){var n=new Date();var o=n.getDate();var k=n.getMonth()+1;var q=n.getFullYear();var l;var m;if(k<5){l=q-1;m=k+8}else{l=q;m=k-4}if(m<10){m="0"+m}if(k<10){k="0"+k}var j=l+"-"+m+"-01";var p=q+"-"+k+"-"+o;jQuery("#queryRechargeTime").dateRange({format:"YYYY-MM-DD",start:{maxDate:moment().format("YYYY-MM-DD"),},end:{maxDate:moment().format("YYYY-MM-DD"),},onhide:function(){var r=jQuery(this).dateRange("getDate")},startValue:j,endValue:p})}});
+define(['sabace', 'detail/message'], function(sabace, message) {
+	function init() {
+		//下拉框初始化
+		jQuery('.chosen-select').chosen();
+		
+		//渲染datetimepicker	
+		
+		initConsumeDate();
+		initRechargeDate();
+		
+		//绑定consume-time事件
+		jQuery("#consume-time").on("click",function(){
+			jQuery('#queryConsumeTime').focus();		
+		});
+		
+		jQuery("#recharge-time").on("click",function(){
+			jQuery('#queryRechargeTime').focus();	
+		});
+		// 获取第一个tab中表格的宽度，需要统一设置给其它的几个tab页表格中
+		var consumeListWidth = $(".consume-list-class").width() - 5;
+		
+		initConsumeList(consumeListWidth);
+		initRechargeList(consumeListWidth);
+		
+		
+		
+		// 监控页面的宽度变化，并修改表格的宽度
+		$(window).resize(function() {
+			var consumeListWidth = $(".consume-list-class").width() - 5;
+			var rechargeListWidth = $(".recharge-list-class").width() - 5;
+			$("#consumeListGrid").setGridWidth(consumeListWidth > rechargeListWidth ? consumeListWidth : rechargeListWidth);
+			$("#rechargeListGrid").setGridWidth(consumeListWidth > rechargeListWidth ? consumeListWidth : rechargeListWidth);
+		});
+
+		$("#rechargeListGrid").on("click", '.recharge-oper', function() {
+			alert($(this).attr("value"));
+		});
+		
+		
+		// 绑定查询事件
+		jQuery('#consumeSearcheButton').on("click", consumeSearch);
+		jQuery('#rechargeSearcheButton').on("click", rechargeSearch);
+		
+	}
+	
+
+	//返回页面所需方法
+	return {
+		init: init
+	}
+	
+	
+	//获取消费记录页面传入的值
+	function consumeSearch(){				
+		var  serviceName = jQuery('#serviceName').val();
+		var  consumeAcyc=jQuery('#queryConsumeTime').dateRange("getDate");
+		var  consumeTimeTxt=jQuery('#queryConsumeTime').val();
+		postData = {
+				serviceName : encodeURI(serviceName),
+				queryStartAcyc : consumeAcyc.startDate,
+				queryEndAcyc:consumeAcyc.endDate,
+			};
+		if(consumeTimeTxt==''||consumeTimeTxt== null)
+		{
+		postData.queryStartAcyc='';
+		postData.queryEndAcyc='';
+		}
+		
+		jQuery("#consumeListGrid").jqGrid('setGridParam',{postData : postData}).trigger("reloadGrid"); 
+		
+		//[]数组参数可以省略
+	
+	}
+	
+	//获取入账记录页面传入的值
+	function rechargeSearch(){
+		var  rechargeTime=jQuery('#queryRechargeTime').dateRange("getDate");
+		var  rechargeType=jQuery("#rechargeType").val();
+		var  rechargeState=jQuery('#rechargeState').val();
+		var  rechargeTimeTxt=jQuery('#queryRechargeTime').val();
+		postData = {
+				rechargeStartTime:rechargeTime.startDate,
+				rechargeEndTime:rechargeTime.endDate,
+				rechargeType:rechargeType,
+		        rechargeState:rechargeState,
+			};
+		if(rechargeTimeTxt==''||rechargeTimeTxt== null)
+		{
+		postData.rechargeStartTime='';
+		postData.rechargeEndTime='';
+		}
+		jQuery("#rechargeListGrid").jqGrid('setGridParam',{postData : postData}).trigger("reloadGrid"); 
+	}
+	
+	function initConsumeList(consumeListWidth){
+		var date = new Date();
+		var endMonth = date.getMonth() + 1;
+		var endYear = date.getFullYear();
+		var startYear;
+		var startMonth;
+		if ((endMonth - 1) <= 0) {
+			endYear = endYear - 1;
+			endMonth = endMonth + 11;
+		}else{
+			endMonth = endMonth - 1;
+		}
+		if ((endMonth - 5) <= 0) {
+			startYear = endYear - 1;
+			startMonth = endMonth + 7;
+		} else {
+			startYear = endYear;
+			startMonth = endMonth - 5;
+		}
+		if(startMonth < 10){
+			startMonth = "0" + startMonth;
+		}
+		if(endMonth < 10){
+			endMonth = "0" + endMonth;
+		}
+		var startDate = startYear + "-" + startMonth;
+		var endDate = endYear + "-" + endMonth;
+		jQuery("#queryConsumeTime").val(startDate+"   ~   "+endDate);
+		
+		$("#consumeListGrid").jqGrid({
+			url: sabace.handleUrlParam('/platform/sysmanage/finance/consume-list'),
+			styleUI: 'Bootstrap',
+			datatype: 'json',
+			postData: {
+				queryStartAcyc: startDate,
+				queryEndAcyc: endDate,
+			},
+			width: consumeListWidth,
+			height: 'auto',
+			regional: 'cn',
+			rownumbers: true,
+			colModel: [{
+				label: sabace.getMessage("finance.label.serviceName"),
+				name: 'serviceName',
+				width: 300,
+				align: 'left',
+				hlign: 'center',
+				sortable: false
+			}, {
+				label: sabace.getMessage("finance.label.serviceMonth"),
+				name: 'consumeAcyc',
+				width: 150,
+				align: 'center',
+				hlign: 'center',
+				sortable: false
+			}, {
+				label: sabace.getMessage("finance.label.orderTime"),
+				name: 'orderTime',
+				width: 150,
+				align: 'center',
+				hlign: 'center',
+				sortable: false
+			}, {
+				label: sabace.getMessage("finance.label.pointsTime"),
+				name: 'adminTime',
+				width: 150,
+				align: 'center',
+				hlign: 'center',
+				sortable: false
+			},{
+				label: sabace.getMessage("finance.label.orderType"),
+				name: 'orderType',
+				width: 150,
+				align: 'right',
+				hlign: 'center',
+				sortable: false,
+				formatter: function(cellvalue, options, rowObject) {
+					if (cellvalue == 1) {
+						return sabace.getMessage("finance.label.orderType.times");
+					} else if (cellvalue == 2) {
+						return sabace.getMessage("finance.label.orderType.days");
+					} else if(cellvalue == 5) {
+						return sabace.getMessage("finance.label.orderType.month");
+					}else{
+						return sabace.getMessage("finance.label.orderType.year");
+					}
+				}
+			}, {
+				label: sabace.getMessage("finance.label.costNum"),
+				name: 'consumeIntegral',
+				width: 150,
+				align: 'right',
+				hlign: 'center',
+				sortable: false
+			}],
+		    loadComplete:function(){
+			    var len=$("#consumeListGrid").getGridParam("records");
+			    var integralsum=0;
+			    var rowdata=jQuery("#consumeListGrid").jqGrid("getRowData");
+			    for(var i=0;i<rowdata.length;i++){
+	                 integralsum=integralsum+parseInt(rowdata[i]["consumeIntegral"]);
+			                           }
+			    document.getElementById('integralsum').innerHTML =integralsum;	
+			}
+		});
+	}
+	
+	function initRechargeList(consumeListWidth){
+		
+		var date = new Date();
+		var endDay = date.getDate();
+		var endMonth = date.getMonth() + 1;
+		var endYear = date.getFullYear();
+		var startYear;
+		var startMonth;
+		if ((endMonth - 5) <= 0) {
+			startYear = endYear - 1;
+			startMonth = endMonth + 7;
+		} else {
+			startYear = endYear;
+			startMonth = endMonth - 5;
+		}
+		if(startMonth < 10){
+			startMonth = "0" + startMonth;
+		}
+		if(endMonth < 10){
+			endMonth = "0" + endMonth;
+		}
+		var startDate = startYear + "-" + startMonth + "-01";
+		var endDate = endYear + "-" + endMonth + "-" + endDay;
+		
+		jQuery("#queryRechargeTime").val(startDate+"   ~   "+endDate);
+		
+		$("#rechargeListGrid").jqGrid({
+			url: sabace.handleUrlParam('/platform/sysmanage/finance/recharge-list'),
+			styleUI: 'Bootstrap',
+			datatype: 'json',
+			postData: {
+				rechargeStartTime: startDate,
+				rechargeEndTime: endDate
+			},
+			width: consumeListWidth,
+			height: 'auto',
+			regional: 'cn',
+			rownumbers: true,
+			colModel: [{
+				label: sabace.getMessage("finance.label.orderCode"),
+				name: 'rechargeId',
+				width: 250,
+				align: 'left',
+				hlign: 'center',
+				sortable: false
+			}, {
+				label: sabace.getMessage("finance.label.orderTime"),
+				name: 'rechargeTime',
+				width: 120,
+				align: 'center',
+				hlign: 'center',
+				sortable: false
+			}, {
+				label: sabace.getMessage("finance.label.payType"),
+				name: 'rechargeType',
+				width: 130,
+				align: 'left',
+				hlign: 'center',
+				sortable: false,
+				formatter: function(cellvalue, options, rowObject) {
+					var rechargeType = rowObject.rechargeType;
+					if (rechargeType == '1') {
+						return sabace.getMessage("finance.label.payType.alipay");
+					} else if (rechargeType == '2') {
+						return sabace.getMessage("finance.label.payType.weChat");
+					} else if (rechargeType == '3') {
+						return sabace.getMessage("finance.label.payType.CFT");
+					}
+				}
+			}, {
+				label: sabace.getMessage("finance.label.payState"),
+				name: 'rechargeState',
+				width: 150,
+				align: 'left',
+				hlign: 'center',
+				sortable: false,
+				formatter: function(cellvalue, options, rowObject) {
+					var rechargeState = rowObject.rechargeState;
+					if (rechargeState == '1') {
+						return sabace.getMessage("finance.label.payState.notPaid");
+					} else if (rechargeState == '4') {
+						return sabace.getMessage("finance.label.payState.failed");
+					} else if (rechargeState == '9') {
+						return sabace.getMessage("finance.label.payState.succeed");
+					}
+				}
+			}, {
+				label: sabace.getMessage("finance.label.payMoney"),
+				name: 'payMoney',
+				width: 100,
+				align: 'right',
+				hlign: 'center',
+				sortable: false,
+				formatter: function(cellvalue, options, rowObject) {
+					return Number(cellvalue)/100+sabace.getMessage("finance.label.money.unit")
+				}
+			}, {
+				label: sabace.getMessage("finance.label.post.points"),
+				name: 'rechargeIntegral',
+				width: 100,
+				align: 'right',
+				hlign: 'center',
+				sortable: false
+			}, {
+				label: sabace.getMessage("finance.label.operate"),
+				name: 'rechargeOper',
+				width: 100,
+				align: 'center',
+				hlign: 'center',
+				sortable: false,
+				formatter: function(cellvalue, options, rowObject) {
+					var rechargeState = rowObject.rechargeState;
+					if (rechargeState == '1') {
+						return '<a href="javascript:void(0)" class="recharge-oper" value="' + rowObject.rechargeId + '">'+sabace.getMessage("finance.label.toPay")+'</a>';
+					} else {
+						return '';
+					}
+				}
+			}],
+			 loadComplete:function(){
+				    var lenth=$("#rechargeListGrid").getGridParam("records");
+				    var paysucess=0;
+				    var rechargeIntegral=0;
+				    var payfailed=0;
+				    var rowdata=jQuery("#rechargeListGrid").jqGrid("getRowData");
+
+				    for(var i=0;i<rowdata.length;i++){
+				    	if(rowdata[i]["rechargeState"]==sabace.getMessage("finance.label.paySuccess")){
+				    		paysucess=parseFloat(paysucess)+parseFloat(rowdata[i]["payMoney"]);
+				    		rechargeIntegral=rechargeIntegral+parseInt(rowdata[i]["rechargeIntegral"]);
+				        }
+				    	else if(rowdata[i]["rechargeState"]==sabace.getMessage("finance.label.payFailed")){
+				    		payfailed=parseFloat(payfailed)+parseFloat(rowdata[i]["payMoney"]);
+				    	}
+				    }
+				    document.getElementById('paysucess').innerHTML =paysucess;	
+				    document.getElementById('rechargeIntegral').innerHTML =rechargeIntegral;
+				    document.getElementById('payfailed').innerHTML =payfailed;	
+				   
+				}
+		});
+	}
+	
+	function initConsumeDate(){
+		var date = new Date();
+		var endMonth = date.getMonth() + 1;
+		var endYear = date.getFullYear();
+		var startYear;
+		var startMonth;
+		if ((endMonth - 1) <= 0) {
+			endYear = endYear - 1;
+			endMonth = endMonth + 11;
+		}else{
+			endMonth = endMonth - 1;
+		}
+		if ((endMonth - 5) <= 0) {
+			startYear = endYear - 1;
+			startMonth = endMonth + 7;
+		} else {
+			startYear = endYear;
+			startMonth = endMonth - 5;
+		}
+		if(startMonth < 10){
+			startMonth = "0" + startMonth;
+		}
+		if(endMonth < 10){
+			endMonth = "0" + endMonth;
+		}
+		var startDate = startYear + "-" + startMonth;
+		var endDate = endYear + "-" + endMonth;
+		jQuery("#queryConsumeTime").dateRange({
+			format:'YYYY-MM',
+			start:{
+				maxDate:endDate,
+			},
+			end:{
+				maxDate:endDate,
+			},
+			onhide:function(){
+				var acycId=jQuery(this).dateRange("getDate");
+			},
+			startValue:startDate,
+			endValue:endDate
+		});
+	}
+
+	function initRechargeDate(){
+		var date = new Date();
+		var endDay = date.getDate();
+		var endMonth = date.getMonth() + 1;
+		var endYear = date.getFullYear();
+		var startYear;
+		var startMonth;
+		if (endMonth < 5) {
+			startYear = endYear - 1;
+			startMonth = endMonth + 8;
+		} else {
+			startYear = endYear;
+			startMonth = endMonth - 4;
+		}
+		if(startMonth < 10){
+			startMonth = "0" + startMonth;
+		}
+		if(endMonth < 10){
+			endMonth = "0" + endMonth;
+		}
+		
+		var startDate = startYear + "-" + startMonth + "-01";
+		var endDate = endYear + "-" + endMonth + "-" + endDay;
+		
+		jQuery("#queryRechargeTime").dateRange({
+			format:'YYYY-MM-DD',
+			start:{
+				maxDate:moment().format('YYYY-MM-DD'),
+			},
+			end:{
+				maxDate:moment().format('YYYY-MM-DD'),
+			},
+			onhide:function(){
+				var rechargeTime=jQuery(this).dateRange("getDate");
+			},
+			startValue:startDate,		
+			endValue:endDate
+		});
+	}
+	
+});
+
+
+
+
+
+
+
+

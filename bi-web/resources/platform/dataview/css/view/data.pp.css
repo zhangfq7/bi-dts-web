@@ -1,1 +1,221 @@
-.dataview .propPanel{width:229px;background:#fafafa}.dataview .propPanel .propTitle{position:relative;font-size:14px;padding-left:9px;height:28px;line-height:29px;cursor:pointer}.dataview .propPanel .propTitle i{width:10px}.dataview .propPanel .propTitle .text{position:absolute;top:0;left:19px}.dataview .propPanel .list{border-bottom:1px solid #ddd}.dataview .propPanel .list .propTitle .fa-caret-down{display:none}.dataview .propPanel .list.close .propContanier{display:none}.dataview .propPanel .list.close .propTitle .fa-caret-right{display:none}.dataview .propPanel .list.close .propTitle .fa-caret-down{display:inline-block;width:13px;margin-left:-1px}.dataview .propPanel .list .propContanier{position:relative;width:87%;margin:0 0 3px 16px}.propPanel .items>div{display:inline-block;margin-right:6px;vertical-align:top;line-height:30px}.dataview .propPanel .list .propContanier:after{content:".";display:block;height:0;visibility:hidden;clear:both}.dataview .propPanel .list .propContanier .items .config .ui-widget-content{border:1px solid #dcdcdc!important}.dataview .propPanel .list .propContanier .items .config .ui-spinner{height:22px;margin-top:-2px}.dataview .propPanel .list .propContanier .items .config .ui-spinner input{border:0;outline:0;background:0;color:inherit;padding:0;height:20px;line-height:20px;vertical-align:middle;margin-top:-7px;margin-left:.4em;margin-right:22px}.dataview .propPanel .list .propContanier .items .config .ui-spinner input:focus{border-color:transparent;box-shadow:none}.dataview .propPanel .chosen-container{margin-top:-3px}.propPanel .input{border:1px solid #bfbfbf;padding:0 5px;border:1px solid #ddd;height:22px;line-height:22px;border-radius:0;color:#4f4f4f;outline:0;transition:border-color ease-in-out .15s,-webkit-box-shadow ease-in-out .15s}.propPanel .input:focus{border-color:#66afe9;box-shadow:inset 0 1px 1px rgba(0,0,0,.075),0 0 8px rgba(102,175,233,.6)}.container .breadcrumbs,.container .chainInfo{display:none;position:absolute;height:30px;line-height:30px;padding:0 15px 0 10px;border:1px #aaa solid;background-color:#fff;margin:15px;font-size:12px;z-index:9999}.container .chainInfo{left:-85px;transition:all .2s ease-in-out}.container:hover .chainInfo{left:0;transition:all .2s ease-in-out}.container .breadcrumbs::after,.container .breadcrumbs::before,.container .chainInfo::after,.container .chainInfo::before{left:100%;top:50%;border:solid transparent;content:" ";height:0;width:0;position:absolute;pointer-events:none}.container .breadcrumbs::after,.container .chainInfo::after{border-left-color:#fff;border-width:14px;margin-top:-14px}.container .breadcrumbs::before,.container .chainInfo::before{border-left-color:#aaa;border-width:15px;margin-top:-15px}.container .breadcrumbs>a,.container .chainInfo>a{text-decoration:none;color:inherit}.container .breadcrumbs>a:last-child{color:#4b9cf0}.container .breadcrumbs>a:hover,.container .breadcrumbs>a:active,.container .chainInfo>a:hover,.container .chainInfo>a:active{color:#a6e22e}.container .breadcrumbs>span{padding:0 8px;color:inherit}.container .chainInfo .chain_icon{display:inline-block;position:relative;top:1px;height:12px;width:12px;margin-right:5px;background:url("../../img/view/view_icon.png") -190px -31px no-repeat}.container .breadcrumbs .gtgt_icon{display:inline-block;height:12px;width:12px;margin:0 5px;padding:0;background:url("../../img/view/view_icon.png") -185px -43px no-repeat}.container .chainInfo .cansole_icon{display:block;position:absolute;height:12px;width:12px;top:8px;right:-2px;background:url("../../img/view/view_icon.png") -175px -43px no-repeat}.container .chainInfo .cansole_icon:active,.container .chainInfo .cansole_icon:hover{background:url("../../img/view/view_icon.png") -167px -43px no-repeat;transform:scale(1.2)}.container{overflow:hidden}
+.dataview .propPanel {
+	/* margin: 10px; */
+	width: 229px;
+	background: #FAFAFA;
+	/* padding: 5px; */
+}
+
+.dataview .propPanel .propTitle {
+    position: relative;
+    font-size: 14px;
+    padding-left: 9px;
+    height: 28px;
+    line-height: 29px;
+    cursor: pointer;
+}
+
+.dataview .propPanel .propTitle i {
+	width: 10px;
+}
+
+.dataview .propPanel .propTitle .text {
+	position: absolute;
+	top: 0;
+	left: 19px;
+}
+
+.dataview .propPanel .list {
+    border-bottom: 1px solid #ddd;
+}
+.dataview .propPanel .list .propTitle  .fa-caret-down{
+	display: none;
+}
+
+
+.dataview .propPanel .list.close .propContanier{
+    display: none;
+}
+.dataview .propPanel .list.close .propTitle .fa-caret-right{
+	display: none;
+}
+.dataview .propPanel .list.close .propTitle .fa-caret-down{
+	display: inline-block;
+	width: 13px;
+	margin-left: -1px;
+}
+
+.dataview .propPanel .list .propContanier {
+	position: relative;
+	width: 87%;
+	margin: 0px 0px 3px 16px;
+}
+.propPanel .items{
+	/* margin-top: 2px; */
+}
+
+.propPanel .items >div{
+	display: inline-block;
+	margin-right: 6px;
+	vertical-align: top;
+	line-height: 30px;
+}
+
+.dataview .propPanel .list .propContanier:after {
+	content: ".";
+	display: block;
+	height: 0;
+	visibility: hidden;
+	clear: both;
+}
+
+.dataview .propPanel .list .propContanier .items .config .ui-widget-content {
+	border: 1px solid #dcdcdc!important;
+}
+.dataview .propPanel .list .propContanier .items .config .ui-spinner {
+	height: 22px;
+	margin-top: -2px;
+}
+.dataview .propPanel .list .propContanier .items .config .ui-spinner input {
+	border: none;
+	outline: none;
+	background: none;
+	color: inherit;
+	padding: 0;
+	height: 20px;
+	line-height: 20px;
+	vertical-align: middle;
+	margin-top: -7px;
+	margin-left: 0.4em;
+	margin-right: 22px;
+}
+.dataview .propPanel .list .propContanier .items .config .ui-spinner input:focus {
+	border-color: transparent;
+	box-shadow: none;
+}
+.dataview .propPanel  .chosen-container{
+	margin-top:-3px;
+}
+
+
+
+.propPanel .input {
+	border: 1px solid #BFBFBF;
+	/* width: 143px; */
+	padding: 0 5px;
+	border: 1px solid #ddd;
+	height: 22px;
+	line-height: 22px;
+	border-radius: 0px;
+	color: #4F4F4F;
+	outline: none;
+	transition: border-color ease-in-out .15s, -webkit-box-shadow ease-in-out .15s;
+}
+.propPanel .input:focus {
+	border-color: #66afe9;
+	box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075), 0 0 8px rgba(102, 175, 233, .6);
+}
+
+.container .breadcrumbs,
+.container .chainInfo{
+    display: none;
+    position: absolute;
+    height: 30px;
+    /* width: 90px; */
+    line-height: 30px;
+    padding: 0 15px 0 10px;
+    border: 1px rgb(170, 170, 170) solid;
+    background-color: #fff;
+    margin: 15px;
+    font-size: 12px;
+    z-index: 9999;
+}
+.container .chainInfo{
+    left:-85px;
+    transition: all .2s ease-in-out;
+}
+.container:hover .chainInfo{
+    left:0;
+    transition: all .2s ease-in-out;
+}
+.container .breadcrumbs::after,
+.container .breadcrumbs::before,
+.container .chainInfo::after,
+.container .chainInfo::before{
+    left: 100%;
+    top: 50%;
+    border: solid transparent;
+    content: " ";
+    height: 0;
+    width: 0;
+    position: absolute;
+    pointer-events: none;
+}
+.container .breadcrumbs::after,
+.container .chainInfo::after{
+    border-left-color: #fff;
+    border-width: 14px;
+    margin-top: -14px;
+}
+.container .breadcrumbs::before,
+.container .chainInfo::before{
+    border-left-color: rgb(170, 170, 170);
+    border-width: 15px;
+    margin-top: -15px;
+}
+.container .breadcrumbs>a,
+.container .chainInfo>a{
+    text-decoration: none;
+    color: inherit;
+}
+.container .breadcrumbs>a:last-child{
+    color: #4B9CF0;
+}
+.container .breadcrumbs>a:hover,
+.container .breadcrumbs>a:active,
+.container .chainInfo>a:hover,
+.container .chainInfo>a:active{
+    color: #A6E22E;
+}
+.container .breadcrumbs>span{
+    padding: 0 8px;
+    color: inherit;
+}
+.container .chainInfo .chain_icon{
+    display: inline-block;
+    position: relative;
+    top: 1px;
+    height: 12px;
+    width: 12px;
+    margin-right: 5px;
+    background: url("../../img/view/view_icon.png") -190px -31px no-repeat;
+}
+
+.container .breadcrumbs .gtgt_icon{
+    display: inline-block;
+    height: 12px;
+    width: 12px;
+    margin: 0 5px;
+    padding: 0;
+    background: url("../../img/view/view_icon.png") -185px -43px no-repeat;
+}
+
+.container .chainInfo .cansole_icon{
+    display: block;
+    position:absolute;
+    height: 12px;
+    width: 12px;
+    top: 8px;
+    right: -2px;
+    background: url("../../img/view/view_icon.png") -175px -43px no-repeat;
+}
+.container .chainInfo .cansole_icon:active,
+.container .chainInfo .cansole_icon:hover{
+    background: url("../../img/view/view_icon.png") -167px -43px no-repeat;
+    transform: scale(1.2);
+}
+
+/*overwrite data.widgets.css*/
+.container{
+    overflow: hidden;
+}
+

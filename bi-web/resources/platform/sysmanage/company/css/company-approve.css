@@ -1,1 +1,61 @@
-.red{color:red}.green{color:#00b83f}.panel{width:100%;padding:10px;min-width:1024px}.tab-pane{width:96%;margin:auto;padding:0}.tab-pane>li{list-style-type:none;width:95%;margin:auto!important;padding:5px 0}.tab-pane>li:first-child{margin-top:20px}.tab-pane>li>div{display:inline-block}.label-class{text-align:right;width:30%;padding:5px 12px;vertical-align:top}.input-class{text-align:left;width:42%;vertical-align:text-top}.tip-class{display:none;text-align:left;width:26%;vertical-align:text-top}.text-class{text-align:left;width:69%;vertical-align:text-top}
+.red {
+	color: red;
+}
+
+.green {
+	color: #00B83F;
+}
+
+.panel {
+	width: 100%;
+	padding: 10px;
+	min-width: 1024px;
+}
+
+.tab-pane {
+	width: 96%;
+	margin: auto;
+	padding: 0;
+}
+
+.tab-pane>li {
+	list-style-type: none;
+	width: 95%;
+	margin: auto !important;
+	padding: 5px 0px;
+}
+
+.tab-pane>li:first-child {
+	margin-top: 20px;
+}
+
+.tab-pane>li>div {
+	display: inline-block;
+}
+
+.label-class {
+	text-align: right; 
+	width: 30%;
+	padding: 5px 12px;
+	vertical-align: top;
+}
+
+.input-class {
+	text-align: left; 
+	width: 42%;
+	vertical-align: text-top;
+}
+
+.tip-class {
+	display: none;
+	text-align: left; 
+	width: 26%;
+	vertical-align: text-top;
+}
+
+.text-class {
+	text-align: left; 
+	width: 69%;
+	vertical-align: text-top;
+}
+

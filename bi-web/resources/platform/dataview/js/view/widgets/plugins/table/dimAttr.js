@@ -1,1 +1,512 @@
-define(["bace","view/box"],function(c,a){var b={};b.module={el:"",drayAttrId:""};b.control={init:function(){b.view.initDimAttrPanel()},collect:function(){var f=[];jQuery("#colsDimPanel .dimAttrField").each(function(){var h=$(this);f.push(h.data("dimAttrData"))});var e=[];jQuery("#rowsDimPanel .dimAttrField").each(function(){var h=$(this);e.push(h.data("dimAttrData"))});var g=[];jQuery("#attrFuncPanel .dimAttrField").each(function(){var h=$(this);g.push(h.data("dimAttrData"))});var d={rowsData:e,colsData:f,attrData:g};return d},getAttrArray:function(){var d=[];jQuery("#colsDimPanel .dimAttrField").each(function(){d.push($(this).data("dimAttrData").attrId)});jQuery("#rowsDimPanel .dimAttrField").each(function(){d.push($(this).data("dimAttrData").attrId)});return d},getCheckedDimAttr:function(e){var d=$.map(e.rowsData||[],function(h){if(h.isChecked){return h}});var f=$.map(e.colsData||[],function(h){if(h.isChecked){return h}});var g=$.map(e.attrData||[],function(h){if(h.isChecked){return h}});return{rowsData:d,colsData:f,attrData:g}},render:function(f){var h=f.config.dataPanel;b.module.chartType=f.chartType;b.module.el=f.el;$("#attrFuncPanel .select").chosen("destroy");$("#colsDimPanel .dimAttrField").remove();$("#rowsDimPanel .dimAttrField").remove();$("#attrFuncPanel .dimAttrField").remove();if(f.chartChild=="detail"){$("#data-property").addClass("detailTable").find(".rowsTitle >div").text("指标");$}else{$("#data-property").removeClass("detailTable").find(".rowsTitle >div").text("行维度")}var j=h.attrData||[];for(var e=0,k=j.length;e<k;e++){$("#attrFuncPanel").append(b.view.packDimAttr("attrFuncPanel",j[e]))}var g=h.colsData||[];for(var e=0,k=g.length;e<k;e++){$("#colsDimPanel").append(b.view.packDimAttr("colsDimPanel",g[e]))}var d=h.rowsData||[];for(var e=0,k=d.length;e<k;e++){$("#rowsDimPanel").append(b.view.packDimAttr("rowsDimPanel",d[e]))}$("#attrFuncPanel .select").chosen({width:"100%",disable_search:true})},checkDiff:function(d){var e=$("#"+b.module.el).data("option");if(e.isInit===false&&d){return true}var g=b.control.collect();if(g.rowsData.length==0&&g.colsData.length==0&&g.attrData.length==0){g={}}var f=e.config.dataPanel;if(!(_.isEqual(g,f))){return false}return true},checkValidity:function(e,h){var d=e.rowsData;var f=e.colsData;var g=e.attrData;if(h=="detail"){if(d.length==0){return"请设置指标"}}else{if(d.length==0&&f.length==0&&g.length==0){return"行维度、列维度、指标函数至少设一个!"}}return false}};b.view={initDimAttrPanel:function(){jQuery("#rowsDimPanel,#colsDimPanel,#attrFuncPanel").sortable({connectWith:"#rowsDimPanel,#colsDimPanel,#attrFuncPanel",appendTo:"body",delay:200,handle:".attrDimText",containment:"#propertyPanel",placeholder:"dimAttr-placeholder",scroll:true,helper:function(h,i){var g=jQuery(i);var f=g.data("dimAttrData");b.module.drayAttrId=g.parent().attr("id")=="attrFuncPanel"?"":f.attrId;return jQuery("<div>",{"data-attrid":f.attrId,"data-attrtype":f.attrType,"data-attrclass":f.attrClass,"data-fieldname":f.fieldName,"data-columnscale":f.columnScale,"data-filtertype":f.filterType,"data-attrname":f.attrName,"data-dimId":f.dimId,"data-modifyname":f.modifyName||f.attrName,"data-importtype":f.importType,style:"z-index:9999999;height:30px",html:f.modifyName||f.attrName,"data-diyRelation":f.diyRelation}).addClass("attr-helper").appendTo("body")},stop:function(j,l){var h=l.item;var g=h.parent().attr("id"),f={};if(h.attr("data-attrid")){var i=h.attr("data-attrname");f={attrId:h.attr("data-attrid"),attrName:i,modifyName:h.attr("data-modifyname")||h.attr("data-attrname"),attrType:h.attr("data-attrtype"),attrClass:h.attr("data-attrclass"),fieldName:h.attr("data-fieldname"),columnScale:h.attr("data-columnscale"),filterType:h.attr("data-filterType"),dimId:h.attr("data-dimId"),importType:h.attr("data-importtype"),diyRelation:h.attr("data-diyRelation"),isChecked:true,fanyi:true}}else{f=h.data("dimAttrData")}var k=b.view.packDimAttr(g,f);l.item.replaceWith(k);setTimeout(function(){if(l.helper){l.helper.remove()}},0);if(g=="attrFuncPanel"){$("#attrFuncPanel .select").chosen({width:"100%",disable_search:true});b.view.checkAttrName()}b.module.drayAttrId=""}}).disableSelection();$("#attrFuncPanel").sortable({containment:"#attrFuncPanel"});var e=b.view.bindDimAttrEvent;for(var d in e){e[d]()}c.autoScroll($("#rowsDimPanel"));c.autoScroll($("#colsDimPanel"));c.autoScroll($("#attrFuncPanel"))},checkAttrName:function(){var d=[];jQuery("#attrFuncPanel .dimAttrField").each(function(f){var g=$(this);var e=g.data("dimAttrData").modifyName;if(d.indexOf(e)>-1){e+=f;g.data("dimAttrData").modifyName=e;g.attr("title",e).find(".attrDimText").text(e)}d.push(e)})},packDimAttr:function(f,i){var e=$.extend(true,{},i),h=$.extend(true,{},i);h.fanyiText=h.fanyi?"取消翻译":"翻译";var g="";if(f=="attrFuncPanel"){var j=h.funcName;if(!j){e.funcName=h.funcName="count";e.modifyName=e.attrName=h.modifyName="[ 计数 ] "+h.modifyName}g='<div class="dimAttrField" ><div class="attrDimPanel">	<div class="icon-checkbox {{if isChecked==true}} checked {{/if}}"></div>	<div class="attrDimText" title="${modifyName}">${modifyName}</div><div class="delAttrDim" deltag="attr" title="移除该指标"></div></div><div class="attrDimTools">		<div style="width:50%;text-align:left;padding:0 3px;">			<select class="select">			{{if attrType=="1"}}				<option  {{if funcName=="sum"}} selected {{/if}}value="sum">求和</option>				<option  {{if funcName=="avg"}} selected {{/if}}value="avg">平均值</option>			{{/if}}				<option  {{if funcName=="max"}} selected {{/if}}value="max">最大值</option>				<option  {{if funcName=="min"}} selected {{/if}}value="min">最小值</option>				<option  {{if funcName=="count"}} selected {{/if}}value="count">计数</option>			</select>		</div>		<div class="modifyName" style="width:50%;">			<div >重命名</div>		</div></div></div>'}else{if(f=="rowsDimPanel"||f=="colsDimPanel"){delete e.funcName;delete h.funcName;h.modifyName=e.modifyName=e.modifyName.replace(/\[ 求和 \]|\[ 平均值 \]|\[ 最大值 \]|\[ 最小值 \]|\[ 计数 \]/g,"");e.attrName=e.attrName.replace(/\[ 求和 \]|\[ 平均值 \]|\[ 最大值 \]|\[ 最小值 \]|\[ 计数 \]/g,"");var d=b.control.getAttrArray();if(d.indexOf(e.attrId)>-1&&b.module.drayAttrId!=e.attrId){b.view.showDiff(e.attrName);return false}g='<div class="dimAttrField"><div class="attrDimPanel" >	<div class="icon-checkbox {{if isChecked==true}} checked {{/if}}"></div>	<div class="attrDimText"  title="${modifyName}">${modifyName}</div><div class="delAttrDim" deltag="dim" title="移除该维度"></div></div><div class="attrDimTools">		<div class="fanyi" style="width:50%;">			<div >${fanyiText}</div>		</div>		<div class="modifyName" style="width:50%;">			<div>重命名</div>		</div></div></div>'}}return $.tmpl(g,h).data("dimAttrData",e)},showDiff:function(d){a.Property.showTip({_id:"diff",titleShow:"false",msg:'<span style="font-weight:bolder;font-size:26px;color:#E45F5A">'+d+"</span> 已包含在行维度或列维度中，不能重复选择！",button:'<div class="btn cancelChange" style="width: 196px;">关闭</div>'});$("#diff .cancelChange").click(function(){a.Property.hideTip("diff")})},bindDimAttrEvent:{bindDelAttrDim:function(){jQuery("#propertyTabs").on("click","div[proptype='table'] div.delAttrDim",function(){var e=jQuery(this);var d=e.attr("deltag");e.parents(".dimAttrField").fadeOut(200,function(){jQuery(this).remove()})})},bindOpenDimAttrOpt:function(){$("#rowsDimPanel,#colsDimPanel,#attrFuncPanel").on("click",".attrDimText",function(){var d=jQuery(this).parents(".dimAttrField");d.siblings().removeClass("open").animate({height:"30px"},200);(d.hasClass("open")?d.animate({height:"30px"},200):d.animate({height:"62px"},200)).toggleClass("open");$("#attrFuncPanel input,#colsDimPanel input,#rowsDimPanel input").blur()})},bindCheckBox:function(){jQuery("#attrFuncPanel").on("click",".dimAttrField .icon-checkbox",function(){var f=jQuery(this);var e=jQuery(this).parents(".dimAttrField");var d=e.data("dimAttrData");if(f.hasClass("checked")){if($("#attrFuncPanel").find(".checked").length==1){return}f.removeClass("checked");d.isChecked=false}else{f.addClass("checked");d.isChecked=true}});jQuery("#rowsDimPanel,#colsDimPanel").on("click",".dimAttrField .icon-checkbox",function(){var g=jQuery(this);var e=g.parents("#dimPanel");e.find(".dimAttrField").each(function(){var h=$(this);h.data("dimAttrData").isChecked=false;h.find(".icon-checkbox").removeClass("checked")});var f=g.parents(".dimAttrField");var d=f.data("dimAttrData");if(g.hasClass("checked")){g.removeClass("checked");d.isChecked=false}else{g.addClass("checked");d.isChecked=true}});jQuery("#colsDimPanel,#attrFuncPanel,#rowsDimPanel").on("click",".modifyName",function(){var g=jQuery(this);var e=g.parents(".dimAttrField");var d=e.data("dimAttrData");var f=e.find(".attrDimText");f.hide().after(jQuery("<input />",{value:d.modifyName,"class":"input"}).on("blur keypress",function(i){if(i.keyCode=="13"||i.type==="blur"){var h=jQuery(this).val()||d.attrName;d.modifyName=h;f.text(h).show().next().remove();if(d.funcName){b.view.checkAttrName()}}})).next().focus().select()});jQuery("#rowsDimPanel,#colsDimPanel").on("click",".fanyi",function(){var g=jQuery(this);var e=g.parents(".dimAttrField");var d=e.data("dimAttrData");var f=d.fanyi||false;g.text(!f?"取消翻译":"翻译");d.fanyi=!f});jQuery("#attrFuncPanel").on("change",".select",function(){var i=jQuery(this);var e=i.parents(".dimAttrField");var d=e.data("dimAttrData");var h=i.val(),j="";switch(h){case"":j="";break;case"sum":j="求和";break;case"avg":j="平均值";break;case"max":j="最大值";break;case"min":j="最小值";break;default:j="计数";break}var g=d.modifyName.replace(/\求和|\平均值|\最大值|\最小值|\计数/g,j);d.attrName=d.attrName.replace(/\求和|\平均值|\最大值|\最小值|\计数/g,j);d.modifyName=g;d.funcName=h;var f=e.find(".attrDimText");f.text(g)})}}};return b.control});
+define(['bace', 'view/box'], function(Bace, Box) {
+	
+	var DimAttr = {};
+	
+	DimAttr.module = {
+		//容器对象
+		el: '',
+		drayAttrId:''
+	};
+	
+	DimAttr.control = {
+		/**
+		 * 表格插件数据面板的初始方法
+		 */
+		init:function(){
+			DimAttr.view.initDimAttrPanel();
+		},
+		/**
+		 * 收集维度指标信息
+		 */
+		collect:function(){
+			var colsData = [];
+			jQuery("#colsDimPanel .dimAttrField").each(function(){
+				var $this = $(this);
+				colsData.push($this.data("dimAttrData"));
+			});
+			var rowsData = [];
+			jQuery("#rowsDimPanel .dimAttrField").each(function(){
+				var $this = $(this);
+				rowsData.push($this.data("dimAttrData"));
+			});
+			var attrData = [];
+			jQuery("#attrFuncPanel .dimAttrField").each(function(){
+				var $this = $(this);
+				attrData.push($this.data("dimAttrData"));
+			});
+			var dimAttrData = {
+				rowsData:rowsData,
+				colsData:colsData,
+				attrData:attrData
+			};
+			return dimAttrData;	
+		},
+		getAttrArray:function(){
+			var attrData = [];
+			jQuery("#colsDimPanel .dimAttrField").each(function(){
+				attrData.push($(this).data("dimAttrData").attrId);
+			});
+			jQuery("#rowsDimPanel .dimAttrField").each(function(){
+				attrData.push($(this).data("dimAttrData").attrId);
+			});
+			return attrData;
+		},
+		/**
+		 * 获得选中的指标维度信息
+		 * @param {Object} dimAttr 指标维度信息
+		 */
+		getCheckedDimAttr:function(dimAttr){
+			var rowsData =  $.map(dimAttr.rowsData||[], function(obj) {
+				if(obj.isChecked){
+					return obj;
+				}
+			});
+			var colsData =  $.map(dimAttr.colsData||[], function(obj) {
+				if(obj.isChecked){
+					return  obj;
+				}
+			});
+			var attrData =  $.map(dimAttr.attrData||[], function(obj) {
+				if(obj.isChecked){
+					return obj;
+				}
+			});
+			return {
+				rowsData:rowsData,
+				colsData:colsData,
+				attrData:attrData
+			}
+		},
+		render:function(option){
+			var handle = option.config.dataPanel;
+			DimAttr.module.chartType = option.chartType;
+			DimAttr.module.el = option.el;
+			//rest
+			$("#attrFuncPanel .select").chosen("destroy");
+			$("#colsDimPanel .dimAttrField").remove();
+			$("#rowsDimPanel .dimAttrField").remove();
+			$("#attrFuncPanel .dimAttrField").remove();
+			
+			
+			if(option.chartChild == 'detail'){
+				$("#data-property").addClass("detailTable").find(".rowsTitle >div").text("指标");
+				$
+			}else{
+				$("#data-property").removeClass("detailTable").find(".rowsTitle >div").text("行维度");
+			}
+			
+			
+			var attrData = handle["attrData"]||[];
+			for(var i = 0,n=attrData.length;i<n;i++){
+				 $("#attrFuncPanel").append( DimAttr.view.packDimAttr("attrFuncPanel", attrData[i]))
+			}
+			
+			var colsData = handle["colsData"]||[];
+			for(var i = 0,n=colsData.length;i<n;i++){
+				$("#colsDimPanel").append( DimAttr.view.packDimAttr("colsDimPanel", colsData[i]))
+			}
+			
+			var rowsData = handle["rowsData"]||[];
+			for(var i = 0,n=rowsData.length;i<n;i++){
+				$("#rowsDimPanel").append( DimAttr.view.packDimAttr("rowsDimPanel", rowsData[i]))
+			}
+			
+			$("#attrFuncPanel .select").chosen({
+				width: "100%",
+				disable_search:true
+			});
+		},
+		checkDiff:function(passInit){
+			var option  = $("#"+DimAttr.module.el).data("option");
+			if(option.isInit === false && passInit){
+				return true;
+			}
+			var new_dimAttr = DimAttr.control.collect();
+			if(new_dimAttr.rowsData.length == 0 && new_dimAttr.colsData.length == 0 && new_dimAttr.attrData.length == 0 ){
+				new_dimAttr = {};
+			}
+			var option_dimAttr = option.config.dataPanel;
+			/*if(JSON.stringify(new_dimAttr) != JSON.stringify(option_dimAttr)){
+				return false;
+			}*/
+			//修改对象比较方法，转换顺序紊乱问题，yetf，shaojs
+			if(!(_.isEqual(new_dimAttr,option_dimAttr))){
+				return false;
+			}
+			return true;
+		},
+        checkValidity:function(dimAttr,chartChild){
+            var rowsData = dimAttr.rowsData;
+            var colsData = dimAttr.colsData;
+            var attrData = dimAttr.attrData;
+            //明细表格
+            if(chartChild == 'detail'){
+                if(rowsData.length == 0){
+                    return "请设置指标";
+                }
+            }else{
+            //透视表格
+                if(rowsData.length == 0 && colsData.length == 0 && attrData.length == 0){
+                    return "行维度、列维度、指标函数至少设一个!";
+                }
+            }
+            return false;
+		}
+	};
+	
+	DimAttr.view = {
+		/**
+		 * 初始化行维度，列维度，指标函数
+		 */
+		initDimAttrPanel:function(){
+			jQuery("#rowsDimPanel,#colsDimPanel,#attrFuncPanel").sortable({
+				//3者之间可以互相交换
+				connectWith: "#rowsDimPanel,#colsDimPanel,#attrFuncPanel",
+				//cancel: "#attrFuncPanel .attrDimText",
+				appendTo: 'body',
+				delay: 200,
+				handle: ".attrDimText",
+				containment: '#propertyPanel',
+				placeholder: "dimAttr-placeholder",
+				scroll: true,
+				helper: function(event, ui) {
+					var $ui = jQuery(ui);
+					var dimAttrData = $ui.data("dimAttrData");
+						
+					DimAttr.module.drayAttrId = $ui.parent().attr("id") == "attrFuncPanel" ? "":dimAttrData.attrId;
+
+					//拖动时将data的对象带入
+					return jQuery('<div>', {
+						'data-attrid': dimAttrData.attrId,
+						'data-attrtype': dimAttrData.attrType,
+						'data-attrclass': dimAttrData.attrClass,
+						'data-fieldname': dimAttrData.fieldName,
+						'data-columnscale': dimAttrData.columnScale,
+						'data-filtertype': dimAttrData.filterType,
+						'data-attrname': dimAttrData.attrName,
+						'data-dimId': dimAttrData.dimId,
+						'data-modifyname': dimAttrData.modifyName || dimAttrData.attrName,
+                        'data-importtype' :dimAttrData.importType,
+						'style': 'z-index:9999999;height:30px',
+						'html': dimAttrData.modifyName || dimAttrData.attrName,
+						'data-diyRelation': dimAttrData.diyRelation
+					}).addClass('attr-helper').appendTo('body');
+					
+					
+				},
+				stop: function(event, ui) {
+					var $item = ui.item;
+					var parentPanel = $item.parent().attr("id"),
+						dimAttrData = {};
+					if ($item.attr("data-attrid")) {
+						var attrName = $item.attr("data-attrname");
+						dimAttrData = {
+							attrId: $item.attr("data-attrid"),
+							attrName: attrName,
+							modifyName: $item.attr("data-modifyname") || $item.attr("data-attrname"),
+							attrType: $item.attr("data-attrtype"),
+							attrClass: $item.attr("data-attrclass"),
+							fieldName:$item.attr("data-fieldname"),
+							columnScale:$item.attr("data-columnscale"),
+							filterType: $item.attr("data-filterType"),
+							dimId: $item.attr("data-dimId"),
+                            importType :$item.attr("data-importtype"),
+                            diyRelation: $item.attr("data-diyRelation"),
+							isChecked: true,
+							fanyi: true
+						}
+					} else {
+						dimAttrData = $item.data("dimAttrData");
+					}
+
+					var $attr = DimAttr.view.packDimAttr(parentPanel, dimAttrData);
+
+					ui.item.replaceWith($attr);
+					
+					setTimeout(function() {
+						if (ui.helper) {
+							ui.helper.remove();
+						}
+					}, 0);
+						//指标面板初始化下拉框组件
+					if (parentPanel == 'attrFuncPanel') {
+						$("#attrFuncPanel .select").chosen({
+							width: "100%",
+							disable_search: true
+						});
+						//检查是否有重复指标名称
+						DimAttr.view.checkAttrName();
+					}
+					DimAttr.module.drayAttrId = "";
+				}
+			}).disableSelection();
+			$( "#attrFuncPanel" ).sortable({ containment: "#attrFuncPanel" });
+			var bindEvent = DimAttr.view.bindDimAttrEvent;
+			//初始化指标维度面板所有绑定事件
+			for (var event in bindEvent) {
+				bindEvent[event]();
+			}
+			Bace.autoScroll($("#rowsDimPanel"));
+			Bace.autoScroll($("#colsDimPanel"));
+			Bace.autoScroll($("#attrFuncPanel"));
+			
+		},
+		/**
+		 * 检查是否有重复指标名称
+		 */
+		checkAttrName: function() {
+			var attrNameArray = [];
+			jQuery("#attrFuncPanel .dimAttrField").each(function(i) {
+				var $this = $(this);
+				var attrName = $this.data("dimAttrData").modifyName;
+				if (attrNameArray.indexOf(attrName) > -1) {
+					attrName += i;
+					$this.data("dimAttrData").modifyName = attrName;
+					$this.attr("title", attrName).find(".attrDimText").text(attrName);
+				}
+				attrNameArray.push(attrName);
+			})
+		},
+		/**
+		 * 生成指标和维度对象
+		 * @param {String} parentPanel 指标的类型
+		 * @param {Object} _dimAttrData 指标配置信息
+		 * return 带有指标配置信息的jQuery对象
+		 */
+		packDimAttr: function(parentPanel, _dimAttrData) {
+			
+			var dimAttrData = $.extend(true, {}, _dimAttrData),
+				setting = $.extend(true, {}, _dimAttrData);
+			
+			//加工翻译
+			setting.fanyiText = setting.fanyi ? "取消翻译" : "翻译";
+			var html = '';
+			if (parentPanel == 'attrFuncPanel') {
+				//加工函数
+				//指标判断是否设置过函数
+				//没有，则设置默认计算个数
+				var funcName = setting.funcName;
+				if (!funcName) {
+					//纠正数据载体的函数
+					dimAttrData.funcName = setting.funcName = 'count';
+					dimAttrData.modifyName = dimAttrData.attrName = setting.modifyName = "[ 计数 ] " + setting.modifyName;
+				}
+				html = '<div class="dimAttrField" >' 
+				+ '<div class="attrDimPanel">' 
+				+ '	<div class="icon-checkbox {{if isChecked==true}} checked {{/if}}"></div>' 
+				+ '	<div class="attrDimText" title="${modifyName}">${modifyName}</div>' 
+				+ '<div class="delAttrDim" deltag="attr" title="移除该指标"></div>' 
+				+ '</div>' + '<div class="attrDimTools">' 
+				+ '		<div style="width:50%;text-align:left;padding:0 3px;">' 
+				+ '			<select class="select">' 
+				+ '			{{if attrType=="1"}}' 
+				+ '				<option  {{if funcName=="sum"}} selected {{/if}}value="sum">求和</option>' 
+				+ '				<option  {{if funcName=="avg"}} selected {{/if}}value="avg">平均值</option>' 
+				+ '			{{/if}}' 
+				+ '				<option  {{if funcName=="max"}} selected {{/if}}value="max">最大值</option>' 
+				+ '				<option  {{if funcName=="min"}} selected {{/if}}value="min">最小值</option>' 
+				+ '				<option  {{if funcName=="count"}} selected {{/if}}value="count">计数</option>' 
+				+ '			</select>' 
+				+ '		</div>' 
+				+ '		<div class="modifyName" style="width:50%;">' 
+				+ '			<div >重命名</div>' 
+				+ '		</div>' 
+				+ '</div>' 
+				+ '</div>';
+			}else if (parentPanel == 'rowsDimPanel' || parentPanel ==  'colsDimPanel') {
+
+				//断绝跟attr的关系
+				delete dimAttrData.funcName;
+				delete setting.funcName;
+
+				setting.modifyName = dimAttrData.modifyName = dimAttrData.modifyName.replace(/\[ 求和 \]|\[ 平均值 \]|\[ 最大值 \]|\[ 最小值 \]|\[ 计数 \]/g, '');
+
+				//因为用户删除指标重命名内容，attrName将会填入
+				//此处是防止指标设置过函数拖入维度中
+				dimAttrData.attrName = dimAttrData.attrName.replace(/\[ 求和 \]|\[ 平均值 \]|\[ 最大值 \]|\[ 最小值 \]|\[ 计数 \]/g, '');
+				var attrArray = DimAttr.control.getAttrArray();
+				if(attrArray.indexOf(dimAttrData.attrId)>-1 && DimAttr.module.drayAttrId != dimAttrData.attrId ){
+					DimAttr.view.showDiff(dimAttrData.attrName);
+					return false;
+				}
+				//setting.isChecked = dimAttrData.isChecked = true;
+				
+				html = '<div class="dimAttrField">' + 
+						'<div class="attrDimPanel" >' 
+							+ '	<div class="icon-checkbox {{if isChecked==true}} checked {{/if}}"></div>' 
+							+ '	<div class="attrDimText"  title="${modifyName}">${modifyName}</div>' 
+							+ '<div class="delAttrDim" deltag="dim" title="移除该维度"></div>' 
+							+ '</div>' + '<div class="attrDimTools">' 
+							+ '		<div class="fanyi" style="width:50%;">' 
+							+ '			<div >${fanyiText}</div>' 
+							+ '		</div>' 
+							+ '		<div class="modifyName" style="width:50%;">' 
+							+ '			<div>重命名</div>' 
+							+ '		</div>' 
+							+ '</div>' 
+							+ '</div>';
+			}
+			return $.tmpl(html, setting).data("dimAttrData", dimAttrData);	
+		},
+		showDiff:function(attrName){
+			Box.Property.showTip({
+				_id:"diff", 
+				titleShow:"false",
+				msg: '<span style="font-weight:bolder;font-size:26px;color:#E45F5A">'+attrName+"</span> 已包含在行维度或列维度中，不能重复选择！",
+				button: '<div class="btn cancelChange" style="width: 196px;">关闭</div>'
+			});
+			
+			$("#diff .cancelChange").click(function(){
+				Box.Property.hideTip("diff");
+			})
+		},
+		bindDimAttrEvent:{
+			/**
+			 * 移除维度指标信息
+			 */
+			bindDelAttrDim: function() {
+				jQuery("#propertyTabs").on("click", "div[proptype='table'] div.delAttrDim", function() {
+					var $this = jQuery(this);
+					var type = $this.attr("deltag");
+					$this.parents(".dimAttrField").fadeOut(200, function() {
+						jQuery(this).remove();
+					});
+				})
+			},
+			/**
+			 * 绑定点击维度展开小菜单信息
+			 */
+			bindOpenDimAttrOpt: function() {
+				$("#rowsDimPanel,#colsDimPanel,#attrFuncPanel").on('click', '.attrDimText', function() {
+					var dimAttrField = jQuery(this).parents('.dimAttrField');
+					dimAttrField.siblings()
+						.removeClass('open')
+						.animate({
+							"height": "30px"
+						}, 200);
+					(dimAttrField.hasClass('open') ? dimAttrField.animate({
+						"height": "30px"
+					}, 200) : dimAttrField.animate({
+						"height": "62px"
+					}, 200)).toggleClass('open');
+					$("#attrFuncPanel input,#colsDimPanel input,#rowsDimPanel input").blur();
+				})
+			},
+			bindCheckBox: function() {
+				
+				//点击指标面板复选框
+				jQuery("#attrFuncPanel").on('click', '.dimAttrField .icon-checkbox', function() {
+					var $this = jQuery(this);
+					var $dimAttrField = jQuery(this).parents('.dimAttrField');
+					var dimAttrData = $dimAttrField.data("dimAttrData");
+					if ($this.hasClass('checked')) {
+						//确保有一个被选中
+						if ($("#attrFuncPanel").find(".checked").length == 1) {
+							return;
+						}
+
+						$this.removeClass('checked');
+						dimAttrData.isChecked = false;
+					} else {
+						$this.addClass('checked');
+						dimAttrData.isChecked = true;
+					}
+				});
+				
+				//点击维度面板复选框
+				jQuery("#rowsDimPanel,#colsDimPanel").on('click', '.dimAttrField .icon-checkbox', function() {
+					var $this = jQuery(this);
+					var $dimPanel = $this.parents("#dimPanel");
+					$dimPanel.find(".dimAttrField").each(function() {
+						var $that = $(this);
+						$that.data("dimAttrData").isChecked = false;
+						$that.find(".icon-checkbox").removeClass('checked');
+					});
+
+					var $dimAttrField = $this.parents('.dimAttrField');
+					var dimAttrData = $dimAttrField.data("dimAttrData");
+					if ($this.hasClass('checked')) {
+						$this.removeClass('checked');
+						dimAttrData.isChecked = false;
+					} else {
+						$this.addClass('checked');
+						dimAttrData.isChecked = true;
+					}
+				});
+				
+				//点击重命名按钮
+				jQuery("#colsDimPanel,#attrFuncPanel,#rowsDimPanel").on('click', '.modifyName', function() {
+					var $this = jQuery(this);
+					var $dimAttrField = $this.parents('.dimAttrField');
+					var dimAttrData = $dimAttrField.data("dimAttrData");
+					var $attrDimText = $dimAttrField.find(".attrDimText");
+
+					$attrDimText.hide().after(jQuery("<input />", {
+						value: dimAttrData.modifyName,
+						"class": "input"
+					}).on("blur keypress", function(event) {
+						if (event.keyCode == "13" || event.type === 'blur') {
+							var name = jQuery(this).val() || dimAttrData.attrName;
+							dimAttrData.modifyName = name;
+							$attrDimText.text(name).show().next().remove();
+
+							//只有指标才有funcName，更新系列
+							if (dimAttrData.funcName) {
+								//检查是否有重复指标名称
+								DimAttr.view.checkAttrName();
+							}
+						}
+					})).next().focus().select();
+				});
+				
+				//点击翻译按钮
+				jQuery("#rowsDimPanel,#colsDimPanel").on('click', '.fanyi', function() {
+					var $this = jQuery(this);
+					var $dimAttrField = $this.parents('.dimAttrField');
+					var dimAttrData = $dimAttrField.data("dimAttrData");
+					var fanyi = dimAttrData.fanyi || false;
+					$this.text(!fanyi ? "取消翻译" : "翻译");
+					dimAttrData.fanyi = !fanyi;
+				});
+				
+				//切换设置函数
+				jQuery("#attrFuncPanel").on('change', '.select', function() {
+					var $this = jQuery(this);
+					var $dimAttrField = $this.parents('.dimAttrField');
+					var dimAttrData = $dimAttrField.data("dimAttrData");
+					var funcName = $this.val(),
+						attrEndText = '';
+					switch (funcName) {
+						case "":
+							attrEndText = "";
+							break;
+						case "sum":
+							attrEndText = "求和";
+							break;
+						case "avg":
+							attrEndText = "平均值";
+							break;
+						case "max":
+							attrEndText = "最大值";
+							break;
+						case "min":
+							attrEndText = "最小值";
+							break;
+						default:
+							attrEndText = "计数";
+							break;
+					};
+					var modifyName = dimAttrData.modifyName.replace(/\求和|\平均值|\最大值|\最小值|\计数/g, attrEndText);
+					dimAttrData.attrName = dimAttrData.attrName.replace(/\求和|\平均值|\最大值|\最小值|\计数/g, attrEndText);
+					dimAttrData.modifyName = modifyName;
+					dimAttrData.funcName = funcName;
+					var $attrDimText = $dimAttrField.find(".attrDimText");
+					$attrDimText.text(modifyName);
+				});
+				
+			}
+			
+		}
+	};
+	return DimAttr.control;
+});

@@ -1,1 +1,86 @@
-define(["sabace","company/message"],function(a,b){function d(){jQuery("#saveCompanyButton").on("click",c);jQuery("#companyType").treeselect({height:200,chkStyle:"radio",searchAjaxParam:"companyTypeName",width:(jQuery("#companyType").width()+21),url:a.handleUrlParam("/platform/sysmanage/company/company-type"),});jQuery("#savePanel").validationEngine({autoHidePrompt:true,autoHideDelay:2000,binded:true,promptPosition:"bottomLeft",showOneMessage:true})}function c(){var i=$("#savePanel").validationEngine("validate");if(!i){return false}var f=$("#companyId").val();var h=$("#companyName").val().trim();var g=$("#companyDesc").val();var j=$("#companyType").attr("truevalue");var e={companyId:f,companyName:h,companyType:j,companyRemark:g};bi.dialog.confirm({title:a.getMessage("company.label.confirm"),message:a.getMessage("company.msg.saveCompany.confirm"),callback:function(k){if(!k){return}a.ajax({url:a.handleUrlParam("/platform/sysmanage/company/save-company"),data:e,loading:{title:a.getMessage("company.label.tip"),text:a.getMessage("company.label.pleaseWait")},success:function(l){if(l.saveFlag=="true"){bi.dialog.show({title:a.getMessage("company.label.succeed"),message:a.getMessage("company.msg.saveCompany.success")})}else{bi.dialog.show({type:bi.dialog.TYPE_DANGER,title:a.getMessage("company.label.error"),message:a.getMessage(l.errorMsg)})}},error:function(l){bi.dialog.show({type:bi.dialog.TYPE_DANGER,title:a.getMessage("company.label.error"),message:l.responseText||a.getMessage("company.msg.saveCompany.error")})}})}})}return{init:d}});
+define(['sabace', 'company/message'], function(sabace, message) {
+	function init() {
+		jQuery('#saveCompanyButton').on("click", saveCompanyInfo);
+		
+		//企业类型
+		jQuery("#companyType").treeselect({
+			height: 200,
+			chkStyle: "radio",
+			searchAjaxParam: "companyTypeName",
+			width: (jQuery('#companyType').width() + 21),
+			url: sabace.handleUrlParam('/platform/sysmanage/company/company-type'),
+		});
+
+		jQuery('#savePanel').validationEngine({
+			autoHidePrompt: true,
+			autoHideDelay: 2000,
+			binded: true,
+			promptPosition: 'bottomLeft',
+			showOneMessage: true
+		});
+	}
+
+	function saveCompanyInfo() {
+		var isPass = $('#savePanel').validationEngine('validate');
+		if(!isPass){
+			return false;
+		}
+		
+		var companyId = $("#companyId").val();
+		var companyName = $("#companyName").val().trim();
+		var companyDesc = $("#companyDesc").val();
+		var companyType = $("#companyType").attr("truevalue");
+		var paramData = {
+			companyId: companyId,
+			companyName: companyName,
+			companyType: companyType,
+			companyRemark: companyDesc
+		};
+		
+		bi.dialog.confirm({
+            title: sabace.getMessage('company.label.confirm'),
+            message: sabace.getMessage('company.msg.saveCompany.confirm'),
+            callback: function(result) {
+            	if (!result) {
+            		return;
+            	}
+            	
+        		sabace.ajax({
+        			url: sabace.handleUrlParam("/platform/sysmanage/company/save-company"),
+        			data: paramData,
+        			loading: {
+        				title: sabace.getMessage('company.label.tip'),
+        				text: sabace.getMessage('company.label.pleaseWait')
+        			},
+        			success: function(req) {
+        				if (req.saveFlag == "true") {
+        					bi.dialog.show({
+        						title: sabace.getMessage('company.label.succeed'),
+        						message: sabace.getMessage('company.msg.saveCompany.success')
+        					});
+        				} else {
+        					bi.dialog.show({
+        						type: bi.dialog.TYPE_DANGER,
+        						title: sabace.getMessage('company.label.error'),
+        						message: sabace.getMessage(req.errorMsg)
+        					});
+        				}
+        			},
+        			error: function(req) {
+        				bi.dialog.show({
+        					type: bi.dialog.TYPE_DANGER,
+        					title: sabace.getMessage('company.label.error'),
+        					message: req.responseText || sabace.getMessage('company.msg.saveCompany.error')
+        				});
+        			}
+        		});
+            }
+		});
+	}
+
+	//返回页面所需方法
+	return {
+		init: init
+	}
+
+});

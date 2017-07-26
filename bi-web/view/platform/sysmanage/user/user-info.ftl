@@ -17,7 +17,7 @@
 						<td class="table-label"><label class="control-label f14"><@spring.message code="user.label.userName"/></label></td>
 						<td><input type="text" class="form-control validate[required,len[1,30]]" id="userName" value="${userBean.userName}"></td>
 					</tr>
-					<tr>
+					<tr style="display: none;">
 						<td class="table-label"><label class="control-label f14"><@spring.message code="user.label.sex"/></label></td>
 						<td style="padding-top:5px">
 							<label class="control-label f14">
@@ -27,7 +27,7 @@
 							</label>
 						</td>
 					</tr>
-					<tr>
+					<tr style="display: none;">
 						<td class="table-label"><label class="control-label f14"><@spring.message code="user.label.birthday"/></label></td>
 						<td>
 							<div class="parent-select">
@@ -48,15 +48,15 @@
 						</td>
 					</tr>
 					<#if userBean.companyFlag == "1">
-						<tr>
+						<tr style="display: none;">
 							<td class="table-label"><label class="control-label f14"><@spring.message code="user.label.companyName"/></label></td>
 							<td><label class="overdisplay control-label f14 ">${userBean.companyName}</label></td>
 						</tr>
-						<tr>
+						<tr style="display: none;">
 							<td class="table-label"><label class="control-label f14"><@spring.message code="user.label.dep"/></label></td>
 							<td><label class="overdisplay control-label f14">${userBean.depName}</label></td>
 						</tr>
-						<tr>
+						<tr style="display: none;">
 							<td class="table-label"><label class="control-label f14"><@spring.message code="user.label.job"/></label></td>
 							<td>
 								<label class="control-label f14">

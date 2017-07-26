@@ -1,1 +1,886 @@
-define(["bace"],function(a){var b={collectBaseTemplate:function(j){var h={style:{border:{have:"",color:"1px solid rgba(170, 170, 170,.99)",shadow:false,radius:false},background:"rgba(255,255,255,0.6)",}};var k={text:"",subtext:"",left:"center",top:"top",textStyle:{color:"rgba(0,0,0,1)",fontSize:"22"}};var l={show:true,orient:"horizontal",top:"bottom",left:"center",itemGap:"5"};var g=[{show:true,inverse:false,name:"",nameLocation:"end",axisLabel:{interval:"auto",rotate:"0"},position:"bottom",axisLine:{lineStyle:{color:"rgba(0,0,0,.8)"}},axisTick:{show:true,},splitLine:{show:false},splitArea:{show:false}}];var e=[{show:false},{type:"inside"}];var f=[{show:true,name:"",position:"left",max:"",min:"",type:"value",inverse:false,axisLine:{lineStyle:{color:"rgba(0,0,0,.8)",}},splitLine:{show:false},splitArea:{show:false}}];var d={top:60,bottom:35,left:15,right:35};var m={show:true};var i={show:true,};_prop={bi:h,title:k,legend:l,tooltip:m,toolbox:i};if(j.indexOf("grid")>-1||j.indexOf("public")>-1){_prop.xAxis=g;_prop.yAxis=f,_prop.grid=d;_prop.dataZoom=e;_prop.bi.grid={yx:false,xUnit:"",yUnit:"",}}if(j.indexOf("radar")>-1){_prop.radar=[{radius:"",name:{dataUnit:"",textStyle:{color:"",fontSize:"12"}}}]}if(j.indexOf("map")>-1){_prop.visualMap={show:true}}if(j.indexOf("heatmap1")>-1){_prop.visualMap={};_prop.geo={map:"china",label:{emphasis:{show:false}},roam:true,itemStyle:{normal:{areaColor:"#323c48",borderColor:"#111"},emphasis:{areaColor:"#2a333d"}}}}if(j.indexOf("effectScatter")>-1){_prop.tooltip={trigger:"item"};_prop.geo={map:"china",label:{emphasis:{show:false}},roam:true,itemStyle:{normal:{areaColor:"#323c48",borderColor:"#111"},emphasis:{areaColor:"#2a333d"}}}}return _prop},renderTemplate:function(f,h){var e={};if(f=="grid"||f.indexOf("grid")>-1){var d=h.bi.grid;if(!h.yAxis||!d||!h.dataZoom){return}e={xAxis:[{axisLabel:{formatter:"{value}"+d.xUnit},axisTick:{lineStyle:{color:h.xAxis[0].axisLine.lineStyle.color}}}],yAxis:[{axisLabel:{formatter:"{value}"+d.yUnit},axisTick:{lineStyle:{color:h.yAxis[0].axisLine.lineStyle.color}},max:h.yAxis[0].max||null,min:h.yAxis[0].min||null}],grid:{borderWidth:(d.yColor==false&&d.xColor==false)?0:1}};if(h.dataZoom[1].type){h.dataZoom[1].type="inside"}}if(f.indexOf("radar")>-1&&h!==undefined){var g=h.radar;if(g){e={radar:[{radius:g[0].radius+"%",name:{formatter:"{value}"+g[0].name.dataUnit,textStyle:{color:g[0].name.textStyle.color,fontSize:g[0].name.textStyle.fontSize}}}]}}}return $.extend(true,{},h,e)},collectSeriesTemplate:function(d){if(d=="line"){return{line:{type:"line",symbol:"emptyCircle",symbolRotate:"0",symbolSize:"4",labelPosition:"none",markFuncAvg:"none",markFuncMax:"none",markFuncMin:"none",smooth:false,stack:false,fill:false}}}if(d=="bar"||d=="barMix"){return{bar:{type:"bar",color:"",width:"",stack:false,labelPosition:"none",markFuncAvg:"none",markFuncMax:"none",markFuncMin:"none",}}}if(d=="pie"){return{pie:{type:"pie",radius:"50",ringSize:"0",centerX:"50",centerY:"50",showLabel:"outer",chartType:"pie"}}}if(d=="map"){return{map:{type:"map",chartType:"",top:10,left:12,width:"",roam:false,dataRange:true,dataUnit:"",showLabel:true}}}if(d=="treemap"){return{treemap:{type:"treemap",visibleMin:300,label:{show:true,formatter:"{b}"},itemStyle:{normal:{borderColor:"#fff"}}}}}if(d=="heatmap1"){return{heatmap:{type:"heatmap1",chartType:"",top:10,left:12,width:"",roam:false,dataRange:true,showLabel:true}}}if(d=="effectScatter"){return{effectScatter:{type:"effectScatter",chartType:"",top:10,left:12,width:"",roam:false,dataRange:true,showLabel:true}}}if(d=="funnel"){var e={type:"funnel",labelPosition:"right",sort:"descending",gap:0,width:50,height:50,left:30,top:30,funnelAlign:"center"};return{funnel:e}}if(d=="scatter"){return{scatter:{type:"scatter",symbol:"circle",symbolRotate:"none",markFuncAvg:"none",markFuncMax:"none",markFuncMin:"none"}}}if(d=="radar"||d=="radar2"){return{radar2:{type:"radar",fill:false,}}}if(d=="gauge"){return{gauge:{type:"gauge",radius:"85",centerX:"50",centerY:"55",startAngle:"225",endAngle:"-45",dataUnit:"",max:100,min:0,axisLine:{lineStyle:{width:10,color:{panelCloAPP:"20",panelCloA:"",panelCloBPP:"80",panelCloB:"",panelCloCPP:"100",panelCloC:"",}}}}}}if(d=="heatmap"){return{heatmap:{type:"heatmap"}}}},renderSeries:function(k,e){var l={};var d=arguments[2]||"china";var g=e[k=="radar"?"radar2":k];if(k=="pie"){l={type:"pie",radius:g.radius+"%",};var h=g.showLabel;var m={};switch(h){case"none":m={label:{normal:{show:false}},labelLine:{normal:{show:false}}};break;case"outer":m={label:{normal:{show:true,position:"outer",formatter:"{b}:{c}\n({d}%)"}},labelLine:{normal:{show:true}}};break;case"inner":m={label:{normal:{show:true,position:"inner",formatter:"{b}:{c}\n({d}%)"}},labelLine:{normal:{show:false}}};break;default:break}l.label=m.label;l.labelLine=m.labelLine;var j=g.chartType;if(j=="rose"){l.roseType="radius"}else{l.roseType=false}var i=g.ringSize;if(i){l.radius=[i+"%",g.radius+"%"]}l.center=[g.centerX+"%",g.centerY+"%"];if(h=="inner"){l.label.emphasis={show:true,textStyle:{color:"#fff",}}}l.tooltip={trigger:"item",formatter:"{a} <br/>{b} : {c} ({d}%)"}}else{if(k=="bar"||k=="barMix"){l={type:"bar",stack:g.stack,barWidth:g.width,label:{normal:{show:(g.labelPosition=="none"?false:true),position:g.labelPosition},emphasis:{show:(g.labelPosition=="none"?false:true),position:g.labelPosition}}};var f=c(k,g.markFuncMax,g.markFuncMin,g.markFuncAvg);l.markPoint=f.markPoint;l.markLine=f.markLine}else{if(k=="line"){l={type:"line",stack:g.stack,symbol:g.symbol,symbolSize:g.symbolSize,symbolRotate:g.symbolRotate,smooth:g.smooth,label:{normal:{show:(g.labelPosition=="none"?false:true),position:g.labelPosition},emphasis:{show:(g.labelPosition=="none"?false:true),position:g.labelPosition}}};if(g.fill){l.areaStyle={normal:{}}}else{l.areaStyle={normal:null}}var f=c(k,g.markFuncMax,g.markFuncMin,g.markFuncAvg);l.markPoint=f.markPoint;l.markLine=f.markLine}else{if(k=="scatter"){l={type:"scatter",symbol:g.symbol,};var f=c(k,g.markFuncMax,g.markFuncMin,g.markFuncAvg);l.markPoint=f.markPoint;l.markLine=f.markLine}else{if(k=="radar"||k=="radar2"){l={type:"radar",};if(g.fill){l.areaStyle={normal:{}}}else{l.areaStyle={normal:null}}}else{if(k=="funnel"){l={type:"funnel",gap:g.gap,width:g.width+"%",height:g.height+"%",top:g.top+"%",left:g.left+"%",sort:g.sort,funnelAlign:g.funnelAlign};switch(g.labelPosition){case"none":l.label={normal:{show:false}};l.labelLine={normal:{show:false}};break;case"left":l.label={normal:{show:true,position:"left",formatter:"{b}:{c}"}};l.labelLine={normal:{show:true,formatter:"{b}:{c}"}};break;case"right":l.label={normal:{show:true,position:"right",formatter:"{b}:{c}"}};l.labelLine={normal:{show:true}};break;case"inside":l.label={normal:{position:"inside",formatter:"{b}:{c}"}};l.labelLine={normal:{show:false}};break;default:break}}}}}}}if(k=="map"){l={type:"map",top:g.top+"%",left:g.left+"%",width:g.width||"auto",roam:g.roam,mapType:d||"",dataUnit:g.dataUnit||""};var m={};if(g.showLabel){m={label:{normal:{show:true},emphasis:{show:true}}}}else{m={label:{normal:{show:false},emphasis:{show:false}}}}l.label=m.label}if(k=="treemap"){l={name:"维度",type:"treemap",visibleMin:300,leafDepth:2,levels:[{itemStyle:{normal:{borderColor:"#555",borderWidth:4,gapWidth:4}}},{colorSaturation:[0.3,0.6],itemStyle:{normal:{borderColorSaturation:0.7,gapWidth:2,borderWidth:2}}},{colorSaturation:[0.3,0.5],itemStyle:{normal:{borderColorSaturation:0.6,gapWidth:1}}},{colorSaturation:[0.3,0.5]}]}}if(k=="heatmap1"){l={name:"AQI",type:"heatmap1",coordinateSystem:"geo",}}if(k=="effectScatter"){l={type:"effectScatter",coordinateSystem:"geo",showEffectOn:"render",rippleEffect:{brushType:"stroke"},hoverAnimation:true,label:{normal:{formatter:"{b}",position:"right",show:true}},itemStyle:{normal:{color:"#f4e925",shadowBlur:10,shadowColor:"#333"}},zlevel:1}}if(k=="gauge"){l={type:"gauge",radius:(g.radius||85)+"%",max:g.max||100,min:g.min||0,startAngle:g.startAngle||225,endAngle:g.endAngle||-45,center:[g.centerX+"%",g.centerY+"%"],axisLine:{lineStyle:{width:10,color:[[g.axisLine.lineStyle.color.panelCloAPP/100,g.axisLine.lineStyle.color.panelCloA],[g.axisLine.lineStyle.color.panelCloBPP/100,g.axisLine.lineStyle.color.panelCloB],[g.axisLine.lineStyle.color.panelCloCPP/100,g.axisLine.lineStyle.color.panelCloC]]}},title:{textStyle:{fontWeight:"bolder",fontSize:"14"}},axisTick:{length:15,lineStyle:{color:"auto"}},splitLine:{length:20,lineStyle:{color:"auto"}},detail:{textStyle:{fontWeight:"bolder"},formatter:"{value}"+g.dataUnit}}}if(k=="heatmap"){l={type:"heatmap"}}return l}};function c(h,i,d,g){var f={data:[{type:"max",name:"最大值"},{type:"min",name:"最小值"}]};var e={data:[{type:"max",name:"最大值"},{type:"min",name:"最小值"}]};if(h=="line"||h=="scatter"||h=="bar"||h=="barMix"){f.data.push({type:"average",name:"平均值"})}if(i=="line"){e.data=_.without(e.data,_.findWhere(e.data,{type:"max"}))}if(i=="point"){f.data=_.without(f.data,_.findWhere(f.data,{type:"max"}))}if(i=="none"){e.data=_.without(e.data,_.findWhere(e.data,{type:"max"}));f.data=_.without(f.data,_.findWhere(f.data,{type:"max"}))}if(d=="line"){e.data=_.without(e.data,_.findWhere(e.data,{type:"min"}))}if(d=="point"){f.data=_.without(f.data,_.findWhere(f.data,{type:"min"}))}if(d=="none"){e.data=_.without(e.data,_.findWhere(e.data,{type:"min"}));f.data=_.without(f.data,_.findWhere(f.data,{type:"min"}))}if(g=="line"){e.data=_.without(e.data,_.findWhere(e.data,{type:"average"}))}if(g=="point"){f.data=_.without(f.data,_.findWhere(f.data,{type:"average"}))}if(g=="none"){e.data=_.without(e.data,_.findWhere(e.data,{type:"average"}));f.data=_.without(f.data,_.findWhere(f.data,{type:"average"}))}if(f.data.length==0){f=null}if(e.data.length==0){e=null}return{markLine:f,markPoint:e}}return b});
+define(['bace'], function(Bace) {
+	var generator = {
+		//不同图形 类型，收集骨架不一样
+		collectBaseTemplate:function(type){
+			var bi = {
+				"style":{
+					border:{
+						have:'',
+						color:'1px solid rgba(170, 170, 170,.99)',
+						shadow:false,
+						radius:false
+					},
+					background:'rgba(255,255,255,0.6)',
+				}
+			};
+			var title = {
+				text:'',
+				subtext:'',
+				left:'center',
+				top:'top',
+				textStyle:{
+					color:'rgba(0,0,0,1)',
+					fontSize:'22'
+				}
+			};
+
+			var legend = {
+				show:true,
+				orient:'horizontal',
+				top:'bottom',
+				left:'center',
+				itemGap:'5'
+			};
+
+			var xAxis = [{
+				show:true,
+				inverse:false,
+				name:'',
+				nameLocation:'end',
+				axisLabel:{
+					interval:'auto',
+					rotate:'0'
+				},
+				position:"bottom",
+				axisLine : {    // 轴线
+	                lineStyle: {
+	                    color: 'rgba(0,0,0,.8)'
+	                }
+	           },
+				axisTick:{
+					show:true,
+				},
+				splitLine:{
+					show:false
+				},
+				splitArea:{
+					show:false
+				}
+			}];
+
+			var dataZoom=[
+				{
+					show:false
+				},
+				{
+					type:'inside'
+				}
+			];
+
+			var  yAxis= [{
+				show:true,
+				name:'',
+				position:"left",
+				max:'',
+				min:'',
+				type:'value',
+				inverse:false,
+				axisLine : {    // 轴线
+	                lineStyle: {
+	                    color: 'rgba(0,0,0,.8)',
+	                }
+	            },
+				splitLine:{
+					show:false
+				},
+				splitArea:{
+					show:false
+				}
+			}];
+
+			var grid = {
+				top:60,
+				bottom:35,
+				left:15,
+				right:35
+			};
+			var tooltip = {
+				show:true
+			}
+			var toolbox = {
+				show:true,
+			};
+
+			//通用配置
+			_prop = {
+				bi:bi,
+				title:title,
+				legend:legend,
+				tooltip:tooltip,
+				toolbox:toolbox
+			};
+
+			//判断图形类型
+			if(type.indexOf('grid')>-1 || type.indexOf('public')>-1){
+				_prop.xAxis = xAxis;
+				_prop.yAxis = yAxis,
+				_prop.grid = grid;
+				_prop.dataZoom = dataZoom;
+
+				_prop.bi.grid = {
+					yx:false,
+					xUnit:'',
+					yUnit:'',
+				}
+			}
+			if(type.indexOf('radar')>-1){
+				_prop.radar = [{
+					radius:'',
+					name: {
+						dataUnit:'',
+		                textStyle: {
+		                    color:'',
+		                    fontSize:'12'
+		                }
+		            }
+				}]
+			}
+
+			if(type.indexOf('map')>-1){
+				_prop.visualMap = {
+					show:true
+				}
+			}
+			if(type.indexOf('heatmap1')>-1){
+				_prop.visualMap = {
+
+				}
+				_prop.geo={
+					map: 'china',
+					label: {
+						emphasis: {
+							show: false
+						}
+					},
+					roam: true,
+					itemStyle: {
+						normal: {
+							areaColor: '#323c48',
+							borderColor: '#111'
+						},
+						emphasis: {
+							areaColor: '#2a333d'
+						}
+					}
+				}
+			}
+            if(type.indexOf('effectScatter')>-1){
+				_prop.tooltip={
+					trigger: 'item'
+				}
+                _prop.geo={
+                    map: 'china',
+                    label: {
+                        emphasis: {
+                            show: false
+                        }
+                    },
+                    roam: true,
+                    itemStyle: {
+                        normal: {
+                            areaColor: '#323c48',
+                            borderColor: '#111'
+                        },
+                        emphasis: {
+                            areaColor: '#2a333d'
+                        }
+                    }
+                }
+            }
+
+			return _prop;
+		},
+		//不同图形类型，会产生一些额外的骨架
+		renderTemplate:function(type,prop){
+			var bi_handle={};
+			if(type=='grid' || type.indexOf('grid')>-1){
+				var grid = prop.bi.grid;
+				if(!prop.yAxis || !grid ||!prop.dataZoom )return;
+				bi_handle = {
+					xAxis: [{
+						axisLabel: {
+							 formatter:  '{value}'+ grid.xUnit
+						},
+						axisTick:{
+							lineStyle: {
+								color:prop.xAxis[0].axisLine.lineStyle.color
+							}
+						}
+					}],
+					yAxis: [{
+						axisLabel: {
+							 formatter:  '{value}'+ grid.yUnit
+						},
+						axisTick:{
+							lineStyle: {
+								color:prop.yAxis[0].axisLine.lineStyle.color
+							}
+						},
+						max:prop.yAxis[0].max||null,
+						min:prop.yAxis[0].min||null
+					}],
+					grid:{
+						//直角系的线
+						borderWidth:(grid.yColor == false && grid.xColor == false)?0:1
+					}
+				};
+				if(prop.dataZoom[1].type){
+					prop.dataZoom[1].type = 'inside'
+				}
+			}
+
+			if(type.indexOf('radar')>-1 && prop !==undefined){
+				var obj = prop["radar"];
+				if(obj){
+					bi_handle = {
+						radar:[{
+							radius:obj[0].radius + "%",
+							name: {
+				                formatter: '{value}'+ obj[0].name.dataUnit,
+				                textStyle: {
+				                    color:obj[0].name.textStyle.color,
+				                    fontSize:obj[0].name.textStyle.fontSize
+				                }
+				            }
+						}]
+					}
+				}
+
+			}
+			return  $.extend(true, {}, prop, bi_handle);
+		},
+		collectSeriesTemplate:function(type){
+			//判断图形类型
+			if(type == 'line' ){
+				return {
+					line:{
+						type:'line',
+						symbol:'emptyCircle',
+						symbolRotate:'0',
+						symbolSize:'4',
+						labelPosition:'none',
+						markFuncAvg:'none',
+						markFuncMax:'none',
+						markFuncMin:'none',
+						smooth:false,
+						stack:false,
+						fill:false
+					}
+				}
+			}
+			if(type == 'bar' || type == 'barMix'){
+				return {
+					bar:{
+						type:'bar',
+						color:'',
+						width:'',
+						stack:false,
+						labelPosition:'none',
+						markFuncAvg:'none',
+						markFuncMax:'none',
+						markFuncMin:'none',
+					}
+				}
+			}
+			if(type == 'pie' ){
+				return {
+					pie:{
+						type:'pie',
+						radius:'50',
+						ringSize:'0',
+						centerX:'50',
+						centerY:'50',
+						showLabel:'outer',
+						chartType:'pie'
+					}
+				}
+			}
+			if(type == 'map' ){
+				return {
+					map:{
+						type:'map',
+						chartType:'',
+						top:10,
+						left:12,
+						width:'',
+						roam:false,
+						dataRange:true,
+						dataUnit:'',
+						showLabel:true
+					}
+				}
+			}
+
+			if(type == 'treemap' ){
+				return {
+					treemap: {
+						type:'treemap',
+						visibleMin: 300,
+						label: {
+							show: true,
+							formatter: '{b}'
+						},
+						itemStyle: {
+							normal: {
+								borderColor: '#fff'
+							}
+						}
+					}
+				}
+			}
+			if(type == 'heatmap1' ){
+				return {
+					heatmap:{
+						type:'heatmap1',
+						chartType:'',
+						top:10,
+						left:12,
+						width:'',
+						roam:false,
+						dataRange:true,
+						showLabel:true
+					}
+				}
+			}
+            if(type == 'effectScatter' ){
+                return {
+                    effectScatter:{
+                        type:'effectScatter',
+                        chartType:'',
+                        top:10,
+                        left:12,
+                        width:'',
+                        roam:false,
+                        dataRange:true,
+                        showLabel:true
+                    }
+                }
+            }
+			if(type == 'funnel' ){
+				var obj = {
+					type:'funnel',
+					labelPosition:'right',
+					sort:'descending',
+					gap:0,
+					width:50,
+					height:50,
+					left:30,
+					top:30,
+					funnelAlign:'center'
+				};
+				return {
+					funnel:obj
+				}
+			}
+			if(type == 'scatter' ){
+				return {
+					scatter:{
+						type:'scatter',
+						symbol:'circle',
+						symbolRotate:'none',
+						markFuncAvg:'none',
+						markFuncMax:'none',
+						markFuncMin:'none'
+					}
+				}
+			}
+			if(type == 'radar' || type == 'radar2' ){
+				return {
+					radar2:{
+						type:'radar',
+						fill:false,
+					}
+				}
+			}
+			if(type == 'gauge' ){
+				return {
+					gauge:{
+						type:'gauge',
+						radius:'85',
+						centerX:'50',
+						centerY:'55',
+						startAngle:'225',
+						endAngle:'-45',
+						dataUnit:'',
+						max:100,
+						min:0,
+						axisLine: {            // 坐标轴线
+							lineStyle: {       // 属性lineStyle控制线条样式
+								width: 10,
+								color: {
+									panelCloAPP:'20',
+									panelCloA:'',
+									panelCloBPP:'80',
+									panelCloB:'',
+									panelCloCPP:'100',
+									panelCloC:'',
+								}
+							}
+							}
+
+					}
+				}
+			}
+			if(type == 'heatmap' ){
+				return {
+					heatmap:{
+						type:'heatmap'
+					}
+				}
+			}
+		},
+		renderSeries:function(type,seriesObj){
+			var _series = {};
+			var mapType = arguments[2] || "china";
+			var obj = seriesObj[type=="radar"?"radar2":type];
+			if(type == 'pie'){
+				_series = {
+					type:'pie',
+					radius:obj.radius+"%",
+				};
+				var showLabel = obj.showLabel;
+				var labelObj = {};
+				switch (showLabel){
+					case "none":
+						labelObj = {
+							label : {
+								normal: {
+				                   show: false
+				                }
+		                    },
+		                    labelLine : {
+		                        normal: {
+				                   show: false
+				                }
+		                    }
+						};
+						break;
+					case "outer":
+						labelObj = {
+							label : {
+								normal: {
+				                   show: true,
+				                   position : 'outer',
+				                   formatter: "{b}:{c}\n({d}%)"
+				                }
+		                    },
+		                    labelLine : {
+		                        normal: {
+				                   show: true
+				                }
+		                    }
+						};
+						break;
+					case "inner":
+						labelObj = {
+							label : {
+		                       normal: {
+				                   show: true,
+				                   position : 'inner',
+				                   formatter: "{b}:{c}\n({d}%)"
+				                }
+		                    },
+		                    labelLine : {
+		                        normal: {
+				                   show: false
+				                }
+		                    }
+						};
+						break;
+					default:
+						break;
+				}
+				_series.label= labelObj.label;
+				_series.labelLine= labelObj.labelLine;
+
+				var chartType = obj.chartType;
+				if(chartType == 'rose'){
+					_series.roseType = 'radius'
+				}else{
+					_series.roseType = false
+				}
+				var ringSize = obj.ringSize;
+				if(ringSize){
+					_series.radius = [ringSize+"%", obj.radius+"%"];
+				}
+				_series.center=[obj.centerX+"%",obj.centerY+"%"];
+
+				if(showLabel == "inner"){
+					_series.label.emphasis = {
+                        show : true,
+                        textStyle : {
+                          	color:'#fff',
+                        }
+					}
+				}
+				_series.tooltip = {
+					trigger: 'item',
+					formatter: "{a} <br/>{b} : {c} ({d}%)"
+				}
+			}else if(type == 'bar' || type == 'barMix'){
+				_series = {
+					type:'bar',
+					stack:obj.stack,
+					barWidth:obj.width,
+					label:{
+					 	normal:{
+					 		show: (obj.labelPosition=='none'?false:true),
+					 		position: obj.labelPosition
+					 	},
+					 	emphasis:{
+					 		show: (obj.labelPosition=='none'?false:true),
+					 		position: obj.labelPosition
+					 	}
+					}
+				}
+				var mark = LineAndPoint(type,obj.markFuncMax,obj.markFuncMin,obj.markFuncAvg)
+				_series.markPoint = mark.markPoint;
+				_series.markLine = mark.markLine;
+
+			}else if(type == 'line'){
+				_series = {
+					type:'line',
+					stack:obj.stack,
+					"symbol":obj.symbol,
+					symbolSize:obj.symbolSize,
+					symbolRotate:obj.symbolRotate,
+					smooth:obj.smooth,
+					label:{
+					 	normal:{
+					 		show: (obj.labelPosition=='none'?false:true), position: obj.labelPosition
+					 	},
+					 	emphasis:{
+					 		show: (obj.labelPosition=='none'?false:true),
+					 		position: obj.labelPosition
+					 	}
+					}
+				};
+				if(obj.fill){
+					_series.areaStyle = {normal:{}};
+				}else{
+					_series.areaStyle = {normal:null};
+				}
+
+				var mark = LineAndPoint(type,obj.markFuncMax,obj.markFuncMin,obj.markFuncAvg);
+				_series.markPoint = mark.markPoint;
+				_series.markLine = mark.markLine;
+			}else if(type == 'scatter'){
+				_series = {
+					type:'scatter',
+					"symbol":obj.symbol,
+				};
+				var mark = LineAndPoint(type,obj.markFuncMax,obj.markFuncMin,obj.markFuncAvg)
+				_series.markPoint = mark.markPoint;
+				_series.markLine = mark.markLine;
+			}else if(type == 'radar' || type == 'radar2'){
+				_series = {
+					type:'radar',
+				};
+				if(obj.fill){
+					_series.areaStyle = {normal:{}};
+				}else{
+					_series.areaStyle = {normal:null};
+				}
+			}else if(type == 'funnel'){
+				_series = {
+					type:'funnel',
+					gap:obj.gap,
+					width:obj.width+"%",
+					height:obj.height+"%",
+					top:obj.top+"%",
+					left:obj.left+"%",
+					sort:obj.sort,
+					funnelAlign:obj.funnelAlign
+				};
+				switch (obj.labelPosition){
+					case "none":
+						_series.label = {
+							normal: {
+								show: false
+							}
+		                };
+						_series.labelLine = {
+							normal: {
+								show: false
+							}
+		                };
+						break;
+					case "left":
+						_series.label = {
+							normal: {
+								show: true,
+								position: 'left',
+								formatter: "{b}:{c}"
+							}
+		                };
+						_series.labelLine = {
+							normal: {
+								show: true,
+								formatter: "{b}:{c}"
+							}
+		                };
+						break;
+					case "right":
+						_series.label = {
+							normal: {
+								show: true,
+								position: 'right',
+								formatter: "{b}:{c}"
+							}
+		                };
+						_series.labelLine = {
+							normal: {
+								show: true
+							}
+		                };
+						break;
+					case "inside":
+						_series.label = {
+							normal: {
+								position: 'inside',
+								formatter: "{b}:{c}"
+							}
+		                };
+						_series.labelLine = {
+							normal: {
+								show: false
+							}
+		                };
+						break;
+					default:
+						break;
+				}
+			}
+			if(type == "map"){
+				_series = {
+					type:'map',
+					top:obj.top+"%",
+					left:obj.left+"%",
+					width:obj.width||'auto',
+					roam:obj.roam,
+					mapType: mapType || "",
+					dataUnit:obj.dataUnit||""
+			};
+				var labelObj = {};
+				if(obj.showLabel){
+					labelObj = {
+						label:{
+							normal:{show:true},
+							emphasis:{show:true}
+						}
+					}
+				}else{
+					labelObj = {
+						label:{
+							normal:{show:false},
+							emphasis:{show:false}
+						}
+					}
+				}
+				_series.label= labelObj.label;
+			}
+
+			if(type == "treemap"){
+				_series = {
+					name: '维度',
+					type: 'treemap',
+					visibleMin: 300,
+					// data: data.children,
+					leafDepth: 2,
+					levels: [
+						{
+							itemStyle: {
+									normal: {
+									borderColor: '#555',
+									borderWidth: 4,
+									gapWidth: 4
+								}
+							}
+						},
+						{
+							colorSaturation: [0.3, 0.6],
+							itemStyle: {
+								normal: {
+									borderColorSaturation: 0.7,
+									gapWidth: 2,
+									borderWidth: 2
+								}
+							}
+						},
+						{
+							colorSaturation: [0.3, 0.5],
+							itemStyle: {
+								normal: {
+									borderColorSaturation: 0.6,
+									gapWidth: 1
+								}
+							}
+						},
+						{
+							colorSaturation: [0.3, 0.5]
+						}
+					]
+				};
+			}
+
+			if(type == "heatmap1"){
+				_series = {
+					name: 'AQI',
+					type: 'heatmap1',
+					coordinateSystem: 'geo',
+				}
+			}
+            if(type == "effectScatter"){
+                _series =
+                    {
+                        type: 'effectScatter',
+                        coordinateSystem: 'geo',
+                        showEffectOn: 'render',
+                        rippleEffect: {
+                            brushType: 'stroke'
+                        },
+                        hoverAnimation: true,
+                        label: {
+                            normal: {
+                                formatter: '{b}',
+                                position: 'right',
+                                show: true
+                            }
+                        },
+                        itemStyle: {
+                            normal: {
+                                color: '#f4e925',
+                                shadowBlur: 10,
+                                shadowColor: '#333'
+                            }
+                        },
+                        zlevel: 1
+                    }
+            }
+			if(type == "gauge"){
+				_series = {
+					type:'gauge',
+					radius: (obj.radius||85)+'%',
+					max:obj.max||100,
+					min:obj.min||0,
+					startAngle:obj.startAngle||225,
+					endAngle:obj.endAngle||-45,
+					center:[obj.centerX+"%",obj.centerY+"%"],
+					axisLine: {            // 坐标轴线
+		                lineStyle: {       // 属性lineStyle控制线条样式
+		                    width: 10,
+							color: [[obj.axisLine.lineStyle.color.panelCloAPP/100,obj.axisLine.lineStyle.color.panelCloA],[obj.axisLine.lineStyle.color.panelCloBPP/100,obj.axisLine.lineStyle.color.panelCloB],[obj.axisLine.lineStyle.color.panelCloCPP/100,obj.axisLine.lineStyle.color.panelCloC]]
+		                }
+		            },
+		            title:{
+		                 textStyle: {       // 其余属性默认使用全局文本样式，详见TEXTSTYLE
+		                    fontWeight: 'bolder',
+		                    fontSize:'14'
+		                }
+		            },
+		            axisTick: {            // 坐标轴小标记
+		                length :15,        // 属性length控制线长
+		                lineStyle: {       // 属性lineStyle控制线条样式
+		                    color: 'auto'
+		                }
+		            },
+		            splitLine: {           // 分隔线
+		                length :20,         // 属性length控制线长
+		                lineStyle: {       // 属性lineStyle（详见lineStyle）控制线条样式
+		                    color: 'auto'
+		                }
+		            },
+		            detail : {
+		                textStyle: {       // 其余属性默认使用全局文本样式，详见TEXTSTYLE
+		                    fontWeight: 'bolder'
+		                },
+		                formatter:'{value}'+obj.dataUnit
+		            }
+				}
+			}
+			if(type == "heatmap"){
+				_series = {
+					type:'heatmap'
+				}
+			}
+
+			return _series;
+		}
+	};
+
+	function LineAndPoint(chartType,markFuncMax,markFuncMin,markFuncAvg){
+
+		var markLine = {
+			data:[
+				{type : 'max', name : '最大值'},
+				{type : 'min', name : '最小值'}
+			]
+		};
+		var markPoint = {
+			data:[
+				{type : 'max', name : '最大值'},
+				{type : 'min', name : '最小值'}
+			]
+		};
+		if(chartType == 'line' || chartType == 'scatter' || chartType == 'bar' || chartType == 'barMix'){
+			markLine.data.push({type : 'average', name : '平均值'});
+		}
+
+		if(markFuncMax == 'line'){
+			//则删除 point中的 max data
+			markPoint.data = _.without(markPoint.data, _.findWhere(markPoint.data, {type:'max'}));
+		}
+		if(markFuncMax == 'point'){
+			//则删除 point中的 max data
+			markLine.data = _.without(markLine.data, _.findWhere(markLine.data, {type:'max'}));
+		}
+
+		if(markFuncMax == 'none'){
+			//则删除 point中的 max data
+			markPoint.data = _.without(markPoint.data, _.findWhere(markPoint.data, {type:'max'}));
+			markLine.data = _.without(markLine.data, _.findWhere(markLine.data, {type:'max'}));
+		}
+
+		if(markFuncMin == 'line'){
+			//则删除 point中的 max data
+			markPoint.data = _.without(markPoint.data, _.findWhere(markPoint.data, {type:'min'}));
+		}
+		if(markFuncMin == 'point'){
+			//则删除 point中的 max data
+			markLine.data = _.without(markLine.data, _.findWhere(markLine.data, {type:'min'}));
+		}
+
+		if(markFuncMin == 'none'){
+			//则删除 point中的 max data
+			markPoint.data = _.without(markPoint.data, _.findWhere(markPoint.data, {type:'min'}));
+			markLine.data = _.without(markLine.data, _.findWhere(markLine.data, {type:'min'}));
+		}
+
+		if(markFuncAvg == 'line'){
+			//则删除 point中的 max data
+			markPoint.data = _.without(markPoint.data, _.findWhere(markPoint.data, {type:'average'}));
+		}
+		if(markFuncAvg == 'point'){
+			//则删除 point中的 max data
+			markLine.data = _.without(markLine.data, _.findWhere(markLine.data, {type:'average'}));
+		}
+
+		if(markFuncAvg == 'none'){
+			//则删除 point中的 max data
+			markPoint.data = _.without(markPoint.data, _.findWhere(markPoint.data, {type:'average'}));
+			markLine.data = _.without(markLine.data, _.findWhere(markLine.data, {type:'average'}));
+		}
+		if(markLine.data.length ==0){
+			markLine = null;
+		};
+		if(markPoint.data.length ==0){
+			markPoint = null;
+		};
+		return {
+			markLine:markLine,
+			markPoint:markPoint
+		}
+	}
+
+	return generator;
+});

@@ -1,1 +1,92 @@
-require.config({urlArgs:"bust="+js_version,baseUrl:resPath+"/resources/platform/dataview/js",waitSeconds:60,paths:{"view/box":"view/box","view/main":"view/main","view/layout":"view/layout","view/attr":"view/attr","view/eventBinder":"view/eventBinder","view/header":"view/header","view/header/start":"view/header/start","view/header/data":"view/header/data","view/header/widget":"view/header/widget","view/header/tools":"view/header/tools","view/widgets":"view/widgets","view/widgets/filter":"view/widgets/filter","view/widgets/property":"view/widgets/property","view/widgets/property/generator":"view/widgets/property/generator","view/widgets/property/design":"view/widgets/property/design","view/widgets/property/dimAttr":"view/widgets/property/dimAttr","view/widgets/plugins/echarts/tpl":"view/widgets/plugins/echarts/tpl","view/widgets/plugins/default":"view/widgets/plugins/default","view/widgets/plugins/table/dimAttr":"view/widgets/plugins/table/dimAttr","view/widgets/plugins/table/desgin":"view/widgets/plugins/table/desgin","view/widgets/plugins/table/table":"view/widgets/plugins/table/table","view/widgets/plugins/echarts/dimAttr":"view/widgets/plugins/echarts/dimAttr","view/widgets/plugins/echarts/desgin":"view/widgets/plugins/echarts/desgin","view/widgets/plugins/echarts/echarts":"view/widgets/plugins/echarts/echarts","view/widgets/plugins/echarts/collectTmpl":"view/widgets/plugins/echarts/collectTmpl","view/widgets/plugins/echarts/series":"view/widgets/plugins/echarts/series","view/widgets/plugins/indicator/indicator":"view/widgets/plugins/indicator/indicator","view/widgets/plugins/indicator/desgin":"view/widgets/plugins/indicator/desgin","view/widgets/plugins/indicator/indifilter":"view/widgets/plugins/indicator/indifilter","view/pc/contanier":"view/pc/contanier","view/pc/serach":"view/pc/serach","view/component/reportUtil":"view/component/reportUtil","view/component/levelUtil":"view/component/levelUtil","view/component/DataUtil":"view/component/DataUtil","view/component/DataInfoUtil":"view/component/DataInfoUtil","view/component/keysUtil":"view/component/keysUtil","view/component/BgUtil":"view/component/BgUtil","view/component/dateFormatUtil":"view/component/dateFormatUtil","view/component/OpenApiGridUtil":"view/component/OpenApiGridUtil","view/component/PersonalizedChoose":"view/component/PersonalizedChoose",cityMap:"view/component/cityMap",bace:"bace/bace",layout:"jquery/layout/jquery.layout",cookie:"jquery/cookie/jquery.cookie",poshytip:"jquery/poshytip/jquery.poshytip",grid:"jquery/ligerui/js/ligerBaseGrid",nicescroll:"jquery/nicescroll/jquery.nicescroll",dotdotdot:"jquery/nicescroll/jquery.dotdotdot",chosen:"jquery/chosen/chosen.ajax.jquery",colpick:"jquery/colpick/jquery.minicolors",date:"jquery/date/bootstrap-datetimepicker",switchButton:"jquery/switchbutton/jquery.switchbutton",dialog:"jquery/dialog/jquery.artDialog.source",ztree:"jquery/ztree/jquery.ztree.all-3.5",placeholder:"jquery/placeholder/jquery.placeholder",validation:"jquery/validation/jquery.validationEngine",jcrop:"jquery/jcrop/jquery.Jcrop",datagrid:"jquery/datagrid/datagrid",underscore:"jquery/underscore/underscore",echarts:"jquery/echarts/echarts",EBuilder:"jquery/echarts/jquery.echarts.template",dark:"jquery/echarts/theme/dark",infographic:"jquery/echarts/theme/infographic",macarons:"jquery/echarts/theme/macarons",roma:"jquery/echarts/theme/roma",shine:"jquery/echarts/theme/shine",qrcode:"jquery/qrcode/jquery-qrcode-0.14.0",zclip:"jquery/zclip/jquery.zclip.min",vintage:"jquery/echarts/theme/vintage",adapter:"jquery/umeditor/_src/adapter",core:"jquery/umeditor/_src/core",plugins:"jquery/umeditor/_src/plugins",ui:"jquery/umeditor/_src/ui",lang:"jquery/umeditor/lang/zh-cn/zh-cn"}});
+require.config({
+	urlArgs: 'bust='+js_version,
+	baseUrl: resPath+'/resources/platform/dataview/js',
+	waitSeconds: 60,
+	paths: {
+
+		"view/box": "view/box",
+		"view/main": "view/main",
+		"view/layout": "view/layout",
+		"view/attr": "view/attr",
+		"view/eventBinder":"view/eventBinder",
+
+		"view/header": "view/header",
+		"view/header/start": "view/header/start",
+		"view/header/data": "view/header/data",
+		"view/header/widget": "view/header/widget",
+		"view/header/tools": "view/header/tools",
+
+		"view/widgets": "view/widgets",
+		"view/widgets/filter": "view/widgets/filter",
+		"view/widgets/property": "view/widgets/property",
+		"view/widgets/property/generator": "view/widgets/property/generator",
+		"view/widgets/property/design": "view/widgets/property/design",
+		"view/widgets/property/dimAttr": "view/widgets/property/dimAttr",
+		"view/widgets/plugins/echarts/tpl":"view/widgets/plugins/echarts/tpl",
+		"view/widgets/plugins/default":"view/widgets/plugins/default",
+
+		'view/widgets/plugins/table/dimAttr':'view/widgets/plugins/table/dimAttr',
+		'view/widgets/plugins/table/desgin':'view/widgets/plugins/table/desgin',
+		'view/widgets/plugins/table/table':'view/widgets/plugins/table/table',
+
+		'view/widgets/plugins/echarts/dimAttr':'view/widgets/plugins/echarts/dimAttr',
+		'view/widgets/plugins/echarts/desgin':'view/widgets/plugins/echarts/desgin',
+		'view/widgets/plugins/echarts/echarts':'view/widgets/plugins/echarts/echarts',
+		'view/widgets/plugins/echarts/collectTmpl':'view/widgets/plugins/echarts/collectTmpl',
+		'view/widgets/plugins/echarts/series':'view/widgets/plugins/echarts/series',
+
+		'view/widgets/plugins/indicator/indicator':'view/widgets/plugins/indicator/indicator',
+		'view/widgets/plugins/indicator/desgin':'view/widgets/plugins/indicator/desgin',
+		'view/widgets/plugins/indicator/indifilter':'view/widgets/plugins/indicator/indifilter',
+
+		"view/pc/contanier":"view/pc/contanier",
+		"view/pc/serach":"view/pc/serach",
+
+		"view/component/reportUtil":"view/component/reportUtil",
+		"view/component/levelUtil":"view/component/levelUtil",
+		"view/component/DataUtil":"view/component/DataUtil",
+		'view/component/DataInfoUtil':'view/component/DataInfoUtil',
+		'view/component/keysUtil':'view/component/keysUtil',
+		'view/component/BgUtil':'view/component/BgUtil',
+		'view/component/dateFormatUtil':'view/component/dateFormatUtil',
+		'view/component/OpenApiGridUtil':'view/component/OpenApiGridUtil',
+		'view/component/PersonalizedChoose':'view/component/PersonalizedChoose',
+        'cityMap':'view/component/cityMap',
+
+
+		"bace": "bace/bace",
+		"layout": "jquery/layout/jquery.layout",
+		"cookie": "jquery/cookie/jquery.cookie",
+		"poshytip": "jquery/poshytip/jquery.poshytip",
+		"grid": "jquery/ligerui/js/ligerBaseGrid",
+		"nicescroll": "jquery/nicescroll/jquery.nicescroll",
+		"dotdotdot":"jquery/nicescroll/jquery.dotdotdot",
+		"chosen": "jquery/chosen/chosen.ajax.jquery",
+		"colpick": "jquery/colpick/jquery.minicolors",
+		"date": "jquery/date/bootstrap-datetimepicker",
+		"switchButton":"jquery/switchbutton/jquery.switchbutton",
+		"dialog": "jquery/dialog/jquery.artDialog.source",
+		"ztree": "jquery/ztree/jquery.ztree.all-3.5",
+		"placeholder":"jquery/placeholder/jquery.placeholder",
+		"validation":"jquery/validation/jquery.validationEngine",
+		"jcrop":"jquery/jcrop/jquery.Jcrop",
+		"datagrid":"jquery/datagrid/datagrid",
+		"underscore":"jquery/underscore/underscore",
+		"echarts": 'jquery/echarts/echarts',
+		"EBuilder": "jquery/echarts/jquery.echarts.template",
+		"dark":"jquery/echarts/theme/dark",
+		"infographic":"jquery/echarts/theme/infographic",
+		"macarons":"jquery/echarts/theme/macarons",
+		"roma":"jquery/echarts/theme/roma",
+		"shine":"jquery/echarts/theme/shine",
+		"qrcode":"jquery/qrcode/jquery-qrcode-0.14.0",
+		"zclip":"jquery/zclip/jquery.zclip.min",
+		"vintage":"jquery/echarts/theme/vintage",
+
+		"adapter":"jquery/umeditor/_src/adapter",
+		"core":"jquery/umeditor/_src/core",
+		"plugins":"jquery/umeditor/_src/plugins",
+		"ui":"jquery/umeditor/_src/ui",
+		"lang":"jquery/umeditor/lang/zh-cn/zh-cn"
+	}
+});

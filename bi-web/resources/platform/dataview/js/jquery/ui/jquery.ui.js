@@ -2,7 +2,18 @@
 * http://jqueryui.com
 * Includes: core.js, widget.js, mouse.js, position.js, draggable.js, droppable.js, resizable.js, selectable.js, sortable.js, accordion.js, autocomplete.js, button.js, datepicker.js, menu.js, progressbar.js, selectmenu.js, slider.js, spinner.js, tabs.js, tooltip.js, effect.js, effect-blind.js, effect-bounce.js, effect-clip.js, effect-drop.js, effect-explode.js, effect-fade.js, effect-fold.js, effect-highlight.js, effect-puff.js, effect-pulsate.js, effect-scale.js, effect-shake.js, effect-size.js, effect-slide.js, effect-transfer.js
 * Copyright 2015 jQuery Foundation and other contributors; Licensed MIT */
-(function(a){if(typeof define==="function"&&define.amd&&!jQuery){define(["jquery"],a)}else{a(jQuery)}}(function(I){
+
+(function( factory ) {
+	if ( typeof define === "function" && define.amd && !jQuery) {
+
+		// AMD. Register as an anonymous module.
+		define([ "jquery" ], factory );
+	} else {
+
+		// Browser globals
+		factory( jQuery );
+	}
+}(function( $ ) {
 /*!
  * jQuery UI Core 1.11.4
  * http://jqueryui.com
@@ -13,7 +24,290 @@
  *
  * http://api.jqueryui.com/category/ui-core/
  */
-I.ui=I.ui||{};I.extend(I.ui,{version:"1.11.4",keyCode:{BACKSPACE:8,COMMA:188,DELETE:46,DOWN:40,END:35,ENTER:13,ESCAPE:27,HOME:36,LEFT:37,PAGE_DOWN:34,PAGE_UP:33,PERIOD:190,RIGHT:39,SPACE:32,TAB:9,UP:38}});I.fn.extend({scrollParent:function(af){var ae=this.css("position"),ad=ae==="absolute",ag=af?/(auto|scroll|hidden)/:/(auto|scroll)/,ah=this.parents().filter(function(){var ai=I(this);if(ad&&ai.css("position")==="static"){return false}return ag.test(ai.css("overflow")+ai.css("overflow-y")+ai.css("overflow-x"))}).eq(0);return ae==="fixed"||!ah.length?I(this[0].ownerDocument||document):ah},uniqueId:(function(){var ad=0;return function(){return this.each(function(){if(!this.id){this.id="ui-id-"+(++ad)}})}})(),removeUniqueId:function(){return this.each(function(){if(/^ui-id-\d+$/.test(this.id)){I(this).removeAttr("id")}})}});function v(af,ad){var ah,ag,ae,ai=af.nodeName.toLowerCase();if("area"===ai){ah=af.parentNode;ag=ah.name;if(!af.href||!ag||ah.nodeName.toLowerCase()!=="map"){return false}ae=I("img[usemap='#"+ag+"']")[0];return !!ae&&w(ae)}return(/^(input|select|textarea|button|object)$/.test(ai)?!af.disabled:"a"===ai?af.href||ad:ad)&&w(af)}function w(ad){return I.expr.filters.visible(ad)&&!I(ad).parents().addBack().filter(function(){return I.css(this,"visibility")==="hidden"}).length}I.extend(I.expr[":"],{data:I.expr.createPseudo?I.expr.createPseudo(function(ad){return function(ae){return !!I.data(ae,ad)}}):function(af,ae,ad){return !!I.data(af,ad[3])},focusable:function(ad){return v(ad,!isNaN(I.attr(ad,"tabindex")))},tabbable:function(af){var ad=I.attr(af,"tabindex"),ae=isNaN(ad);return(ae||ad>=0)&&v(af,!ae)}});if(!I("<a>").outerWidth(1).jquery){I.each(["Width","Height"],function(af,ad){var ae=ad==="Width"?["Left","Right"]:["Top","Bottom"],ag=ad.toLowerCase(),ai={innerWidth:I.fn.innerWidth,innerHeight:I.fn.innerHeight,outerWidth:I.fn.outerWidth,outerHeight:I.fn.outerHeight};function ah(al,ak,aj,am){I.each(ae,function(){ak-=parseFloat(I.css(al,"padding"+this))||0;if(aj){ak-=parseFloat(I.css(al,"border"+this+"Width"))||0}if(am){ak-=parseFloat(I.css(al,"margin"+this))||0}});return ak}I.fn["inner"+ad]=function(aj){if(aj===undefined){return ai["inner"+ad].call(this)}return this.each(function(){I(this).css(ag,ah(this,aj)+"px")})};I.fn["outer"+ad]=function(aj,ak){if(typeof aj!=="number"){return ai["outer"+ad].call(this,aj)}return this.each(function(){I(this).css(ag,ah(this,aj,true,ak)+"px")})}})}if(!I.fn.addBack){I.fn.addBack=function(ad){return this.add(ad==null?this.prevObject:this.prevObject.filter(ad))}}if(I("<a>").data("a-b","a").removeData("a-b").data("a-b")){I.fn.removeData=(function(ad){return function(ae){if(arguments.length){return ad.call(this,I.camelCase(ae))}else{return ad.call(this)}}})(I.fn.removeData)}I.ui.ie=!!/msie [\w.]+/.exec(navigator.userAgent.toLowerCase());I.fn.extend({focus:(function(ad){return function(ae,af){return typeof ae==="number"?this.each(function(){var ag=this;setTimeout(function(){I(ag).focus();if(af){af.call(ag)}},ae)}):ad.apply(this,arguments)}})(I.fn.focus),disableSelection:(function(){var ad="onselectstart" in document.createElement("div")?"selectstart":"mousedown";return function(){return this.bind(ad+".ui-disableSelection",function(ae){ae.preventDefault()})}})(),enableSelection:function(){return this.unbind(".ui-disableSelection")},zIndex:function(ag){if(ag!==undefined){return this.css("zIndex",ag)}if(this.length){var ae=I(this[0]),ad,af;while(ae.length&&ae[0]!==document){ad=ae.css("position");if(ad==="absolute"||ad==="relative"||ad==="fixed"){af=parseInt(ae.css("zIndex"),10);if(!isNaN(af)&&af!==0){return af}}ae=ae.parent()}}return 0}});I.ui.plugin={add:function(ae,af,ah){var ad,ag=I.ui[ae].prototype;for(ad in ah){ag.plugins[ad]=ag.plugins[ad]||[];ag.plugins[ad].push([af,ah[ad]])}},call:function(ad,ag,af,ae){var ah,ai=ad.plugins[ag];if(!ai){return}if(!ae&&(!ad.element[0].parentNode||ad.element[0].parentNode.nodeType===11)){return}for(ah=0;ah<ai.length;ah++){if(ad.options[ai[ah][0]]){ai[ah][1].apply(ad.element,af)}}}};
+
+
+// $.ui might exist from components with no dependencies, e.g., $.ui.position
+$.ui = $.ui || {};
+
+$.extend( $.ui, {
+	version: "1.11.4",
+
+	keyCode: {
+		BACKSPACE: 8,
+		COMMA: 188,
+		DELETE: 46,
+		DOWN: 40,
+		END: 35,
+		ENTER: 13,
+		ESCAPE: 27,
+		HOME: 36,
+		LEFT: 37,
+		PAGE_DOWN: 34,
+		PAGE_UP: 33,
+		PERIOD: 190,
+		RIGHT: 39,
+		SPACE: 32,
+		TAB: 9,
+		UP: 38
+	}
+});
+
+// plugins
+$.fn.extend({
+	scrollParent: function( includeHidden ) {
+		var position = this.css( "position" ),
+			excludeStaticParent = position === "absolute",
+			overflowRegex = includeHidden ? /(auto|scroll|hidden)/ : /(auto|scroll)/,
+			scrollParent = this.parents().filter( function() {
+				var parent = $( this );
+				if ( excludeStaticParent && parent.css( "position" ) === "static" ) {
+					return false;
+				}
+				return overflowRegex.test( parent.css( "overflow" ) + parent.css( "overflow-y" ) + parent.css( "overflow-x" ) );
+			}).eq( 0 );
+
+		return position === "fixed" || !scrollParent.length ? $( this[ 0 ].ownerDocument || document ) : scrollParent;
+	},
+
+	uniqueId: (function() {
+		var uuid = 0;
+
+		return function() {
+			return this.each(function() {
+				if ( !this.id ) {
+					this.id = "ui-id-" + ( ++uuid );
+				}
+			});
+		};
+	})(),
+
+	removeUniqueId: function() {
+		return this.each(function() {
+			if ( /^ui-id-\d+$/.test( this.id ) ) {
+				$( this ).removeAttr( "id" );
+			}
+		});
+	}
+});
+
+// selectors
+function focusable( element, isTabIndexNotNaN ) {
+	var map, mapName, img,
+		nodeName = element.nodeName.toLowerCase();
+	if ( "area" === nodeName ) {
+		map = element.parentNode;
+		mapName = map.name;
+		if ( !element.href || !mapName || map.nodeName.toLowerCase() !== "map" ) {
+			return false;
+		}
+		img = $( "img[usemap='#" + mapName + "']" )[ 0 ];
+		return !!img && visible( img );
+	}
+	return ( /^(input|select|textarea|button|object)$/.test( nodeName ) ?
+		!element.disabled :
+		"a" === nodeName ?
+			element.href || isTabIndexNotNaN :
+			isTabIndexNotNaN) &&
+		// the element and all of its ancestors must be visible
+		visible( element );
+}
+
+function visible( element ) {
+	return $.expr.filters.visible( element ) &&
+		!$( element ).parents().addBack().filter(function() {
+			return $.css( this, "visibility" ) === "hidden";
+		}).length;
+}
+
+$.extend( $.expr[ ":" ], {
+	data: $.expr.createPseudo ?
+		$.expr.createPseudo(function( dataName ) {
+			return function( elem ) {
+				return !!$.data( elem, dataName );
+			};
+		}) :
+		// support: jQuery <1.8
+		function( elem, i, match ) {
+			return !!$.data( elem, match[ 3 ] );
+		},
+
+	focusable: function( element ) {
+		return focusable( element, !isNaN( $.attr( element, "tabindex" ) ) );
+	},
+
+	tabbable: function( element ) {
+		var tabIndex = $.attr( element, "tabindex" ),
+			isTabIndexNaN = isNaN( tabIndex );
+		return ( isTabIndexNaN || tabIndex >= 0 ) && focusable( element, !isTabIndexNaN );
+	}
+});
+
+// support: jQuery <1.8
+if ( !$( "<a>" ).outerWidth( 1 ).jquery ) {
+	$.each( [ "Width", "Height" ], function( i, name ) {
+		var side = name === "Width" ? [ "Left", "Right" ] : [ "Top", "Bottom" ],
+			type = name.toLowerCase(),
+			orig = {
+				innerWidth: $.fn.innerWidth,
+				innerHeight: $.fn.innerHeight,
+				outerWidth: $.fn.outerWidth,
+				outerHeight: $.fn.outerHeight
+			};
+
+		function reduce( elem, size, border, margin ) {
+			$.each( side, function() {
+				size -= parseFloat( $.css( elem, "padding" + this ) ) || 0;
+				if ( border ) {
+					size -= parseFloat( $.css( elem, "border" + this + "Width" ) ) || 0;
+				}
+				if ( margin ) {
+					size -= parseFloat( $.css( elem, "margin" + this ) ) || 0;
+				}
+			});
+			return size;
+		}
+
+		$.fn[ "inner" + name ] = function( size ) {
+			if ( size === undefined ) {
+				return orig[ "inner" + name ].call( this );
+			}
+
+			return this.each(function() {
+				$( this ).css( type, reduce( this, size ) + "px" );
+			});
+		};
+
+		$.fn[ "outer" + name] = function( size, margin ) {
+			if ( typeof size !== "number" ) {
+				return orig[ "outer" + name ].call( this, size );
+			}
+
+			return this.each(function() {
+				$( this).css( type, reduce( this, size, true, margin ) + "px" );
+			});
+		};
+	});
+}
+
+// support: jQuery <1.8
+if ( !$.fn.addBack ) {
+	$.fn.addBack = function( selector ) {
+		return this.add( selector == null ?
+			this.prevObject : this.prevObject.filter( selector )
+		);
+	};
+}
+
+// support: jQuery 1.6.1, 1.6.2 (http://bugs.jquery.com/ticket/9413)
+if ( $( "<a>" ).data( "a-b", "a" ).removeData( "a-b" ).data( "a-b" ) ) {
+	$.fn.removeData = (function( removeData ) {
+		return function( key ) {
+			if ( arguments.length ) {
+				return removeData.call( this, $.camelCase( key ) );
+			} else {
+				return removeData.call( this );
+			}
+		};
+	})( $.fn.removeData );
+}
+
+// deprecated
+$.ui.ie = !!/msie [\w.]+/.exec( navigator.userAgent.toLowerCase() );
+
+$.fn.extend({
+	focus: (function( orig ) {
+		return function( delay, fn ) {
+			return typeof delay === "number" ?
+				this.each(function() {
+					var elem = this;
+					setTimeout(function() {
+						$( elem ).focus();
+						if ( fn ) {
+							fn.call( elem );
+						}
+					}, delay );
+				}) :
+				orig.apply( this, arguments );
+		};
+	})( $.fn.focus ),
+
+	disableSelection: (function() {
+		var eventType = "onselectstart" in document.createElement( "div" ) ?
+			"selectstart" :
+			"mousedown";
+
+		return function() {
+			return this.bind( eventType + ".ui-disableSelection", function( event ) {
+				event.preventDefault();
+			});
+		};
+	})(),
+
+	enableSelection: function() {
+		return this.unbind( ".ui-disableSelection" );
+	},
+
+	zIndex: function( zIndex ) {
+		if ( zIndex !== undefined ) {
+			return this.css( "zIndex", zIndex );
+		}
+
+		if ( this.length ) {
+			var elem = $( this[ 0 ] ), position, value;
+			while ( elem.length && elem[ 0 ] !== document ) {
+				// Ignore z-index if position is set to a value where z-index is ignored by the browser
+				// This makes behavior of this function consistent across browsers
+				// WebKit always returns auto if the element is positioned
+				position = elem.css( "position" );
+				if ( position === "absolute" || position === "relative" || position === "fixed" ) {
+					// IE returns 0 when zIndex is not specified
+					// other browsers return a string
+					// we ignore the case of nested elements with an explicit value of 0
+					// <div style="z-index: -10;"><div style="z-index: 0;"></div></div>
+					value = parseInt( elem.css( "zIndex" ), 10 );
+					if ( !isNaN( value ) && value !== 0 ) {
+						return value;
+					}
+				}
+				elem = elem.parent();
+			}
+		}
+
+		return 0;
+	}
+});
+
+// $.ui.plugin is deprecated. Use $.widget() extensions instead.
+$.ui.plugin = {
+	add: function( module, option, set ) {
+		var i,
+			proto = $.ui[ module ].prototype;
+		for ( i in set ) {
+			proto.plugins[ i ] = proto.plugins[ i ] || [];
+			proto.plugins[ i ].push( [ option, set[ i ] ] );
+		}
+	},
+	call: function( instance, name, args, allowDisconnected ) {
+		var i,
+			set = instance.plugins[ name ];
+
+		if ( !set ) {
+			return;
+		}
+
+		if ( !allowDisconnected && ( !instance.element[ 0 ].parentNode || instance.element[ 0 ].parentNode.nodeType === 11 ) ) {
+			return;
+		}
+
+		for ( i = 0; i < set.length; i++ ) {
+			if ( instance.options[ set[ i ][ 0 ] ] ) {
+				set[ i ][ 1 ].apply( instance.element, args );
+			}
+		}
+	}
+};
+
+
 /*!
  * jQuery UI Widget 1.11.4
  * http://jqueryui.com
@@ -24,7 +318,544 @@ I.ui=I.ui||{};I.extend(I.ui,{version:"1.11.4",keyCode:{BACKSPACE:8,COMMA:188,DEL
  *
  * http://api.jqueryui.com/jQuery.widget/
  */
-var O=0,i=Array.prototype.slice;I.cleanData=(function(ad){return function(ae){var ag,ah,af;for(af=0;(ah=ae[af])!=null;af++){try{ag=I._data(ah,"events");if(ag&&ag.remove){I(ah).triggerHandler("remove")}}catch(ai){}}ad(ae)}})(I.cleanData);I.widget=function(ad,ae,al){var ai,aj,ag,ak,af={},ah=ad.split(".")[0];ad=ad.split(".")[1];ai=ah+"-"+ad;if(!al){al=ae;ae=I.Widget}I.expr[":"][ai.toLowerCase()]=function(am){return !!I.data(am,ai)};I[ah]=I[ah]||{};aj=I[ah][ad];ag=I[ah][ad]=function(am,an){if(!this._createWidget){return new ag(am,an)}if(arguments.length){this._createWidget(am,an)}};I.extend(ag,aj,{version:al.version,_proto:I.extend({},al),_childConstructors:[]});ak=new ae();ak.options=I.widget.extend({},ak.options);I.each(al,function(an,am){if(!I.isFunction(am)){af[an]=am;return}af[an]=(function(){var ao=function(){return ae.prototype[an].apply(this,arguments)},ap=function(aq){return ae.prototype[an].apply(this,aq)};return function(){var at=this._super,aq=this._superApply,ar;this._super=ao;this._superApply=ap;ar=am.apply(this,arguments);this._super=at;this._superApply=aq;return ar}})()});ag.prototype=I.widget.extend(ak,{widgetEventPrefix:aj?(ak.widgetEventPrefix||ad):ad},af,{constructor:ag,namespace:ah,widgetName:ad,widgetFullName:ai});if(aj){I.each(aj._childConstructors,function(an,ao){var am=ao.prototype;I.widget(am.namespace+"."+am.widgetName,ag,ao._proto)});delete aj._childConstructors}else{ae._childConstructors.push(ag)}I.widget.bridge(ad,ag);return ag};I.widget.extend=function(ai){var ae=i.call(arguments,1),ah=0,ad=ae.length,af,ag;for(;ah<ad;ah++){for(af in ae[ah]){ag=ae[ah][af];if(ae[ah].hasOwnProperty(af)&&ag!==undefined){if(I.isPlainObject(ag)){ai[af]=I.isPlainObject(ai[af])?I.widget.extend({},ai[af],ag):I.widget.extend({},ag)}else{ai[af]=ag}}}}return ai};I.widget.bridge=function(ae,ad){var af=ad.prototype.widgetFullName||ae;I.fn[ae]=function(ai){var ag=typeof ai==="string",ah=i.call(arguments,1),aj=this;if(ag){this.each(function(){var al,ak=I.data(this,af);if(ai==="instance"){aj=ak;return false}if(!ak){return I.error("cannot call methods on "+ae+" prior to initialization; attempted to call method '"+ai+"'")}if(!I.isFunction(ak[ai])||ai.charAt(0)==="_"){return I.error("no such method '"+ai+"' for "+ae+" widget instance")}al=ak[ai].apply(ak,ah);if(al!==ak&&al!==undefined){aj=al&&al.jquery?aj.pushStack(al.get()):al;return false}})}else{if(ah.length){ai=I.widget.extend.apply(null,[ai].concat(ah))}this.each(function(){var ak=I.data(this,af);if(ak){ak.option(ai||{});if(ak._init){ak._init()}}else{I.data(this,af,new ad(ai,this))}})}return aj}};I.Widget=function(){};I.Widget._childConstructors=[];I.Widget.prototype={widgetName:"widget",widgetEventPrefix:"",defaultElement:"<div>",options:{disabled:false,create:null},_createWidget:function(ad,ae){ae=I(ae||this.defaultElement||this)[0];this.element=I(ae);this.uuid=O++;this.eventNamespace="."+this.widgetName+this.uuid;this.bindings=I();this.hoverable=I();this.focusable=I();if(ae!==this){I.data(ae,this.widgetFullName,this);this._on(true,this.element,{remove:function(af){if(af.target===ae){this.destroy()}}});this.document=I(ae.style?ae.ownerDocument:ae.document||ae);this.window=I(this.document[0].defaultView||this.document[0].parentWindow)}this.options=I.widget.extend({},this.options,this._getCreateOptions(),ad);this._create();this._trigger("create",null,this._getCreateEventData());this._init()},_getCreateOptions:I.noop,_getCreateEventData:I.noop,_create:I.noop,_init:I.noop,destroy:function(){this._destroy();this.element.unbind(this.eventNamespace).removeData(this.widgetFullName).removeData(I.camelCase(this.widgetFullName));this.widget().unbind(this.eventNamespace).removeAttr("aria-disabled").removeClass(this.widgetFullName+"-disabled ui-state-disabled");this.bindings.unbind(this.eventNamespace);this.hoverable.removeClass("ui-state-hover");this.focusable.removeClass("ui-state-focus")},_destroy:I.noop,widget:function(){return this.element},option:function(ag,ah){var ad=ag,ai,af,ae;if(arguments.length===0){return I.widget.extend({},this.options)}if(typeof ag==="string"){ad={};ai=ag.split(".");ag=ai.shift();if(ai.length){af=ad[ag]=I.widget.extend({},this.options[ag]);for(ae=0;ae<ai.length-1;ae++){af[ai[ae]]=af[ai[ae]]||{};af=af[ai[ae]]}ag=ai.pop();if(arguments.length===1){return af[ag]===undefined?null:af[ag]}af[ag]=ah}else{if(arguments.length===1){return this.options[ag]===undefined?null:this.options[ag]}ad[ag]=ah}}this._setOptions(ad);return this},_setOptions:function(ad){var ae;for(ae in ad){this._setOption(ae,ad[ae])}return this},_setOption:function(ad,ae){this.options[ad]=ae;if(ad==="disabled"){this.widget().toggleClass(this.widgetFullName+"-disabled",!!ae);if(ae){this.hoverable.removeClass("ui-state-hover");this.focusable.removeClass("ui-state-focus")}}return this},enable:function(){return this._setOptions({disabled:false})},disable:function(){return this._setOptions({disabled:true})},_on:function(ag,af,ae){var ah,ad=this;if(typeof ag!=="boolean"){ae=af;af=ag;ag=false}if(!ae){ae=af;af=this.element;ah=this.widget()}else{af=ah=I(af);this.bindings=this.bindings.add(af)}I.each(ae,function(an,am){function ak(){if(!ag&&(ad.options.disabled===true||I(this).hasClass("ui-state-disabled"))){return}return(typeof am==="string"?ad[am]:am).apply(ad,arguments)}if(typeof am!=="string"){ak.guid=am.guid=am.guid||ak.guid||I.guid++}var al=an.match(/^([\w:-]*)\s*(.*)$/),aj=al[1]+ad.eventNamespace,ai=al[2];if(ai){ah.delegate(ai,aj,ak)}else{af.bind(aj,ak)}})},_off:function(ae,ad){ad=(ad||"").split(" ").join(this.eventNamespace+" ")+this.eventNamespace;ae.unbind(ad).undelegate(ad);this.bindings=I(this.bindings.not(ae).get());this.focusable=I(this.focusable.not(ae).get());this.hoverable=I(this.hoverable.not(ae).get())},_delay:function(ag,af){function ae(){return(typeof ag==="string"?ad[ag]:ag).apply(ad,arguments)}var ad=this;return setTimeout(ae,af||0)},_hoverable:function(ad){this.hoverable=this.hoverable.add(ad);this._on(ad,{mouseenter:function(ae){I(ae.currentTarget).addClass("ui-state-hover")},mouseleave:function(ae){I(ae.currentTarget).removeClass("ui-state-hover")}})},_focusable:function(ad){this.focusable=this.focusable.add(ad);this._on(ad,{focusin:function(ae){I(ae.currentTarget).addClass("ui-state-focus")},focusout:function(ae){I(ae.currentTarget).removeClass("ui-state-focus")}})},_trigger:function(ad,ae,af){var ai,ah,ag=this.options[ad];af=af||{};ae=I.Event(ae);ae.type=(ad===this.widgetEventPrefix?ad:this.widgetEventPrefix+ad).toLowerCase();ae.target=this.element[0];ah=ae.originalEvent;if(ah){for(ai in ah){if(!(ai in ae)){ae[ai]=ah[ai]}}}this.element.trigger(ae,af);return !(I.isFunction(ag)&&ag.apply(this.element[0],[ae].concat(af))===false||ae.isDefaultPrevented())}};I.each({show:"fadeIn",hide:"fadeOut"},function(ae,ad){I.Widget.prototype["_"+ae]=function(ah,ag,aj){if(typeof ag==="string"){ag={effect:ag}}var ai,af=!ag?ae:ag===true||typeof ag==="number"?ad:ag.effect||ad;ag=ag||{};if(typeof ag==="number"){ag={duration:ag}}ai=!I.isEmptyObject(ag);ag.complete=aj;if(ag.delay){ah.delay(ag.delay)}if(ai&&I.effects&&I.effects.effect[af]){ah[ae](ag)}else{if(af!==ae&&ah[af]){ah[af](ag.duration,ag.easing,aj)}else{ah.queue(function(ak){I(this)[ae]();if(aj){aj.call(ah[0])}ak()})}}}});var J=I.widget;
+
+
+var widget_uuid = 0,
+	widget_slice = Array.prototype.slice;
+
+$.cleanData = (function( orig ) {
+	return function( elems ) {
+		var events, elem, i;
+		for ( i = 0; (elem = elems[i]) != null; i++ ) {
+			try {
+
+				// Only trigger remove when necessary to save time
+				events = $._data( elem, "events" );
+				if ( events && events.remove ) {
+					$( elem ).triggerHandler( "remove" );
+				}
+
+			// http://bugs.jquery.com/ticket/8235
+			} catch ( e ) {}
+		}
+		orig( elems );
+	};
+})( $.cleanData );
+
+$.widget = function( name, base, prototype ) {
+	var fullName, existingConstructor, constructor, basePrototype,
+		// proxiedPrototype allows the provided prototype to remain unmodified
+		// so that it can be used as a mixin for multiple widgets (#8876)
+		proxiedPrototype = {},
+		namespace = name.split( "." )[ 0 ];
+
+	name = name.split( "." )[ 1 ];
+	fullName = namespace + "-" + name;
+
+	if ( !prototype ) {
+		prototype = base;
+		base = $.Widget;
+	}
+
+	// create selector for plugin
+	$.expr[ ":" ][ fullName.toLowerCase() ] = function( elem ) {
+		return !!$.data( elem, fullName );
+	};
+
+	$[ namespace ] = $[ namespace ] || {};
+	existingConstructor = $[ namespace ][ name ];
+	constructor = $[ namespace ][ name ] = function( options, element ) {
+		// allow instantiation without "new" keyword
+		if ( !this._createWidget ) {
+			return new constructor( options, element );
+		}
+
+		// allow instantiation without initializing for simple inheritance
+		// must use "new" keyword (the code above always passes args)
+		if ( arguments.length ) {
+			this._createWidget( options, element );
+		}
+	};
+	// extend with the existing constructor to carry over any static properties
+	$.extend( constructor, existingConstructor, {
+		version: prototype.version,
+		// copy the object used to create the prototype in case we need to
+		// redefine the widget later
+		_proto: $.extend( {}, prototype ),
+		// track widgets that inherit from this widget in case this widget is
+		// redefined after a widget inherits from it
+		_childConstructors: []
+	});
+
+	basePrototype = new base();
+	// we need to make the options hash a property directly on the new instance
+	// otherwise we'll modify the options hash on the prototype that we're
+	// inheriting from
+	basePrototype.options = $.widget.extend( {}, basePrototype.options );
+	$.each( prototype, function( prop, value ) {
+		if ( !$.isFunction( value ) ) {
+			proxiedPrototype[ prop ] = value;
+			return;
+		}
+		proxiedPrototype[ prop ] = (function() {
+			var _super = function() {
+					return base.prototype[ prop ].apply( this, arguments );
+				},
+				_superApply = function( args ) {
+					return base.prototype[ prop ].apply( this, args );
+				};
+			return function() {
+				var __super = this._super,
+					__superApply = this._superApply,
+					returnValue;
+
+				this._super = _super;
+				this._superApply = _superApply;
+
+				returnValue = value.apply( this, arguments );
+
+				this._super = __super;
+				this._superApply = __superApply;
+
+				return returnValue;
+			};
+		})();
+	});
+	constructor.prototype = $.widget.extend( basePrototype, {
+		// TODO: remove support for widgetEventPrefix
+		// always use the name + a colon as the prefix, e.g., draggable:start
+		// don't prefix for widgets that aren't DOM-based
+		widgetEventPrefix: existingConstructor ? (basePrototype.widgetEventPrefix || name) : name
+	}, proxiedPrototype, {
+		constructor: constructor,
+		namespace: namespace,
+		widgetName: name,
+		widgetFullName: fullName
+	});
+
+	// If this widget is being redefined then we need to find all widgets that
+	// are inheriting from it and redefine all of them so that they inherit from
+	// the new version of this widget. We're essentially trying to replace one
+	// level in the prototype chain.
+	if ( existingConstructor ) {
+		$.each( existingConstructor._childConstructors, function( i, child ) {
+			var childPrototype = child.prototype;
+
+			// redefine the child widget using the same prototype that was
+			// originally used, but inherit from the new version of the base
+			$.widget( childPrototype.namespace + "." + childPrototype.widgetName, constructor, child._proto );
+		});
+		// remove the list of existing child constructors from the old constructor
+		// so the old child constructors can be garbage collected
+		delete existingConstructor._childConstructors;
+	} else {
+		base._childConstructors.push( constructor );
+	}
+
+	$.widget.bridge( name, constructor );
+
+	return constructor;
+};
+
+$.widget.extend = function( target ) {
+	var input = widget_slice.call( arguments, 1 ),
+		inputIndex = 0,
+		inputLength = input.length,
+		key,
+		value;
+	for ( ; inputIndex < inputLength; inputIndex++ ) {
+		for ( key in input[ inputIndex ] ) {
+			value = input[ inputIndex ][ key ];
+			if ( input[ inputIndex ].hasOwnProperty( key ) && value !== undefined ) {
+				// Clone objects
+				if ( $.isPlainObject( value ) ) {
+					target[ key ] = $.isPlainObject( target[ key ] ) ?
+						$.widget.extend( {}, target[ key ], value ) :
+						// Don't extend strings, arrays, etc. with objects
+						$.widget.extend( {}, value );
+				// Copy everything else by reference
+				} else {
+					target[ key ] = value;
+				}
+			}
+		}
+	}
+	return target;
+};
+
+$.widget.bridge = function( name, object ) {
+	var fullName = object.prototype.widgetFullName || name;
+	$.fn[ name ] = function( options ) {
+		var isMethodCall = typeof options === "string",
+			args = widget_slice.call( arguments, 1 ),
+			returnValue = this;
+
+		if ( isMethodCall ) {
+			this.each(function() {
+				var methodValue,
+					instance = $.data( this, fullName );
+				if ( options === "instance" ) {
+					returnValue = instance;
+					return false;
+				}
+				if ( !instance ) {
+					return $.error( "cannot call methods on " + name + " prior to initialization; " +
+						"attempted to call method '" + options + "'" );
+				}
+				if ( !$.isFunction( instance[options] ) || options.charAt( 0 ) === "_" ) {
+					return $.error( "no such method '" + options + "' for " + name + " widget instance" );
+				}
+				methodValue = instance[ options ].apply( instance, args );
+				if ( methodValue !== instance && methodValue !== undefined ) {
+					returnValue = methodValue && methodValue.jquery ?
+						returnValue.pushStack( methodValue.get() ) :
+						methodValue;
+					return false;
+				}
+			});
+		} else {
+
+			// Allow multiple hashes to be passed on init
+			if ( args.length ) {
+				options = $.widget.extend.apply( null, [ options ].concat(args) );
+			}
+
+			this.each(function() {
+				var instance = $.data( this, fullName );
+				if ( instance ) {
+					instance.option( options || {} );
+					if ( instance._init ) {
+						instance._init();
+					}
+				} else {
+					$.data( this, fullName, new object( options, this ) );
+				}
+			});
+		}
+
+		return returnValue;
+	};
+};
+
+$.Widget = function( /* options, element */ ) {};
+$.Widget._childConstructors = [];
+
+$.Widget.prototype = {
+	widgetName: "widget",
+	widgetEventPrefix: "",
+	defaultElement: "<div>",
+	options: {
+		disabled: false,
+
+		// callbacks
+		create: null
+	},
+	_createWidget: function( options, element ) {
+		element = $( element || this.defaultElement || this )[ 0 ];
+		this.element = $( element );
+		this.uuid = widget_uuid++;
+		this.eventNamespace = "." + this.widgetName + this.uuid;
+
+		this.bindings = $();
+		this.hoverable = $();
+		this.focusable = $();
+
+		if ( element !== this ) {
+			$.data( element, this.widgetFullName, this );
+			this._on( true, this.element, {
+				remove: function( event ) {
+					if ( event.target === element ) {
+						this.destroy();
+					}
+				}
+			});
+			this.document = $( element.style ?
+				// element within the document
+				element.ownerDocument :
+				// element is window or document
+				element.document || element );
+			this.window = $( this.document[0].defaultView || this.document[0].parentWindow );
+		}
+
+		this.options = $.widget.extend( {},
+			this.options,
+			this._getCreateOptions(),
+			options );
+
+		this._create();
+		this._trigger( "create", null, this._getCreateEventData() );
+		this._init();
+	},
+	_getCreateOptions: $.noop,
+	_getCreateEventData: $.noop,
+	_create: $.noop,
+	_init: $.noop,
+
+	destroy: function() {
+		this._destroy();
+		// we can probably remove the unbind calls in 2.0
+		// all event bindings should go through this._on()
+		this.element
+			.unbind( this.eventNamespace )
+			.removeData( this.widgetFullName )
+			// support: jquery <1.6.3
+			// http://bugs.jquery.com/ticket/9413
+			.removeData( $.camelCase( this.widgetFullName ) );
+		this.widget()
+			.unbind( this.eventNamespace )
+			.removeAttr( "aria-disabled" )
+			.removeClass(
+				this.widgetFullName + "-disabled " +
+				"ui-state-disabled" );
+
+		// clean up events and states
+		this.bindings.unbind( this.eventNamespace );
+		this.hoverable.removeClass( "ui-state-hover" );
+		this.focusable.removeClass( "ui-state-focus" );
+	},
+	_destroy: $.noop,
+
+	widget: function() {
+		return this.element;
+	},
+
+	option: function( key, value ) {
+		var options = key,
+			parts,
+			curOption,
+			i;
+
+		if ( arguments.length === 0 ) {
+			// don't return a reference to the internal hash
+			return $.widget.extend( {}, this.options );
+		}
+
+		if ( typeof key === "string" ) {
+			// handle nested keys, e.g., "foo.bar" => { foo: { bar: ___ } }
+			options = {};
+			parts = key.split( "." );
+			key = parts.shift();
+			if ( parts.length ) {
+				curOption = options[ key ] = $.widget.extend( {}, this.options[ key ] );
+				for ( i = 0; i < parts.length - 1; i++ ) {
+					curOption[ parts[ i ] ] = curOption[ parts[ i ] ] || {};
+					curOption = curOption[ parts[ i ] ];
+				}
+				key = parts.pop();
+				if ( arguments.length === 1 ) {
+					return curOption[ key ] === undefined ? null : curOption[ key ];
+				}
+				curOption[ key ] = value;
+			} else {
+				if ( arguments.length === 1 ) {
+					return this.options[ key ] === undefined ? null : this.options[ key ];
+				}
+				options[ key ] = value;
+			}
+		}
+
+		this._setOptions( options );
+
+		return this;
+	},
+	_setOptions: function( options ) {
+		var key;
+
+		for ( key in options ) {
+			this._setOption( key, options[ key ] );
+		}
+
+		return this;
+	},
+	_setOption: function( key, value ) {
+		this.options[ key ] = value;
+
+		if ( key === "disabled" ) {
+			this.widget()
+				.toggleClass( this.widgetFullName + "-disabled", !!value );
+
+			// If the widget is becoming disabled, then nothing is interactive
+			if ( value ) {
+				this.hoverable.removeClass( "ui-state-hover" );
+				this.focusable.removeClass( "ui-state-focus" );
+			}
+		}
+
+		return this;
+	},
+
+	enable: function() {
+		return this._setOptions({ disabled: false });
+	},
+	disable: function() {
+		return this._setOptions({ disabled: true });
+	},
+
+	_on: function( suppressDisabledCheck, element, handlers ) {
+		var delegateElement,
+			instance = this;
+
+		// no suppressDisabledCheck flag, shuffle arguments
+		if ( typeof suppressDisabledCheck !== "boolean" ) {
+			handlers = element;
+			element = suppressDisabledCheck;
+			suppressDisabledCheck = false;
+		}
+
+		// no element argument, shuffle and use this.element
+		if ( !handlers ) {
+			handlers = element;
+			element = this.element;
+			delegateElement = this.widget();
+		} else {
+			element = delegateElement = $( element );
+			this.bindings = this.bindings.add( element );
+		}
+
+		$.each( handlers, function( event, handler ) {
+			function handlerProxy() {
+				// allow widgets to customize the disabled handling
+				// - disabled as an array instead of boolean
+				// - disabled class as method for disabling individual parts
+				if ( !suppressDisabledCheck &&
+						( instance.options.disabled === true ||
+							$( this ).hasClass( "ui-state-disabled" ) ) ) {
+					return;
+				}
+				return ( typeof handler === "string" ? instance[ handler ] : handler )
+					.apply( instance, arguments );
+			}
+
+			// copy the guid so direct unbinding works
+			if ( typeof handler !== "string" ) {
+				handlerProxy.guid = handler.guid =
+					handler.guid || handlerProxy.guid || $.guid++;
+			}
+
+			var match = event.match( /^([\w:-]*)\s*(.*)$/ ),
+				eventName = match[1] + instance.eventNamespace,
+				selector = match[2];
+			if ( selector ) {
+				delegateElement.delegate( selector, eventName, handlerProxy );
+			} else {
+				element.bind( eventName, handlerProxy );
+			}
+		});
+	},
+
+	_off: function( element, eventName ) {
+		eventName = (eventName || "").split( " " ).join( this.eventNamespace + " " ) +
+			this.eventNamespace;
+		element.unbind( eventName ).undelegate( eventName );
+
+		// Clear the stack to avoid memory leaks (#10056)
+		this.bindings = $( this.bindings.not( element ).get() );
+		this.focusable = $( this.focusable.not( element ).get() );
+		this.hoverable = $( this.hoverable.not( element ).get() );
+	},
+
+	_delay: function( handler, delay ) {
+		function handlerProxy() {
+			return ( typeof handler === "string" ? instance[ handler ] : handler )
+				.apply( instance, arguments );
+		}
+		var instance = this;
+		return setTimeout( handlerProxy, delay || 0 );
+	},
+
+	_hoverable: function( element ) {
+		this.hoverable = this.hoverable.add( element );
+		this._on( element, {
+			mouseenter: function( event ) {
+				$( event.currentTarget ).addClass( "ui-state-hover" );
+			},
+			mouseleave: function( event ) {
+				$( event.currentTarget ).removeClass( "ui-state-hover" );
+			}
+		});
+	},
+
+	_focusable: function( element ) {
+		this.focusable = this.focusable.add( element );
+		this._on( element, {
+			focusin: function( event ) {
+				$( event.currentTarget ).addClass( "ui-state-focus" );
+			},
+			focusout: function( event ) {
+				$( event.currentTarget ).removeClass( "ui-state-focus" );
+			}
+		});
+	},
+
+	_trigger: function( type, event, data ) {
+		var prop, orig,
+			callback = this.options[ type ];
+
+		data = data || {};
+		event = $.Event( event );
+		event.type = ( type === this.widgetEventPrefix ?
+			type :
+			this.widgetEventPrefix + type ).toLowerCase();
+		// the original event may come from any element
+		// so we need to reset the target on the new event
+		event.target = this.element[ 0 ];
+
+		// copy original event properties over to the new event
+		orig = event.originalEvent;
+		if ( orig ) {
+			for ( prop in orig ) {
+				if ( !( prop in event ) ) {
+					event[ prop ] = orig[ prop ];
+				}
+			}
+		}
+
+		this.element.trigger( event, data );
+		return !( $.isFunction( callback ) &&
+			callback.apply( this.element[0], [ event ].concat( data ) ) === false ||
+			event.isDefaultPrevented() );
+	}
+};
+
+$.each( { show: "fadeIn", hide: "fadeOut" }, function( method, defaultEffect ) {
+	$.Widget.prototype[ "_" + method ] = function( element, options, callback ) {
+		if ( typeof options === "string" ) {
+			options = { effect: options };
+		}
+		var hasOptions,
+			effectName = !options ?
+				method :
+				options === true || typeof options === "number" ?
+					defaultEffect :
+					options.effect || defaultEffect;
+		options = options || {};
+		if ( typeof options === "number" ) {
+			options = { duration: options };
+		}
+		hasOptions = !$.isEmptyObject( options );
+		options.complete = callback;
+		if ( options.delay ) {
+			element.delay( options.delay );
+		}
+		if ( hasOptions && $.effects && $.effects.effect[ effectName ] ) {
+			element[ method ]( options );
+		} else if ( effectName !== method && element[ effectName ] ) {
+			element[ effectName ]( options.duration, options.easing, callback );
+		} else {
+			element.queue(function( next ) {
+				$( this )[ method ]();
+				if ( callback ) {
+					callback.call( element[ 0 ] );
+				}
+				next();
+			});
+		}
+	};
+});
+
+var widget = $.widget;
+
+
 /*!
  * jQuery UI Mouse 1.11.4
  * http://jqueryui.com
@@ -35,7 +866,182 @@ var O=0,i=Array.prototype.slice;I.cleanData=(function(ad){return function(ae){va
  *
  * http://api.jqueryui.com/mouse/
  */
-var b=false;I(document).mouseup(function(){b=false});var G=I.widget("ui.mouse",{version:"1.11.4",options:{cancel:"input,textarea,button,select,option",distance:1,delay:0},_mouseInit:function(){var ad=this;this.element.bind("mousedown."+this.widgetName,function(ae){return ad._mouseDown(ae)}).bind("click."+this.widgetName,function(ae){if(true===I.data(ae.target,ad.widgetName+".preventClickEvent")){I.removeData(ae.target,ad.widgetName+".preventClickEvent");ae.stopImmediatePropagation();return false}});this.started=false},_mouseDestroy:function(){this.element.unbind("."+this.widgetName);if(this._mouseMoveDelegate){this.document.unbind("mousemove."+this.widgetName,this._mouseMoveDelegate).unbind("mouseup."+this.widgetName,this._mouseUpDelegate)}},_mouseDown:function(af){if(b){return}this._mouseMoved=false;(this._mouseStarted&&this._mouseUp(af));this._mouseDownEvent=af;var ae=this,ag=(af.which===1),ad=(typeof this.options.cancel==="string"&&af.target.nodeName?I(af.target).closest(this.options.cancel).length:false);if(!ag||ad||!this._mouseCapture(af)){return true}this.mouseDelayMet=!this.options.delay;if(!this.mouseDelayMet){this._mouseDelayTimer=setTimeout(function(){ae.mouseDelayMet=true},this.options.delay)}if(this._mouseDistanceMet(af)&&this._mouseDelayMet(af)){this._mouseStarted=(this._mouseStart(af)!==false);if(!this._mouseStarted){af.preventDefault();return true}}if(true===I.data(af.target,this.widgetName+".preventClickEvent")){I.removeData(af.target,this.widgetName+".preventClickEvent")}this._mouseMoveDelegate=function(ah){return ae._mouseMove(ah)};this._mouseUpDelegate=function(ah){return ae._mouseUp(ah)};this.document.bind("mousemove."+this.widgetName,this._mouseMoveDelegate).bind("mouseup."+this.widgetName,this._mouseUpDelegate);af.preventDefault();b=true;return true},_mouseMove:function(ad){if(this._mouseMoved){if(I.ui.ie&&(!document.documentMode||document.documentMode<9)&&!ad.button){return this._mouseUp(ad)}else{if(!ad.which){return this._mouseUp(ad)}}}if(ad.which||ad.button){this._mouseMoved=true}if(this._mouseStarted){this._mouseDrag(ad);return ad.preventDefault()}if(this._mouseDistanceMet(ad)&&this._mouseDelayMet(ad)){this._mouseStarted=(this._mouseStart(this._mouseDownEvent,ad)!==false);(this._mouseStarted?this._mouseDrag(ad):this._mouseUp(ad))}return !this._mouseStarted},_mouseUp:function(ad){this.document.unbind("mousemove."+this.widgetName,this._mouseMoveDelegate).unbind("mouseup."+this.widgetName,this._mouseUpDelegate);if(this._mouseStarted){this._mouseStarted=false;if(ad.target===this._mouseDownEvent.target){I.data(ad.target,this.widgetName+".preventClickEvent",true)}this._mouseStop(ad)}b=false;return false},_mouseDistanceMet:function(ad){return(Math.max(Math.abs(this._mouseDownEvent.pageX-ad.pageX),Math.abs(this._mouseDownEvent.pageY-ad.pageY))>=this.options.distance)},_mouseDelayMet:function(){return this.mouseDelayMet},_mouseStart:function(){},_mouseDrag:function(){},_mouseStop:function(){},_mouseCapture:function(){return true}});
+
+
+var mouseHandled = false;
+$( document ).mouseup( function() {
+	mouseHandled = false;
+});
+
+var mouse = $.widget("ui.mouse", {
+	version: "1.11.4",
+	options: {
+		cancel: "input,textarea,button,select,option",
+		distance: 1,
+		delay: 0
+	},
+	_mouseInit: function() {
+		var that = this;
+
+		this.element
+			.bind("mousedown." + this.widgetName, function(event) {
+				return that._mouseDown(event);
+			})
+			.bind("click." + this.widgetName, function(event) {
+				if (true === $.data(event.target, that.widgetName + ".preventClickEvent")) {
+					$.removeData(event.target, that.widgetName + ".preventClickEvent");
+					event.stopImmediatePropagation();
+					return false;
+				}
+			});
+
+		this.started = false;
+	},
+
+	// TODO: make sure destroying one instance of mouse doesn't mess with
+	// other instances of mouse
+	_mouseDestroy: function() {
+		this.element.unbind("." + this.widgetName);
+		if ( this._mouseMoveDelegate ) {
+			this.document
+				.unbind("mousemove." + this.widgetName, this._mouseMoveDelegate)
+				.unbind("mouseup." + this.widgetName, this._mouseUpDelegate);
+		}
+	},
+
+	_mouseDown: function(event) {
+		// don't let more than one widget handle mouseStart
+		if ( mouseHandled ) {
+			return;
+		}
+
+		this._mouseMoved = false;
+
+		// we may have missed mouseup (out of window)
+		(this._mouseStarted && this._mouseUp(event));
+
+		this._mouseDownEvent = event;
+
+		var that = this,
+			btnIsLeft = (event.which === 1),
+			// event.target.nodeName works around a bug in IE 8 with
+			// disabled inputs (#7620)
+			elIsCancel = (typeof this.options.cancel === "string" && event.target.nodeName ? $(event.target).closest(this.options.cancel).length : false);
+		if (!btnIsLeft || elIsCancel || !this._mouseCapture(event)) {
+			return true;
+		}
+
+		this.mouseDelayMet = !this.options.delay;
+		if (!this.mouseDelayMet) {
+			this._mouseDelayTimer = setTimeout(function() {
+				that.mouseDelayMet = true;
+			}, this.options.delay);
+		}
+
+		if (this._mouseDistanceMet(event) && this._mouseDelayMet(event)) {
+			this._mouseStarted = (this._mouseStart(event) !== false);
+			if (!this._mouseStarted) {
+				event.preventDefault();
+				return true;
+			}
+		}
+
+		// Click event may never have fired (Gecko & Opera)
+		if (true === $.data(event.target, this.widgetName + ".preventClickEvent")) {
+			$.removeData(event.target, this.widgetName + ".preventClickEvent");
+		}
+
+		// these delegates are required to keep context
+		this._mouseMoveDelegate = function(event) {
+			return that._mouseMove(event);
+		};
+		this._mouseUpDelegate = function(event) {
+			return that._mouseUp(event);
+		};
+
+		this.document
+			.bind( "mousemove." + this.widgetName, this._mouseMoveDelegate )
+			.bind( "mouseup." + this.widgetName, this._mouseUpDelegate );
+
+		event.preventDefault();
+
+		mouseHandled = true;
+		return true;
+	},
+
+	_mouseMove: function(event) {
+		// Only check for mouseups outside the document if you've moved inside the document
+		// at least once. This prevents the firing of mouseup in the case of IE<9, which will
+		// fire a mousemove event if content is placed under the cursor. See #7778
+		// Support: IE <9
+		if ( this._mouseMoved ) {
+			// IE mouseup check - mouseup happened when mouse was out of window
+			if ($.ui.ie && ( !document.documentMode || document.documentMode < 9 ) && !event.button) {
+				return this._mouseUp(event);
+
+			// Iframe mouseup check - mouseup occurred in another document
+			} else if ( !event.which ) {
+				return this._mouseUp( event );
+			}
+		}
+
+		if ( event.which || event.button ) {
+			this._mouseMoved = true;
+		}
+
+		if (this._mouseStarted) {
+			this._mouseDrag(event);
+			return event.preventDefault();
+		}
+
+		if (this._mouseDistanceMet(event) && this._mouseDelayMet(event)) {
+			this._mouseStarted =
+				(this._mouseStart(this._mouseDownEvent, event) !== false);
+			(this._mouseStarted ? this._mouseDrag(event) : this._mouseUp(event));
+		}
+
+		return !this._mouseStarted;
+	},
+
+	_mouseUp: function(event) {
+		this.document
+			.unbind( "mousemove." + this.widgetName, this._mouseMoveDelegate )
+			.unbind( "mouseup." + this.widgetName, this._mouseUpDelegate );
+
+		if (this._mouseStarted) {
+			this._mouseStarted = false;
+
+			if (event.target === this._mouseDownEvent.target) {
+				$.data(event.target, this.widgetName + ".preventClickEvent", true);
+			}
+
+			this._mouseStop(event);
+		}
+
+		mouseHandled = false;
+		return false;
+	},
+
+	_mouseDistanceMet: function(event) {
+		return (Math.max(
+				Math.abs(this._mouseDownEvent.pageX - event.pageX),
+				Math.abs(this._mouseDownEvent.pageY - event.pageY)
+			) >= this.options.distance
+		);
+	},
+
+	_mouseDelayMet: function(/* event */) {
+		return this.mouseDelayMet;
+	},
+
+	// These are placeholder methods, to be overriden by extending plugin
+	_mouseStart: function(/* event */) {},
+	_mouseDrag: function(/* event */) {},
+	_mouseStop: function(/* event */) {},
+	_mouseCapture: function(/* event */) { return true; }
+});
+
+
 /*!
  * jQuery UI Position 1.11.4
  * http://jqueryui.com
@@ -46,7 +1052,503 @@ var b=false;I(document).mouseup(function(){b=false});var G=I.widget("ui.mouse",{
  *
  * http://api.jqueryui.com/position/
  */
-(function(){I.ui=I.ui||{};var ak,an,al=Math.max,aq=Math.abs,ao=Math.round,af=/left|center|right/,ai=/top|center|bottom/,ad=/[\+\-]\d+(\.[\d]+)?%?/,am=/^\w+/,ae=/%$/,ah=I.fn.position;function ap(au,at,ar){return[parseFloat(au[0])*(ae.test(au[0])?at/100:1),parseFloat(au[1])*(ae.test(au[1])?ar/100:1)]}function aj(ar,at){return parseInt(I.css(ar,at),10)||0}function ag(at){var ar=at[0];if(ar.nodeType===9){return{width:at.width(),height:at.height(),offset:{top:0,left:0}}}if(I.isWindow(ar)){return{width:at.width(),height:at.height(),offset:{top:at.scrollTop(),left:at.scrollLeft()}}}if(ar.preventDefault){return{width:0,height:0,offset:{top:ar.pageY,left:ar.pageX}}}return{width:at.outerWidth(),height:at.outerHeight(),offset:at.offset()}}I.position={scrollbarWidth:function(){if(ak!==undefined){return ak}var at,ar,av=I("<div style='display:block;position:absolute;width:50px;height:50px;overflow:hidden;'><div style='height:100px;width:auto;'></div></div>"),au=av.children()[0];I("body").append(av);at=au.offsetWidth;av.css("overflow","scroll");ar=au.offsetWidth;if(at===ar){ar=av[0].clientWidth}av.remove();return(ak=at-ar)},getScrollInfo:function(aw){var av=aw.isWindow||aw.isDocument?"":aw.element.css("overflow-x"),au=aw.isWindow||aw.isDocument?"":aw.element.css("overflow-y"),at=av==="scroll"||(av==="auto"&&aw.width<aw.element[0].scrollWidth),ar=au==="scroll"||(au==="auto"&&aw.height<aw.element[0].scrollHeight);return{width:ar?I.position.scrollbarWidth():0,height:at?I.position.scrollbarWidth():0}},getWithinInfo:function(at){var au=I(at||window),ar=I.isWindow(au[0]),av=!!au[0]&&au[0].nodeType===9;return{element:au,isWindow:ar,isDocument:av,offset:au.offset()||{left:0,top:0},scrollLeft:au.scrollLeft(),scrollTop:au.scrollTop(),width:ar||av?au.width():au.outerWidth(),height:ar||av?au.height():au.outerHeight()}}};I.fn.position=function(aC){if(!aC||!aC.of){return ah.apply(this,arguments)}aC=I.extend({},aC);var aD,az,ax,aB,aw,ar,ay=I(aC.of),av=I.position.getWithinInfo(aC.within),at=I.position.getScrollInfo(av),aA=(aC.collision||"flip").split(" "),au={};ar=ag(ay);if(ay[0].preventDefault){aC.at="left top"}az=ar.width;ax=ar.height;aB=ar.offset;aw=I.extend({},aB);I.each(["my","at"],function(){var aG=(aC[this]||"").split(" "),aF,aE;if(aG.length===1){aG=af.test(aG[0])?aG.concat(["center"]):ai.test(aG[0])?["center"].concat(aG):["center","center"]}aG[0]=af.test(aG[0])?aG[0]:"center";aG[1]=ai.test(aG[1])?aG[1]:"center";aF=ad.exec(aG[0]);aE=ad.exec(aG[1]);au[this]=[aF?aF[0]:0,aE?aE[0]:0];aC[this]=[am.exec(aG[0])[0],am.exec(aG[1])[0]]});if(aA.length===1){aA[1]=aA[0]}if(aC.at[0]==="right"){aw.left+=az}else{if(aC.at[0]==="center"){aw.left+=az/2}}if(aC.at[1]==="bottom"){aw.top+=ax}else{if(aC.at[1]==="center"){aw.top+=ax/2}}aD=ap(au.at,az,ax);aw.left+=aD[0];aw.top+=aD[1];return this.each(function(){var aF,aO,aH=I(this),aJ=aH.outerWidth(),aG=aH.outerHeight(),aI=aj(this,"marginLeft"),aE=aj(this,"marginTop"),aN=aJ+aI+aj(this,"marginRight")+at.width,aM=aG+aE+aj(this,"marginBottom")+at.height,aK=I.extend({},aw),aL=ap(au.my,aH.outerWidth(),aH.outerHeight());if(aC.my[0]==="right"){aK.left-=aJ}else{if(aC.my[0]==="center"){aK.left-=aJ/2}}if(aC.my[1]==="bottom"){aK.top-=aG}else{if(aC.my[1]==="center"){aK.top-=aG/2}}aK.left+=aL[0];aK.top+=aL[1];if(!an){aK.left=ao(aK.left);aK.top=ao(aK.top)}aF={marginLeft:aI,marginTop:aE};I.each(["left","top"],function(aQ,aP){if(I.ui.position[aA[aQ]]){I.ui.position[aA[aQ]][aP](aK,{targetWidth:az,targetHeight:ax,elemWidth:aJ,elemHeight:aG,collisionPosition:aF,collisionWidth:aN,collisionHeight:aM,offset:[aD[0]+aL[0],aD[1]+aL[1]],my:aC.my,at:aC.at,within:av,elem:aH})}});if(aC.using){aO=function(aS){var aU=aB.left-aK.left,aR=aU+az-aJ,aT=aB.top-aK.top,aQ=aT+ax-aG,aP={target:{element:ay,left:aB.left,top:aB.top,width:az,height:ax},element:{element:aH,left:aK.left,top:aK.top,width:aJ,height:aG},horizontal:aR<0?"left":aU>0?"right":"center",vertical:aQ<0?"top":aT>0?"bottom":"middle"};if(az<aJ&&aq(aU+aR)<az){aP.horizontal="center"}if(ax<aG&&aq(aT+aQ)<ax){aP.vertical="middle"}if(al(aq(aU),aq(aR))>al(aq(aT),aq(aQ))){aP.important="horizontal"}else{aP.important="vertical"}aC.using.call(this,aS,aP)}}aH.offset(I.extend(aK,{using:aO}))})};I.ui.position={fit:{left:function(aw,av){var au=av.within,ay=au.isWindow?au.scrollLeft:au.offset.left,aA=au.width,ax=aw.left-av.collisionPosition.marginLeft,az=ay-ax,at=ax+av.collisionWidth-aA-ay,ar;if(av.collisionWidth>aA){if(az>0&&at<=0){ar=aw.left+az+av.collisionWidth-aA-ay;aw.left+=az-ar}else{if(at>0&&az<=0){aw.left=ay}else{if(az>at){aw.left=ay+aA-av.collisionWidth}else{aw.left=ay}}}}else{if(az>0){aw.left+=az}else{if(at>0){aw.left-=at}else{aw.left=al(aw.left-ax,aw.left)}}}},top:function(av,au){var at=au.within,az=at.isWindow?at.scrollTop:at.offset.top,aA=au.within.height,ax=av.top-au.collisionPosition.marginTop,ay=az-ax,aw=ax+au.collisionHeight-aA-az,ar;if(au.collisionHeight>aA){if(ay>0&&aw<=0){ar=av.top+ay+au.collisionHeight-aA-az;av.top+=ay-ar}else{if(aw>0&&ay<=0){av.top=az}else{if(ay>aw){av.top=az+aA-au.collisionHeight}else{av.top=az}}}}else{if(ay>0){av.top+=ay}else{if(aw>0){av.top-=aw}else{av.top=al(av.top-ax,av.top)}}}}},flip:{left:function(ay,ax){var aw=ax.within,aC=aw.offset.left+aw.scrollLeft,aF=aw.width,au=aw.isWindow?aw.scrollLeft:aw.offset.left,az=ay.left-ax.collisionPosition.marginLeft,aD=az-au,at=az+ax.collisionWidth-aF-au,aB=ax.my[0]==="left"?-ax.elemWidth:ax.my[0]==="right"?ax.elemWidth:0,aE=ax.at[0]==="left"?ax.targetWidth:ax.at[0]==="right"?-ax.targetWidth:0,av=-2*ax.offset[0],ar,aA;if(aD<0){ar=ay.left+aB+aE+av+ax.collisionWidth-aF-aC;if(ar<0||ar<aq(aD)){ay.left+=aB+aE+av}}else{if(at>0){aA=ay.left-ax.collisionPosition.marginLeft+aB+aE+av-au;if(aA>0||aq(aA)<at){ay.left+=aB+aE+av}}}},top:function(ax,aw){var av=aw.within,aE=av.offset.top+av.scrollTop,aF=av.height,ar=av.isWindow?av.scrollTop:av.offset.top,az=ax.top-aw.collisionPosition.marginTop,aB=az-ar,ay=az+aw.collisionHeight-aF-ar,aC=aw.my[1]==="top",aA=aC?-aw.elemHeight:aw.my[1]==="bottom"?aw.elemHeight:0,aG=aw.at[1]==="top"?aw.targetHeight:aw.at[1]==="bottom"?-aw.targetHeight:0,au=-2*aw.offset[1],aD,at;if(aB<0){at=ax.top+aA+aG+au+aw.collisionHeight-aF-aE;if(at<0||at<aq(aB)){ax.top+=aA+aG+au}}else{if(ay>0){aD=ax.top-aw.collisionPosition.marginTop+aA+aG+au-ar;if(aD>0||aq(aD)<ay){ax.top+=aA+aG+au}}}}},flipfit:{left:function(){I.ui.position.flip.left.apply(this,arguments);I.ui.position.fit.left.apply(this,arguments)},top:function(){I.ui.position.flip.top.apply(this,arguments);I.ui.position.fit.top.apply(this,arguments)}}};(function(){var aw,ay,at,av,au,ar=document.getElementsByTagName("body")[0],ax=document.createElement("div");aw=document.createElement(ar?"div":"body");at={visibility:"hidden",width:0,height:0,border:0,margin:0,background:"none"};if(ar){I.extend(at,{position:"absolute",left:"-1000px",top:"-1000px"})}for(au in at){aw.style[au]=at[au]}aw.appendChild(ax);ay=ar||document.documentElement;ay.insertBefore(aw,ay.firstChild);ax.style.cssText="position: absolute; left: 10.7432222px;";av=I(ax).offset().left;an=av>10&&av<11;aw.innerHTML="";ay.removeChild(aw)})()})();var P=I.ui.position;
+
+(function() {
+
+$.ui = $.ui || {};
+
+var cachedScrollbarWidth, supportsOffsetFractions,
+	max = Math.max,
+	abs = Math.abs,
+	round = Math.round,
+	rhorizontal = /left|center|right/,
+	rvertical = /top|center|bottom/,
+	roffset = /[\+\-]\d+(\.[\d]+)?%?/,
+	rposition = /^\w+/,
+	rpercent = /%$/,
+	_position = $.fn.position;
+
+function getOffsets( offsets, width, height ) {
+	return [
+		parseFloat( offsets[ 0 ] ) * ( rpercent.test( offsets[ 0 ] ) ? width / 100 : 1 ),
+		parseFloat( offsets[ 1 ] ) * ( rpercent.test( offsets[ 1 ] ) ? height / 100 : 1 )
+	];
+}
+
+function parseCss( element, property ) {
+	return parseInt( $.css( element, property ), 10 ) || 0;
+}
+
+function getDimensions( elem ) {
+	var raw = elem[0];
+	if ( raw.nodeType === 9 ) {
+		return {
+			width: elem.width(),
+			height: elem.height(),
+			offset: { top: 0, left: 0 }
+		};
+	}
+	if ( $.isWindow( raw ) ) {
+		return {
+			width: elem.width(),
+			height: elem.height(),
+			offset: { top: elem.scrollTop(), left: elem.scrollLeft() }
+		};
+	}
+	if ( raw.preventDefault ) {
+		return {
+			width: 0,
+			height: 0,
+			offset: { top: raw.pageY, left: raw.pageX }
+		};
+	}
+	return {
+		width: elem.outerWidth(),
+		height: elem.outerHeight(),
+		offset: elem.offset()
+	};
+}
+
+$.position = {
+	scrollbarWidth: function() {
+		if ( cachedScrollbarWidth !== undefined ) {
+			return cachedScrollbarWidth;
+		}
+		var w1, w2,
+			div = $( "<div style='display:block;position:absolute;width:50px;height:50px;overflow:hidden;'><div style='height:100px;width:auto;'></div></div>" ),
+			innerDiv = div.children()[0];
+
+		$( "body" ).append( div );
+		w1 = innerDiv.offsetWidth;
+		div.css( "overflow", "scroll" );
+
+		w2 = innerDiv.offsetWidth;
+
+		if ( w1 === w2 ) {
+			w2 = div[0].clientWidth;
+		}
+
+		div.remove();
+
+		return (cachedScrollbarWidth = w1 - w2);
+	},
+	getScrollInfo: function( within ) {
+		var overflowX = within.isWindow || within.isDocument ? "" :
+				within.element.css( "overflow-x" ),
+			overflowY = within.isWindow || within.isDocument ? "" :
+				within.element.css( "overflow-y" ),
+			hasOverflowX = overflowX === "scroll" ||
+				( overflowX === "auto" && within.width < within.element[0].scrollWidth ),
+			hasOverflowY = overflowY === "scroll" ||
+				( overflowY === "auto" && within.height < within.element[0].scrollHeight );
+		return {
+			width: hasOverflowY ? $.position.scrollbarWidth() : 0,
+			height: hasOverflowX ? $.position.scrollbarWidth() : 0
+		};
+	},
+	getWithinInfo: function( element ) {
+		var withinElement = $( element || window ),
+			isWindow = $.isWindow( withinElement[0] ),
+			isDocument = !!withinElement[ 0 ] && withinElement[ 0 ].nodeType === 9;
+		return {
+			element: withinElement,
+			isWindow: isWindow,
+			isDocument: isDocument,
+			offset: withinElement.offset() || { left: 0, top: 0 },
+			scrollLeft: withinElement.scrollLeft(),
+			scrollTop: withinElement.scrollTop(),
+
+			// support: jQuery 1.6.x
+			// jQuery 1.6 doesn't support .outerWidth/Height() on documents or windows
+			width: isWindow || isDocument ? withinElement.width() : withinElement.outerWidth(),
+			height: isWindow || isDocument ? withinElement.height() : withinElement.outerHeight()
+		};
+	}
+};
+
+$.fn.position = function( options ) {
+	if ( !options || !options.of ) {
+		return _position.apply( this, arguments );
+	}
+
+	// make a copy, we don't want to modify arguments
+	options = $.extend( {}, options );
+
+	var atOffset, targetWidth, targetHeight, targetOffset, basePosition, dimensions,
+		target = $( options.of ),
+		within = $.position.getWithinInfo( options.within ),
+		scrollInfo = $.position.getScrollInfo( within ),
+		collision = ( options.collision || "flip" ).split( " " ),
+		offsets = {};
+
+	dimensions = getDimensions( target );
+	if ( target[0].preventDefault ) {
+		// force left top to allow flipping
+		options.at = "left top";
+	}
+	targetWidth = dimensions.width;
+	targetHeight = dimensions.height;
+	targetOffset = dimensions.offset;
+	// clone to reuse original targetOffset later
+	basePosition = $.extend( {}, targetOffset );
+
+	// force my and at to have valid horizontal and vertical positions
+	// if a value is missing or invalid, it will be converted to center
+	$.each( [ "my", "at" ], function() {
+		var pos = ( options[ this ] || "" ).split( " " ),
+			horizontalOffset,
+			verticalOffset;
+
+		if ( pos.length === 1) {
+			pos = rhorizontal.test( pos[ 0 ] ) ?
+				pos.concat( [ "center" ] ) :
+				rvertical.test( pos[ 0 ] ) ?
+					[ "center" ].concat( pos ) :
+					[ "center", "center" ];
+		}
+		pos[ 0 ] = rhorizontal.test( pos[ 0 ] ) ? pos[ 0 ] : "center";
+		pos[ 1 ] = rvertical.test( pos[ 1 ] ) ? pos[ 1 ] : "center";
+
+		// calculate offsets
+		horizontalOffset = roffset.exec( pos[ 0 ] );
+		verticalOffset = roffset.exec( pos[ 1 ] );
+		offsets[ this ] = [
+			horizontalOffset ? horizontalOffset[ 0 ] : 0,
+			verticalOffset ? verticalOffset[ 0 ] : 0
+		];
+
+		// reduce to just the positions without the offsets
+		options[ this ] = [
+			rposition.exec( pos[ 0 ] )[ 0 ],
+			rposition.exec( pos[ 1 ] )[ 0 ]
+		];
+	});
+
+	// normalize collision option
+	if ( collision.length === 1 ) {
+		collision[ 1 ] = collision[ 0 ];
+	}
+
+	if ( options.at[ 0 ] === "right" ) {
+		basePosition.left += targetWidth;
+	} else if ( options.at[ 0 ] === "center" ) {
+		basePosition.left += targetWidth / 2;
+	}
+
+	if ( options.at[ 1 ] === "bottom" ) {
+		basePosition.top += targetHeight;
+	} else if ( options.at[ 1 ] === "center" ) {
+		basePosition.top += targetHeight / 2;
+	}
+
+	atOffset = getOffsets( offsets.at, targetWidth, targetHeight );
+	basePosition.left += atOffset[ 0 ];
+	basePosition.top += atOffset[ 1 ];
+
+	return this.each(function() {
+		var collisionPosition, using,
+			elem = $( this ),
+			elemWidth = elem.outerWidth(),
+			elemHeight = elem.outerHeight(),
+			marginLeft = parseCss( this, "marginLeft" ),
+			marginTop = parseCss( this, "marginTop" ),
+			collisionWidth = elemWidth + marginLeft + parseCss( this, "marginRight" ) + scrollInfo.width,
+			collisionHeight = elemHeight + marginTop + parseCss( this, "marginBottom" ) + scrollInfo.height,
+			position = $.extend( {}, basePosition ),
+			myOffset = getOffsets( offsets.my, elem.outerWidth(), elem.outerHeight() );
+
+		if ( options.my[ 0 ] === "right" ) {
+			position.left -= elemWidth;
+		} else if ( options.my[ 0 ] === "center" ) {
+			position.left -= elemWidth / 2;
+		}
+
+		if ( options.my[ 1 ] === "bottom" ) {
+			position.top -= elemHeight;
+		} else if ( options.my[ 1 ] === "center" ) {
+			position.top -= elemHeight / 2;
+		}
+
+		position.left += myOffset[ 0 ];
+		position.top += myOffset[ 1 ];
+
+		// if the browser doesn't support fractions, then round for consistent results
+		if ( !supportsOffsetFractions ) {
+			position.left = round( position.left );
+			position.top = round( position.top );
+		}
+
+		collisionPosition = {
+			marginLeft: marginLeft,
+			marginTop: marginTop
+		};
+
+		$.each( [ "left", "top" ], function( i, dir ) {
+			if ( $.ui.position[ collision[ i ] ] ) {
+				$.ui.position[ collision[ i ] ][ dir ]( position, {
+					targetWidth: targetWidth,
+					targetHeight: targetHeight,
+					elemWidth: elemWidth,
+					elemHeight: elemHeight,
+					collisionPosition: collisionPosition,
+					collisionWidth: collisionWidth,
+					collisionHeight: collisionHeight,
+					offset: [ atOffset[ 0 ] + myOffset[ 0 ], atOffset [ 1 ] + myOffset[ 1 ] ],
+					my: options.my,
+					at: options.at,
+					within: within,
+					elem: elem
+				});
+			}
+		});
+
+		if ( options.using ) {
+			// adds feedback as second argument to using callback, if present
+			using = function( props ) {
+				var left = targetOffset.left - position.left,
+					right = left + targetWidth - elemWidth,
+					top = targetOffset.top - position.top,
+					bottom = top + targetHeight - elemHeight,
+					feedback = {
+						target: {
+							element: target,
+							left: targetOffset.left,
+							top: targetOffset.top,
+							width: targetWidth,
+							height: targetHeight
+						},
+						element: {
+							element: elem,
+							left: position.left,
+							top: position.top,
+							width: elemWidth,
+							height: elemHeight
+						},
+						horizontal: right < 0 ? "left" : left > 0 ? "right" : "center",
+						vertical: bottom < 0 ? "top" : top > 0 ? "bottom" : "middle"
+					};
+				if ( targetWidth < elemWidth && abs( left + right ) < targetWidth ) {
+					feedback.horizontal = "center";
+				}
+				if ( targetHeight < elemHeight && abs( top + bottom ) < targetHeight ) {
+					feedback.vertical = "middle";
+				}
+				if ( max( abs( left ), abs( right ) ) > max( abs( top ), abs( bottom ) ) ) {
+					feedback.important = "horizontal";
+				} else {
+					feedback.important = "vertical";
+				}
+				options.using.call( this, props, feedback );
+			};
+		}
+
+		elem.offset( $.extend( position, { using: using } ) );
+	});
+};
+
+$.ui.position = {
+	fit: {
+		left: function( position, data ) {
+			var within = data.within,
+				withinOffset = within.isWindow ? within.scrollLeft : within.offset.left,
+				outerWidth = within.width,
+				collisionPosLeft = position.left - data.collisionPosition.marginLeft,
+				overLeft = withinOffset - collisionPosLeft,
+				overRight = collisionPosLeft + data.collisionWidth - outerWidth - withinOffset,
+				newOverRight;
+
+			// element is wider than within
+			if ( data.collisionWidth > outerWidth ) {
+				// element is initially over the left side of within
+				if ( overLeft > 0 && overRight <= 0 ) {
+					newOverRight = position.left + overLeft + data.collisionWidth - outerWidth - withinOffset;
+					position.left += overLeft - newOverRight;
+				// element is initially over right side of within
+				} else if ( overRight > 0 && overLeft <= 0 ) {
+					position.left = withinOffset;
+				// element is initially over both left and right sides of within
+				} else {
+					if ( overLeft > overRight ) {
+						position.left = withinOffset + outerWidth - data.collisionWidth;
+					} else {
+						position.left = withinOffset;
+					}
+				}
+			// too far left -> align with left edge
+			} else if ( overLeft > 0 ) {
+				position.left += overLeft;
+			// too far right -> align with right edge
+			} else if ( overRight > 0 ) {
+				position.left -= overRight;
+			// adjust based on position and margin
+			} else {
+				position.left = max( position.left - collisionPosLeft, position.left );
+			}
+		},
+		top: function( position, data ) {
+			var within = data.within,
+				withinOffset = within.isWindow ? within.scrollTop : within.offset.top,
+				outerHeight = data.within.height,
+				collisionPosTop = position.top - data.collisionPosition.marginTop,
+				overTop = withinOffset - collisionPosTop,
+				overBottom = collisionPosTop + data.collisionHeight - outerHeight - withinOffset,
+				newOverBottom;
+
+			// element is taller than within
+			if ( data.collisionHeight > outerHeight ) {
+				// element is initially over the top of within
+				if ( overTop > 0 && overBottom <= 0 ) {
+					newOverBottom = position.top + overTop + data.collisionHeight - outerHeight - withinOffset;
+					position.top += overTop - newOverBottom;
+				// element is initially over bottom of within
+				} else if ( overBottom > 0 && overTop <= 0 ) {
+					position.top = withinOffset;
+				// element is initially over both top and bottom of within
+				} else {
+					if ( overTop > overBottom ) {
+						position.top = withinOffset + outerHeight - data.collisionHeight;
+					} else {
+						position.top = withinOffset;
+					}
+				}
+			// too far up -> align with top
+			} else if ( overTop > 0 ) {
+				position.top += overTop;
+			// too far down -> align with bottom edge
+			} else if ( overBottom > 0 ) {
+				position.top -= overBottom;
+			// adjust based on position and margin
+			} else {
+				position.top = max( position.top - collisionPosTop, position.top );
+			}
+		}
+	},
+	flip: {
+		left: function( position, data ) {
+			var within = data.within,
+				withinOffset = within.offset.left + within.scrollLeft,
+				outerWidth = within.width,
+				offsetLeft = within.isWindow ? within.scrollLeft : within.offset.left,
+				collisionPosLeft = position.left - data.collisionPosition.marginLeft,
+				overLeft = collisionPosLeft - offsetLeft,
+				overRight = collisionPosLeft + data.collisionWidth - outerWidth - offsetLeft,
+				myOffset = data.my[ 0 ] === "left" ?
+					-data.elemWidth :
+					data.my[ 0 ] === "right" ?
+						data.elemWidth :
+						0,
+				atOffset = data.at[ 0 ] === "left" ?
+					data.targetWidth :
+					data.at[ 0 ] === "right" ?
+						-data.targetWidth :
+						0,
+				offset = -2 * data.offset[ 0 ],
+				newOverRight,
+				newOverLeft;
+
+			if ( overLeft < 0 ) {
+				newOverRight = position.left + myOffset + atOffset + offset + data.collisionWidth - outerWidth - withinOffset;
+				if ( newOverRight < 0 || newOverRight < abs( overLeft ) ) {
+					position.left += myOffset + atOffset + offset;
+				}
+			} else if ( overRight > 0 ) {
+				newOverLeft = position.left - data.collisionPosition.marginLeft + myOffset + atOffset + offset - offsetLeft;
+				if ( newOverLeft > 0 || abs( newOverLeft ) < overRight ) {
+					position.left += myOffset + atOffset + offset;
+				}
+			}
+		},
+		top: function( position, data ) {
+			var within = data.within,
+				withinOffset = within.offset.top + within.scrollTop,
+				outerHeight = within.height,
+				offsetTop = within.isWindow ? within.scrollTop : within.offset.top,
+				collisionPosTop = position.top - data.collisionPosition.marginTop,
+				overTop = collisionPosTop - offsetTop,
+				overBottom = collisionPosTop + data.collisionHeight - outerHeight - offsetTop,
+				top = data.my[ 1 ] === "top",
+				myOffset = top ?
+					-data.elemHeight :
+					data.my[ 1 ] === "bottom" ?
+						data.elemHeight :
+						0,
+				atOffset = data.at[ 1 ] === "top" ?
+					data.targetHeight :
+					data.at[ 1 ] === "bottom" ?
+						-data.targetHeight :
+						0,
+				offset = -2 * data.offset[ 1 ],
+				newOverTop,
+				newOverBottom;
+			if ( overTop < 0 ) {
+				newOverBottom = position.top + myOffset + atOffset + offset + data.collisionHeight - outerHeight - withinOffset;
+				if ( newOverBottom < 0 || newOverBottom < abs( overTop ) ) {
+					position.top += myOffset + atOffset + offset;
+				}
+			} else if ( overBottom > 0 ) {
+				newOverTop = position.top - data.collisionPosition.marginTop + myOffset + atOffset + offset - offsetTop;
+				if ( newOverTop > 0 || abs( newOverTop ) < overBottom ) {
+					position.top += myOffset + atOffset + offset;
+				}
+			}
+		}
+	},
+	flipfit: {
+		left: function() {
+			$.ui.position.flip.left.apply( this, arguments );
+			$.ui.position.fit.left.apply( this, arguments );
+		},
+		top: function() {
+			$.ui.position.flip.top.apply( this, arguments );
+			$.ui.position.fit.top.apply( this, arguments );
+		}
+	}
+};
+
+// fraction support test
+(function() {
+	var testElement, testElementParent, testElementStyle, offsetLeft, i,
+		body = document.getElementsByTagName( "body" )[ 0 ],
+		div = document.createElement( "div" );
+
+	//Create a "fake body" for testing based on method used in jQuery.support
+	testElement = document.createElement( body ? "div" : "body" );
+	testElementStyle = {
+		visibility: "hidden",
+		width: 0,
+		height: 0,
+		border: 0,
+		margin: 0,
+		background: "none"
+	};
+	if ( body ) {
+		$.extend( testElementStyle, {
+			position: "absolute",
+			left: "-1000px",
+			top: "-1000px"
+		});
+	}
+	for ( i in testElementStyle ) {
+		testElement.style[ i ] = testElementStyle[ i ];
+	}
+	testElement.appendChild( div );
+	testElementParent = body || document.documentElement;
+	testElementParent.insertBefore( testElement, testElementParent.firstChild );
+
+	div.style.cssText = "position: absolute; left: 10.7432222px;";
+
+	offsetLeft = $( div ).offset().left;
+	supportsOffsetFractions = offsetLeft > 10 && offsetLeft < 11;
+
+	testElement.innerHTML = "";
+	testElementParent.removeChild( testElement );
+})();
+
+})();
+
+var position = $.ui.position;
+
+
 /*!
  * jQuery UI Draggable 1.11.4
  * http://jqueryui.com
@@ -57,7 +1559,1111 @@ var b=false;I(document).mouseup(function(){b=false});var G=I.widget("ui.mouse",{
  *
  * http://api.jqueryui.com/draggable/
  */
-I.widget("ui.draggable",I.ui.mouse,{version:"1.11.4",widgetEventPrefix:"drag",options:{addClasses:true,appendTo:"parent",axis:false,connectToSortable:false,containment:false,cursor:"auto",cursorAt:false,grid:false,handle:false,helper:"original",iframeFix:false,opacity:false,refreshPositions:false,revert:false,revertDuration:500,scope:"default",scroll:true,scrollSensitivity:20,scrollSpeed:20,snap:false,snapMode:"both",snapTolerance:20,stack:false,zIndex:false,drag:null,start:null,stop:null},_create:function(){if(this.options.helper==="original"){this._setPositionRelative()}if(this.options.addClasses){this.element.addClass("ui-draggable")}if(this.options.disabled){this.element.addClass("ui-draggable-disabled")}this._setHandleClassName();this._mouseInit()},_setOption:function(ad,ae){this._super(ad,ae);if(ad==="handle"){this._removeHandleClassName();this._setHandleClassName()}},_destroy:function(){if((this.helper||this.element).is(".ui-draggable-dragging")){this.destroyOnClear=true;return}this.element.removeClass("ui-draggable ui-draggable-dragging ui-draggable-disabled");this._removeHandleClassName();this._mouseDestroy()},_mouseCapture:function(ad){var ae=this.options;this._blurActiveElement(ad);if(this.helper||ae.disabled||I(ad.target).closest(".ui-resizable-handle").length>0){return false}this.handle=this._getHandle(ad);if(!this.handle){return false}this._blockFrames(ae.iframeFix===true?"iframe":ae.iframeFix);return true},_blockFrames:function(ad){this.iframeBlocks=this.document.find(ad).map(function(){var ae=I(this);return I("<div>").css("position","absolute").appendTo(ae.parent()).outerWidth(ae.outerWidth()).outerHeight(ae.outerHeight()).offset(ae.offset())[0]})},_unblockFrames:function(){if(this.iframeBlocks){this.iframeBlocks.remove();delete this.iframeBlocks}},_blurActiveElement:function(af){var ad=this.document[0];if(!this.handleElement.is(af.target)){return}try{if(ad.activeElement&&ad.activeElement.nodeName.toLowerCase()!=="body"){I(ad.activeElement).blur()}}catch(ae){}},_mouseStart:function(ad){var ae=this.options;this.helper=this._createHelper(ad);this.helper.addClass("ui-draggable-dragging");this._cacheHelperProportions();if(I.ui.ddmanager){I.ui.ddmanager.current=this}this._cacheMargins();this.cssPosition=this.helper.css("position");this.scrollParent=this.helper.scrollParent(true);this.offsetParent=this.helper.offsetParent();this.hasFixedAncestor=this.helper.parents().filter(function(){return I(this).css("position")==="fixed"}).length>0;this.positionAbs=this.element.offset();this._refreshOffsets(ad);this.originalPosition=this.position=this._generatePosition(ad,false);this.originalPageX=ad.pageX;this.originalPageY=ad.pageY;(ae.cursorAt&&this._adjustOffsetFromHelper(ae.cursorAt));this._setContainment();if(this._trigger("start",ad)===false){this._clear();return false}this._cacheHelperProportions();if(I.ui.ddmanager&&!ae.dropBehaviour){I.ui.ddmanager.prepareOffsets(this,ad)}this._normalizeRightBottom();this._mouseDrag(ad,true);if(I.ui.ddmanager){I.ui.ddmanager.dragStart(this,ad)}return true},_refreshOffsets:function(ad){this.offset={top:this.positionAbs.top-this.margins.top,left:this.positionAbs.left-this.margins.left,scroll:false,parent:this._getParentOffset(),relative:this._getRelativeOffset()};this.offset.click={left:ad.pageX-this.offset.left,top:ad.pageY-this.offset.top}},_mouseDrag:function(ad,af){if(this.hasFixedAncestor){this.offset.parent=this._getParentOffset()}this.position=this._generatePosition(ad,true);this.positionAbs=this._convertPositionTo("absolute");if(!af){var ae=this._uiHash();if(this._trigger("drag",ad,ae)===false){this._mouseUp({});return false}this.position=ae.position}this.helper[0].style.left=this.position.left+"px";this.helper[0].style.top=this.position.top+"px";if(I.ui.ddmanager){I.ui.ddmanager.drag(this,ad)}return false},_mouseStop:function(ae){var ad=this,af=false;if(I.ui.ddmanager&&!this.options.dropBehaviour){af=I.ui.ddmanager.drop(this,ae)}if(this.dropped){af=this.dropped;this.dropped=false}if((this.options.revert==="invalid"&&!af)||(this.options.revert==="valid"&&af)||this.options.revert===true||(I.isFunction(this.options.revert)&&this.options.revert.call(this.element,af))){I(this.helper).animate(this.originalPosition,parseInt(this.options.revertDuration,10),function(){if(ad._trigger("stop",ae)!==false){ad._clear()}})}else{if(this._trigger("stop",ae)!==false){this._clear()}}return false},_mouseUp:function(ad){this._unblockFrames();if(I.ui.ddmanager){I.ui.ddmanager.dragStop(this,ad)}if(this.handleElement.is(ad.target)){this.element.focus()}return I.ui.mouse.prototype._mouseUp.call(this,ad)},cancel:function(){if(this.helper.is(".ui-draggable-dragging")){this._mouseUp({})}else{this._clear()}return this},_getHandle:function(ad){return this.options.handle?!!I(ad.target).closest(this.element.find(this.options.handle)).length:true},_setHandleClassName:function(){this.handleElement=this.options.handle?this.element.find(this.options.handle):this.element;this.handleElement.addClass("ui-draggable-handle")},_removeHandleClassName:function(){this.handleElement.removeClass("ui-draggable-handle")},_createHelper:function(ae){var ag=this.options,af=I.isFunction(ag.helper),ad=af?I(ag.helper.apply(this.element[0],[ae])):(ag.helper==="clone"?this.element.clone().removeAttr("id"):this.element);if(!ad.parents("body").length){ad.appendTo((ag.appendTo==="parent"?this.element[0].parentNode:ag.appendTo))}if(af&&ad[0]===this.element[0]){this._setPositionRelative()}if(ad[0]!==this.element[0]&&!(/(fixed|absolute)/).test(ad.css("position"))){ad.css("position","absolute")}return ad},_setPositionRelative:function(){if(!(/^(?:r|a|f)/).test(this.element.css("position"))){this.element[0].style.position="relative"}},_adjustOffsetFromHelper:function(ad){if(typeof ad==="string"){ad=ad.split(" ")}if(I.isArray(ad)){ad={left:+ad[0],top:+ad[1]||0}}if("left" in ad){this.offset.click.left=ad.left+this.margins.left}if("right" in ad){this.offset.click.left=this.helperProportions.width-ad.right+this.margins.left}if("top" in ad){this.offset.click.top=ad.top+this.margins.top}if("bottom" in ad){this.offset.click.top=this.helperProportions.height-ad.bottom+this.margins.top}},_isRootNode:function(ad){return(/(html|body)/i).test(ad.tagName)||ad===this.document[0]},_getParentOffset:function(){var ae=this.offsetParent.offset(),ad=this.document[0];if(this.cssPosition==="absolute"&&this.scrollParent[0]!==ad&&I.contains(this.scrollParent[0],this.offsetParent[0])){ae.left+=this.scrollParent.scrollLeft();ae.top+=this.scrollParent.scrollTop()}if(this._isRootNode(this.offsetParent[0])){ae={top:0,left:0}}return{top:ae.top+(parseInt(this.offsetParent.css("borderTopWidth"),10)||0),left:ae.left+(parseInt(this.offsetParent.css("borderLeftWidth"),10)||0)}},_getRelativeOffset:function(){if(this.cssPosition!=="relative"){return{top:0,left:0}}var ad=this.element.position(),ae=this._isRootNode(this.scrollParent[0]);return{top:ad.top-(parseInt(this.helper.css("top"),10)||0)+(!ae?this.scrollParent.scrollTop():0),left:ad.left-(parseInt(this.helper.css("left"),10)||0)+(!ae?this.scrollParent.scrollLeft():0)}},_cacheMargins:function(){this.margins={left:(parseInt(this.element.css("marginLeft"),10)||0),top:(parseInt(this.element.css("marginTop"),10)||0),right:(parseInt(this.element.css("marginRight"),10)||0),bottom:(parseInt(this.element.css("marginBottom"),10)||0)}},_cacheHelperProportions:function(){this.helperProportions={width:this.helper.outerWidth(),height:this.helper.outerHeight()}},_setContainment:function(){var ae,ah,af,ag=this.options,ad=this.document[0];this.relativeContainer=null;if(!ag.containment){this.containment=null;return}if(ag.containment==="window"){this.containment=[I(window).scrollLeft()-this.offset.relative.left-this.offset.parent.left,I(window).scrollTop()-this.offset.relative.top-this.offset.parent.top,I(window).scrollLeft()+I(window).width()-this.helperProportions.width-this.margins.left,I(window).scrollTop()+(I(window).height()||ad.body.parentNode.scrollHeight)-this.helperProportions.height-this.margins.top];return}if(ag.containment==="document"){this.containment=[0,0,I(ad).width()-this.helperProportions.width-this.margins.left,(I(ad).height()||ad.body.parentNode.scrollHeight)-this.helperProportions.height-this.margins.top];return}if(ag.containment.constructor===Array){this.containment=ag.containment;return}if(ag.containment==="parent"){ag.containment=this.helper[0].parentNode}ah=I(ag.containment);af=ah[0];if(!af){return}ae=/(scroll|auto)/.test(ah.css("overflow"));this.containment=[(parseInt(ah.css("borderLeftWidth"),10)||0)+(parseInt(ah.css("paddingLeft"),10)||0),(parseInt(ah.css("borderTopWidth"),10)||0)+(parseInt(ah.css("paddingTop"),10)||0),(ae?Math.max(af.scrollWidth,af.offsetWidth):af.offsetWidth)-(parseInt(ah.css("borderRightWidth"),10)||0)-(parseInt(ah.css("paddingRight"),10)||0)-this.helperProportions.width-this.margins.left-this.margins.right,(ae?Math.max(af.scrollHeight,af.offsetHeight):af.offsetHeight)-(parseInt(ah.css("borderBottomWidth"),10)||0)-(parseInt(ah.css("paddingBottom"),10)||0)-this.helperProportions.height-this.margins.top-this.margins.bottom];this.relativeContainer=ah},_convertPositionTo:function(ae,ag){if(!ag){ag=this.position}var ad=ae==="absolute"?1:-1,af=this._isRootNode(this.scrollParent[0]);return{top:(ag.top+this.offset.relative.top*ad+this.offset.parent.top*ad-((this.cssPosition==="fixed"?-this.offset.scroll.top:(af?0:this.offset.scroll.top))*ad)),left:(ag.left+this.offset.relative.left*ad+this.offset.parent.left*ad-((this.cssPosition==="fixed"?-this.offset.scroll.left:(af?0:this.offset.scroll.left))*ad))}},_generatePosition:function(ae,ak){var ad,al,am,ag,af=this.options,aj=this._isRootNode(this.scrollParent[0]),ai=ae.pageX,ah=ae.pageY;if(!aj||!this.offset.scroll){this.offset.scroll={top:this.scrollParent.scrollTop(),left:this.scrollParent.scrollLeft()}}if(ak){if(this.containment){if(this.relativeContainer){al=this.relativeContainer.offset();ad=[this.containment[0]+al.left,this.containment[1]+al.top,this.containment[2]+al.left,this.containment[3]+al.top]}else{ad=this.containment}if(ae.pageX-this.offset.click.left<ad[0]){ai=ad[0]+this.offset.click.left}if(ae.pageY-this.offset.click.top<ad[1]){ah=ad[1]+this.offset.click.top}if(ae.pageX-this.offset.click.left>ad[2]){ai=ad[2]+this.offset.click.left}if(ae.pageY-this.offset.click.top>ad[3]){ah=ad[3]+this.offset.click.top}}if(af.grid){am=af.grid[1]?this.originalPageY+Math.round((ah-this.originalPageY)/af.grid[1])*af.grid[1]:this.originalPageY;ah=ad?((am-this.offset.click.top>=ad[1]||am-this.offset.click.top>ad[3])?am:((am-this.offset.click.top>=ad[1])?am-af.grid[1]:am+af.grid[1])):am;ag=af.grid[0]?this.originalPageX+Math.round((ai-this.originalPageX)/af.grid[0])*af.grid[0]:this.originalPageX;ai=ad?((ag-this.offset.click.left>=ad[0]||ag-this.offset.click.left>ad[2])?ag:((ag-this.offset.click.left>=ad[0])?ag-af.grid[0]:ag+af.grid[0])):ag}if(af.axis==="y"){ai=this.originalPageX}if(af.axis==="x"){ah=this.originalPageY}}return{top:(ah-this.offset.click.top-this.offset.relative.top-this.offset.parent.top+(this.cssPosition==="fixed"?-this.offset.scroll.top:(aj?0:this.offset.scroll.top))),left:(ai-this.offset.click.left-this.offset.relative.left-this.offset.parent.left+(this.cssPosition==="fixed"?-this.offset.scroll.left:(aj?0:this.offset.scroll.left)))}},_clear:function(){this.helper.removeClass("ui-draggable-dragging");if(this.helper[0]!==this.element[0]&&!this.cancelHelperRemoval){this.helper.remove()}this.helper=null;this.cancelHelperRemoval=false;if(this.destroyOnClear){this.destroy()}},_normalizeRightBottom:function(){if(this.options.axis!=="y"&&this.helper.css("right")!=="auto"){this.helper.width(this.helper.width());this.helper.css("right","auto")}if(this.options.axis!=="x"&&this.helper.css("bottom")!=="auto"){this.helper.height(this.helper.height());this.helper.css("bottom","auto")}},_trigger:function(ad,ae,af){af=af||this._uiHash();I.ui.plugin.call(this,ad,[ae,af,this],true);if(/^(drag|start|stop)/.test(ad)){this.positionAbs=this._convertPositionTo("absolute");af.offset=this.positionAbs}return I.Widget.prototype._trigger.call(this,ad,ae,af)},plugins:{},_uiHash:function(){return{helper:this.helper,position:this.position,originalPosition:this.originalPosition,offset:this.positionAbs}}});I.ui.plugin.add("draggable","connectToSortable",{start:function(af,ag,ad){var ae=I.extend({},ag,{item:ad.element});ad.sortables=[];I(ad.options.connectToSortable).each(function(){var ah=I(this).sortable("instance");if(ah&&!ah.options.disabled){ad.sortables.push(ah);ah.refreshPositions();ah._trigger("activate",af,ae)}})},stop:function(af,ag,ad){var ae=I.extend({},ag,{item:ad.element});ad.cancelHelperRemoval=false;I.each(ad.sortables,function(){var ah=this;if(ah.isOver){ah.isOver=0;ad.cancelHelperRemoval=true;ah.cancelHelperRemoval=false;ah._storedCSS={position:ah.placeholder.css("position"),top:ah.placeholder.css("top"),left:ah.placeholder.css("left")};ah._mouseStop(af);ah.options.helper=ah.options._helper}else{ah.cancelHelperRemoval=true;ah._trigger("deactivate",af,ae)}})},drag:function(ae,af,ad){I.each(ad.sortables,function(){var ag=false,ah=this;ah.positionAbs=ad.positionAbs;ah.helperProportions=ad.helperProportions;ah.offset.click=ad.offset.click;if(ah._intersectsWith(ah.containerCache)){ag=true;I.each(ad.sortables,function(){this.positionAbs=ad.positionAbs;this.helperProportions=ad.helperProportions;this.offset.click=ad.offset.click;if(this!==ah&&this._intersectsWith(this.containerCache)&&I.contains(ah.element[0],this.element[0])){ag=false}return ag})}if(ag){if(!ah.isOver){ah.isOver=1;ad._parent=af.helper.parent();ah.currentItem=af.helper.appendTo(ah.element).data("ui-sortable-item",true);ah.options._helper=ah.options.helper;ah.options.helper=function(){return af.helper[0]};ae.target=ah.currentItem[0];ah._mouseCapture(ae,true);ah._mouseStart(ae,true,true);ah.offset.click.top=ad.offset.click.top;ah.offset.click.left=ad.offset.click.left;ah.offset.parent.left-=ad.offset.parent.left-ah.offset.parent.left;ah.offset.parent.top-=ad.offset.parent.top-ah.offset.parent.top;ad._trigger("toSortable",ae);ad.dropped=ah.element;I.each(ad.sortables,function(){this.refreshPositions()});ad.currentItem=ad.element;ah.fromOutside=ad}if(ah.currentItem){ah._mouseDrag(ae);af.position=ah.position}}else{if(ah.isOver){ah.isOver=0;ah.cancelHelperRemoval=true;ah.options._revert=ah.options.revert;ah.options.revert=false;ah._trigger("out",ae,ah._uiHash(ah));ah._mouseStop(ae,true);ah.options.revert=ah.options._revert;ah.options.helper=ah.options._helper;if(ah.placeholder){ah.placeholder.remove()}af.helper.appendTo(ad._parent);ad._refreshOffsets(ae);af.position=ad._generatePosition(ae,true);ad._trigger("fromSortable",ae);ad.dropped=false;I.each(ad.sortables,function(){this.refreshPositions()})}}})}});I.ui.plugin.add("draggable","cursor",{start:function(af,ag,ad){var ae=I("body"),ah=ad.options;if(ae.css("cursor")){ah._cursor=ae.css("cursor")}ae.css("cursor",ah.cursor)},stop:function(ae,af,ad){var ag=ad.options;if(ag._cursor){I("body").css("cursor",ag._cursor)}}});I.ui.plugin.add("draggable","opacity",{start:function(af,ag,ad){var ae=I(ag.helper),ah=ad.options;if(ae.css("opacity")){ah._opacity=ae.css("opacity")}ae.css("opacity",ah.opacity)},stop:function(ae,af,ad){var ag=ad.options;if(ag._opacity){I(af.helper).css("opacity",ag._opacity)}}});I.ui.plugin.add("draggable","scroll",{start:function(ae,af,ad){if(!ad.scrollParentNotHidden){ad.scrollParentNotHidden=ad.helper.scrollParent(false)}if(ad.scrollParentNotHidden[0]!==ad.document[0]&&ad.scrollParentNotHidden[0].tagName!=="HTML"){ad.overflowOffset=ad.scrollParentNotHidden.offset()}},drag:function(ag,ah,af){var ai=af.options,ae=false,aj=af.scrollParentNotHidden[0],ad=af.document[0];if(aj!==ad&&aj.tagName!=="HTML"){if(!ai.axis||ai.axis!=="x"){if((af.overflowOffset.top+aj.offsetHeight)-ag.pageY<ai.scrollSensitivity){aj.scrollTop=ae=aj.scrollTop+ai.scrollSpeed}else{if(ag.pageY-af.overflowOffset.top<ai.scrollSensitivity){aj.scrollTop=ae=aj.scrollTop-ai.scrollSpeed}}}if(!ai.axis||ai.axis!=="y"){if((af.overflowOffset.left+aj.offsetWidth)-ag.pageX<ai.scrollSensitivity){aj.scrollLeft=ae=aj.scrollLeft+ai.scrollSpeed}else{if(ag.pageX-af.overflowOffset.left<ai.scrollSensitivity){aj.scrollLeft=ae=aj.scrollLeft-ai.scrollSpeed}}}}else{if(!ai.axis||ai.axis!=="x"){if(ag.pageY-I(ad).scrollTop()<ai.scrollSensitivity){ae=I(ad).scrollTop(I(ad).scrollTop()-ai.scrollSpeed)}else{if(I(window).height()-(ag.pageY-I(ad).scrollTop())<ai.scrollSensitivity){ae=I(ad).scrollTop(I(ad).scrollTop()+ai.scrollSpeed)}}}if(!ai.axis||ai.axis!=="y"){if(ag.pageX-I(ad).scrollLeft()<ai.scrollSensitivity){ae=I(ad).scrollLeft(I(ad).scrollLeft()-ai.scrollSpeed)}else{if(I(window).width()-(ag.pageX-I(ad).scrollLeft())<ai.scrollSensitivity){ae=I(ad).scrollLeft(I(ad).scrollLeft()+ai.scrollSpeed)}}}}if(ae!==false&&I.ui.ddmanager&&!ai.dropBehaviour){I.ui.ddmanager.prepareOffsets(af,ag)}}});I.ui.plugin.add("draggable","snap",{start:function(ae,af,ad){var ag=ad.options;ad.snapElements=[];I(ag.snap.constructor!==String?(ag.snap.items||":data(ui-draggable)"):ag.snap).each(function(){var ai=I(this),ah=ai.offset();if(this!==ad.element[0]){ad.snapElements.push({item:this,width:ai.outerWidth(),height:ai.outerHeight(),top:ah.top,left:ah.left})}})},drag:function(ap,am,ag){var ad,av,ai,aj,ao,al,ak,aw,aq,ah,an=ag.options,au=an.snapTolerance,at=am.offset.left,ar=at+ag.helperProportions.width,af=am.offset.top,ae=af+ag.helperProportions.height;for(aq=ag.snapElements.length-1;aq>=0;aq--){ao=ag.snapElements[aq].left-ag.margins.left;al=ao+ag.snapElements[aq].width;ak=ag.snapElements[aq].top-ag.margins.top;aw=ak+ag.snapElements[aq].height;if(ar<ao-au||at>al+au||ae<ak-au||af>aw+au||!I.contains(ag.snapElements[aq].item.ownerDocument,ag.snapElements[aq].item)){if(ag.snapElements[aq].snapping){(ag.options.snap.release&&ag.options.snap.release.call(ag.element,ap,I.extend(ag._uiHash(),{snapItem:ag.snapElements[aq].item})))}ag.snapElements[aq].snapping=false;continue}if(an.snapMode!=="inner"){ad=Math.abs(ak-ae)<=au;av=Math.abs(aw-af)<=au;ai=Math.abs(ao-ar)<=au;aj=Math.abs(al-at)<=au;if(ad){am.position.top=ag._convertPositionTo("relative",{top:ak-ag.helperProportions.height,left:0}).top}if(av){am.position.top=ag._convertPositionTo("relative",{top:aw,left:0}).top}if(ai){am.position.left=ag._convertPositionTo("relative",{top:0,left:ao-ag.helperProportions.width}).left}if(aj){am.position.left=ag._convertPositionTo("relative",{top:0,left:al}).left}}ah=(ad||av||ai||aj);if(an.snapMode!=="outer"){ad=Math.abs(ak-af)<=au;av=Math.abs(aw-ae)<=au;ai=Math.abs(ao-at)<=au;aj=Math.abs(al-ar)<=au;if(ad){am.position.top=ag._convertPositionTo("relative",{top:ak,left:0}).top}if(av){am.position.top=ag._convertPositionTo("relative",{top:aw-ag.helperProportions.height,left:0}).top}if(ai){am.position.left=ag._convertPositionTo("relative",{top:0,left:ao}).left}if(aj){am.position.left=ag._convertPositionTo("relative",{top:0,left:al-ag.helperProportions.width}).left}}if(!ag.snapElements[aq].snapping&&(ad||av||ai||aj||ah)){(ag.options.snap.snap&&ag.options.snap.snap.call(ag.element,ap,I.extend(ag._uiHash(),{snapItem:ag.snapElements[aq].item})))}ag.snapElements[aq].snapping=(ad||av||ai||aj||ah)}}});I.ui.plugin.add("draggable","stack",{start:function(af,ag,ad){var ae,ai=ad.options,ah=I.makeArray(I(ai.stack)).sort(function(ak,aj){return(parseInt(I(ak).css("zIndex"),10)||0)-(parseInt(I(aj).css("zIndex"),10)||0)});if(!ah.length){return}ae=parseInt(I(ah[0]).css("zIndex"),10)||0;I(ah).each(function(aj){I(this).css("zIndex",ae+aj)});this.css("zIndex",(ae+ah.length))}});I.ui.plugin.add("draggable","zIndex",{start:function(af,ag,ad){var ae=I(ag.helper),ah=ad.options;if(ae.css("zIndex")){ah._zIndex=ae.css("zIndex")}ae.css("zIndex",ah.zIndex)},stop:function(ae,af,ad){var ag=ad.options;if(ag._zIndex){I(af.helper).css("zIndex",ag._zIndex)}}});var W=I.ui.draggable;
+
+
+$.widget("ui.draggable", $.ui.mouse, {
+	version: "1.11.4",
+	widgetEventPrefix: "drag",
+	options: {
+		addClasses: true,
+		appendTo: "parent",
+		axis: false,
+		connectToSortable: false,
+		containment: false,
+		cursor: "auto",
+		cursorAt: false,
+		grid: false,
+		handle: false,
+		helper: "original",
+		iframeFix: false,
+		opacity: false,
+		refreshPositions: false,
+		revert: false,
+		revertDuration: 500,
+		scope: "default",
+		scroll: true,
+		scrollSensitivity: 20,
+		scrollSpeed: 20,
+		snap: false,
+		snapMode: "both",
+		snapTolerance: 20,
+		stack: false,
+		zIndex: false,
+
+		// callbacks
+		drag: null,
+		start: null,
+		stop: null
+	},
+	_create: function() {
+
+		if ( this.options.helper === "original" ) {
+			this._setPositionRelative();
+		}
+		if (this.options.addClasses){
+			this.element.addClass("ui-draggable");
+		}
+		if (this.options.disabled){
+			this.element.addClass("ui-draggable-disabled");
+		}
+		this._setHandleClassName();
+
+		this._mouseInit();
+	},
+
+	_setOption: function( key, value ) {
+		this._super( key, value );
+		if ( key === "handle" ) {
+			this._removeHandleClassName();
+			this._setHandleClassName();
+		}
+	},
+
+	_destroy: function() {
+		if ( ( this.helper || this.element ).is( ".ui-draggable-dragging" ) ) {
+			this.destroyOnClear = true;
+			return;
+		}
+		this.element.removeClass( "ui-draggable ui-draggable-dragging ui-draggable-disabled" );
+		this._removeHandleClassName();
+		this._mouseDestroy();
+	},
+
+	_mouseCapture: function(event) {
+		var o = this.options;
+
+		this._blurActiveElement( event );
+
+		// among others, prevent a drag on a resizable-handle
+		if (this.helper || o.disabled || $(event.target).closest(".ui-resizable-handle").length > 0) {
+			return false;
+		}
+
+		//Quit if we're not on a valid handle
+		this.handle = this._getHandle(event);
+		if (!this.handle) {
+			return false;
+		}
+
+		this._blockFrames( o.iframeFix === true ? "iframe" : o.iframeFix );
+
+		return true;
+
+	},
+
+	_blockFrames: function( selector ) {
+		this.iframeBlocks = this.document.find( selector ).map(function() {
+			var iframe = $( this );
+
+			return $( "<div>" )
+				.css( "position", "absolute" )
+				.appendTo( iframe.parent() )
+				.outerWidth( iframe.outerWidth() )
+				.outerHeight( iframe.outerHeight() )
+				.offset( iframe.offset() )[ 0 ];
+		});
+	},
+
+	_unblockFrames: function() {
+		if ( this.iframeBlocks ) {
+			this.iframeBlocks.remove();
+			delete this.iframeBlocks;
+		}
+	},
+
+	_blurActiveElement: function( event ) {
+		var document = this.document[ 0 ];
+
+		// Only need to blur if the event occurred on the draggable itself, see #10527
+		if ( !this.handleElement.is( event.target ) ) {
+			return;
+		}
+
+		// support: IE9
+		// IE9 throws an "Unspecified error" accessing document.activeElement from an <iframe>
+		try {
+
+			// Support: IE9, IE10
+			// If the <body> is blurred, IE will switch windows, see #9520
+			if ( document.activeElement && document.activeElement.nodeName.toLowerCase() !== "body" ) {
+
+				// Blur any element that currently has focus, see #4261
+				$( document.activeElement ).blur();
+			}
+		} catch ( error ) {}
+	},
+
+	_mouseStart: function(event) {
+
+		var o = this.options;
+
+		//Create and append the visible helper
+		this.helper = this._createHelper(event);
+
+		this.helper.addClass("ui-draggable-dragging");
+
+		//Cache the helper size
+		this._cacheHelperProportions();
+
+		//If ddmanager is used for droppables, set the global draggable
+		if ($.ui.ddmanager) {
+			$.ui.ddmanager.current = this;
+		}
+
+		/*
+		 * - Position generation -
+		 * This block generates everything position related - it's the core of draggables.
+		 */
+
+		//Cache the margins of the original element
+		this._cacheMargins();
+
+		//Store the helper's css position
+		this.cssPosition = this.helper.css( "position" );
+		this.scrollParent = this.helper.scrollParent( true );
+		this.offsetParent = this.helper.offsetParent();
+		this.hasFixedAncestor = this.helper.parents().filter(function() {
+				return $( this ).css( "position" ) === "fixed";
+			}).length > 0;
+
+		//The element's absolute position on the page minus margins
+		this.positionAbs = this.element.offset();
+		this._refreshOffsets( event );
+
+		//Generate the original position
+		this.originalPosition = this.position = this._generatePosition( event, false );
+		this.originalPageX = event.pageX;
+		this.originalPageY = event.pageY;
+
+		//Adjust the mouse offset relative to the helper if "cursorAt" is supplied
+		(o.cursorAt && this._adjustOffsetFromHelper(o.cursorAt));
+
+		//Set a containment if given in the options
+		this._setContainment();
+
+		//Trigger event + callbacks
+		if (this._trigger("start", event) === false) {
+			this._clear();
+			return false;
+		}
+
+		//Recache the helper size
+		this._cacheHelperProportions();
+
+		//Prepare the droppable offsets
+		if ($.ui.ddmanager && !o.dropBehaviour) {
+			$.ui.ddmanager.prepareOffsets(this, event);
+		}
+
+		// Reset helper's right/bottom css if they're set and set explicit width/height instead
+		// as this prevents resizing of elements with right/bottom set (see #7772)
+		this._normalizeRightBottom();
+
+		this._mouseDrag(event, true); //Execute the drag once - this causes the helper not to be visible before getting its correct position
+
+		//If the ddmanager is used for droppables, inform the manager that dragging has started (see #5003)
+		if ( $.ui.ddmanager ) {
+			$.ui.ddmanager.dragStart(this, event);
+		}
+
+		return true;
+	},
+
+	_refreshOffsets: function( event ) {
+		this.offset = {
+			top: this.positionAbs.top - this.margins.top,
+			left: this.positionAbs.left - this.margins.left,
+			scroll: false,
+			parent: this._getParentOffset(),
+			relative: this._getRelativeOffset()
+		};
+
+		this.offset.click = {
+			left: event.pageX - this.offset.left,
+			top: event.pageY - this.offset.top
+		};
+	},
+
+	_mouseDrag: function(event, noPropagation) {
+		// reset any necessary cached properties (see #5009)
+		if ( this.hasFixedAncestor ) {
+			this.offset.parent = this._getParentOffset();
+		}
+
+		//Compute the helpers position
+		this.position = this._generatePosition( event, true );
+		this.positionAbs = this._convertPositionTo("absolute");
+
+		//Call plugins and callbacks and use the resulting position if something is returned
+		if (!noPropagation) {
+			var ui = this._uiHash();
+			if (this._trigger("drag", event, ui) === false) {
+				this._mouseUp({});
+				return false;
+			}
+			this.position = ui.position;
+		}
+
+		this.helper[ 0 ].style.left = this.position.left + "px";
+		this.helper[ 0 ].style.top = this.position.top + "px";
+
+		if ($.ui.ddmanager) {
+			$.ui.ddmanager.drag(this, event);
+		}
+
+		return false;
+	},
+
+	_mouseStop: function(event) {
+
+		//If we are using droppables, inform the manager about the drop
+		var that = this,
+			dropped = false;
+		if ($.ui.ddmanager && !this.options.dropBehaviour) {
+			dropped = $.ui.ddmanager.drop(this, event);
+		}
+
+		//if a drop comes from outside (a sortable)
+		if (this.dropped) {
+			dropped = this.dropped;
+			this.dropped = false;
+		}
+
+		if ((this.options.revert === "invalid" && !dropped) || (this.options.revert === "valid" && dropped) || this.options.revert === true || ($.isFunction(this.options.revert) && this.options.revert.call(this.element, dropped))) {
+			$(this.helper).animate(this.originalPosition, parseInt(this.options.revertDuration, 10), function() {
+				if (that._trigger("stop", event) !== false) {
+					that._clear();
+				}
+			});
+		} else {
+			if (this._trigger("stop", event) !== false) {
+				this._clear();
+			}
+		}
+
+		return false;
+	},
+
+	_mouseUp: function( event ) {
+		this._unblockFrames();
+
+		//If the ddmanager is used for droppables, inform the manager that dragging has stopped (see #5003)
+		if ( $.ui.ddmanager ) {
+			$.ui.ddmanager.dragStop(this, event);
+		}
+
+		// Only need to focus if the event occurred on the draggable itself, see #10527
+		if ( this.handleElement.is( event.target ) ) {
+			// The interaction is over; whether or not the click resulted in a drag, focus the element
+			this.element.focus();
+		}
+
+		return $.ui.mouse.prototype._mouseUp.call(this, event);
+	},
+
+	cancel: function() {
+
+		if (this.helper.is(".ui-draggable-dragging")) {
+			this._mouseUp({});
+		} else {
+			this._clear();
+		}
+
+		return this;
+
+	},
+
+	_getHandle: function(event) {
+		return this.options.handle ?
+			!!$( event.target ).closest( this.element.find( this.options.handle ) ).length :
+			true;
+	},
+
+	_setHandleClassName: function() {
+		this.handleElement = this.options.handle ?
+			this.element.find( this.options.handle ) : this.element;
+		this.handleElement.addClass( "ui-draggable-handle" );
+	},
+
+	_removeHandleClassName: function() {
+		this.handleElement.removeClass( "ui-draggable-handle" );
+	},
+
+	_createHelper: function(event) {
+
+		var o = this.options,
+			helperIsFunction = $.isFunction( o.helper ),
+			helper = helperIsFunction ?
+				$( o.helper.apply( this.element[ 0 ], [ event ] ) ) :
+				( o.helper === "clone" ?
+					this.element.clone().removeAttr( "id" ) :
+					this.element );
+
+		if (!helper.parents("body").length) {
+			helper.appendTo((o.appendTo === "parent" ? this.element[0].parentNode : o.appendTo));
+		}
+
+		// http://bugs.jqueryui.com/ticket/9446
+		// a helper function can return the original element
+		// which wouldn't have been set to relative in _create
+		if ( helperIsFunction && helper[ 0 ] === this.element[ 0 ] ) {
+			this._setPositionRelative();
+		}
+
+		if (helper[0] !== this.element[0] && !(/(fixed|absolute)/).test(helper.css("position"))) {
+			helper.css("position", "absolute");
+		}
+
+		return helper;
+
+	},
+
+	_setPositionRelative: function() {
+		if ( !( /^(?:r|a|f)/ ).test( this.element.css( "position" ) ) ) {
+			this.element[ 0 ].style.position = "relative";
+		}
+	},
+
+	_adjustOffsetFromHelper: function(obj) {
+		if (typeof obj === "string") {
+			obj = obj.split(" ");
+		}
+		if ($.isArray(obj)) {
+			obj = { left: +obj[0], top: +obj[1] || 0 };
+		}
+		if ("left" in obj) {
+			this.offset.click.left = obj.left + this.margins.left;
+		}
+		if ("right" in obj) {
+			this.offset.click.left = this.helperProportions.width - obj.right + this.margins.left;
+		}
+		if ("top" in obj) {
+			this.offset.click.top = obj.top + this.margins.top;
+		}
+		if ("bottom" in obj) {
+			this.offset.click.top = this.helperProportions.height - obj.bottom + this.margins.top;
+		}
+	},
+
+	_isRootNode: function( element ) {
+		return ( /(html|body)/i ).test( element.tagName ) || element === this.document[ 0 ];
+	},
+
+	_getParentOffset: function() {
+
+		//Get the offsetParent and cache its position
+		var po = this.offsetParent.offset(),
+			document = this.document[ 0 ];
+
+		// This is a special case where we need to modify a offset calculated on start, since the following happened:
+		// 1. The position of the helper is absolute, so it's position is calculated based on the next positioned parent
+		// 2. The actual offset parent is a child of the scroll parent, and the scroll parent isn't the document, which means that
+		//    the scroll is included in the initial calculation of the offset of the parent, and never recalculated upon drag
+		if (this.cssPosition === "absolute" && this.scrollParent[0] !== document && $.contains(this.scrollParent[0], this.offsetParent[0])) {
+			po.left += this.scrollParent.scrollLeft();
+			po.top += this.scrollParent.scrollTop();
+		}
+
+		if ( this._isRootNode( this.offsetParent[ 0 ] ) ) {
+			po = { top: 0, left: 0 };
+		}
+
+		return {
+			top: po.top + (parseInt(this.offsetParent.css("borderTopWidth"), 10) || 0),
+			left: po.left + (parseInt(this.offsetParent.css("borderLeftWidth"), 10) || 0)
+		};
+
+	},
+
+	_getRelativeOffset: function() {
+		if ( this.cssPosition !== "relative" ) {
+			return { top: 0, left: 0 };
+		}
+
+		var p = this.element.position(),
+			scrollIsRootNode = this._isRootNode( this.scrollParent[ 0 ] );
+
+		return {
+			top: p.top - ( parseInt(this.helper.css( "top" ), 10) || 0 ) + ( !scrollIsRootNode ? this.scrollParent.scrollTop() : 0 ),
+			left: p.left - ( parseInt(this.helper.css( "left" ), 10) || 0 ) + ( !scrollIsRootNode ? this.scrollParent.scrollLeft() : 0 )
+		};
+
+	},
+
+	_cacheMargins: function() {
+		this.margins = {
+			left: (parseInt(this.element.css("marginLeft"), 10) || 0),
+			top: (parseInt(this.element.css("marginTop"), 10) || 0),
+			right: (parseInt(this.element.css("marginRight"), 10) || 0),
+			bottom: (parseInt(this.element.css("marginBottom"), 10) || 0)
+		};
+	},
+
+	_cacheHelperProportions: function() {
+		this.helperProportions = {
+			width: this.helper.outerWidth(),
+			height: this.helper.outerHeight()
+		};
+	},
+
+	_setContainment: function() {
+
+		var isUserScrollable, c, ce,
+			o = this.options,
+			document = this.document[ 0 ];
+
+		this.relativeContainer = null;
+
+		if ( !o.containment ) {
+			this.containment = null;
+			return;
+		}
+
+		if ( o.containment === "window" ) {
+			this.containment = [
+				$( window ).scrollLeft() - this.offset.relative.left - this.offset.parent.left,
+				$( window ).scrollTop() - this.offset.relative.top - this.offset.parent.top,
+				$( window ).scrollLeft() + $( window ).width() - this.helperProportions.width - this.margins.left,
+				$( window ).scrollTop() + ( $( window ).height() || document.body.parentNode.scrollHeight ) - this.helperProportions.height - this.margins.top
+			];
+			return;
+		}
+
+		if ( o.containment === "document") {
+			this.containment = [
+				0,
+				0,
+				$( document ).width() - this.helperProportions.width - this.margins.left,
+				( $( document ).height() || document.body.parentNode.scrollHeight ) - this.helperProportions.height - this.margins.top
+			];
+			return;
+		}
+
+		if ( o.containment.constructor === Array ) {
+			this.containment = o.containment;
+			return;
+		}
+
+		if ( o.containment === "parent" ) {
+			o.containment = this.helper[ 0 ].parentNode;
+		}
+
+		c = $( o.containment );
+		ce = c[ 0 ];
+
+		if ( !ce ) {
+			return;
+		}
+
+		isUserScrollable = /(scroll|auto)/.test( c.css( "overflow" ) );
+
+		this.containment = [
+			( parseInt( c.css( "borderLeftWidth" ), 10 ) || 0 ) + ( parseInt( c.css( "paddingLeft" ), 10 ) || 0 ),
+			( parseInt( c.css( "borderTopWidth" ), 10 ) || 0 ) + ( parseInt( c.css( "paddingTop" ), 10 ) || 0 ),
+			( isUserScrollable ? Math.max( ce.scrollWidth, ce.offsetWidth ) : ce.offsetWidth ) -
+				( parseInt( c.css( "borderRightWidth" ), 10 ) || 0 ) -
+				( parseInt( c.css( "paddingRight" ), 10 ) || 0 ) -
+				this.helperProportions.width -
+				this.margins.left -
+				this.margins.right,
+			( isUserScrollable ? Math.max( ce.scrollHeight, ce.offsetHeight ) : ce.offsetHeight ) -
+				( parseInt( c.css( "borderBottomWidth" ), 10 ) || 0 ) -
+				( parseInt( c.css( "paddingBottom" ), 10 ) || 0 ) -
+				this.helperProportions.height -
+				this.margins.top -
+				this.margins.bottom
+		];
+		this.relativeContainer = c;
+	},
+
+	_convertPositionTo: function(d, pos) {
+
+		if (!pos) {
+			pos = this.position;
+		}
+
+		var mod = d === "absolute" ? 1 : -1,
+			scrollIsRootNode = this._isRootNode( this.scrollParent[ 0 ] );
+
+		return {
+			top: (
+				pos.top	+																// The absolute mouse position
+				this.offset.relative.top * mod +										// Only for relative positioned nodes: Relative offset from element to offset parent
+				this.offset.parent.top * mod -										// The offsetParent's offset without borders (offset + border)
+				( ( this.cssPosition === "fixed" ? -this.offset.scroll.top : ( scrollIsRootNode ? 0 : this.offset.scroll.top ) ) * mod)
+			),
+			left: (
+				pos.left +																// The absolute mouse position
+				this.offset.relative.left * mod +										// Only for relative positioned nodes: Relative offset from element to offset parent
+				this.offset.parent.left * mod	-										// The offsetParent's offset without borders (offset + border)
+				( ( this.cssPosition === "fixed" ? -this.offset.scroll.left : ( scrollIsRootNode ? 0 : this.offset.scroll.left ) ) * mod)
+			)
+		};
+
+	},
+
+	_generatePosition: function( event, constrainPosition ) {
+
+		var containment, co, top, left,
+			o = this.options,
+			scrollIsRootNode = this._isRootNode( this.scrollParent[ 0 ] ),
+			pageX = event.pageX,
+			pageY = event.pageY;
+
+		// Cache the scroll
+		if ( !scrollIsRootNode || !this.offset.scroll ) {
+			this.offset.scroll = {
+				top: this.scrollParent.scrollTop(),
+				left: this.scrollParent.scrollLeft()
+			};
+		}
+
+		/*
+		 * - Position constraining -
+		 * Constrain the position to a mix of grid, containment.
+		 */
+
+		// If we are not dragging yet, we won't check for options
+		if ( constrainPosition ) {
+			if ( this.containment ) {
+				if ( this.relativeContainer ){
+					co = this.relativeContainer.offset();
+					containment = [
+						this.containment[ 0 ] + co.left,
+						this.containment[ 1 ] + co.top,
+						this.containment[ 2 ] + co.left,
+						this.containment[ 3 ] + co.top
+					];
+				} else {
+					containment = this.containment;
+				}
+
+				if (event.pageX - this.offset.click.left < containment[0]) {
+					pageX = containment[0] + this.offset.click.left;
+				}
+				if (event.pageY - this.offset.click.top < containment[1]) {
+					pageY = containment[1] + this.offset.click.top;
+				}
+				if (event.pageX - this.offset.click.left > containment[2]) {
+					pageX = containment[2] + this.offset.click.left;
+				}
+				if (event.pageY - this.offset.click.top > containment[3]) {
+					pageY = containment[3] + this.offset.click.top;
+				}
+			}
+
+			if (o.grid) {
+				//Check for grid elements set to 0 to prevent divide by 0 error causing invalid argument errors in IE (see ticket #6950)
+				top = o.grid[1] ? this.originalPageY + Math.round((pageY - this.originalPageY) / o.grid[1]) * o.grid[1] : this.originalPageY;
+				pageY = containment ? ((top - this.offset.click.top >= containment[1] || top - this.offset.click.top > containment[3]) ? top : ((top - this.offset.click.top >= containment[1]) ? top - o.grid[1] : top + o.grid[1])) : top;
+
+				left = o.grid[0] ? this.originalPageX + Math.round((pageX - this.originalPageX) / o.grid[0]) * o.grid[0] : this.originalPageX;
+				pageX = containment ? ((left - this.offset.click.left >= containment[0] || left - this.offset.click.left > containment[2]) ? left : ((left - this.offset.click.left >= containment[0]) ? left - o.grid[0] : left + o.grid[0])) : left;
+			}
+
+			if ( o.axis === "y" ) {
+				pageX = this.originalPageX;
+			}
+
+			if ( o.axis === "x" ) {
+				pageY = this.originalPageY;
+			}
+		}
+
+		return {
+			top: (
+				pageY -																	// The absolute mouse position
+				this.offset.click.top	-												// Click offset (relative to the element)
+				this.offset.relative.top -												// Only for relative positioned nodes: Relative offset from element to offset parent
+				this.offset.parent.top +												// The offsetParent's offset without borders (offset + border)
+				( this.cssPosition === "fixed" ? -this.offset.scroll.top : ( scrollIsRootNode ? 0 : this.offset.scroll.top ) )
+			),
+			left: (
+				pageX -																	// The absolute mouse position
+				this.offset.click.left -												// Click offset (relative to the element)
+				this.offset.relative.left -												// Only for relative positioned nodes: Relative offset from element to offset parent
+				this.offset.parent.left +												// The offsetParent's offset without borders (offset + border)
+				( this.cssPosition === "fixed" ? -this.offset.scroll.left : ( scrollIsRootNode ? 0 : this.offset.scroll.left ) )
+			)
+		};
+
+	},
+
+	_clear: function() {
+		this.helper.removeClass("ui-draggable-dragging");
+		if (this.helper[0] !== this.element[0] && !this.cancelHelperRemoval) {
+			this.helper.remove();
+		}
+		this.helper = null;
+		this.cancelHelperRemoval = false;
+		if ( this.destroyOnClear ) {
+			this.destroy();
+		}
+	},
+
+	_normalizeRightBottom: function() {
+		if ( this.options.axis !== "y" && this.helper.css( "right" ) !== "auto" ) {
+			this.helper.width( this.helper.width() );
+			this.helper.css( "right", "auto" );
+		}
+		if ( this.options.axis !== "x" && this.helper.css( "bottom" ) !== "auto" ) {
+			this.helper.height( this.helper.height() );
+			this.helper.css( "bottom", "auto" );
+		}
+	},
+
+	// From now on bulk stuff - mainly helpers
+
+	_trigger: function( type, event, ui ) {
+		ui = ui || this._uiHash();
+		$.ui.plugin.call( this, type, [ event, ui, this ], true );
+
+		// Absolute position and offset (see #6884 ) have to be recalculated after plugins
+		if ( /^(drag|start|stop)/.test( type ) ) {
+			this.positionAbs = this._convertPositionTo( "absolute" );
+			ui.offset = this.positionAbs;
+		}
+		return $.Widget.prototype._trigger.call( this, type, event, ui );
+	},
+
+	plugins: {},
+
+	_uiHash: function() {
+		return {
+			helper: this.helper,
+			position: this.position,
+			originalPosition: this.originalPosition,
+			offset: this.positionAbs
+		};
+	}
+
+});
+
+$.ui.plugin.add( "draggable", "connectToSortable", {
+	start: function( event, ui, draggable ) {
+		var uiSortable = $.extend( {}, ui, {
+			item: draggable.element
+		});
+
+		draggable.sortables = [];
+		$( draggable.options.connectToSortable ).each(function() {
+			var sortable = $( this ).sortable( "instance" );
+
+			if ( sortable && !sortable.options.disabled ) {
+				draggable.sortables.push( sortable );
+
+				// refreshPositions is called at drag start to refresh the containerCache
+				// which is used in drag. This ensures it's initialized and synchronized
+				// with any changes that might have happened on the page since initialization.
+				sortable.refreshPositions();
+				sortable._trigger("activate", event, uiSortable);
+			}
+		});
+	},
+	stop: function( event, ui, draggable ) {
+		var uiSortable = $.extend( {}, ui, {
+			item: draggable.element
+		});
+
+		draggable.cancelHelperRemoval = false;
+
+		$.each( draggable.sortables, function() {
+			var sortable = this;
+
+			if ( sortable.isOver ) {
+				sortable.isOver = 0;
+
+				// Allow this sortable to handle removing the helper
+				draggable.cancelHelperRemoval = true;
+				sortable.cancelHelperRemoval = false;
+
+				// Use _storedCSS To restore properties in the sortable,
+				// as this also handles revert (#9675) since the draggable
+				// may have modified them in unexpected ways (#8809)
+				sortable._storedCSS = {
+					position: sortable.placeholder.css( "position" ),
+					top: sortable.placeholder.css( "top" ),
+					left: sortable.placeholder.css( "left" )
+				};
+
+				sortable._mouseStop(event);
+
+				// Once drag has ended, the sortable should return to using
+				// its original helper, not the shared helper from draggable
+				sortable.options.helper = sortable.options._helper;
+			} else {
+				// Prevent this Sortable from removing the helper.
+				// However, don't set the draggable to remove the helper
+				// either as another connected Sortable may yet handle the removal.
+				sortable.cancelHelperRemoval = true;
+
+				sortable._trigger( "deactivate", event, uiSortable );
+			}
+		});
+	},
+	drag: function( event, ui, draggable ) {
+		$.each( draggable.sortables, function() {
+			var innermostIntersecting = false,
+				sortable = this;
+
+			// Copy over variables that sortable's _intersectsWith uses
+			sortable.positionAbs = draggable.positionAbs;
+			sortable.helperProportions = draggable.helperProportions;
+			sortable.offset.click = draggable.offset.click;
+
+			if ( sortable._intersectsWith( sortable.containerCache ) ) {
+				innermostIntersecting = true;
+
+				$.each( draggable.sortables, function() {
+					// Copy over variables that sortable's _intersectsWith uses
+					this.positionAbs = draggable.positionAbs;
+					this.helperProportions = draggable.helperProportions;
+					this.offset.click = draggable.offset.click;
+
+					if ( this !== sortable &&
+							this._intersectsWith( this.containerCache ) &&
+							$.contains( sortable.element[ 0 ], this.element[ 0 ] ) ) {
+						innermostIntersecting = false;
+					}
+
+					return innermostIntersecting;
+				});
+			}
+
+			if ( innermostIntersecting ) {
+				// If it intersects, we use a little isOver variable and set it once,
+				// so that the move-in stuff gets fired only once.
+				if ( !sortable.isOver ) {
+					sortable.isOver = 1;
+
+					// Store draggable's parent in case we need to reappend to it later.
+					draggable._parent = ui.helper.parent();
+
+					sortable.currentItem = ui.helper
+						.appendTo( sortable.element )
+						.data( "ui-sortable-item", true );
+
+					// Store helper option to later restore it
+					sortable.options._helper = sortable.options.helper;
+
+					sortable.options.helper = function() {
+						return ui.helper[ 0 ];
+					};
+
+					// Fire the start events of the sortable with our passed browser event,
+					// and our own helper (so it doesn't create a new one)
+					event.target = sortable.currentItem[ 0 ];
+					sortable._mouseCapture( event, true );
+					sortable._mouseStart( event, true, true );
+
+					// Because the browser event is way off the new appended portlet,
+					// modify necessary variables to reflect the changes
+					sortable.offset.click.top = draggable.offset.click.top;
+					sortable.offset.click.left = draggable.offset.click.left;
+					sortable.offset.parent.left -= draggable.offset.parent.left -
+						sortable.offset.parent.left;
+					sortable.offset.parent.top -= draggable.offset.parent.top -
+						sortable.offset.parent.top;
+
+					draggable._trigger( "toSortable", event );
+
+					// Inform draggable that the helper is in a valid drop zone,
+					// used solely in the revert option to handle "valid/invalid".
+					draggable.dropped = sortable.element;
+
+					// Need to refreshPositions of all sortables in the case that
+					// adding to one sortable changes the location of the other sortables (#9675)
+					$.each( draggable.sortables, function() {
+						this.refreshPositions();
+					});
+
+					// hack so receive/update callbacks work (mostly)
+					draggable.currentItem = draggable.element;
+					sortable.fromOutside = draggable;
+				}
+
+				if ( sortable.currentItem ) {
+					sortable._mouseDrag( event );
+					// Copy the sortable's position because the draggable's can potentially reflect
+					// a relative position, while sortable is always absolute, which the dragged
+					// element has now become. (#8809)
+					ui.position = sortable.position;
+				}
+			} else {
+				// If it doesn't intersect with the sortable, and it intersected before,
+				// we fake the drag stop of the sortable, but make sure it doesn't remove
+				// the helper by using cancelHelperRemoval.
+				if ( sortable.isOver ) {
+
+					sortable.isOver = 0;
+					sortable.cancelHelperRemoval = true;
+
+					// Calling sortable's mouseStop would trigger a revert,
+					// so revert must be temporarily false until after mouseStop is called.
+					sortable.options._revert = sortable.options.revert;
+					sortable.options.revert = false;
+
+					sortable._trigger( "out", event, sortable._uiHash( sortable ) );
+					sortable._mouseStop( event, true );
+
+					// restore sortable behaviors that were modfied
+					// when the draggable entered the sortable area (#9481)
+					sortable.options.revert = sortable.options._revert;
+					sortable.options.helper = sortable.options._helper;
+
+					if ( sortable.placeholder ) {
+						sortable.placeholder.remove();
+					}
+
+					// Restore and recalculate the draggable's offset considering the sortable
+					// may have modified them in unexpected ways. (#8809, #10669)
+					ui.helper.appendTo( draggable._parent );
+					draggable._refreshOffsets( event );
+					ui.position = draggable._generatePosition( event, true );
+
+					draggable._trigger( "fromSortable", event );
+
+					// Inform draggable that the helper is no longer in a valid drop zone
+					draggable.dropped = false;
+
+					// Need to refreshPositions of all sortables just in case removing
+					// from one sortable changes the location of other sortables (#9675)
+					$.each( draggable.sortables, function() {
+						this.refreshPositions();
+					});
+				}
+			}
+		});
+	}
+});
+
+$.ui.plugin.add("draggable", "cursor", {
+	start: function( event, ui, instance ) {
+		var t = $( "body" ),
+			o = instance.options;
+
+		if (t.css("cursor")) {
+			o._cursor = t.css("cursor");
+		}
+		t.css("cursor", o.cursor);
+	},
+	stop: function( event, ui, instance ) {
+		var o = instance.options;
+		if (o._cursor) {
+			$("body").css("cursor", o._cursor);
+		}
+	}
+});
+
+$.ui.plugin.add("draggable", "opacity", {
+	start: function( event, ui, instance ) {
+		var t = $( ui.helper ),
+			o = instance.options;
+		if (t.css("opacity")) {
+			o._opacity = t.css("opacity");
+		}
+		t.css("opacity", o.opacity);
+	},
+	stop: function( event, ui, instance ) {
+		var o = instance.options;
+		if (o._opacity) {
+			$(ui.helper).css("opacity", o._opacity);
+		}
+	}
+});
+
+$.ui.plugin.add("draggable", "scroll", {
+	start: function( event, ui, i ) {
+		if ( !i.scrollParentNotHidden ) {
+			i.scrollParentNotHidden = i.helper.scrollParent( false );
+		}
+
+		if ( i.scrollParentNotHidden[ 0 ] !== i.document[ 0 ] && i.scrollParentNotHidden[ 0 ].tagName !== "HTML" ) {
+			i.overflowOffset = i.scrollParentNotHidden.offset();
+		}
+	},
+	drag: function( event, ui, i  ) {
+		var o = i.options,
+			scrolled = false,
+			scrollParent = i.scrollParentNotHidden[ 0 ],
+			document = i.document[ 0 ];
+		if ( scrollParent !== document && scrollParent.tagName !== "HTML" ) {
+			if ( !o.axis || o.axis !== "x" ) {
+				if ( ( i.overflowOffset.top + scrollParent.offsetHeight ) - event.pageY < o.scrollSensitivity ) {
+					scrollParent.scrollTop = scrolled = scrollParent.scrollTop + o.scrollSpeed;
+				} else if ( event.pageY - i.overflowOffset.top < o.scrollSensitivity ) {
+					scrollParent.scrollTop = scrolled = scrollParent.scrollTop - o.scrollSpeed;
+				}
+			}
+
+			if ( !o.axis || o.axis !== "y" ) {
+				if ( ( i.overflowOffset.left + scrollParent.offsetWidth ) - event.pageX < o.scrollSensitivity ) {
+					scrollParent.scrollLeft = scrolled = scrollParent.scrollLeft + o.scrollSpeed;
+				} else if ( event.pageX - i.overflowOffset.left < o.scrollSensitivity ) {
+					scrollParent.scrollLeft = scrolled = scrollParent.scrollLeft - o.scrollSpeed;
+				}
+			}
+
+		} else {
+
+			if (!o.axis || o.axis !== "x") {
+				if (event.pageY - $(document).scrollTop() < o.scrollSensitivity) {
+					scrolled = $(document).scrollTop($(document).scrollTop() - o.scrollSpeed);
+				} else if ($(window).height() - (event.pageY - $(document).scrollTop()) < o.scrollSensitivity) {
+					scrolled = $(document).scrollTop($(document).scrollTop() + o.scrollSpeed);
+				}
+			}
+
+			if (!o.axis || o.axis !== "y") {
+				if (event.pageX - $(document).scrollLeft() < o.scrollSensitivity) {
+					scrolled = $(document).scrollLeft($(document).scrollLeft() - o.scrollSpeed);
+				} else if ($(window).width() - (event.pageX - $(document).scrollLeft()) < o.scrollSensitivity) {
+					scrolled = $(document).scrollLeft($(document).scrollLeft() + o.scrollSpeed);
+				}
+			}
+
+		}
+
+		if (scrolled !== false && $.ui.ddmanager && !o.dropBehaviour) {
+			$.ui.ddmanager.prepareOffsets(i, event);
+		}
+
+	}
+});
+
+$.ui.plugin.add("draggable", "snap", {
+	start: function( event, ui, i ) {
+
+		var o = i.options;
+
+		i.snapElements = [];
+
+		$(o.snap.constructor !== String ? ( o.snap.items || ":data(ui-draggable)" ) : o.snap).each(function() {
+			var $t = $(this),
+				$o = $t.offset();
+			if (this !== i.element[0]) {
+				i.snapElements.push({
+					item: this,
+					width: $t.outerWidth(), height: $t.outerHeight(),
+					top: $o.top, left: $o.left
+				});
+			}
+		});
+
+	},
+	drag: function( event, ui, inst ) {
+
+		var ts, bs, ls, rs, l, r, t, b, i, first,
+			o = inst.options,
+			d = o.snapTolerance,
+			x1 = ui.offset.left, x2 = x1 + inst.helperProportions.width,
+			y1 = ui.offset.top, y2 = y1 + inst.helperProportions.height;
+
+		for (i = inst.snapElements.length - 1; i >= 0; i--){
+
+			l = inst.snapElements[i].left - inst.margins.left;
+			r = l + inst.snapElements[i].width;
+			t = inst.snapElements[i].top - inst.margins.top;
+			b = t + inst.snapElements[i].height;
+
+			if ( x2 < l - d || x1 > r + d || y2 < t - d || y1 > b + d || !$.contains( inst.snapElements[ i ].item.ownerDocument, inst.snapElements[ i ].item ) ) {
+				if (inst.snapElements[i].snapping) {
+					(inst.options.snap.release && inst.options.snap.release.call(inst.element, event, $.extend(inst._uiHash(), { snapItem: inst.snapElements[i].item })));
+				}
+				inst.snapElements[i].snapping = false;
+				continue;
+			}
+
+			if (o.snapMode !== "inner") {
+				ts = Math.abs(t - y2) <= d;
+				bs = Math.abs(b - y1) <= d;
+				ls = Math.abs(l - x2) <= d;
+				rs = Math.abs(r - x1) <= d;
+				if (ts) {
+					ui.position.top = inst._convertPositionTo("relative", { top: t - inst.helperProportions.height, left: 0 }).top;
+				}
+				if (bs) {
+					ui.position.top = inst._convertPositionTo("relative", { top: b, left: 0 }).top;
+				}
+				if (ls) {
+					ui.position.left = inst._convertPositionTo("relative", { top: 0, left: l - inst.helperProportions.width }).left;
+				}
+				if (rs) {
+					ui.position.left = inst._convertPositionTo("relative", { top: 0, left: r }).left;
+				}
+			}
+
+			first = (ts || bs || ls || rs);
+
+			if (o.snapMode !== "outer") {
+				ts = Math.abs(t - y1) <= d;
+				bs = Math.abs(b - y2) <= d;
+				ls = Math.abs(l - x1) <= d;
+				rs = Math.abs(r - x2) <= d;
+				if (ts) {
+					ui.position.top = inst._convertPositionTo("relative", { top: t, left: 0 }).top;
+				}
+				if (bs) {
+					ui.position.top = inst._convertPositionTo("relative", { top: b - inst.helperProportions.height, left: 0 }).top;
+				}
+				if (ls) {
+					ui.position.left = inst._convertPositionTo("relative", { top: 0, left: l }).left;
+				}
+				if (rs) {
+					ui.position.left = inst._convertPositionTo("relative", { top: 0, left: r - inst.helperProportions.width }).left;
+				}
+			}
+
+			if (!inst.snapElements[i].snapping && (ts || bs || ls || rs || first)) {
+				(inst.options.snap.snap && inst.options.snap.snap.call(inst.element, event, $.extend(inst._uiHash(), { snapItem: inst.snapElements[i].item })));
+			}
+			inst.snapElements[i].snapping = (ts || bs || ls || rs || first);
+
+		}
+
+	}
+});
+
+$.ui.plugin.add("draggable", "stack", {
+	start: function( event, ui, instance ) {
+		var min,
+			o = instance.options,
+			group = $.makeArray($(o.stack)).sort(function(a, b) {
+				return (parseInt($(a).css("zIndex"), 10) || 0) - (parseInt($(b).css("zIndex"), 10) || 0);
+			});
+
+		if (!group.length) { return; }
+
+		min = parseInt($(group[0]).css("zIndex"), 10) || 0;
+		$(group).each(function(i) {
+			$(this).css("zIndex", min + i);
+		});
+		this.css("zIndex", (min + group.length));
+	}
+});
+
+$.ui.plugin.add("draggable", "zIndex", {
+	start: function( event, ui, instance ) {
+		var t = $( ui.helper ),
+			o = instance.options;
+
+		if (t.css("zIndex")) {
+			o._zIndex = t.css("zIndex");
+		}
+		t.css("zIndex", o.zIndex);
+	},
+	stop: function( event, ui, instance ) {
+		var o = instance.options;
+
+		if (o._zIndex) {
+			$(ui.helper).css("zIndex", o._zIndex);
+		}
+	}
+});
+
+var draggable = $.ui.draggable;
+
+
 /*!
  * jQuery UI Droppable 1.11.4
  * http://jqueryui.com
@@ -68,7 +2674,393 @@ I.widget("ui.draggable",I.ui.mouse,{version:"1.11.4",widgetEventPrefix:"drag",op
  *
  * http://api.jqueryui.com/droppable/
  */
-I.widget("ui.droppable",{version:"1.11.4",widgetEventPrefix:"drop",options:{accept:"*",activeClass:false,addClasses:true,greedy:false,hoverClass:false,scope:"default",tolerance:"intersect",activate:null,deactivate:null,drop:null,out:null,over:null},_create:function(){var ae,af=this.options,ad=af.accept;this.isover=false;this.isout=true;this.accept=I.isFunction(ad)?ad:function(ag){return ag.is(ad)};this.proportions=function(){if(arguments.length){ae=arguments[0]}else{return ae?ae:ae={width:this.element[0].offsetWidth,height:this.element[0].offsetHeight}}};this._addToManager(af.scope);af.addClasses&&this.element.addClass("ui-droppable")},_addToManager:function(ad){I.ui.ddmanager.droppables[ad]=I.ui.ddmanager.droppables[ad]||[];I.ui.ddmanager.droppables[ad].push(this)},_splice:function(ad){var ae=0;for(;ae<ad.length;ae++){if(ad[ae]===this){ad.splice(ae,1)}}},_destroy:function(){var ad=I.ui.ddmanager.droppables[this.options.scope];this._splice(ad);this.element.removeClass("ui-droppable ui-droppable-disabled")},_setOption:function(ae,af){if(ae==="accept"){this.accept=I.isFunction(af)?af:function(ag){return ag.is(af)}}else{if(ae==="scope"){var ad=I.ui.ddmanager.droppables[this.options.scope];this._splice(ad);this._addToManager(af)}}this._super(ae,af)},_activate:function(ae){var ad=I.ui.ddmanager.current;if(this.options.activeClass){this.element.addClass(this.options.activeClass)}if(ad){this._trigger("activate",ae,this.ui(ad))}},_deactivate:function(ae){var ad=I.ui.ddmanager.current;if(this.options.activeClass){this.element.removeClass(this.options.activeClass)}if(ad){this._trigger("deactivate",ae,this.ui(ad))}},_over:function(ae){var ad=I.ui.ddmanager.current;if(!ad||(ad.currentItem||ad.element)[0]===this.element[0]){return}if(this.accept.call(this.element[0],(ad.currentItem||ad.element))){if(this.options.hoverClass){this.element.addClass(this.options.hoverClass)}this._trigger("over",ae,this.ui(ad))}},_out:function(ae){var ad=I.ui.ddmanager.current;if(!ad||(ad.currentItem||ad.element)[0]===this.element[0]){return}if(this.accept.call(this.element[0],(ad.currentItem||ad.element))){if(this.options.hoverClass){this.element.removeClass(this.options.hoverClass)}this._trigger("out",ae,this.ui(ad))}},_drop:function(ae,af){var ad=af||I.ui.ddmanager.current,ag=false;if(!ad||(ad.currentItem||ad.element)[0]===this.element[0]){return false}this.element.find(":data(ui-droppable)").not(".ui-draggable-dragging").each(function(){var ah=I(this).droppable("instance");if(ah.options.greedy&&!ah.options.disabled&&ah.options.scope===ad.options.scope&&ah.accept.call(ah.element[0],(ad.currentItem||ad.element))&&I.ui.intersect(ad,I.extend(ah,{offset:ah.element.offset()}),ah.options.tolerance,ae)){ag=true;return false}});if(ag){return false}if(this.accept.call(this.element[0],(ad.currentItem||ad.element))){if(this.options.activeClass){this.element.removeClass(this.options.activeClass)}if(this.options.hoverClass){this.element.removeClass(this.options.hoverClass)}this._trigger("drop",ae,this.ui(ad));return this.element}return false},ui:function(ad){return{draggable:(ad.currentItem||ad.element),helper:ad.helper,position:ad.position,offset:ad.positionAbs}}});I.ui.intersect=(function(){function ad(af,ae,ag){return(af>=ae)&&(af<(ae+ag))}return function(ap,aj,an,af){if(!aj.offset){return false}var ah=(ap.positionAbs||ap.position.absolute).left+ap.margins.left,am=(ap.positionAbs||ap.position.absolute).top+ap.margins.top,ag=ah+ap.helperProportions.width,al=am+ap.helperProportions.height,ai=aj.offset.left,ao=aj.offset.top,ae=ai+aj.proportions().width,ak=ao+aj.proportions().height;switch(an){case"fit":return(ai<=ah&&ag<=ae&&ao<=am&&al<=ak);case"intersect":return(ai<ah+(ap.helperProportions.width/2)&&ag-(ap.helperProportions.width/2)<ae&&ao<am+(ap.helperProportions.height/2)&&al-(ap.helperProportions.height/2)<ak);case"pointer":return ad(af.pageY,ao,aj.proportions().height)&&ad(af.pageX,ai,aj.proportions().width);case"touch":return((am>=ao&&am<=ak)||(al>=ao&&al<=ak)||(am<ao&&al>ak))&&((ah>=ai&&ah<=ae)||(ag>=ai&&ag<=ae)||(ah<ai&&ag>ae));default:return false}}})();I.ui.ddmanager={current:null,droppables:{"default":[]},prepareOffsets:function(ag,ai){var af,ae,ad=I.ui.ddmanager.droppables[ag.options.scope]||[],ah=ai?ai.type:null,aj=(ag.currentItem||ag.element).find(":data(ui-droppable)").addBack();droppablesLoop:for(af=0;af<ad.length;af++){if(ad[af].options.disabled||(ag&&!ad[af].accept.call(ad[af].element[0],(ag.currentItem||ag.element)))){continue}for(ae=0;ae<aj.length;ae++){if(aj[ae]===ad[af].element[0]){ad[af].proportions().height=0;continue droppablesLoop}}ad[af].visible=ad[af].element.css("display")!=="none";if(!ad[af].visible){continue}if(ah==="mousedown"){ad[af]._activate.call(ad[af],ai)}ad[af].offset=ad[af].element.offset();ad[af].proportions({width:ad[af].element[0].offsetWidth,height:ad[af].element[0].offsetHeight})}},drop:function(ad,ae){var af=false;I.each((I.ui.ddmanager.droppables[ad.options.scope]||[]).slice(),function(){if(!this.options){return}if(!this.options.disabled&&this.visible&&I.ui.intersect(ad,this,this.options.tolerance,ae)){af=this._drop.call(this,ae)||af}if(!this.options.disabled&&this.visible&&this.accept.call(this.element[0],(ad.currentItem||ad.element))){this.isout=true;this.isover=false;this._deactivate.call(this,ae)}});return af},dragStart:function(ad,ae){ad.element.parentsUntil("body").bind("scroll.droppable",function(){if(!ad.options.refreshPositions){I.ui.ddmanager.prepareOffsets(ad,ae)}})},drag:function(ad,ae){if(ad.options.refreshPositions){I.ui.ddmanager.prepareOffsets(ad,ae)}I.each(I.ui.ddmanager.droppables[ad.options.scope]||[],function(){if(this.options.disabled||this.greedyChild||!this.visible){return}var ai,ag,af,ah=I.ui.intersect(ad,this,this.options.tolerance,ae),aj=!ah&&this.isover?"isout":(ah&&!this.isover?"isover":null);if(!aj){return}if(this.options.greedy){ag=this.options.scope;af=this.element.parents(":data(ui-droppable)").filter(function(){return I(this).droppable("instance").options.scope===ag});if(af.length){ai=I(af[0]).droppable("instance");ai.greedyChild=(aj==="isover")}}if(ai&&aj==="isover"){ai.isover=false;ai.isout=true;ai._out.call(ai,ae)}this[aj]=true;this[aj==="isout"?"isover":"isout"]=false;this[aj==="isover"?"_over":"_out"].call(this,ae);if(ai&&aj==="isout"){ai.isout=false;ai.isover=true;ai._over.call(ai,ae)}})},dragStop:function(ad,ae){ad.element.parentsUntil("body").unbind("scroll.droppable");if(!ad.options.refreshPositions){I.ui.ddmanager.prepareOffsets(ad,ae)}}};var d=I.ui.droppable;
+
+
+$.widget( "ui.droppable", {
+	version: "1.11.4",
+	widgetEventPrefix: "drop",
+	options: {
+		accept: "*",
+		activeClass: false,
+		addClasses: true,
+		greedy: false,
+		hoverClass: false,
+		scope: "default",
+		tolerance: "intersect",
+
+		// callbacks
+		activate: null,
+		deactivate: null,
+		drop: null,
+		out: null,
+		over: null
+	},
+	_create: function() {
+
+		var proportions,
+			o = this.options,
+			accept = o.accept;
+
+		this.isover = false;
+		this.isout = true;
+
+		this.accept = $.isFunction( accept ) ? accept : function( d ) {
+			return d.is( accept );
+		};
+
+		this.proportions = function( /* valueToWrite */ ) {
+			if ( arguments.length ) {
+				// Store the droppable's proportions
+				proportions = arguments[ 0 ];
+			} else {
+				// Retrieve or derive the droppable's proportions
+				return proportions ?
+					proportions :
+					proportions = {
+						width: this.element[ 0 ].offsetWidth,
+						height: this.element[ 0 ].offsetHeight
+					};
+			}
+		};
+
+		this._addToManager( o.scope );
+
+		o.addClasses && this.element.addClass( "ui-droppable" );
+
+	},
+
+	_addToManager: function( scope ) {
+		// Add the reference and positions to the manager
+		$.ui.ddmanager.droppables[ scope ] = $.ui.ddmanager.droppables[ scope ] || [];
+		$.ui.ddmanager.droppables[ scope ].push( this );
+	},
+
+	_splice: function( drop ) {
+		var i = 0;
+		for ( ; i < drop.length; i++ ) {
+			if ( drop[ i ] === this ) {
+				drop.splice( i, 1 );
+			}
+		}
+	},
+
+	_destroy: function() {
+		var drop = $.ui.ddmanager.droppables[ this.options.scope ];
+
+		this._splice( drop );
+
+		this.element.removeClass( "ui-droppable ui-droppable-disabled" );
+	},
+
+	_setOption: function( key, value ) {
+
+		if ( key === "accept" ) {
+			this.accept = $.isFunction( value ) ? value : function( d ) {
+				return d.is( value );
+			};
+		} else if ( key === "scope" ) {
+			var drop = $.ui.ddmanager.droppables[ this.options.scope ];
+
+			this._splice( drop );
+			this._addToManager( value );
+		}
+
+		this._super( key, value );
+	},
+
+	_activate: function( event ) {
+		var draggable = $.ui.ddmanager.current;
+		if ( this.options.activeClass ) {
+			this.element.addClass( this.options.activeClass );
+		}
+		if ( draggable ){
+			this._trigger( "activate", event, this.ui( draggable ) );
+		}
+	},
+
+	_deactivate: function( event ) {
+		var draggable = $.ui.ddmanager.current;
+		if ( this.options.activeClass ) {
+			this.element.removeClass( this.options.activeClass );
+		}
+		if ( draggable ){
+			this._trigger( "deactivate", event, this.ui( draggable ) );
+		}
+	},
+
+	_over: function( event ) {
+
+		var draggable = $.ui.ddmanager.current;
+
+		// Bail if draggable and droppable are same element
+		if ( !draggable || ( draggable.currentItem || draggable.element )[ 0 ] === this.element[ 0 ] ) {
+			return;
+		}
+
+		if ( this.accept.call( this.element[ 0 ], ( draggable.currentItem || draggable.element ) ) ) {
+			if ( this.options.hoverClass ) {
+				this.element.addClass( this.options.hoverClass );
+			}
+			this._trigger( "over", event, this.ui( draggable ) );
+		}
+
+	},
+
+	_out: function( event ) {
+
+		var draggable = $.ui.ddmanager.current;
+
+		// Bail if draggable and droppable are same element
+		if ( !draggable || ( draggable.currentItem || draggable.element )[ 0 ] === this.element[ 0 ] ) {
+			return;
+		}
+
+		if ( this.accept.call( this.element[ 0 ], ( draggable.currentItem || draggable.element ) ) ) {
+			if ( this.options.hoverClass ) {
+				this.element.removeClass( this.options.hoverClass );
+			}
+			this._trigger( "out", event, this.ui( draggable ) );
+		}
+
+	},
+
+	_drop: function( event, custom ) {
+
+		var draggable = custom || $.ui.ddmanager.current,
+			childrenIntersection = false;
+
+		// Bail if draggable and droppable are same element
+		if ( !draggable || ( draggable.currentItem || draggable.element )[ 0 ] === this.element[ 0 ] ) {
+			return false;
+		}
+
+		this.element.find( ":data(ui-droppable)" ).not( ".ui-draggable-dragging" ).each(function() {
+			var inst = $( this ).droppable( "instance" );
+			if (
+				inst.options.greedy &&
+				!inst.options.disabled &&
+				inst.options.scope === draggable.options.scope &&
+				inst.accept.call( inst.element[ 0 ], ( draggable.currentItem || draggable.element ) ) &&
+				$.ui.intersect( draggable, $.extend( inst, { offset: inst.element.offset() } ), inst.options.tolerance, event )
+			) { childrenIntersection = true; return false; }
+		});
+		if ( childrenIntersection ) {
+			return false;
+		}
+
+		if ( this.accept.call( this.element[ 0 ], ( draggable.currentItem || draggable.element ) ) ) {
+			if ( this.options.activeClass ) {
+				this.element.removeClass( this.options.activeClass );
+			}
+			if ( this.options.hoverClass ) {
+				this.element.removeClass( this.options.hoverClass );
+			}
+			this._trigger( "drop", event, this.ui( draggable ) );
+			return this.element;
+		}
+
+		return false;
+
+	},
+
+	ui: function( c ) {
+		return {
+			draggable: ( c.currentItem || c.element ),
+			helper: c.helper,
+			position: c.position,
+			offset: c.positionAbs
+		};
+	}
+
+});
+
+$.ui.intersect = (function() {
+	function isOverAxis( x, reference, size ) {
+		return ( x >= reference ) && ( x < ( reference + size ) );
+	}
+
+	return function( draggable, droppable, toleranceMode, event ) {
+
+		if ( !droppable.offset ) {
+			return false;
+		}
+
+		var x1 = ( draggable.positionAbs || draggable.position.absolute ).left + draggable.margins.left,
+			y1 = ( draggable.positionAbs || draggable.position.absolute ).top + draggable.margins.top,
+			x2 = x1 + draggable.helperProportions.width,
+			y2 = y1 + draggable.helperProportions.height,
+			l = droppable.offset.left,
+			t = droppable.offset.top,
+			r = l + droppable.proportions().width,
+			b = t + droppable.proportions().height;
+
+		switch ( toleranceMode ) {
+		case "fit":
+			return ( l <= x1 && x2 <= r && t <= y1 && y2 <= b );
+		case "intersect":
+			return ( l < x1 + ( draggable.helperProportions.width / 2 ) && // Right Half
+				x2 - ( draggable.helperProportions.width / 2 ) < r && // Left Half
+				t < y1 + ( draggable.helperProportions.height / 2 ) && // Bottom Half
+				y2 - ( draggable.helperProportions.height / 2 ) < b ); // Top Half
+		case "pointer":
+			return isOverAxis( event.pageY, t, droppable.proportions().height ) && isOverAxis( event.pageX, l, droppable.proportions().width );
+		case "touch":
+			return (
+				( y1 >= t && y1 <= b ) || // Top edge touching
+				( y2 >= t && y2 <= b ) || // Bottom edge touching
+				( y1 < t && y2 > b ) // Surrounded vertically
+			) && (
+				( x1 >= l && x1 <= r ) || // Left edge touching
+				( x2 >= l && x2 <= r ) || // Right edge touching
+				( x1 < l && x2 > r ) // Surrounded horizontally
+			);
+		default:
+			return false;
+		}
+	};
+})();
+
+/*
+	This manager tracks offsets of draggables and droppables
+*/
+$.ui.ddmanager = {
+	current: null,
+	droppables: { "default": [] },
+	prepareOffsets: function( t, event ) {
+
+		var i, j,
+			m = $.ui.ddmanager.droppables[ t.options.scope ] || [],
+			type = event ? event.type : null, // workaround for #2317
+			list = ( t.currentItem || t.element ).find( ":data(ui-droppable)" ).addBack();
+
+		droppablesLoop: for ( i = 0; i < m.length; i++ ) {
+
+			// No disabled and non-accepted
+			if ( m[ i ].options.disabled || ( t && !m[ i ].accept.call( m[ i ].element[ 0 ], ( t.currentItem || t.element ) ) ) ) {
+				continue;
+			}
+
+			// Filter out elements in the current dragged item
+			for ( j = 0; j < list.length; j++ ) {
+				if ( list[ j ] === m[ i ].element[ 0 ] ) {
+					m[ i ].proportions().height = 0;
+					continue droppablesLoop;
+				}
+			}
+
+			m[ i ].visible = m[ i ].element.css( "display" ) !== "none";
+			if ( !m[ i ].visible ) {
+				continue;
+			}
+
+			// Activate the droppable if used directly from draggables
+			if ( type === "mousedown" ) {
+				m[ i ]._activate.call( m[ i ], event );
+			}
+
+			m[ i ].offset = m[ i ].element.offset();
+			m[ i ].proportions({ width: m[ i ].element[ 0 ].offsetWidth, height: m[ i ].element[ 0 ].offsetHeight });
+
+		}
+
+	},
+	drop: function( draggable, event ) {
+
+		var dropped = false;
+		// Create a copy of the droppables in case the list changes during the drop (#9116)
+		$.each( ( $.ui.ddmanager.droppables[ draggable.options.scope ] || [] ).slice(), function() {
+
+			if ( !this.options ) {
+				return;
+			}
+			if ( !this.options.disabled && this.visible && $.ui.intersect( draggable, this, this.options.tolerance, event ) ) {
+				dropped = this._drop.call( this, event ) || dropped;
+			}
+
+			if ( !this.options.disabled && this.visible && this.accept.call( this.element[ 0 ], ( draggable.currentItem || draggable.element ) ) ) {
+				this.isout = true;
+				this.isover = false;
+				this._deactivate.call( this, event );
+			}
+
+		});
+		return dropped;
+
+	},
+	dragStart: function( draggable, event ) {
+		// Listen for scrolling so that if the dragging causes scrolling the position of the droppables can be recalculated (see #5003)
+		draggable.element.parentsUntil( "body" ).bind( "scroll.droppable", function() {
+			if ( !draggable.options.refreshPositions ) {
+				$.ui.ddmanager.prepareOffsets( draggable, event );
+			}
+		});
+	},
+	drag: function( draggable, event ) {
+
+		// If you have a highly dynamic page, you might try this option. It renders positions every time you move the mouse.
+		if ( draggable.options.refreshPositions ) {
+			$.ui.ddmanager.prepareOffsets( draggable, event );
+		}
+
+		// Run through all droppables and check their positions based on specific tolerance options
+		$.each( $.ui.ddmanager.droppables[ draggable.options.scope ] || [], function() {
+
+			if ( this.options.disabled || this.greedyChild || !this.visible ) {
+				return;
+			}
+
+			var parentInstance, scope, parent,
+				intersects = $.ui.intersect( draggable, this, this.options.tolerance, event ),
+				c = !intersects && this.isover ? "isout" : ( intersects && !this.isover ? "isover" : null );
+			if ( !c ) {
+				return;
+			}
+
+			if ( this.options.greedy ) {
+				// find droppable parents with same scope
+				scope = this.options.scope;
+				parent = this.element.parents( ":data(ui-droppable)" ).filter(function() {
+					return $( this ).droppable( "instance" ).options.scope === scope;
+				});
+
+				if ( parent.length ) {
+					parentInstance = $( parent[ 0 ] ).droppable( "instance" );
+					parentInstance.greedyChild = ( c === "isover" );
+				}
+			}
+
+			// we just moved into a greedy child
+			if ( parentInstance && c === "isover" ) {
+				parentInstance.isover = false;
+				parentInstance.isout = true;
+				parentInstance._out.call( parentInstance, event );
+			}
+
+			this[ c ] = true;
+			this[c === "isout" ? "isover" : "isout"] = false;
+			this[c === "isover" ? "_over" : "_out"].call( this, event );
+
+			// we just moved out of a greedy child
+			if ( parentInstance && c === "isout" ) {
+				parentInstance.isout = false;
+				parentInstance.isover = true;
+				parentInstance._over.call( parentInstance, event );
+			}
+		});
+
+	},
+	dragStop: function( draggable, event ) {
+		draggable.element.parentsUntil( "body" ).unbind( "scroll.droppable" );
+		// Call prepareOffsets one final time since IE does not fire return scroll events when overflow was caused by drag (see #5003)
+		if ( !draggable.options.refreshPositions ) {
+			$.ui.ddmanager.prepareOffsets( draggable, event );
+		}
+	}
+};
+
+var droppable = $.ui.droppable;
+
+
 /*!
  * jQuery UI Resizable 1.11.4
  * http://jqueryui.com
@@ -79,7 +3071,1142 @@ I.widget("ui.droppable",{version:"1.11.4",widgetEventPrefix:"drop",options:{acce
  *
  * http://api.jqueryui.com/resizable/
  */
-I.widget("ui.resizable",I.ui.mouse,{version:"1.11.4",widgetEventPrefix:"resize",options:{alsoResize:false,animate:false,animateDuration:"slow",animateEasing:"swing",aspectRatio:false,autoHide:false,containment:false,ghost:false,grid:false,handles:"e,s,se",helper:false,maxHeight:null,maxWidth:null,minHeight:10,minWidth:10,zIndex:90,resize:null,start:null,stop:null},_num:function(ad){return parseInt(ad,10)||0},_isNumber:function(ad){return !isNaN(parseInt(ad,10))},_hasScroll:function(ag,ae){if(I(ag).css("overflow")==="hidden"){return false}var ad=(ae&&ae==="left")?"scrollLeft":"scrollTop",af=false;if(ag[ad]>0){return true}ag[ad]=1;af=(ag[ad]>0);ag[ad]=0;return af},_create:function(){var aj,ae,ah,af,ad,ag=this,ai=this.options;this.element.addClass("ui-resizable");I.extend(this,{_aspectRatio:!!(ai.aspectRatio),aspectRatio:ai.aspectRatio,originalElement:this.element,_proportionallyResizeElements:[],_helper:ai.helper||ai.ghost||ai.animate?ai.helper||"ui-resizable-helper":null});if(this.element[0].nodeName.match(/^(canvas|textarea|input|select|button|img)$/i)){this.element.wrap(I("<div class='ui-wrapper' style='overflow: hidden;'></div>").css({position:this.element.css("position"),width:this.element.outerWidth(),height:this.element.outerHeight(),top:this.element.css("top"),left:this.element.css("left")}));this.element=this.element.parent().data("ui-resizable",this.element.resizable("instance"));this.elementIsWrapper=true;this.element.css({marginLeft:this.originalElement.css("marginLeft"),marginTop:this.originalElement.css("marginTop"),marginRight:this.originalElement.css("marginRight"),marginBottom:this.originalElement.css("marginBottom")});this.originalElement.css({marginLeft:0,marginTop:0,marginRight:0,marginBottom:0});this.originalResizeStyle=this.originalElement.css("resize");this.originalElement.css("resize","none");this._proportionallyResizeElements.push(this.originalElement.css({position:"static",zoom:1,display:"block"}));this.originalElement.css({margin:this.originalElement.css("margin")});this._proportionallyResize()}this.handles=ai.handles||(!I(".ui-resizable-handle",this.element).length?"e,s,se":{n:".ui-resizable-n",e:".ui-resizable-e",s:".ui-resizable-s",w:".ui-resizable-w",se:".ui-resizable-se",sw:".ui-resizable-sw",ne:".ui-resizable-ne",nw:".ui-resizable-nw"});this._handles=I();if(this.handles.constructor===String){if(this.handles==="all"){this.handles="n,e,s,w,se,sw,ne,nw"}aj=this.handles.split(",");this.handles={};for(ae=0;ae<aj.length;ae++){ah=I.trim(aj[ae]);ad="ui-resizable-"+ah;af=I("<div class='ui-resizable-handle "+ad+"'></div>");af.css({zIndex:ai.zIndex});if("se"===ah){af.addClass("ui-icon ui-icon-gripsmall-diagonal-se")}this.handles[ah]=".ui-resizable-"+ah;this.element.append(af)}}this._renderAxis=function(ao){var al,am,ak,an;ao=ao||this.element;for(al in this.handles){if(this.handles[al].constructor===String){this.handles[al]=this.element.children(this.handles[al]).first().show()}else{if(this.handles[al].jquery||this.handles[al].nodeType){this.handles[al]=I(this.handles[al]);this._on(this.handles[al],{mousedown:ag._mouseDown})}}if(this.elementIsWrapper&&this.originalElement[0].nodeName.match(/^(textarea|input|select|button)$/i)){am=I(this.handles[al],this.element);an=/sw|ne|nw|se|n|s/.test(al)?am.outerHeight():am.outerWidth();ak=["padding",/ne|nw|n/.test(al)?"Top":/se|sw|s/.test(al)?"Bottom":/^e$/.test(al)?"Right":"Left"].join("");ao.css(ak,an);this._proportionallyResize()}this._handles=this._handles.add(this.handles[al])}};this._renderAxis(this.element);this._handles=this._handles.add(this.element.find(".ui-resizable-handle"));this._handles.disableSelection();this._handles.mouseover(function(){if(!ag.resizing){if(this.className){af=this.className.match(/ui-resizable-(se|sw|ne|nw|n|e|s|w)/i)}ag.axis=af&&af[1]?af[1]:"se"}});if(ai.autoHide){this._handles.hide();I(this.element).addClass("ui-resizable-autohide").mouseenter(function(){if(ai.disabled){return}I(this).removeClass("ui-resizable-autohide");ag._handles.show()}).mouseleave(function(){if(ai.disabled){return}if(!ag.resizing){I(this).addClass("ui-resizable-autohide");ag._handles.hide()}});I(this.element).on("click touchend",function(){if(ai.disabled){return}I(this).removeClass("ui-resizable-autohide");ag._handles.show()})}this._mouseInit()},_destroy:function(){this._mouseDestroy();var ae,ad=function(af){I(af).removeClass("ui-resizable ui-resizable-disabled ui-resizable-resizing").removeData("resizable").removeData("ui-resizable").unbind(".resizable").find(".ui-resizable-handle").remove()};if(this.elementIsWrapper){ad(this.element);ae=this.element;this.originalElement.css({position:ae.css("position"),width:ae.outerWidth(),height:ae.outerHeight(),top:ae.css("top"),left:ae.css("left")}).insertAfter(ae);ae.remove()}this.originalElement.css("resize",this.originalResizeStyle);ad(this.originalElement);return this},_mouseCapture:function(af){var ae,ag,ad=false;for(ae in this.handles){ag=I(this.handles[ae])[0];if(ag===af.target||I.contains(ag,af.target)){ad=true}}return !this.options.disabled&&ad},_mouseStart:function(ae){var ai,af,ah,ag=this.options,ad=this.element;this.resizing=true;this._renderProxy();ai=this._num(this.helper.css("left"));af=this._num(this.helper.css("top"));if(ag.containment){ai+=I(ag.containment).scrollLeft()||0;af+=I(ag.containment).scrollTop()||0}this.offset=this.helper.offset();this.position={left:ai,top:af};this.size=this._helper?{width:this.helper.width(),height:this.helper.height()}:{width:ad.width(),height:ad.height()};this.originalSize=this._helper?{width:ad.outerWidth(),height:ad.outerHeight()}:{width:ad.width(),height:ad.height()};this.sizeDiff={width:ad.outerWidth()-ad.width(),height:ad.outerHeight()-ad.height()};this.originalPosition={left:ai,top:af};this.originalMousePosition={left:ae.pageX,top:ae.pageY};this.aspectRatio=(typeof ag.aspectRatio==="number")?ag.aspectRatio:((this.originalSize.width/this.originalSize.height)||1);ah=I(".ui-resizable-"+this.axis).css("cursor");I("body").css("cursor",ah==="auto"?this.axis+"-resize":ah);ad.addClass("ui-resizable-resizing");this._propagate("start",ae);return true},_mouseDrag:function(ai){var aj,ah,ak=this.originalMousePosition,ae=this.axis,af=(ai.pageX-ak.left)||0,ad=(ai.pageY-ak.top)||0,ag=this._change[ae];this._updatePrevProperties();if(!ag){return false}aj=ag.apply(this,[ai,af,ad]);this._updateVirtualBoundaries(ai.shiftKey);if(this._aspectRatio||ai.shiftKey){aj=this._updateRatio(aj,ai)}aj=this._respectSize(aj,ai);this._updateCache(aj);this._propagate("resize",ai);ah=this._applyChanges();if(!this._helper&&this._proportionallyResizeElements.length){this._proportionallyResize()}if(!I.isEmptyObject(ah)){this._updatePrevProperties();this._trigger("resize",ai,this.ui());this._applyChanges()}return false},_mouseStop:function(ag){this.resizing=false;var af,ad,ae,aj,am,ai,al,ah=this.options,ak=this;if(this._helper){af=this._proportionallyResizeElements;ad=af.length&&(/textarea/i).test(af[0].nodeName);ae=ad&&this._hasScroll(af[0],"left")?0:ak.sizeDiff.height;aj=ad?0:ak.sizeDiff.width;am={width:(ak.helper.width()-aj),height:(ak.helper.height()-ae)};ai=(parseInt(ak.element.css("left"),10)+(ak.position.left-ak.originalPosition.left))||null;al=(parseInt(ak.element.css("top"),10)+(ak.position.top-ak.originalPosition.top))||null;if(!ah.animate){this.element.css(I.extend(am,{top:al,left:ai}))}ak.helper.height(ak.size.height);ak.helper.width(ak.size.width);if(this._helper&&!ah.animate){this._proportionallyResize()}}I("body").css("cursor","auto");this.element.removeClass("ui-resizable-resizing");this._propagate("stop",ag);if(this._helper){this.helper.remove()}return false},_updatePrevProperties:function(){this.prevPosition={top:this.position.top,left:this.position.left};this.prevSize={width:this.size.width,height:this.size.height}},_applyChanges:function(){var ad={};if(this.position.top!==this.prevPosition.top){ad.top=this.position.top+"px"}if(this.position.left!==this.prevPosition.left){ad.left=this.position.left+"px"}if(this.size.width!==this.prevSize.width){ad.width=this.size.width+"px"}if(this.size.height!==this.prevSize.height){ad.height=this.size.height+"px"}this.helper.css(ad);return ad},_updateVirtualBoundaries:function(af){var ah,ag,ae,aj,ad,ai=this.options;ad={minWidth:this._isNumber(ai.minWidth)?ai.minWidth:0,maxWidth:this._isNumber(ai.maxWidth)?ai.maxWidth:Infinity,minHeight:this._isNumber(ai.minHeight)?ai.minHeight:0,maxHeight:this._isNumber(ai.maxHeight)?ai.maxHeight:Infinity};if(this._aspectRatio||af){ah=ad.minHeight*this.aspectRatio;ae=ad.minWidth/this.aspectRatio;ag=ad.maxHeight*this.aspectRatio;aj=ad.maxWidth/this.aspectRatio;if(ah>ad.minWidth){ad.minWidth=ah}if(ae>ad.minHeight){ad.minHeight=ae}if(ag<ad.maxWidth){ad.maxWidth=ag}if(aj<ad.maxHeight){ad.maxHeight=aj}}this._vBoundaries=ad},_updateCache:function(ad){this.offset=this.helper.offset();if(this._isNumber(ad.left)){this.position.left=ad.left}if(this._isNumber(ad.top)){this.position.top=ad.top}if(this._isNumber(ad.height)){this.size.height=ad.height}if(this._isNumber(ad.width)){this.size.width=ad.width}},_updateRatio:function(af){var ag=this.position,ae=this.size,ad=this.axis;if(this._isNumber(af.height)){af.width=(af.height*this.aspectRatio)}else{if(this._isNumber(af.width)){af.height=(af.width/this.aspectRatio)}}if(ad==="sw"){af.left=ag.left+(ae.width-af.width);af.top=null}if(ad==="nw"){af.top=ag.top+(ae.height-af.height);af.left=ag.left+(ae.width-af.width)}return af},_respectSize:function(ai){var af=this._vBoundaries,al=this.axis,an=this._isNumber(ai.width)&&af.maxWidth&&(af.maxWidth<ai.width),aj=this._isNumber(ai.height)&&af.maxHeight&&(af.maxHeight<ai.height),ag=this._isNumber(ai.width)&&af.minWidth&&(af.minWidth>ai.width),am=this._isNumber(ai.height)&&af.minHeight&&(af.minHeight>ai.height),ae=this.originalPosition.left+this.originalSize.width,ak=this.position.top+this.size.height,ah=/sw|nw|w/.test(al),ad=/nw|ne|n/.test(al);if(ag){ai.width=af.minWidth}if(am){ai.height=af.minHeight}if(an){ai.width=af.maxWidth}if(aj){ai.height=af.maxHeight}if(ag&&ah){ai.left=ae-af.minWidth}if(an&&ah){ai.left=ae-af.maxWidth}if(am&&ad){ai.top=ak-af.minHeight}if(aj&&ad){ai.top=ak-af.maxHeight}if(!ai.width&&!ai.height&&!ai.left&&ai.top){ai.top=null}else{if(!ai.width&&!ai.height&&!ai.top&&ai.left){ai.left=null}}return ai},_getPaddingPlusBorderDimensions:function(af){var ae=0,ag=[],ah=[af.css("borderTopWidth"),af.css("borderRightWidth"),af.css("borderBottomWidth"),af.css("borderLeftWidth")],ad=[af.css("paddingTop"),af.css("paddingRight"),af.css("paddingBottom"),af.css("paddingLeft")];for(;ae<4;ae++){ag[ae]=(parseInt(ah[ae],10)||0);ag[ae]+=(parseInt(ad[ae],10)||0)}return{height:ag[0]+ag[2],width:ag[1]+ag[3]}},_proportionallyResize:function(){if(!this._proportionallyResizeElements.length){return}var af,ae=0,ad=this.helper||this.element;for(;ae<this._proportionallyResizeElements.length;ae++){af=this._proportionallyResizeElements[ae];if(!this.outerDimensions){this.outerDimensions=this._getPaddingPlusBorderDimensions(af)}af.css({height:(ad.height()-this.outerDimensions.height)||0,width:(ad.width()-this.outerDimensions.width)||0})}},_renderProxy:function(){var ad=this.element,ae=this.options;this.elementOffset=ad.offset();if(this._helper){this.helper=this.helper||I("<div style='overflow:hidden;'></div>");this.helper.addClass(this._helper).css({width:this.element.outerWidth()-1,height:this.element.outerHeight()-1,position:"absolute",left:this.elementOffset.left+"px",top:this.elementOffset.top+"px",zIndex:++ae.zIndex});this.helper.appendTo("body").disableSelection()}else{this.helper=this.element}},_change:{e:function(ae,ad){return{width:this.originalSize.width+ad}},w:function(af,ad){var ae=this.originalSize,ag=this.originalPosition;return{left:ag.left+ad,width:ae.width-ad}},n:function(ag,ae,ad){var af=this.originalSize,ah=this.originalPosition;return{top:ah.top+ad,height:af.height-ad}},s:function(af,ae,ad){return{height:this.originalSize.height+ad}},se:function(af,ae,ad){return I.extend(this._change.s.apply(this,arguments),this._change.e.apply(this,[af,ae,ad]))},sw:function(af,ae,ad){return I.extend(this._change.s.apply(this,arguments),this._change.w.apply(this,[af,ae,ad]))},ne:function(af,ae,ad){return I.extend(this._change.n.apply(this,arguments),this._change.e.apply(this,[af,ae,ad]))},nw:function(af,ae,ad){return I.extend(this._change.n.apply(this,arguments),this._change.w.apply(this,[af,ae,ad]))}},_propagate:function(ae,ad){I.ui.plugin.call(this,ae,[ad,this.ui()]);(ae!=="resize"&&this._trigger(ae,ad,this.ui()))},plugins:{},ui:function(){return{originalElement:this.originalElement,element:this.element,helper:this.helper,position:this.position,size:this.size,originalSize:this.originalSize,originalPosition:this.originalPosition}}});I.ui.plugin.add("resizable","animate",{stop:function(ag){var al=I(this).resizable("instance"),ai=al.options,af=al._proportionallyResizeElements,ad=af.length&&(/textarea/i).test(af[0].nodeName),ae=ad&&al._hasScroll(af[0],"left")?0:al.sizeDiff.height,ak=ad?0:al.sizeDiff.width,ah={width:(al.size.width-ak),height:(al.size.height-ae)},aj=(parseInt(al.element.css("left"),10)+(al.position.left-al.originalPosition.left))||null,am=(parseInt(al.element.css("top"),10)+(al.position.top-al.originalPosition.top))||null;al.element.animate(I.extend(ah,am&&aj?{top:am,left:aj}:{}),{duration:ai.animateDuration,easing:ai.animateEasing,step:function(){var an={width:parseInt(al.element.css("width"),10),height:parseInt(al.element.css("height"),10),top:parseInt(al.element.css("top"),10),left:parseInt(al.element.css("left"),10)};if(af&&af.length){I(af[0]).css({width:an.width,height:an.height})}al._updateCache(an);al._propagate("resize",ag)}})}});I.ui.plugin.add("resizable","containment",{start:function(){var al,af,an,ad,ak,ag,ao,am=I(this).resizable("instance"),aj=am.options,ai=am.element,ae=aj.containment,ah=(ae instanceof I)?ae.get(0):(/parent/.test(ae))?ai.parent().get(0):ae;if(!ah){return}am.containerElement=I(ah);if(/document/.test(ae)||ae===document){am.containerOffset={left:0,top:0};am.containerPosition={left:0,top:0};am.parentData={element:I(document),left:0,top:0,width:I(document).width(),height:I(document).height()||document.body.parentNode.scrollHeight}}else{al=I(ah);af=[];I(["Top","Right","Left","Bottom"]).each(function(aq,ap){af[aq]=am._num(al.css("padding"+ap))});am.containerOffset=al.offset();am.containerPosition=al.position();am.containerSize={height:(al.innerHeight()-af[3]),width:(al.innerWidth()-af[1])};an=am.containerOffset;ad=am.containerSize.height;ak=am.containerSize.width;ag=(am._hasScroll(ah,"left")?ah.scrollWidth:ak);ao=(am._hasScroll(ah)?ah.scrollHeight:ad);am.parentData={element:ah,left:an.left,top:an.top,width:ag,height:ao}}},resize:function(ae){var ak,ap,aj,ah,al=I(this).resizable("instance"),ag=al.options,an=al.containerOffset,am=al.position,ao=al._aspectRatio||ae.shiftKey,ad={top:0,left:0},af=al.containerElement,ai=true;if(af[0]!==document&&(/static/).test(af.css("position"))){ad=an}if(am.left<(al._helper?an.left:0)){al.size.width=al.size.width+(al._helper?(al.position.left-an.left):(al.position.left-ad.left));if(ao){al.size.height=al.size.width/al.aspectRatio;ai=false}al.position.left=ag.helper?an.left:0}if(am.top<(al._helper?an.top:0)){al.size.height=al.size.height+(al._helper?(al.position.top-an.top):al.position.top);if(ao){al.size.width=al.size.height*al.aspectRatio;ai=false}al.position.top=al._helper?an.top:0}aj=al.containerElement.get(0)===al.element.parent().get(0);ah=/relative|absolute/.test(al.containerElement.css("position"));if(aj&&ah){al.offset.left=al.parentData.left+al.position.left;al.offset.top=al.parentData.top+al.position.top}else{al.offset.left=al.element.offset().left;al.offset.top=al.element.offset().top}ak=Math.abs(al.sizeDiff.width+(al._helper?al.offset.left-ad.left:(al.offset.left-an.left)));ap=Math.abs(al.sizeDiff.height+(al._helper?al.offset.top-ad.top:(al.offset.top-an.top)));if(ak+al.size.width>=al.parentData.width){al.size.width=al.parentData.width-ak;if(ao){al.size.height=al.size.width/al.aspectRatio;ai=false}}if(ap+al.size.height>=al.parentData.height){al.size.height=al.parentData.height-ap;if(ao){al.size.width=al.size.height*al.aspectRatio;ai=false}}if(!ai){al.position.left=al.prevPosition.left;al.position.top=al.prevPosition.top;al.size.width=al.prevSize.width;al.size.height=al.prevSize.height}},stop:function(){var ai=I(this).resizable("instance"),ae=ai.options,aj=ai.containerOffset,ad=ai.containerPosition,af=ai.containerElement,ag=I(ai.helper),al=ag.offset(),ak=ag.outerWidth()-ai.sizeDiff.width,ah=ag.outerHeight()-ai.sizeDiff.height;if(ai._helper&&!ae.animate&&(/relative/).test(af.css("position"))){I(this).css({left:al.left-ad.left-aj.left,width:ak,height:ah})}if(ai._helper&&!ae.animate&&(/static/).test(af.css("position"))){I(this).css({left:al.left-ad.left-aj.left,width:ak,height:ah})}}});I.ui.plugin.add("resizable","alsoResize",{start:function(){var ad=I(this).resizable("instance"),ae=ad.options;I(ae.alsoResize).each(function(){var af=I(this);af.data("ui-resizable-alsoresize",{width:parseInt(af.width(),10),height:parseInt(af.height(),10),left:parseInt(af.css("left"),10),top:parseInt(af.css("top"),10)})})},resize:function(ae,ag){var ad=I(this).resizable("instance"),ah=ad.options,af=ad.originalSize,aj=ad.originalPosition,ai={height:(ad.size.height-af.height)||0,width:(ad.size.width-af.width)||0,top:(ad.position.top-aj.top)||0,left:(ad.position.left-aj.left)||0};I(ah.alsoResize).each(function(){var am=I(this),an=I(this).data("ui-resizable-alsoresize"),al={},ak=am.parents(ag.originalElement[0]).length?["width","height"]:["width","height","top","left"];I.each(ak,function(ao,aq){var ap=(an[aq]||0)+(ai[aq]||0);if(ap&&ap>=0){al[aq]=ap||null}});am.css(al)})},stop:function(){I(this).removeData("resizable-alsoresize")}});I.ui.plugin.add("resizable","ghost",{start:function(){var ae=I(this).resizable("instance"),af=ae.options,ad=ae.size;ae.ghost=ae.originalElement.clone();ae.ghost.css({opacity:0.25,display:"block",position:"relative",height:ad.height,width:ad.width,margin:0,left:0,top:0}).addClass("ui-resizable-ghost").addClass(typeof af.ghost==="string"?af.ghost:"");ae.ghost.appendTo(ae.helper)},resize:function(){var ad=I(this).resizable("instance");if(ad.ghost){ad.ghost.css({position:"relative",height:ad.size.height,width:ad.size.width})}},stop:function(){var ad=I(this).resizable("instance");if(ad.ghost&&ad.helper){ad.helper.get(0).removeChild(ad.ghost.get(0))}}});I.ui.plugin.add("resizable","grid",{resize:function(){var ag,al=I(this).resizable("instance"),ap=al.options,aj=al.size,ak=al.originalSize,am=al.originalPosition,av=al.axis,ad=typeof ap.grid==="number"?[ap.grid,ap.grid]:ap.grid,at=(ad[0]||1),ar=(ad[1]||1),ai=Math.round((aj.width-ak.width)/at)*at,ah=Math.round((aj.height-ak.height)/ar)*ar,an=ak.width+ai,aq=ak.height+ah,af=ap.maxWidth&&(ap.maxWidth<an),ao=ap.maxHeight&&(ap.maxHeight<aq),au=ap.minWidth&&(ap.minWidth>an),ae=ap.minHeight&&(ap.minHeight>aq);ap.grid=ad;if(au){an+=at}if(ae){aq+=ar}if(af){an-=at}if(ao){aq-=ar}if(/^(se|s|e)$/.test(av)){al.size.width=an;al.size.height=aq}else{if(/^(ne)$/.test(av)){al.size.width=an;al.size.height=aq;al.position.top=am.top-ah}else{if(/^(sw)$/.test(av)){al.size.width=an;al.size.height=aq;al.position.left=am.left-ai}else{if(aq-ar<=0||an-at<=0){ag=al._getPaddingPlusBorderDimensions(this)}if(aq-ar>0){al.size.height=aq;al.position.top=am.top-ah}else{aq=ar-ag.height;al.size.height=aq;al.position.top=am.top+ak.height-aq}if(an-at>0){al.size.width=an;al.position.left=am.left-ai}else{an=at-ag.width;al.size.width=an;al.position.left=am.left+ak.width-an}}}}}});var N=I.ui.resizable;
+
+
+$.widget("ui.resizable", $.ui.mouse, {
+	version: "1.11.4",
+	widgetEventPrefix: "resize",
+	options: {
+		alsoResize: false,
+		animate: false,
+		animateDuration: "slow",
+		animateEasing: "swing",
+		aspectRatio: false,
+		autoHide: false,
+		containment: false,
+		ghost: false,
+		grid: false,
+		handles: "e,s,se",
+		helper: false,
+		maxHeight: null,
+		maxWidth: null,
+		minHeight: 10,
+		minWidth: 10,
+		// See #7960
+		zIndex: 90,
+
+		// callbacks
+		resize: null,
+		start: null,
+		stop: null
+	},
+
+	_num: function( value ) {
+		return parseInt( value, 10 ) || 0;
+	},
+
+	_isNumber: function( value ) {
+		return !isNaN( parseInt( value, 10 ) );
+	},
+
+	_hasScroll: function( el, a ) {
+
+		if ( $( el ).css( "overflow" ) === "hidden") {
+			return false;
+		}
+
+		var scroll = ( a && a === "left" ) ? "scrollLeft" : "scrollTop",
+			has = false;
+
+		if ( el[ scroll ] > 0 ) {
+			return true;
+		}
+
+		// TODO: determine which cases actually cause this to happen
+		// if the element doesn't have the scroll set, see if it's possible to
+		// set the scroll
+		el[ scroll ] = 1;
+		has = ( el[ scroll ] > 0 );
+		el[ scroll ] = 0;
+		return has;
+	},
+
+	_create: function() {
+
+		var n, i, handle, axis, hname,
+			that = this,
+			o = this.options;
+		this.element.addClass("ui-resizable");
+
+		$.extend(this, {
+			_aspectRatio: !!(o.aspectRatio),
+			aspectRatio: o.aspectRatio,
+			originalElement: this.element,
+			_proportionallyResizeElements: [],
+			_helper: o.helper || o.ghost || o.animate ? o.helper || "ui-resizable-helper" : null
+		});
+
+		// Wrap the element if it cannot hold child nodes
+		if (this.element[0].nodeName.match(/^(canvas|textarea|input|select|button|img)$/i)) {
+
+			this.element.wrap(
+				$("<div class='ui-wrapper' style='overflow: hidden;'></div>").css({
+					position: this.element.css("position"),
+					width: this.element.outerWidth(),
+					height: this.element.outerHeight(),
+					top: this.element.css("top"),
+					left: this.element.css("left")
+				})
+			);
+
+			this.element = this.element.parent().data(
+				"ui-resizable", this.element.resizable( "instance" )
+			);
+
+			this.elementIsWrapper = true;
+
+			this.element.css({
+				marginLeft: this.originalElement.css("marginLeft"),
+				marginTop: this.originalElement.css("marginTop"),
+				marginRight: this.originalElement.css("marginRight"),
+				marginBottom: this.originalElement.css("marginBottom")
+			});
+			this.originalElement.css({
+				marginLeft: 0,
+				marginTop: 0,
+				marginRight: 0,
+				marginBottom: 0
+			});
+			// support: Safari
+			// Prevent Safari textarea resize
+			this.originalResizeStyle = this.originalElement.css("resize");
+			this.originalElement.css("resize", "none");
+
+			this._proportionallyResizeElements.push( this.originalElement.css({
+				position: "static",
+				zoom: 1,
+				display: "block"
+			}) );
+
+			// support: IE9
+			// avoid IE jump (hard set the margin)
+			this.originalElement.css({ margin: this.originalElement.css("margin") });
+
+			this._proportionallyResize();
+		}
+
+		this.handles = o.handles ||
+			( !$(".ui-resizable-handle", this.element).length ?
+				"e,s,se" : {
+					n: ".ui-resizable-n",
+					e: ".ui-resizable-e",
+					s: ".ui-resizable-s",
+					w: ".ui-resizable-w",
+					se: ".ui-resizable-se",
+					sw: ".ui-resizable-sw",
+					ne: ".ui-resizable-ne",
+					nw: ".ui-resizable-nw"
+				} );
+
+		this._handles = $();
+		if ( this.handles.constructor === String ) {
+
+			if ( this.handles === "all") {
+				this.handles = "n,e,s,w,se,sw,ne,nw";
+			}
+
+			n = this.handles.split(",");
+			this.handles = {};
+
+			for (i = 0; i < n.length; i++) {
+
+				handle = $.trim(n[i]);
+				hname = "ui-resizable-" + handle;
+				axis = $("<div class='ui-resizable-handle " + hname + "'></div>");
+
+				axis.css({ zIndex: o.zIndex });
+
+				// TODO : What's going on here?
+				if ("se" === handle) {
+					axis.addClass("ui-icon ui-icon-gripsmall-diagonal-se");
+				}
+
+				this.handles[handle] = ".ui-resizable-" + handle;
+				this.element.append(axis);
+			}
+
+		}
+
+		this._renderAxis = function(target) {
+
+			var i, axis, padPos, padWrapper;
+
+			target = target || this.element;
+
+			for (i in this.handles) {
+
+				if (this.handles[i].constructor === String) {
+					this.handles[i] = this.element.children( this.handles[ i ] ).first().show();
+				} else if ( this.handles[ i ].jquery || this.handles[ i ].nodeType ) {
+					this.handles[ i ] = $( this.handles[ i ] );
+					this._on( this.handles[ i ], { "mousedown": that._mouseDown });
+				}
+
+				if (this.elementIsWrapper && this.originalElement[0].nodeName.match(/^(textarea|input|select|button)$/i)) {
+
+					axis = $(this.handles[i], this.element);
+
+					padWrapper = /sw|ne|nw|se|n|s/.test(i) ? axis.outerHeight() : axis.outerWidth();
+
+					padPos = [ "padding",
+						/ne|nw|n/.test(i) ? "Top" :
+						/se|sw|s/.test(i) ? "Bottom" :
+						/^e$/.test(i) ? "Right" : "Left" ].join("");
+
+					target.css(padPos, padWrapper);
+
+					this._proportionallyResize();
+				}
+
+				this._handles = this._handles.add( this.handles[ i ] );
+			}
+		};
+
+		// TODO: make renderAxis a prototype function
+		this._renderAxis(this.element);
+
+		this._handles = this._handles.add( this.element.find( ".ui-resizable-handle" ) );
+		this._handles.disableSelection();
+
+		this._handles.mouseover(function() {
+			if (!that.resizing) {
+				if (this.className) {
+					axis = this.className.match(/ui-resizable-(se|sw|ne|nw|n|e|s|w)/i);
+				}
+				that.axis = axis && axis[1] ? axis[1] : "se";
+			}
+		});
+
+		if (o.autoHide) {
+			this._handles.hide();
+			$(this.element)
+				.addClass("ui-resizable-autohide")
+				.mouseenter(function() {
+					if (o.disabled) {
+						return;
+					}
+					$(this).removeClass("ui-resizable-autohide");
+					that._handles.show();
+				})
+				.mouseleave(function() {
+					if (o.disabled) {
+						return;
+					}
+					if (!that.resizing) {
+						$(this).addClass("ui-resizable-autohide");
+						that._handles.hide();
+					}
+				});
+				//zhump 兼容手机端的autoHide
+				$(this.element).on("click touchend",function(){
+					if (o.disabled) {
+						return;
+					}
+					$(this).removeClass("ui-resizable-autohide");
+					that._handles.show();
+				});
+				
+		}
+
+		this._mouseInit();
+	},
+
+	_destroy: function() {
+
+		this._mouseDestroy();
+
+		var wrapper,
+			_destroy = function(exp) {
+				$(exp)
+					.removeClass("ui-resizable ui-resizable-disabled ui-resizable-resizing")
+					.removeData("resizable")
+					.removeData("ui-resizable")
+					.unbind(".resizable")
+					.find(".ui-resizable-handle")
+						.remove();
+			};
+
+		// TODO: Unwrap at same DOM position
+		if (this.elementIsWrapper) {
+			_destroy(this.element);
+			wrapper = this.element;
+			this.originalElement.css({
+				position: wrapper.css("position"),
+				width: wrapper.outerWidth(),
+				height: wrapper.outerHeight(),
+				top: wrapper.css("top"),
+				left: wrapper.css("left")
+			}).insertAfter( wrapper );
+			wrapper.remove();
+		}
+
+		this.originalElement.css("resize", this.originalResizeStyle);
+		_destroy(this.originalElement);
+
+		return this;
+	},
+
+	_mouseCapture: function(event) {
+		var i, handle,
+			capture = false;
+
+		for (i in this.handles) {
+			handle = $(this.handles[i])[0];
+			if (handle === event.target || $.contains(handle, event.target)) {
+				capture = true;
+			}
+		}
+
+		return !this.options.disabled && capture;
+	},
+
+	_mouseStart: function(event) {
+
+		var curleft, curtop, cursor,
+			o = this.options,
+			el = this.element;
+
+		this.resizing = true;
+
+		this._renderProxy();
+
+		curleft = this._num(this.helper.css("left"));
+		curtop = this._num(this.helper.css("top"));
+
+		if (o.containment) {
+			curleft += $(o.containment).scrollLeft() || 0;
+			curtop += $(o.containment).scrollTop() || 0;
+		}
+
+		this.offset = this.helper.offset();
+		this.position = { left: curleft, top: curtop };
+
+		this.size = this._helper ? {
+				width: this.helper.width(),
+				height: this.helper.height()
+			} : {
+				width: el.width(),
+				height: el.height()
+			};
+
+		this.originalSize = this._helper ? {
+				width: el.outerWidth(),
+				height: el.outerHeight()
+			} : {
+				width: el.width(),
+				height: el.height()
+			};
+
+		this.sizeDiff = {
+			width: el.outerWidth() - el.width(),
+			height: el.outerHeight() - el.height()
+		};
+
+		this.originalPosition = { left: curleft, top: curtop };
+		this.originalMousePosition = { left: event.pageX, top: event.pageY };
+
+		this.aspectRatio = (typeof o.aspectRatio === "number") ?
+			o.aspectRatio :
+			((this.originalSize.width / this.originalSize.height) || 1);
+
+		cursor = $(".ui-resizable-" + this.axis).css("cursor");
+		$("body").css("cursor", cursor === "auto" ? this.axis + "-resize" : cursor);
+
+		el.addClass("ui-resizable-resizing");
+		this._propagate("start", event);
+		return true;
+	},
+
+	_mouseDrag: function(event) {
+
+		var data, props,
+			smp = this.originalMousePosition,
+			a = this.axis,
+			dx = (event.pageX - smp.left) || 0,
+			dy = (event.pageY - smp.top) || 0,
+			trigger = this._change[a];
+
+		this._updatePrevProperties();
+
+		if (!trigger) {
+			return false;
+		}
+
+		data = trigger.apply(this, [ event, dx, dy ]);
+
+		this._updateVirtualBoundaries(event.shiftKey);
+		if (this._aspectRatio || event.shiftKey) {
+			data = this._updateRatio(data, event);
+		}
+
+		data = this._respectSize(data, event);
+
+		this._updateCache(data);
+
+		this._propagate("resize", event);
+
+		props = this._applyChanges();
+
+		if ( !this._helper && this._proportionallyResizeElements.length ) {
+			this._proportionallyResize();
+		}
+
+		if ( !$.isEmptyObject( props ) ) {
+			this._updatePrevProperties();
+			this._trigger( "resize", event, this.ui() );
+			this._applyChanges();
+		}
+
+		return false;
+	},
+
+	_mouseStop: function(event) {
+
+		this.resizing = false;
+		var pr, ista, soffseth, soffsetw, s, left, top,
+			o = this.options, that = this;
+
+		if (this._helper) {
+
+			pr = this._proportionallyResizeElements;
+			ista = pr.length && (/textarea/i).test(pr[0].nodeName);
+			soffseth = ista && this._hasScroll(pr[0], "left") ? 0 : that.sizeDiff.height;
+			soffsetw = ista ? 0 : that.sizeDiff.width;
+
+			s = {
+				width: (that.helper.width()  - soffsetw),
+				height: (that.helper.height() - soffseth)
+			};
+			left = (parseInt(that.element.css("left"), 10) +
+				(that.position.left - that.originalPosition.left)) || null;
+			top = (parseInt(that.element.css("top"), 10) +
+				(that.position.top - that.originalPosition.top)) || null;
+
+			if (!o.animate) {
+				this.element.css($.extend(s, { top: top, left: left }));
+			}
+
+			that.helper.height(that.size.height);
+			that.helper.width(that.size.width);
+
+			if (this._helper && !o.animate) {
+				this._proportionallyResize();
+			}
+		}
+
+		$("body").css("cursor", "auto");
+
+		this.element.removeClass("ui-resizable-resizing");
+
+		this._propagate("stop", event);
+
+		if (this._helper) {
+			this.helper.remove();
+		}
+
+		return false;
+
+	},
+
+	_updatePrevProperties: function() {
+		this.prevPosition = {
+			top: this.position.top,
+			left: this.position.left
+		};
+		this.prevSize = {
+			width: this.size.width,
+			height: this.size.height
+		};
+	},
+
+	_applyChanges: function() {
+		var props = {};
+
+		if ( this.position.top !== this.prevPosition.top ) {
+			props.top = this.position.top + "px";
+		}
+		if ( this.position.left !== this.prevPosition.left ) {
+			props.left = this.position.left + "px";
+		}
+		if ( this.size.width !== this.prevSize.width ) {
+			props.width = this.size.width + "px";
+		}
+		if ( this.size.height !== this.prevSize.height ) {
+			props.height = this.size.height + "px";
+		}
+
+		this.helper.css( props );
+
+		return props;
+	},
+
+	_updateVirtualBoundaries: function(forceAspectRatio) {
+		var pMinWidth, pMaxWidth, pMinHeight, pMaxHeight, b,
+			o = this.options;
+
+		b = {
+			minWidth: this._isNumber(o.minWidth) ? o.minWidth : 0,
+			maxWidth: this._isNumber(o.maxWidth) ? o.maxWidth : Infinity,
+			minHeight: this._isNumber(o.minHeight) ? o.minHeight : 0,
+			maxHeight: this._isNumber(o.maxHeight) ? o.maxHeight : Infinity
+		};
+
+		if (this._aspectRatio || forceAspectRatio) {
+			pMinWidth = b.minHeight * this.aspectRatio;
+			pMinHeight = b.minWidth / this.aspectRatio;
+			pMaxWidth = b.maxHeight * this.aspectRatio;
+			pMaxHeight = b.maxWidth / this.aspectRatio;
+
+			if (pMinWidth > b.minWidth) {
+				b.minWidth = pMinWidth;
+			}
+			if (pMinHeight > b.minHeight) {
+				b.minHeight = pMinHeight;
+			}
+			if (pMaxWidth < b.maxWidth) {
+				b.maxWidth = pMaxWidth;
+			}
+			if (pMaxHeight < b.maxHeight) {
+				b.maxHeight = pMaxHeight;
+			}
+		}
+		this._vBoundaries = b;
+	},
+
+	_updateCache: function(data) {
+		this.offset = this.helper.offset();
+		if (this._isNumber(data.left)) {
+			this.position.left = data.left;
+		}
+		if (this._isNumber(data.top)) {
+			this.position.top = data.top;
+		}
+		if (this._isNumber(data.height)) {
+			this.size.height = data.height;
+		}
+		if (this._isNumber(data.width)) {
+			this.size.width = data.width;
+		}
+	},
+
+	_updateRatio: function( data ) {
+
+		var cpos = this.position,
+			csize = this.size,
+			a = this.axis;
+
+		if (this._isNumber(data.height)) {
+			data.width = (data.height * this.aspectRatio);
+		} else if (this._isNumber(data.width)) {
+			data.height = (data.width / this.aspectRatio);
+		}
+
+		if (a === "sw") {
+			data.left = cpos.left + (csize.width - data.width);
+			data.top = null;
+		}
+		if (a === "nw") {
+			data.top = cpos.top + (csize.height - data.height);
+			data.left = cpos.left + (csize.width - data.width);
+		}
+
+		return data;
+	},
+
+	_respectSize: function( data ) {
+
+		var o = this._vBoundaries,
+			a = this.axis,
+			ismaxw = this._isNumber(data.width) && o.maxWidth && (o.maxWidth < data.width),
+			ismaxh = this._isNumber(data.height) && o.maxHeight && (o.maxHeight < data.height),
+			isminw = this._isNumber(data.width) && o.minWidth && (o.minWidth > data.width),
+			isminh = this._isNumber(data.height) && o.minHeight && (o.minHeight > data.height),
+			dw = this.originalPosition.left + this.originalSize.width,
+			dh = this.position.top + this.size.height,
+			cw = /sw|nw|w/.test(a), ch = /nw|ne|n/.test(a);
+		if (isminw) {
+			data.width = o.minWidth;
+		}
+		if (isminh) {
+			data.height = o.minHeight;
+		}
+		if (ismaxw) {
+			data.width = o.maxWidth;
+		}
+		if (ismaxh) {
+			data.height = o.maxHeight;
+		}
+
+		if (isminw && cw) {
+			data.left = dw - o.minWidth;
+		}
+		if (ismaxw && cw) {
+			data.left = dw - o.maxWidth;
+		}
+		if (isminh && ch) {
+			data.top = dh - o.minHeight;
+		}
+		if (ismaxh && ch) {
+			data.top = dh - o.maxHeight;
+		}
+
+		// Fixing jump error on top/left - bug #2330
+		if (!data.width && !data.height && !data.left && data.top) {
+			data.top = null;
+		} else if (!data.width && !data.height && !data.top && data.left) {
+			data.left = null;
+		}
+
+		return data;
+	},
+
+	_getPaddingPlusBorderDimensions: function( element ) {
+		var i = 0,
+			widths = [],
+			borders = [
+				element.css( "borderTopWidth" ),
+				element.css( "borderRightWidth" ),
+				element.css( "borderBottomWidth" ),
+				element.css( "borderLeftWidth" )
+			],
+			paddings = [
+				element.css( "paddingTop" ),
+				element.css( "paddingRight" ),
+				element.css( "paddingBottom" ),
+				element.css( "paddingLeft" )
+			];
+
+		for ( ; i < 4; i++ ) {
+			widths[ i ] = ( parseInt( borders[ i ], 10 ) || 0 );
+			widths[ i ] += ( parseInt( paddings[ i ], 10 ) || 0 );
+		}
+
+		return {
+			height: widths[ 0 ] + widths[ 2 ],
+			width: widths[ 1 ] + widths[ 3 ]
+		};
+	},
+
+	_proportionallyResize: function() {
+
+		if (!this._proportionallyResizeElements.length) {
+			return;
+		}
+
+		var prel,
+			i = 0,
+			element = this.helper || this.element;
+
+		for ( ; i < this._proportionallyResizeElements.length; i++) {
+
+			prel = this._proportionallyResizeElements[i];
+
+			// TODO: Seems like a bug to cache this.outerDimensions
+			// considering that we are in a loop.
+			if (!this.outerDimensions) {
+				this.outerDimensions = this._getPaddingPlusBorderDimensions( prel );
+			}
+
+			prel.css({
+				height: (element.height() - this.outerDimensions.height) || 0,
+				width: (element.width() - this.outerDimensions.width) || 0
+			});
+
+		}
+
+	},
+
+	_renderProxy: function() {
+
+		var el = this.element, o = this.options;
+		this.elementOffset = el.offset();
+
+		if (this._helper) {
+
+			this.helper = this.helper || $("<div style='overflow:hidden;'></div>");
+
+			this.helper.addClass(this._helper).css({
+				width: this.element.outerWidth() - 1,
+				height: this.element.outerHeight() - 1,
+				position: "absolute",
+				left: this.elementOffset.left + "px",
+				top: this.elementOffset.top + "px",
+				zIndex: ++o.zIndex //TODO: Don't modify option
+			});
+
+			this.helper
+				.appendTo("body")
+				.disableSelection();
+
+		} else {
+			this.helper = this.element;
+		}
+
+	},
+
+	_change: {
+		e: function(event, dx) {
+			return { width: this.originalSize.width + dx };
+		},
+		w: function(event, dx) {
+			var cs = this.originalSize, sp = this.originalPosition;
+			return { left: sp.left + dx, width: cs.width - dx };
+		},
+		n: function(event, dx, dy) {
+			var cs = this.originalSize, sp = this.originalPosition;
+			return { top: sp.top + dy, height: cs.height - dy };
+		},
+		s: function(event, dx, dy) {
+			return { height: this.originalSize.height + dy };
+		},
+		se: function(event, dx, dy) {
+			return $.extend(this._change.s.apply(this, arguments),
+				this._change.e.apply(this, [ event, dx, dy ]));
+		},
+		sw: function(event, dx, dy) {
+			return $.extend(this._change.s.apply(this, arguments),
+				this._change.w.apply(this, [ event, dx, dy ]));
+		},
+		ne: function(event, dx, dy) {
+			return $.extend(this._change.n.apply(this, arguments),
+				this._change.e.apply(this, [ event, dx, dy ]));
+		},
+		nw: function(event, dx, dy) {
+			return $.extend(this._change.n.apply(this, arguments),
+				this._change.w.apply(this, [ event, dx, dy ]));
+		}
+	},
+
+	_propagate: function(n, event) {
+		$.ui.plugin.call(this, n, [ event, this.ui() ]);
+		(n !== "resize" && this._trigger(n, event, this.ui()));
+	},
+
+	plugins: {},
+
+	ui: function() {
+		return {
+			originalElement: this.originalElement,
+			element: this.element,
+			helper: this.helper,
+			position: this.position,
+			size: this.size,
+			originalSize: this.originalSize,
+			originalPosition: this.originalPosition
+		};
+	}
+
+});
+
+/*
+ * Resizable Extensions
+ */
+
+$.ui.plugin.add("resizable", "animate", {
+
+	stop: function( event ) {
+		var that = $(this).resizable( "instance" ),
+			o = that.options,
+			pr = that._proportionallyResizeElements,
+			ista = pr.length && (/textarea/i).test(pr[0].nodeName),
+			soffseth = ista && that._hasScroll(pr[0], "left") ? 0 : that.sizeDiff.height,
+			soffsetw = ista ? 0 : that.sizeDiff.width,
+			style = { width: (that.size.width - soffsetw), height: (that.size.height - soffseth) },
+			left = (parseInt(that.element.css("left"), 10) +
+				(that.position.left - that.originalPosition.left)) || null,
+			top = (parseInt(that.element.css("top"), 10) +
+				(that.position.top - that.originalPosition.top)) || null;
+
+		that.element.animate(
+			$.extend(style, top && left ? { top: top, left: left } : {}), {
+				duration: o.animateDuration,
+				easing: o.animateEasing,
+				step: function() {
+
+					var data = {
+						width: parseInt(that.element.css("width"), 10),
+						height: parseInt(that.element.css("height"), 10),
+						top: parseInt(that.element.css("top"), 10),
+						left: parseInt(that.element.css("left"), 10)
+					};
+
+					if (pr && pr.length) {
+						$(pr[0]).css({ width: data.width, height: data.height });
+					}
+
+					// propagating resize, and updating values for each animation step
+					that._updateCache(data);
+					that._propagate("resize", event);
+
+				}
+			}
+		);
+	}
+
+});
+
+$.ui.plugin.add( "resizable", "containment", {
+
+	start: function() {
+		var element, p, co, ch, cw, width, height,
+			that = $( this ).resizable( "instance" ),
+			o = that.options,
+			el = that.element,
+			oc = o.containment,
+			ce = ( oc instanceof $ ) ? oc.get( 0 ) : ( /parent/.test( oc ) ) ? el.parent().get( 0 ) : oc;
+
+		if ( !ce ) {
+			return;
+		}
+
+		that.containerElement = $( ce );
+
+		if ( /document/.test( oc ) || oc === document ) {
+			that.containerOffset = {
+				left: 0,
+				top: 0
+			};
+			that.containerPosition = {
+				left: 0,
+				top: 0
+			};
+
+			that.parentData = {
+				element: $( document ),
+				left: 0,
+				top: 0,
+				width: $( document ).width(),
+				height: $( document ).height() || document.body.parentNode.scrollHeight
+			};
+		} else {
+			element = $( ce );
+			p = [];
+			$([ "Top", "Right", "Left", "Bottom" ]).each(function( i, name ) {
+				p[ i ] = that._num( element.css( "padding" + name ) );
+			});
+
+			that.containerOffset = element.offset();
+			that.containerPosition = element.position();
+			that.containerSize = {
+				height: ( element.innerHeight() - p[ 3 ] ),
+				width: ( element.innerWidth() - p[ 1 ] )
+			};
+
+			co = that.containerOffset;
+			ch = that.containerSize.height;
+			cw = that.containerSize.width;
+			width = ( that._hasScroll ( ce, "left" ) ? ce.scrollWidth : cw );
+			height = ( that._hasScroll ( ce ) ? ce.scrollHeight : ch ) ;
+
+			that.parentData = {
+				element: ce,
+				left: co.left,
+				top: co.top,
+				width: width,
+				height: height
+			};
+		}
+	},
+
+	resize: function( event ) {
+		var woset, hoset, isParent, isOffsetRelative,
+			that = $( this ).resizable( "instance" ),
+			o = that.options,
+			co = that.containerOffset,
+			cp = that.position,
+			pRatio = that._aspectRatio || event.shiftKey,
+			cop = {
+				top: 0,
+				left: 0
+			},
+			ce = that.containerElement,
+			continueResize = true;
+
+		if ( ce[ 0 ] !== document && ( /static/ ).test( ce.css( "position" ) ) ) {
+			cop = co;
+		}
+
+		if ( cp.left < ( that._helper ? co.left : 0 ) ) {
+			that.size.width = that.size.width +
+				( that._helper ?
+					( that.position.left - co.left ) :
+					( that.position.left - cop.left ) );
+
+			if ( pRatio ) {
+				that.size.height = that.size.width / that.aspectRatio;
+				continueResize = false;
+			}
+			that.position.left = o.helper ? co.left : 0;
+		}
+
+		if ( cp.top < ( that._helper ? co.top : 0 ) ) {
+			that.size.height = that.size.height +
+				( that._helper ?
+					( that.position.top - co.top ) :
+					that.position.top );
+
+			if ( pRatio ) {
+				that.size.width = that.size.height * that.aspectRatio;
+				continueResize = false;
+			}
+			that.position.top = that._helper ? co.top : 0;
+		}
+
+		isParent = that.containerElement.get( 0 ) === that.element.parent().get( 0 );
+		isOffsetRelative = /relative|absolute/.test( that.containerElement.css( "position" ) );
+
+		if ( isParent && isOffsetRelative ) {
+			that.offset.left = that.parentData.left + that.position.left;
+			that.offset.top = that.parentData.top + that.position.top;
+		} else {
+			that.offset.left = that.element.offset().left;
+			that.offset.top = that.element.offset().top;
+		}
+
+		woset = Math.abs( that.sizeDiff.width +
+			(that._helper ?
+				that.offset.left - cop.left :
+				(that.offset.left - co.left)) );
+
+		hoset = Math.abs( that.sizeDiff.height +
+			(that._helper ?
+				that.offset.top - cop.top :
+				(that.offset.top - co.top)) );
+
+		if ( woset + that.size.width >= that.parentData.width ) {
+			that.size.width = that.parentData.width - woset;
+			if ( pRatio ) {
+				that.size.height = that.size.width / that.aspectRatio;
+				continueResize = false;
+			}
+		}
+
+		if ( hoset + that.size.height >= that.parentData.height ) {
+			that.size.height = that.parentData.height - hoset;
+			if ( pRatio ) {
+				that.size.width = that.size.height * that.aspectRatio;
+				continueResize = false;
+			}
+		}
+
+		if ( !continueResize ) {
+			that.position.left = that.prevPosition.left;
+			that.position.top = that.prevPosition.top;
+			that.size.width = that.prevSize.width;
+			that.size.height = that.prevSize.height;
+		}
+	},
+
+	stop: function() {
+		var that = $( this ).resizable( "instance" ),
+			o = that.options,
+			co = that.containerOffset,
+			cop = that.containerPosition,
+			ce = that.containerElement,
+			helper = $( that.helper ),
+			ho = helper.offset(),
+			w = helper.outerWidth() - that.sizeDiff.width,
+			h = helper.outerHeight() - that.sizeDiff.height;
+
+		if ( that._helper && !o.animate && ( /relative/ ).test( ce.css( "position" ) ) ) {
+			$( this ).css({
+				left: ho.left - cop.left - co.left,
+				width: w,
+				height: h
+			});
+		}
+
+		if ( that._helper && !o.animate && ( /static/ ).test( ce.css( "position" ) ) ) {
+			$( this ).css({
+				left: ho.left - cop.left - co.left,
+				width: w,
+				height: h
+			});
+		}
+	}
+});
+
+$.ui.plugin.add("resizable", "alsoResize", {
+
+	start: function() {
+		var that = $(this).resizable( "instance" ),
+			o = that.options;
+
+		$(o.alsoResize).each(function() {
+			var el = $(this);
+			el.data("ui-resizable-alsoresize", {
+				width: parseInt(el.width(), 10), height: parseInt(el.height(), 10),
+				left: parseInt(el.css("left"), 10), top: parseInt(el.css("top"), 10)
+			});
+		});
+	},
+
+	resize: function(event, ui) {
+		var that = $(this).resizable( "instance" ),
+			o = that.options,
+			os = that.originalSize,
+			op = that.originalPosition,
+			delta = {
+				height: (that.size.height - os.height) || 0,
+				width: (that.size.width - os.width) || 0,
+				top: (that.position.top - op.top) || 0,
+				left: (that.position.left - op.left) || 0
+			};
+
+			$(o.alsoResize).each(function() {
+				var el = $(this), start = $(this).data("ui-resizable-alsoresize"), style = {},
+					css = el.parents(ui.originalElement[0]).length ?
+							[ "width", "height" ] :
+							[ "width", "height", "top", "left" ];
+
+				$.each(css, function(i, prop) {
+					var sum = (start[prop] || 0) + (delta[prop] || 0);
+					if (sum && sum >= 0) {
+						style[prop] = sum || null;
+					}
+				});
+
+				el.css(style);
+			});
+	},
+
+	stop: function() {
+		$(this).removeData("resizable-alsoresize");
+	}
+});
+
+$.ui.plugin.add("resizable", "ghost", {
+
+	start: function() {
+
+		var that = $(this).resizable( "instance" ), o = that.options, cs = that.size;
+
+		that.ghost = that.originalElement.clone();
+		that.ghost
+			.css({
+				opacity: 0.25,
+				display: "block",
+				position: "relative",
+				height: cs.height,
+				width: cs.width,
+				margin: 0,
+				left: 0,
+				top: 0
+			})
+			.addClass("ui-resizable-ghost")
+			.addClass(typeof o.ghost === "string" ? o.ghost : "");
+
+		that.ghost.appendTo(that.helper);
+
+	},
+
+	resize: function() {
+		var that = $(this).resizable( "instance" );
+		if (that.ghost) {
+			that.ghost.css({
+				position: "relative",
+				height: that.size.height,
+				width: that.size.width
+			});
+		}
+	},
+
+	stop: function() {
+		var that = $(this).resizable( "instance" );
+		if (that.ghost && that.helper) {
+			that.helper.get(0).removeChild(that.ghost.get(0));
+		}
+	}
+
+});
+
+$.ui.plugin.add("resizable", "grid", {
+
+	resize: function() {
+		var outerDimensions,
+			that = $(this).resizable( "instance" ),
+			o = that.options,
+			cs = that.size,
+			os = that.originalSize,
+			op = that.originalPosition,
+			a = that.axis,
+			grid = typeof o.grid === "number" ? [ o.grid, o.grid ] : o.grid,
+			gridX = (grid[0] || 1),
+			gridY = (grid[1] || 1),
+			ox = Math.round((cs.width - os.width) / gridX) * gridX,
+			oy = Math.round((cs.height - os.height) / gridY) * gridY,
+			newWidth = os.width + ox,
+			newHeight = os.height + oy,
+			isMaxWidth = o.maxWidth && (o.maxWidth < newWidth),
+			isMaxHeight = o.maxHeight && (o.maxHeight < newHeight),
+			isMinWidth = o.minWidth && (o.minWidth > newWidth),
+			isMinHeight = o.minHeight && (o.minHeight > newHeight);
+
+		o.grid = grid;
+
+		if (isMinWidth) {
+			newWidth += gridX;
+		}
+		if (isMinHeight) {
+			newHeight += gridY;
+		}
+		if (isMaxWidth) {
+			newWidth -= gridX;
+		}
+		if (isMaxHeight) {
+			newHeight -= gridY;
+		}
+
+		if (/^(se|s|e)$/.test(a)) {
+			that.size.width = newWidth;
+			that.size.height = newHeight;
+		} else if (/^(ne)$/.test(a)) {
+			that.size.width = newWidth;
+			that.size.height = newHeight;
+			that.position.top = op.top - oy;
+		} else if (/^(sw)$/.test(a)) {
+			that.size.width = newWidth;
+			that.size.height = newHeight;
+			that.position.left = op.left - ox;
+		} else {
+			if ( newHeight - gridY <= 0 || newWidth - gridX <= 0) {
+				outerDimensions = that._getPaddingPlusBorderDimensions( this );
+			}
+
+			if ( newHeight - gridY > 0 ) {
+				that.size.height = newHeight;
+				that.position.top = op.top - oy;
+			} else {
+				newHeight = gridY - outerDimensions.height;
+				that.size.height = newHeight;
+				that.position.top = op.top + os.height - newHeight;
+			}
+			if ( newWidth - gridX > 0 ) {
+				that.size.width = newWidth;
+				that.position.left = op.left - ox;
+			} else {
+				newWidth = gridX - outerDimensions.width;
+				that.size.width = newWidth;
+				that.position.left = op.left + os.width - newWidth;
+			}
+		}
+	}
+
+});
+
+var resizable = $.ui.resizable;
+
+
 /*!
  * jQuery UI Selectable 1.11.4
  * http://jqueryui.com
@@ -90,7 +4217,268 @@ I.widget("ui.resizable",I.ui.mouse,{version:"1.11.4",widgetEventPrefix:"resize",
  *
  * http://api.jqueryui.com/selectable/
  */
-var e=I.widget("ui.selectable",I.ui.mouse,{version:"1.11.4",options:{appendTo:"body",autoRefresh:true,distance:0,filter:"*",tolerance:"touch",selected:null,selecting:null,start:null,stop:null,unselected:null,unselecting:null},_create:function(){var ae,ad=this;this.element.addClass("ui-selectable");this.dragged=false;this.refresh=function(){ae=I(ad.options.filter,ad.element[0]);ae.addClass("ui-selectee");ae.each(function(){var af=I(this),ag=af.offset();I.data(this,"selectable-item",{element:this,$element:af,left:ag.left,top:ag.top,right:ag.left+af.outerWidth(),bottom:ag.top+af.outerHeight(),startselected:false,selected:af.hasClass("ui-selected"),selecting:af.hasClass("ui-selecting"),unselecting:af.hasClass("ui-unselecting")})})};this.refresh();this.selectees=ae.addClass("ui-selectee");this._mouseInit();this.helper=I("<div class='ui-selectable-helper'></div>")},_destroy:function(){this.selectees.removeClass("ui-selectee").removeData("selectable-item");this.element.removeClass("ui-selectable ui-selectable-disabled");this._mouseDestroy()},_mouseStart:function(af){var ae=this,ad=this.options;this.opos=[af.pageX,af.pageY];if(this.options.disabled){return}this.selectees=I(ad.filter,this.element[0]);this._trigger("start",af);I(ad.appendTo).append(this.helper);this.helper.css({left:af.pageX,top:af.pageY,width:0,height:0});if(ad.autoRefresh){this.refresh()}this.selectees.filter(".ui-selected").each(function(){var ag=I.data(this,"selectable-item");ag.startselected=true;if(!af.metaKey&&!af.ctrlKey){ag.$element.removeClass("ui-selected");ag.selected=false;ag.$element.addClass("ui-unselecting");ag.unselecting=true;ae._trigger("unselecting",af,{unselecting:ag.element})}});I(af.target).parents().addBack().each(function(){var ag,ah=I.data(this,"selectable-item");if(ah){ag=(!af.metaKey&&!af.ctrlKey)||!ah.$element.hasClass("ui-selected");ah.$element.removeClass(ag?"ui-unselecting":"ui-selected").addClass(ag?"ui-selecting":"ui-unselecting");ah.unselecting=!ag;ah.selecting=ag;ah.selected=ag;if(ag){ae._trigger("selecting",af,{selecting:ah.element})}else{ae._trigger("unselecting",af,{unselecting:ah.element})}return false}})},_mouseDrag:function(ak){this.dragged=true;if(this.options.disabled){return}var ah,aj=this,af=this.options,ae=this.opos[0],ai=this.opos[1],ad=ak.pageX,ag=ak.pageY;if(ae>ad){ah=ad;ad=ae;ae=ah}if(ai>ag){ah=ag;ag=ai;ai=ah}this.helper.css({left:ae,top:ai,width:ad-ae,height:ag-ai});this.selectees.each(function(){var al=I.data(this,"selectable-item"),am=false;if(!al||al.element===aj.element[0]){return}if(af.tolerance==="touch"){am=(!(al.left>ad||al.right<ae||al.top>ag||al.bottom<ai))}else{if(af.tolerance==="fit"){am=(al.left>ae&&al.right<ad&&al.top>ai&&al.bottom<ag)}}if(am){if(al.selected){al.$element.removeClass("ui-selected");al.selected=false}if(al.unselecting){al.$element.removeClass("ui-unselecting");al.unselecting=false}if(!al.selecting){al.$element.addClass("ui-selecting");al.selecting=true;aj._trigger("selecting",ak,{selecting:al.element})}}else{if(al.selecting){if((ak.metaKey||ak.ctrlKey)&&al.startselected){al.$element.removeClass("ui-selecting");al.selecting=false;al.$element.addClass("ui-selected");al.selected=true}else{al.$element.removeClass("ui-selecting");al.selecting=false;if(al.startselected){al.$element.addClass("ui-unselecting");al.unselecting=true}aj._trigger("unselecting",ak,{unselecting:al.element})}}if(al.selected){if(!ak.metaKey&&!ak.ctrlKey&&!al.startselected){al.$element.removeClass("ui-selected");al.selected=false;al.$element.addClass("ui-unselecting");al.unselecting=true;aj._trigger("unselecting",ak,{unselecting:al.element})}}}});return false},_mouseStop:function(ae){var ad=this;this.dragged=false;I(".ui-unselecting",this.element[0]).each(function(){var af=I.data(this,"selectable-item");af.$element.removeClass("ui-unselecting");af.unselecting=false;af.startselected=false;ad._trigger("unselected",ae,{unselected:af.element})});I(".ui-selecting",this.element[0]).each(function(){var af=I.data(this,"selectable-item");af.$element.removeClass("ui-selecting").addClass("ui-selected");af.selecting=false;af.selected=true;af.startselected=true;ad._trigger("selected",ae,{selected:af.element})});this._trigger("stop",ae);this.helper.remove();return false}});
+
+
+var selectable = $.widget("ui.selectable", $.ui.mouse, {
+	version: "1.11.4",
+	options: {
+		appendTo: "body",
+		autoRefresh: true,
+		distance: 0,
+		filter: "*",
+		tolerance: "touch",
+
+		// callbacks
+		selected: null,
+		selecting: null,
+		start: null,
+		stop: null,
+		unselected: null,
+		unselecting: null
+	},
+	_create: function() {
+		var selectees,
+			that = this;
+
+		this.element.addClass("ui-selectable");
+
+		this.dragged = false;
+
+		// cache selectee children based on filter
+		this.refresh = function() {
+			selectees = $(that.options.filter, that.element[0]);
+			selectees.addClass("ui-selectee");
+			selectees.each(function() {
+				var $this = $(this),
+					pos = $this.offset();
+				$.data(this, "selectable-item", {
+					element: this,
+					$element: $this,
+					left: pos.left,
+					top: pos.top,
+					right: pos.left + $this.outerWidth(),
+					bottom: pos.top + $this.outerHeight(),
+					startselected: false,
+					selected: $this.hasClass("ui-selected"),
+					selecting: $this.hasClass("ui-selecting"),
+					unselecting: $this.hasClass("ui-unselecting")
+				});
+			});
+		};
+		this.refresh();
+
+		this.selectees = selectees.addClass("ui-selectee");
+
+		this._mouseInit();
+
+		this.helper = $("<div class='ui-selectable-helper'></div>");
+	},
+
+	_destroy: function() {
+		this.selectees
+			.removeClass("ui-selectee")
+			.removeData("selectable-item");
+		this.element
+			.removeClass("ui-selectable ui-selectable-disabled");
+		this._mouseDestroy();
+	},
+
+	_mouseStart: function(event) {
+		var that = this,
+			options = this.options;
+
+		this.opos = [ event.pageX, event.pageY ];
+
+		if (this.options.disabled) {
+			return;
+		}
+
+		this.selectees = $(options.filter, this.element[0]);
+
+		this._trigger("start", event);
+
+		$(options.appendTo).append(this.helper);
+		// position helper (lasso)
+		this.helper.css({
+			"left": event.pageX,
+			"top": event.pageY,
+			"width": 0,
+			"height": 0
+		});
+
+		if (options.autoRefresh) {
+			this.refresh();
+		}
+
+		this.selectees.filter(".ui-selected").each(function() {
+			var selectee = $.data(this, "selectable-item");
+			selectee.startselected = true;
+			if (!event.metaKey && !event.ctrlKey) {
+				selectee.$element.removeClass("ui-selected");
+				selectee.selected = false;
+				selectee.$element.addClass("ui-unselecting");
+				selectee.unselecting = true;
+				// selectable UNSELECTING callback
+				that._trigger("unselecting", event, {
+					unselecting: selectee.element
+				});
+			}
+		});
+
+		$(event.target).parents().addBack().each(function() {
+			var doSelect,
+				selectee = $.data(this, "selectable-item");
+			if (selectee) {
+				doSelect = (!event.metaKey && !event.ctrlKey) || !selectee.$element.hasClass("ui-selected");
+				selectee.$element
+					.removeClass(doSelect ? "ui-unselecting" : "ui-selected")
+					.addClass(doSelect ? "ui-selecting" : "ui-unselecting");
+				selectee.unselecting = !doSelect;
+				selectee.selecting = doSelect;
+				selectee.selected = doSelect;
+				// selectable (UN)SELECTING callback
+				if (doSelect) {
+					that._trigger("selecting", event, {
+						selecting: selectee.element
+					});
+				} else {
+					that._trigger("unselecting", event, {
+						unselecting: selectee.element
+					});
+				}
+				return false;
+			}
+		});
+
+	},
+
+	_mouseDrag: function(event) {
+
+		this.dragged = true;
+
+		if (this.options.disabled) {
+			return;
+		}
+
+		var tmp,
+			that = this,
+			options = this.options,
+			x1 = this.opos[0],
+			y1 = this.opos[1],
+			x2 = event.pageX,
+			y2 = event.pageY;
+
+		if (x1 > x2) { tmp = x2; x2 = x1; x1 = tmp; }
+		if (y1 > y2) { tmp = y2; y2 = y1; y1 = tmp; }
+		this.helper.css({ left: x1, top: y1, width: x2 - x1, height: y2 - y1 });
+
+		this.selectees.each(function() {
+			var selectee = $.data(this, "selectable-item"),
+				hit = false;
+
+			//prevent helper from being selected if appendTo: selectable
+			if (!selectee || selectee.element === that.element[0]) {
+				return;
+			}
+
+			if (options.tolerance === "touch") {
+				hit = ( !(selectee.left > x2 || selectee.right < x1 || selectee.top > y2 || selectee.bottom < y1) );
+			} else if (options.tolerance === "fit") {
+				hit = (selectee.left > x1 && selectee.right < x2 && selectee.top > y1 && selectee.bottom < y2);
+			}
+
+			if (hit) {
+				// SELECT
+				if (selectee.selected) {
+					selectee.$element.removeClass("ui-selected");
+					selectee.selected = false;
+				}
+				if (selectee.unselecting) {
+					selectee.$element.removeClass("ui-unselecting");
+					selectee.unselecting = false;
+				}
+				if (!selectee.selecting) {
+					selectee.$element.addClass("ui-selecting");
+					selectee.selecting = true;
+					// selectable SELECTING callback
+					that._trigger("selecting", event, {
+						selecting: selectee.element
+					});
+				}
+			} else {
+				// UNSELECT
+				if (selectee.selecting) {
+					if ((event.metaKey || event.ctrlKey) && selectee.startselected) {
+						selectee.$element.removeClass("ui-selecting");
+						selectee.selecting = false;
+						selectee.$element.addClass("ui-selected");
+						selectee.selected = true;
+					} else {
+						selectee.$element.removeClass("ui-selecting");
+						selectee.selecting = false;
+						if (selectee.startselected) {
+							selectee.$element.addClass("ui-unselecting");
+							selectee.unselecting = true;
+						}
+						// selectable UNSELECTING callback
+						that._trigger("unselecting", event, {
+							unselecting: selectee.element
+						});
+					}
+				}
+				if (selectee.selected) {
+					if (!event.metaKey && !event.ctrlKey && !selectee.startselected) {
+						selectee.$element.removeClass("ui-selected");
+						selectee.selected = false;
+
+						selectee.$element.addClass("ui-unselecting");
+						selectee.unselecting = true;
+						// selectable UNSELECTING callback
+						that._trigger("unselecting", event, {
+							unselecting: selectee.element
+						});
+					}
+				}
+			}
+		});
+
+		return false;
+	},
+
+	_mouseStop: function(event) {
+		var that = this;
+
+		this.dragged = false;
+
+		$(".ui-unselecting", this.element[0]).each(function() {
+			var selectee = $.data(this, "selectable-item");
+			selectee.$element.removeClass("ui-unselecting");
+			selectee.unselecting = false;
+			selectee.startselected = false;
+			that._trigger("unselected", event, {
+				unselected: selectee.element
+			});
+		});
+		$(".ui-selecting", this.element[0]).each(function() {
+			var selectee = $.data(this, "selectable-item");
+			selectee.$element.removeClass("ui-selecting").addClass("ui-selected");
+			selectee.selecting = false;
+			selectee.selected = true;
+			selectee.startselected = true;
+			that._trigger("selected", event, {
+				selected: selectee.element
+			});
+		});
+		this._trigger("stop", event);
+
+		this.helper.remove();
+
+		return false;
+	}
+
+});
+
+
 /*!
  * jQuery UI Sortable 1.11.4
  * http://jqueryui.com
@@ -101,7 +4489,1296 @@ var e=I.widget("ui.selectable",I.ui.mouse,{version:"1.11.4",options:{appendTo:"b
  *
  * http://api.jqueryui.com/sortable/
  */
-var C=I.widget("ui.sortable",I.ui.mouse,{version:"1.11.4",widgetEventPrefix:"sort",ready:false,options:{appendTo:"parent",axis:false,connectWith:false,containment:false,cursor:"auto",cursorAt:false,dropOnEmpty:true,forcePlaceholderSize:false,forceHelperSize:false,grid:false,handle:false,helper:"original",items:"> *",opacity:false,placeholder:false,revert:false,scroll:true,scrollSensitivity:20,scrollSpeed:20,scope:"default",tolerance:"intersect",zIndex:1000,activate:null,beforeStop:null,change:null,deactivate:null,out:null,over:null,receive:null,remove:null,sort:null,start:null,stop:null,update:null},_isOverAxis:function(ae,ad,af){return(ae>=ad)&&(ae<(ad+af))},_isFloating:function(ad){return(/left|right/).test(ad.css("float"))||(/inline|table-cell/).test(ad.css("display"))},_create:function(){this.containerCache={};this.element.addClass("ui-sortable");this.refresh();this.offset=this.element.offset();this._mouseInit();this._setHandleClassName();this.ready=true},_setOption:function(ad,ae){this._super(ad,ae);if(ad==="handle"){this._setHandleClassName()}},_setHandleClassName:function(){this.element.find(".ui-sortable-handle").removeClass("ui-sortable-handle");I.each(this.items,function(){(this.instance.options.handle?this.item.find(this.instance.options.handle):this.item).addClass("ui-sortable-handle")})},_destroy:function(){this.element.removeClass("ui-sortable ui-sortable-disabled").find(".ui-sortable-handle").removeClass("ui-sortable-handle");this._mouseDestroy();for(var ad=this.items.length-1;ad>=0;ad--){this.items[ad].item.removeData(this.widgetName+"-item")}return this},_mouseCapture:function(af,ag){var ad=null,ah=false,ae=this;if(this.reverting){return false}if(this.options.disabled||this.options.type==="static"){return false}this._refreshItems(af);I(af.target).parents().each(function(){if(I.data(this,ae.widgetName+"-item")===ae){ad=I(this);return false}});if(I.data(af.target,ae.widgetName+"-item")===ae){ad=I(af.target)}if(!ad){return false}if(this.options.handle&&!ag){I(this.options.handle,ad).find("*").addBack().each(function(){if(this===af.target){ah=true}});if(!ah){return false}}this.currentItem=ad;this._removeCurrentsFromItems();return true},_mouseStart:function(ag,ah,ae){var af,ad,ai=this.options;this.currentContainer=this;this.refreshPositions();this.helper=this._createHelper(ag);this._cacheHelperProportions();this._cacheMargins();this.scrollParent=this.helper.scrollParent();this.offset=this.currentItem.offset();this.offset={top:this.offset.top-this.margins.top,left:this.offset.left-this.margins.left};I.extend(this.offset,{click:{left:ag.pageX-this.offset.left,top:ag.pageY-this.offset.top},parent:this._getParentOffset(),relative:this._getRelativeOffset()});this.helper.css("position","absolute");this.cssPosition=this.helper.css("position");this.originalPosition=this._generatePosition(ag);this.originalPageX=ag.pageX;this.originalPageY=ag.pageY;(ai.cursorAt&&this._adjustOffsetFromHelper(ai.cursorAt));this.domPosition={prev:this.currentItem.prev()[0],parent:this.currentItem.parent()[0]};if(this.helper[0]!==this.currentItem[0]){this.currentItem.hide()}this._createPlaceholder();if(ai.containment){this._setContainment()}if(ai.cursor&&ai.cursor!=="auto"){ad=this.document.find("body");this.storedCursor=ad.css("cursor");ad.css("cursor",ai.cursor);this.storedStylesheet=I("<style>*{ cursor: "+ai.cursor+" !important; }</style>").appendTo(ad)}if(ai.opacity){if(this.helper.css("opacity")){this._storedOpacity=this.helper.css("opacity")}this.helper.css("opacity",ai.opacity)}if(ai.zIndex){if(this.helper.css("zIndex")){this._storedZIndex=this.helper.css("zIndex")}this.helper.css("zIndex",ai.zIndex)}if(this.scrollParent[0]!==this.document[0]&&this.scrollParent[0].tagName!=="HTML"){this.overflowOffset=this.scrollParent.offset()}this._trigger("start",ag,this._uiHash());if(!this._preserveHelperProportions){this._cacheHelperProportions()}if(!ae){for(af=this.containers.length-1;af>=0;af--){this.containers[af]._trigger("activate",ag,this._uiHash(this))}}if(I.ui.ddmanager){I.ui.ddmanager.current=this}if(I.ui.ddmanager&&!ai.dropBehaviour){I.ui.ddmanager.prepareOffsets(this,ag)}this.dragging=true;this.helper.addClass("ui-sortable-helper");this._mouseDrag(ag);return true},_mouseDrag:function(ah){var af,ag,ae,aj,ai=this.options,ad=false;this.position=this._generatePosition(ah);this.positionAbs=this._convertPositionTo("absolute");if(!this.lastPositionAbs){this.lastPositionAbs=this.positionAbs}if(this.options.scroll){if(this.scrollParent[0]!==this.document[0]&&this.scrollParent[0].tagName!=="HTML"){if((this.overflowOffset.top+this.scrollParent[0].offsetHeight)-ah.pageY<ai.scrollSensitivity){this.scrollParent[0].scrollTop=ad=this.scrollParent[0].scrollTop+ai.scrollSpeed}else{if(ah.pageY-this.overflowOffset.top<ai.scrollSensitivity){this.scrollParent[0].scrollTop=ad=this.scrollParent[0].scrollTop-ai.scrollSpeed}}if((this.overflowOffset.left+this.scrollParent[0].offsetWidth)-ah.pageX<ai.scrollSensitivity){this.scrollParent[0].scrollLeft=ad=this.scrollParent[0].scrollLeft+ai.scrollSpeed}else{if(ah.pageX-this.overflowOffset.left<ai.scrollSensitivity){this.scrollParent[0].scrollLeft=ad=this.scrollParent[0].scrollLeft-ai.scrollSpeed}}}else{if(ah.pageY-this.document.scrollTop()<ai.scrollSensitivity){ad=this.document.scrollTop(this.document.scrollTop()-ai.scrollSpeed)}else{if(this.window.height()-(ah.pageY-this.document.scrollTop())<ai.scrollSensitivity){ad=this.document.scrollTop(this.document.scrollTop()+ai.scrollSpeed)}}if(ah.pageX-this.document.scrollLeft()<ai.scrollSensitivity){ad=this.document.scrollLeft(this.document.scrollLeft()-ai.scrollSpeed)}else{if(this.window.width()-(ah.pageX-this.document.scrollLeft())<ai.scrollSensitivity){ad=this.document.scrollLeft(this.document.scrollLeft()+ai.scrollSpeed)}}}if(ad!==false&&I.ui.ddmanager&&!ai.dropBehaviour){I.ui.ddmanager.prepareOffsets(this,ah)}}this.positionAbs=this._convertPositionTo("absolute");if(!this.options.axis||this.options.axis!=="y"){this.helper[0].style.left=this.position.left+"px"}if(!this.options.axis||this.options.axis!=="x"){this.helper[0].style.top=this.position.top+"px"}for(af=this.items.length-1;af>=0;af--){ag=this.items[af];ae=ag.item[0];aj=this._intersectsWithPointer(ag);if(!aj){continue}if(ag.instance!==this.currentContainer){continue}if(ae!==this.currentItem[0]&&this.placeholder[aj===1?"next":"prev"]()[0]!==ae&&!I.contains(this.placeholder[0],ae)&&(this.options.type==="semi-dynamic"?!I.contains(this.element[0],ae):true)){this.direction=aj===1?"down":"up";if(this.options.tolerance==="pointer"||this._intersectsWithSides(ag)){this._rearrange(ah,ag)}else{break}this._trigger("change",ah,this._uiHash());break}}this._contactContainers(ah);if(I.ui.ddmanager){I.ui.ddmanager.drag(this,ah)}this._trigger("sort",ah,this._uiHash());this.lastPositionAbs=this.positionAbs;return false},_mouseStop:function(af,ah){if(!af){return}if(I.ui.ddmanager&&!this.options.dropBehaviour){I.ui.ddmanager.drop(this,af)}if(this.options.revert){var ae=this,ai=this.placeholder.offset(),ad=this.options.axis,ag={};if(!ad||ad==="x"){ag.left=ai.left-this.offset.parent.left-this.margins.left+(this.offsetParent[0]===this.document[0].body?0:this.offsetParent[0].scrollLeft)}if(!ad||ad==="y"){ag.top=ai.top-this.offset.parent.top-this.margins.top+(this.offsetParent[0]===this.document[0].body?0:this.offsetParent[0].scrollTop)}this.reverting=true;I(this.helper).animate(ag,parseInt(this.options.revert,10)||500,function(){ae._clear(af)})}else{this._clear(af,ah)}return false},cancel:function(){if(this.dragging){this._mouseUp({target:null});if(this.options.helper==="original"){this.currentItem.css(this._storedCSS).removeClass("ui-sortable-helper")}else{this.currentItem.show()}for(var ad=this.containers.length-1;ad>=0;ad--){this.containers[ad]._trigger("deactivate",null,this._uiHash(this));if(this.containers[ad].containerCache.over){this.containers[ad]._trigger("out",null,this._uiHash(this));this.containers[ad].containerCache.over=0}}}if(this.placeholder){if(this.placeholder[0].parentNode){this.placeholder[0].parentNode.removeChild(this.placeholder[0])}if(this.options.helper!=="original"&&this.helper&&this.helper[0].parentNode){this.helper.remove()}I.extend(this,{helper:null,dragging:false,reverting:false,_noFinalSort:null});if(this.domPosition.prev){I(this.domPosition.prev).after(this.currentItem)}else{I(this.domPosition.parent).prepend(this.currentItem)}}return this},serialize:function(af){var ad=this._getItemsAsjQuery(af&&af.connected),ae=[];af=af||{};I(ad).each(function(){var ag=(I(af.item||this).attr(af.attribute||"id")||"").match(af.expression||(/(.+)[\-=_](.+)/));if(ag){ae.push((af.key||ag[1]+"[]")+"="+(af.key&&af.expression?ag[1]:ag[2]))}});if(!ae.length&&af.key){ae.push(af.key+"=")}return ae.join("&")},toArray:function(af){var ad=this._getItemsAsjQuery(af&&af.connected),ae=[];af=af||{};ad.each(function(){ae.push(I(af.item||this).attr(af.attribute||"id")||"")});return ae},_intersectsWith:function(ao){var af=this.positionAbs.left,ae=af+this.helperProportions.width,am=this.positionAbs.top,al=am+this.helperProportions.height,ag=ao.left,ad=ag+ao.width,ap=ao.top,ak=ap+ao.height,aq=this.offset.click.top,aj=this.offset.click.left,ai=(this.options.axis==="x")||((am+aq)>ap&&(am+aq)<ak),an=(this.options.axis==="y")||((af+aj)>ag&&(af+aj)<ad),ah=ai&&an;if(this.options.tolerance==="pointer"||this.options.forcePointerForContainers||(this.options.tolerance!=="pointer"&&this.helperProportions[this.floating?"width":"height"]>ao[this.floating?"width":"height"])){return ah}else{return(ag<af+(this.helperProportions.width/2)&&ae-(this.helperProportions.width/2)<ad&&ap<am+(this.helperProportions.height/2)&&al-(this.helperProportions.height/2)<ak)}},_intersectsWithPointer:function(af){var ag=(this.options.axis==="x")||this._isOverAxis(this.positionAbs.top+this.offset.click.top,af.top,af.height),ae=(this.options.axis==="y")||this._isOverAxis(this.positionAbs.left+this.offset.click.left,af.left,af.width),ai=ag&&ae,ad=this._getDragVerticalDirection(),ah=this._getDragHorizontalDirection();if(!ai){return false}return this.floating?(((ah&&ah==="right")||ad==="down")?2:1):(ad&&(ad==="down"?2:1))},_intersectsWithSides:function(ag){var ae=this._isOverAxis(this.positionAbs.top+this.offset.click.top,ag.top+(ag.height/2),ag.height),af=this._isOverAxis(this.positionAbs.left+this.offset.click.left,ag.left+(ag.width/2),ag.width),ad=this._getDragVerticalDirection(),ah=this._getDragHorizontalDirection();if(this.floating&&ah){return((ah==="right"&&af)||(ah==="left"&&!af))}else{return ad&&((ad==="down"&&ae)||(ad==="up"&&!ae))}},_getDragVerticalDirection:function(){var ad=this.positionAbs.top-this.lastPositionAbs.top;return ad!==0&&(ad>0?"down":"up")},_getDragHorizontalDirection:function(){var ad=this.positionAbs.left-this.lastPositionAbs.left;return ad!==0&&(ad>0?"right":"left")},refresh:function(ad){this._refreshItems(ad);this._setHandleClassName();this.refreshPositions();return this},_connectWith:function(){var ad=this.options;return ad.connectWith.constructor===String?[ad.connectWith]:ad.connectWith},_getItemsAsjQuery:function(ad){var af,ae,ak,ah,ai=[],ag=[],aj=this._connectWith();if(aj&&ad){for(af=aj.length-1;af>=0;af--){ak=I(aj[af],this.document[0]);for(ae=ak.length-1;ae>=0;ae--){ah=I.data(ak[ae],this.widgetFullName);if(ah&&ah!==this&&!ah.options.disabled){ag.push([I.isFunction(ah.options.items)?ah.options.items.call(ah.element):I(ah.options.items,ah.element).not(".ui-sortable-helper").not(".ui-sortable-placeholder"),ah])}}}}ag.push([I.isFunction(this.options.items)?this.options.items.call(this.element,null,{options:this.options,item:this.currentItem}):I(this.options.items,this.element).not(".ui-sortable-helper").not(".ui-sortable-placeholder"),this]);function al(){ai.push(this)}for(af=ag.length-1;af>=0;af--){ag[af][0].each(al)}return I(ai)},_removeCurrentsFromItems:function(){var ad=this.currentItem.find(":data("+this.widgetName+"-item)");this.items=I.grep(this.items,function(af){for(var ae=0;ae<ad.length;ae++){if(ad[ae]===af.item[0]){return false}}return true})},_refreshItems:function(ad){this.items=[];this.containers=[this];var ah,af,am,ai,al,ae,ao,an,aj=this.items,ag=[[I.isFunction(this.options.items)?this.options.items.call(this.element[0],ad,{item:this.currentItem}):I(this.options.items,this.element),this]],ak=this._connectWith();if(ak&&this.ready){for(ah=ak.length-1;ah>=0;ah--){am=I(ak[ah],this.document[0]);for(af=am.length-1;af>=0;af--){ai=I.data(am[af],this.widgetFullName);if(ai&&ai!==this&&!ai.options.disabled){ag.push([I.isFunction(ai.options.items)?ai.options.items.call(ai.element[0],ad,{item:this.currentItem}):I(ai.options.items,ai.element),ai]);this.containers.push(ai)}}}}for(ah=ag.length-1;ah>=0;ah--){al=ag[ah][1];ae=ag[ah][0];for(af=0,an=ae.length;af<an;af++){ao=I(ae[af]);ao.data(this.widgetName+"-item",al);aj.push({item:ao,instance:al,width:0,height:0,left:0,top:0})}}},refreshPositions:function(ad){this.floating=this.items.length?this.options.axis==="x"||this._isFloating(this.items[0].item):false;if(this.offsetParent&&this.helper){this.offset.parent=this._getParentOffset()}var af,ag,ae,ah;for(af=this.items.length-1;af>=0;af--){ag=this.items[af];if(ag.instance!==this.currentContainer&&this.currentContainer&&ag.item[0]!==this.currentItem[0]){continue}ae=this.options.toleranceElement?I(this.options.toleranceElement,ag.item):ag.item;if(!ad){ag.width=ae.outerWidth();ag.height=ae.outerHeight()}ah=ae.offset();ag.left=ah.left;ag.top=ah.top}if(this.options.custom&&this.options.custom.refreshContainers){this.options.custom.refreshContainers.call(this)}else{for(af=this.containers.length-1;af>=0;af--){ah=this.containers[af].element.offset();this.containers[af].containerCache.left=ah.left;this.containers[af].containerCache.top=ah.top;this.containers[af].containerCache.width=this.containers[af].element.outerWidth();this.containers[af].containerCache.height=this.containers[af].element.outerHeight()}}return this},_createPlaceholder:function(ae){ae=ae||this;var ad,af=ae.options;if(!af.placeholder||af.placeholder.constructor===String){ad=af.placeholder;af.placeholder={element:function(){var ah=ae.currentItem[0].nodeName.toLowerCase(),ag=I("<"+ah+">",ae.document[0]).addClass(ad||ae.currentItem[0].className+" ui-sortable-placeholder").removeClass("ui-sortable-helper");if(ah==="tbody"){ae._createTrPlaceholder(ae.currentItem.find("tr").eq(0),I("<tr>",ae.document[0]).appendTo(ag))}else{if(ah==="tr"){ae._createTrPlaceholder(ae.currentItem,ag)}else{if(ah==="img"){ag.attr("src",ae.currentItem.attr("src"))}}}if(!ad){ag.css("visibility","hidden")}return ag},update:function(ag,ah){if(ad&&!af.forcePlaceholderSize){return}if(!ah.height()){ah.height(ae.currentItem.innerHeight()-parseInt(ae.currentItem.css("paddingTop")||0,10)-parseInt(ae.currentItem.css("paddingBottom")||0,10))}if(!ah.width()){ah.width(ae.currentItem.innerWidth()-parseInt(ae.currentItem.css("paddingLeft")||0,10)-parseInt(ae.currentItem.css("paddingRight")||0,10))}}}}ae.placeholder=I(af.placeholder.element.call(ae.element,ae.currentItem));ae.currentItem.after(ae.placeholder);af.placeholder.update(ae,ae.placeholder)},_createTrPlaceholder:function(ae,ad){var af=this;ae.children().each(function(){I("<td>&#160;</td>",af.document[0]).attr("colspan",I(this).attr("colspan")||1).appendTo(ad)})},_contactContainers:function(ad){var ai,ag,am,aj,ak,ao,ap,ah,al,af,ae=null,an=null;for(ai=this.containers.length-1;ai>=0;ai--){if(I.contains(this.currentItem[0],this.containers[ai].element[0])){continue}if(this._intersectsWith(this.containers[ai].containerCache)){if(ae&&I.contains(this.containers[ai].element[0],ae.element[0])){continue}ae=this.containers[ai];an=ai}else{if(this.containers[ai].containerCache.over){this.containers[ai]._trigger("out",ad,this._uiHash(this));this.containers[ai].containerCache.over=0}}}if(!ae){return}if(this.containers.length===1){if(!this.containers[an].containerCache.over){this.containers[an]._trigger("over",ad,this._uiHash(this));this.containers[an].containerCache.over=1}}else{am=10000;aj=null;al=ae.floating||this._isFloating(this.currentItem);ak=al?"left":"top";ao=al?"width":"height";af=al?"clientX":"clientY";for(ag=this.items.length-1;ag>=0;ag--){if(!I.contains(this.containers[an].element[0],this.items[ag].item[0])){continue}if(this.items[ag].item[0]===this.currentItem[0]){continue}ap=this.items[ag].item.offset()[ak];ah=false;if(ad[af]-ap>this.items[ag][ao]/2){ah=true}if(Math.abs(ad[af]-ap)<am){am=Math.abs(ad[af]-ap);aj=this.items[ag];this.direction=ah?"up":"down"}}if(!aj&&!this.options.dropOnEmpty){return}if(this.currentContainer===this.containers[an]){if(!this.currentContainer.containerCache.over){this.containers[an]._trigger("over",ad,this._uiHash());this.currentContainer.containerCache.over=1}return}aj?this._rearrange(ad,aj,null,true):this._rearrange(ad,null,this.containers[an].element,true);this._trigger("change",ad,this._uiHash());this.containers[an]._trigger("change",ad,this._uiHash(this));this.currentContainer=this.containers[an];this.options.placeholder.update(this.currentContainer,this.placeholder);this.containers[an]._trigger("over",ad,this._uiHash(this));this.containers[an].containerCache.over=1}},_createHelper:function(ae){var af=this.options,ad=I.isFunction(af.helper)?I(af.helper.apply(this.element[0],[ae,this.currentItem])):(af.helper==="clone"?this.currentItem.clone():this.currentItem);if(!ad.parents("body").length){I(af.appendTo!=="parent"?af.appendTo:this.currentItem[0].parentNode)[0].appendChild(ad[0])}if(ad[0]===this.currentItem[0]){this._storedCSS={width:this.currentItem[0].style.width,height:this.currentItem[0].style.height,position:this.currentItem.css("position"),top:this.currentItem.css("top"),left:this.currentItem.css("left")}}if(!ad[0].style.width||af.forceHelperSize){ad.width(this.currentItem.width())}if(!ad[0].style.height||af.forceHelperSize){ad.height(this.currentItem.height())}return ad},_adjustOffsetFromHelper:function(ad){if(typeof ad==="string"){ad=ad.split(" ")}if(I.isArray(ad)){ad={left:+ad[0],top:+ad[1]||0}}if("left" in ad){this.offset.click.left=ad.left+this.margins.left}if("right" in ad){this.offset.click.left=this.helperProportions.width-ad.right+this.margins.left}if("top" in ad){this.offset.click.top=ad.top+this.margins.top}if("bottom" in ad){this.offset.click.top=this.helperProportions.height-ad.bottom+this.margins.top}},_getParentOffset:function(){this.offsetParent=this.helper.offsetParent();var ad=this.offsetParent.offset();if(this.cssPosition==="absolute"&&this.scrollParent[0]!==this.document[0]&&I.contains(this.scrollParent[0],this.offsetParent[0])){ad.left+=this.scrollParent.scrollLeft();ad.top+=this.scrollParent.scrollTop()}if(this.offsetParent[0]===this.document[0].body||(this.offsetParent[0].tagName&&this.offsetParent[0].tagName.toLowerCase()==="html"&&I.ui.ie)){ad={top:0,left:0}}return{top:ad.top+(parseInt(this.offsetParent.css("borderTopWidth"),10)||0),left:ad.left+(parseInt(this.offsetParent.css("borderLeftWidth"),10)||0)}},_getRelativeOffset:function(){if(this.cssPosition==="relative"){var ad=this.currentItem.position();return{top:ad.top-(parseInt(this.helper.css("top"),10)||0)+this.scrollParent.scrollTop(),left:ad.left-(parseInt(this.helper.css("left"),10)||0)+this.scrollParent.scrollLeft()}}else{return{top:0,left:0}}},_cacheMargins:function(){this.margins={left:(parseInt(this.currentItem.css("marginLeft"),10)||0),top:(parseInt(this.currentItem.css("marginTop"),10)||0)}},_cacheHelperProportions:function(){this.helperProportions={width:this.helper.outerWidth(),height:this.helper.outerHeight()}},_setContainment:function(){var ae,ag,ad,af=this.options;if(af.containment==="parent"){af.containment=this.helper[0].parentNode}if(af.containment==="document"||af.containment==="window"){this.containment=[0-this.offset.relative.left-this.offset.parent.left,0-this.offset.relative.top-this.offset.parent.top,af.containment==="document"?this.document.width():this.window.width()-this.helperProportions.width-this.margins.left,(af.containment==="document"?this.document.width():this.window.height()||this.document[0].body.parentNode.scrollHeight)-this.helperProportions.height-this.margins.top]}if(!(/^(document|window|parent)$/).test(af.containment)){ae=I(af.containment)[0];ag=I(af.containment).offset();ad=(I(ae).css("overflow")!=="hidden");this.containment=[ag.left+(parseInt(I(ae).css("borderLeftWidth"),10)||0)+(parseInt(I(ae).css("paddingLeft"),10)||0)-this.margins.left,ag.top+(parseInt(I(ae).css("borderTopWidth"),10)||0)+(parseInt(I(ae).css("paddingTop"),10)||0)-this.margins.top,ag.left+(ad?Math.max(ae.scrollWidth,ae.offsetWidth):ae.offsetWidth)-(parseInt(I(ae).css("borderLeftWidth"),10)||0)-(parseInt(I(ae).css("paddingRight"),10)||0)-this.helperProportions.width-this.margins.left,ag.top+(ad?Math.max(ae.scrollHeight,ae.offsetHeight):ae.offsetHeight)-(parseInt(I(ae).css("borderTopWidth"),10)||0)-(parseInt(I(ae).css("paddingBottom"),10)||0)-this.helperProportions.height-this.margins.top]}},_convertPositionTo:function(af,ah){if(!ah){ah=this.position}var ae=af==="absolute"?1:-1,ad=this.cssPosition==="absolute"&&!(this.scrollParent[0]!==this.document[0]&&I.contains(this.scrollParent[0],this.offsetParent[0]))?this.offsetParent:this.scrollParent,ag=(/(html|body)/i).test(ad[0].tagName);return{top:(ah.top+this.offset.relative.top*ae+this.offset.parent.top*ae-((this.cssPosition==="fixed"?-this.scrollParent.scrollTop():(ag?0:ad.scrollTop()))*ae)),left:(ah.left+this.offset.relative.left*ae+this.offset.parent.left*ae-((this.cssPosition==="fixed"?-this.scrollParent.scrollLeft():ag?0:ad.scrollLeft())*ae))}},_generatePosition:function(ag){var ai,ah,aj=this.options,af=ag.pageX,ae=ag.pageY,ad=this.cssPosition==="absolute"&&!(this.scrollParent[0]!==this.document[0]&&I.contains(this.scrollParent[0],this.offsetParent[0]))?this.offsetParent:this.scrollParent,ak=(/(html|body)/i).test(ad[0].tagName);if(this.cssPosition==="relative"&&!(this.scrollParent[0]!==this.document[0]&&this.scrollParent[0]!==this.offsetParent[0])){this.offset.relative=this._getRelativeOffset()}if(this.originalPosition){if(this.containment){if(ag.pageX-this.offset.click.left<this.containment[0]){af=this.containment[0]+this.offset.click.left}if(ag.pageY-this.offset.click.top<this.containment[1]){ae=this.containment[1]+this.offset.click.top}if(ag.pageX-this.offset.click.left>this.containment[2]){af=this.containment[2]+this.offset.click.left}if(ag.pageY-this.offset.click.top>this.containment[3]){ae=this.containment[3]+this.offset.click.top}}if(aj.grid){ai=this.originalPageY+Math.round((ae-this.originalPageY)/aj.grid[1])*aj.grid[1];ae=this.containment?((ai-this.offset.click.top>=this.containment[1]&&ai-this.offset.click.top<=this.containment[3])?ai:((ai-this.offset.click.top>=this.containment[1])?ai-aj.grid[1]:ai+aj.grid[1])):ai;ah=this.originalPageX+Math.round((af-this.originalPageX)/aj.grid[0])*aj.grid[0];af=this.containment?((ah-this.offset.click.left>=this.containment[0]&&ah-this.offset.click.left<=this.containment[2])?ah:((ah-this.offset.click.left>=this.containment[0])?ah-aj.grid[0]:ah+aj.grid[0])):ah}}return{top:(ae-this.offset.click.top-this.offset.relative.top-this.offset.parent.top+((this.cssPosition==="fixed"?-this.scrollParent.scrollTop():(ak?0:ad.scrollTop())))),left:(af-this.offset.click.left-this.offset.relative.left-this.offset.parent.left+((this.cssPosition==="fixed"?-this.scrollParent.scrollLeft():ak?0:ad.scrollLeft())))}},_rearrange:function(ah,ag,ae,af){ae?ae[0].appendChild(this.placeholder[0]):ag.item[0].parentNode.insertBefore(this.placeholder[0],(this.direction==="down"?ag.item[0]:ag.item[0].nextSibling));this.counter=this.counter?++this.counter:1;var ad=this.counter;this._delay(function(){if(ad===this.counter){this.refreshPositions(!af)}})},_clear:function(ae,ag){this.reverting=false;var ad,ah=[];if(!this._noFinalSort&&this.currentItem.parent().length){this.placeholder.before(this.currentItem)}this._noFinalSort=null;if(this.helper[0]===this.currentItem[0]){for(ad in this._storedCSS){if(this._storedCSS[ad]==="auto"||this._storedCSS[ad]==="static"){this._storedCSS[ad]=""}}this.currentItem.css(this._storedCSS).removeClass("ui-sortable-helper")}else{this.currentItem.show()}if(this.fromOutside&&!ag){ah.push(function(ai){this._trigger("receive",ai,this._uiHash(this.fromOutside))})}if((this.fromOutside||this.domPosition.prev!==this.currentItem.prev().not(".ui-sortable-helper")[0]||this.domPosition.parent!==this.currentItem.parent()[0])&&!ag){ah.push(function(ai){this._trigger("update",ai,this._uiHash())})}if(this!==this.currentContainer){if(!ag){ah.push(function(ai){this._trigger("remove",ai,this._uiHash())});ah.push((function(ai){return function(aj){ai._trigger("receive",aj,this._uiHash(this))}}).call(this,this.currentContainer));ah.push((function(ai){return function(aj){ai._trigger("update",aj,this._uiHash(this))}}).call(this,this.currentContainer))}}function af(ak,ai,aj){return function(al){aj._trigger(ak,al,ai._uiHash(ai))}}for(ad=this.containers.length-1;ad>=0;ad--){if(!ag){ah.push(af("deactivate",this,this.containers[ad]))}if(this.containers[ad].containerCache.over){ah.push(af("out",this,this.containers[ad]));this.containers[ad].containerCache.over=0}}if(this.storedCursor){this.document.find("body").css("cursor",this.storedCursor);this.storedStylesheet.remove()}if(this._storedOpacity){this.helper.css("opacity",this._storedOpacity)}if(this._storedZIndex){this.helper.css("zIndex",this._storedZIndex==="auto"?"":this._storedZIndex)}this.dragging=false;if(!ag){this._trigger("beforeStop",ae,this._uiHash())}this.placeholder[0].parentNode.removeChild(this.placeholder[0]);if(!this.cancelHelperRemoval){if(this.helper[0]!==this.currentItem[0]){this.helper.remove()}this.helper=null}if(!ag){for(ad=0;ad<ah.length;ad++){ah[ad].call(this,ae)}this._trigger("stop",ae,this._uiHash())}this.fromOutside=false;return !this.cancelHelperRemoval},_trigger:function(){if(I.Widget.prototype._trigger.apply(this,arguments)===false){this.cancel()}},_uiHash:function(ad){var ae=ad||this;return{helper:ae.helper,placeholder:ae.placeholder||I([]),position:ae.position,originalPosition:ae.originalPosition,offset:ae.positionAbs,item:ae.currentItem,sender:ad?ad.element:null}}});
+
+
+var sortable = $.widget("ui.sortable", $.ui.mouse, {
+	version: "1.11.4",
+	widgetEventPrefix: "sort",
+	ready: false,
+	options: {
+		appendTo: "parent",
+		axis: false,
+		connectWith: false,
+		containment: false,
+		cursor: "auto",
+		cursorAt: false,
+		dropOnEmpty: true,
+		forcePlaceholderSize: false,
+		forceHelperSize: false,
+		grid: false,
+		handle: false,
+		helper: "original",
+		items: "> *",
+		opacity: false,
+		placeholder: false,
+		revert: false,
+		scroll: true,
+		scrollSensitivity: 20,
+		scrollSpeed: 20,
+		scope: "default",
+		tolerance: "intersect",
+		zIndex: 1000,
+
+		// callbacks
+		activate: null,
+		beforeStop: null,
+		change: null,
+		deactivate: null,
+		out: null,
+		over: null,
+		receive: null,
+		remove: null,
+		sort: null,
+		start: null,
+		stop: null,
+		update: null
+	},
+
+	_isOverAxis: function( x, reference, size ) {
+		return ( x >= reference ) && ( x < ( reference + size ) );
+	},
+
+	_isFloating: function( item ) {
+		return (/left|right/).test(item.css("float")) || (/inline|table-cell/).test(item.css("display"));
+	},
+
+	_create: function() {
+		this.containerCache = {};
+		this.element.addClass("ui-sortable");
+
+		//Get the items
+		this.refresh();
+
+		//Let's determine the parent's offset
+		this.offset = this.element.offset();
+
+		//Initialize mouse events for interaction
+		this._mouseInit();
+
+		this._setHandleClassName();
+
+		//We're ready to go
+		this.ready = true;
+
+	},
+
+	_setOption: function( key, value ) {
+		this._super( key, value );
+
+		if ( key === "handle" ) {
+			this._setHandleClassName();
+		}
+	},
+
+	_setHandleClassName: function() {
+		this.element.find( ".ui-sortable-handle" ).removeClass( "ui-sortable-handle" );
+		$.each( this.items, function() {
+			( this.instance.options.handle ?
+				this.item.find( this.instance.options.handle ) : this.item )
+				.addClass( "ui-sortable-handle" );
+		});
+	},
+
+	_destroy: function() {
+		this.element
+			.removeClass( "ui-sortable ui-sortable-disabled" )
+			.find( ".ui-sortable-handle" )
+				.removeClass( "ui-sortable-handle" );
+		this._mouseDestroy();
+
+		for ( var i = this.items.length - 1; i >= 0; i-- ) {
+			this.items[i].item.removeData(this.widgetName + "-item");
+		}
+
+		return this;
+	},
+
+	_mouseCapture: function(event, overrideHandle) {
+		var currentItem = null,
+			validHandle = false,
+			that = this;
+
+		if (this.reverting) {
+			return false;
+		}
+
+		if(this.options.disabled || this.options.type === "static") {
+			return false;
+		}
+
+		//We have to refresh the items data once first
+		this._refreshItems(event);
+
+		//Find out if the clicked node (or one of its parents) is a actual item in this.items
+		$(event.target).parents().each(function() {
+			if($.data(this, that.widgetName + "-item") === that) {
+				currentItem = $(this);
+				return false;
+			}
+		});
+		if($.data(event.target, that.widgetName + "-item") === that) {
+			currentItem = $(event.target);
+		}
+
+		if(!currentItem) {
+			return false;
+		}
+		if(this.options.handle && !overrideHandle) {
+			$(this.options.handle, currentItem).find("*").addBack().each(function() {
+				if(this === event.target) {
+					validHandle = true;
+				}
+			});
+			if(!validHandle) {
+				return false;
+			}
+		}
+
+		this.currentItem = currentItem;
+		this._removeCurrentsFromItems();
+		return true;
+
+	},
+
+	_mouseStart: function(event, overrideHandle, noActivation) {
+
+		var i, body,
+			o = this.options;
+
+		this.currentContainer = this;
+
+		//We only need to call refreshPositions, because the refreshItems call has been moved to mouseCapture
+		this.refreshPositions();
+
+		//Create and append the visible helper
+		this.helper = this._createHelper(event);
+
+		//Cache the helper size
+		this._cacheHelperProportions();
+
+		/*
+		 * - Position generation -
+		 * This block generates everything position related - it's the core of draggables.
+		 */
+
+		//Cache the margins of the original element
+		this._cacheMargins();
+
+		//Get the next scrolling parent
+		this.scrollParent = this.helper.scrollParent();
+
+		//The element's absolute position on the page minus margins
+		this.offset = this.currentItem.offset();
+		this.offset = {
+			top: this.offset.top - this.margins.top,
+			left: this.offset.left - this.margins.left
+		};
+
+		$.extend(this.offset, {
+			click: { //Where the click happened, relative to the element
+				left: event.pageX - this.offset.left,
+				top: event.pageY - this.offset.top
+			},
+			parent: this._getParentOffset(),
+			relative: this._getRelativeOffset() //This is a relative to absolute position minus the actual position calculation - only used for relative positioned helper
+		});
+
+		// Only after we got the offset, we can change the helper's position to absolute
+		// TODO: Still need to figure out a way to make relative sorting possible
+		this.helper.css("position", "absolute");
+		this.cssPosition = this.helper.css("position");
+
+		//Generate the original position
+		this.originalPosition = this._generatePosition(event);
+		this.originalPageX = event.pageX;
+		this.originalPageY = event.pageY;
+
+		//Adjust the mouse offset relative to the helper if "cursorAt" is supplied
+		(o.cursorAt && this._adjustOffsetFromHelper(o.cursorAt));
+
+		//Cache the former DOM position
+		this.domPosition = { prev: this.currentItem.prev()[0], parent: this.currentItem.parent()[0] };
+
+		//If the helper is not the original, hide the original so it's not playing any role during the drag, won't cause anything bad this way
+		if(this.helper[0] !== this.currentItem[0]) {
+			this.currentItem.hide();
+		}
+
+		//Create the placeholder
+		this._createPlaceholder();
+
+		//Set a containment if given in the options
+		if(o.containment) {
+			this._setContainment();
+		}
+
+		if( o.cursor && o.cursor !== "auto" ) { // cursor option
+			body = this.document.find( "body" );
+
+			// support: IE
+			this.storedCursor = body.css( "cursor" );
+			body.css( "cursor", o.cursor );
+
+			this.storedStylesheet = $( "<style>*{ cursor: "+o.cursor+" !important; }</style>" ).appendTo( body );
+		}
+
+		if(o.opacity) { // opacity option
+			if (this.helper.css("opacity")) {
+				this._storedOpacity = this.helper.css("opacity");
+			}
+			this.helper.css("opacity", o.opacity);
+		}
+
+		if(o.zIndex) { // zIndex option
+			if (this.helper.css("zIndex")) {
+				this._storedZIndex = this.helper.css("zIndex");
+			}
+			this.helper.css("zIndex", o.zIndex);
+		}
+
+		//Prepare scrolling
+		if(this.scrollParent[0] !== this.document[0] && this.scrollParent[0].tagName !== "HTML") {
+			this.overflowOffset = this.scrollParent.offset();
+		}
+
+		//Call callbacks
+		this._trigger("start", event, this._uiHash());
+
+		//Recache the helper size
+		if(!this._preserveHelperProportions) {
+			this._cacheHelperProportions();
+		}
+
+
+		//Post "activate" events to possible containers
+		if( !noActivation ) {
+			for ( i = this.containers.length - 1; i >= 0; i-- ) {
+				this.containers[ i ]._trigger( "activate", event, this._uiHash( this ) );
+			}
+		}
+
+		//Prepare possible droppables
+		if($.ui.ddmanager) {
+			$.ui.ddmanager.current = this;
+		}
+
+		if ($.ui.ddmanager && !o.dropBehaviour) {
+			$.ui.ddmanager.prepareOffsets(this, event);
+		}
+
+		this.dragging = true;
+
+		this.helper.addClass("ui-sortable-helper");
+		this._mouseDrag(event); //Execute the drag once - this causes the helper not to be visible before getting its correct position
+		return true;
+
+	},
+
+	_mouseDrag: function(event) {
+		var i, item, itemElement, intersection,
+			o = this.options,
+			scrolled = false;
+
+		//Compute the helpers position
+		this.position = this._generatePosition(event);
+		this.positionAbs = this._convertPositionTo("absolute");
+
+		if (!this.lastPositionAbs) {
+			this.lastPositionAbs = this.positionAbs;
+		}
+
+		//Do scrolling
+		if(this.options.scroll) {
+			if(this.scrollParent[0] !== this.document[0] && this.scrollParent[0].tagName !== "HTML") {
+
+				if((this.overflowOffset.top + this.scrollParent[0].offsetHeight) - event.pageY < o.scrollSensitivity) {
+					this.scrollParent[0].scrollTop = scrolled = this.scrollParent[0].scrollTop + o.scrollSpeed;
+				} else if(event.pageY - this.overflowOffset.top < o.scrollSensitivity) {
+					this.scrollParent[0].scrollTop = scrolled = this.scrollParent[0].scrollTop - o.scrollSpeed;
+				}
+
+				if((this.overflowOffset.left + this.scrollParent[0].offsetWidth) - event.pageX < o.scrollSensitivity) {
+					this.scrollParent[0].scrollLeft = scrolled = this.scrollParent[0].scrollLeft + o.scrollSpeed;
+				} else if(event.pageX - this.overflowOffset.left < o.scrollSensitivity) {
+					this.scrollParent[0].scrollLeft = scrolled = this.scrollParent[0].scrollLeft - o.scrollSpeed;
+				}
+
+			} else {
+
+				if(event.pageY - this.document.scrollTop() < o.scrollSensitivity) {
+					scrolled = this.document.scrollTop(this.document.scrollTop() - o.scrollSpeed);
+				} else if(this.window.height() - (event.pageY - this.document.scrollTop()) < o.scrollSensitivity) {
+					scrolled = this.document.scrollTop(this.document.scrollTop() + o.scrollSpeed);
+				}
+
+				if(event.pageX - this.document.scrollLeft() < o.scrollSensitivity) {
+					scrolled = this.document.scrollLeft(this.document.scrollLeft() - o.scrollSpeed);
+				} else if(this.window.width() - (event.pageX - this.document.scrollLeft()) < o.scrollSensitivity) {
+					scrolled = this.document.scrollLeft(this.document.scrollLeft() + o.scrollSpeed);
+				}
+
+			}
+
+			if(scrolled !== false && $.ui.ddmanager && !o.dropBehaviour) {
+				$.ui.ddmanager.prepareOffsets(this, event);
+			}
+		}
+
+		//Regenerate the absolute position used for position checks
+		this.positionAbs = this._convertPositionTo("absolute");
+
+		//Set the helper position
+		if(!this.options.axis || this.options.axis !== "y") {
+			this.helper[0].style.left = this.position.left+"px";
+		}
+		if(!this.options.axis || this.options.axis !== "x") {
+			this.helper[0].style.top = this.position.top+"px";
+		}
+
+		//Rearrange
+		for (i = this.items.length - 1; i >= 0; i--) {
+
+			//Cache variables and intersection, continue if no intersection
+			item = this.items[i];
+			itemElement = item.item[0];
+			intersection = this._intersectsWithPointer(item);
+			if (!intersection) {
+				continue;
+			}
+
+			// Only put the placeholder inside the current Container, skip all
+			// items from other containers. This works because when moving
+			// an item from one container to another the
+			// currentContainer is switched before the placeholder is moved.
+			//
+			// Without this, moving items in "sub-sortables" can cause
+			// the placeholder to jitter between the outer and inner container.
+			if (item.instance !== this.currentContainer) {
+				continue;
+			}
+
+			// cannot intersect with itself
+			// no useless actions that have been done before
+			// no action if the item moved is the parent of the item checked
+			if (itemElement !== this.currentItem[0] &&
+				this.placeholder[intersection === 1 ? "next" : "prev"]()[0] !== itemElement &&
+				!$.contains(this.placeholder[0], itemElement) &&
+				(this.options.type === "semi-dynamic" ? !$.contains(this.element[0], itemElement) : true)
+			) {
+
+				this.direction = intersection === 1 ? "down" : "up";
+
+				if (this.options.tolerance === "pointer" || this._intersectsWithSides(item)) {
+					this._rearrange(event, item);
+				} else {
+					break;
+				}
+
+				this._trigger("change", event, this._uiHash());
+				break;
+			}
+		}
+
+		//Post events to containers
+		this._contactContainers(event);
+
+		//Interconnect with droppables
+		if($.ui.ddmanager) {
+			$.ui.ddmanager.drag(this, event);
+		}
+
+		//Call callbacks
+		this._trigger("sort", event, this._uiHash());
+
+		this.lastPositionAbs = this.positionAbs;
+		return false;
+
+	},
+
+	_mouseStop: function(event, noPropagation) {
+
+		if(!event) {
+			return;
+		}
+
+		//If we are using droppables, inform the manager about the drop
+		if ($.ui.ddmanager && !this.options.dropBehaviour) {
+			$.ui.ddmanager.drop(this, event);
+		}
+
+		if(this.options.revert) {
+			var that = this,
+				cur = this.placeholder.offset(),
+				axis = this.options.axis,
+				animation = {};
+
+			if ( !axis || axis === "x" ) {
+				animation.left = cur.left - this.offset.parent.left - this.margins.left + (this.offsetParent[0] === this.document[0].body ? 0 : this.offsetParent[0].scrollLeft);
+			}
+			if ( !axis || axis === "y" ) {
+				animation.top = cur.top - this.offset.parent.top - this.margins.top + (this.offsetParent[0] === this.document[0].body ? 0 : this.offsetParent[0].scrollTop);
+			}
+			this.reverting = true;
+			$(this.helper).animate( animation, parseInt(this.options.revert, 10) || 500, function() {
+				that._clear(event);
+			});
+		} else {
+			this._clear(event, noPropagation);
+		}
+
+		return false;
+
+	},
+
+	cancel: function() {
+
+		if(this.dragging) {
+
+			this._mouseUp({ target: null });
+
+			if(this.options.helper === "original") {
+				this.currentItem.css(this._storedCSS).removeClass("ui-sortable-helper");
+			} else {
+				this.currentItem.show();
+			}
+
+			//Post deactivating events to containers
+			for (var i = this.containers.length - 1; i >= 0; i--){
+				this.containers[i]._trigger("deactivate", null, this._uiHash(this));
+				if(this.containers[i].containerCache.over) {
+					this.containers[i]._trigger("out", null, this._uiHash(this));
+					this.containers[i].containerCache.over = 0;
+				}
+			}
+
+		}
+
+		if (this.placeholder) {
+			//$(this.placeholder[0]).remove(); would have been the jQuery way - unfortunately, it unbinds ALL events from the original node!
+			if(this.placeholder[0].parentNode) {
+				this.placeholder[0].parentNode.removeChild(this.placeholder[0]);
+			}
+			if(this.options.helper !== "original" && this.helper && this.helper[0].parentNode) {
+				this.helper.remove();
+			}
+
+			$.extend(this, {
+				helper: null,
+				dragging: false,
+				reverting: false,
+				_noFinalSort: null
+			});
+
+			if(this.domPosition.prev) {
+				$(this.domPosition.prev).after(this.currentItem);
+			} else {
+				$(this.domPosition.parent).prepend(this.currentItem);
+			}
+		}
+
+		return this;
+
+	},
+
+	serialize: function(o) {
+
+		var items = this._getItemsAsjQuery(o && o.connected),
+			str = [];
+		o = o || {};
+
+		$(items).each(function() {
+			var res = ($(o.item || this).attr(o.attribute || "id") || "").match(o.expression || (/(.+)[\-=_](.+)/));
+			if (res) {
+				str.push((o.key || res[1]+"[]")+"="+(o.key && o.expression ? res[1] : res[2]));
+			}
+		});
+
+		if(!str.length && o.key) {
+			str.push(o.key + "=");
+		}
+
+		return str.join("&");
+
+	},
+
+	toArray: function(o) {
+
+		var items = this._getItemsAsjQuery(o && o.connected),
+			ret = [];
+
+		o = o || {};
+
+		items.each(function() { ret.push($(o.item || this).attr(o.attribute || "id") || ""); });
+		return ret;
+
+	},
+
+	/* Be careful with the following core functions */
+	_intersectsWith: function(item) {
+
+		var x1 = this.positionAbs.left,
+			x2 = x1 + this.helperProportions.width,
+			y1 = this.positionAbs.top,
+			y2 = y1 + this.helperProportions.height,
+			l = item.left,
+			r = l + item.width,
+			t = item.top,
+			b = t + item.height,
+			dyClick = this.offset.click.top,
+			dxClick = this.offset.click.left,
+			isOverElementHeight = ( this.options.axis === "x" ) || ( ( y1 + dyClick ) > t && ( y1 + dyClick ) < b ),
+			isOverElementWidth = ( this.options.axis === "y" ) || ( ( x1 + dxClick ) > l && ( x1 + dxClick ) < r ),
+			isOverElement = isOverElementHeight && isOverElementWidth;
+
+		if ( this.options.tolerance === "pointer" ||
+			this.options.forcePointerForContainers ||
+			(this.options.tolerance !== "pointer" && this.helperProportions[this.floating ? "width" : "height"] > item[this.floating ? "width" : "height"])
+		) {
+			return isOverElement;
+		} else {
+
+			return (l < x1 + (this.helperProportions.width / 2) && // Right Half
+				x2 - (this.helperProportions.width / 2) < r && // Left Half
+				t < y1 + (this.helperProportions.height / 2) && // Bottom Half
+				y2 - (this.helperProportions.height / 2) < b ); // Top Half
+
+		}
+	},
+
+	_intersectsWithPointer: function(item) {
+
+		var isOverElementHeight = (this.options.axis === "x") || this._isOverAxis(this.positionAbs.top + this.offset.click.top, item.top, item.height),
+			isOverElementWidth = (this.options.axis === "y") || this._isOverAxis(this.positionAbs.left + this.offset.click.left, item.left, item.width),
+			isOverElement = isOverElementHeight && isOverElementWidth,
+			verticalDirection = this._getDragVerticalDirection(),
+			horizontalDirection = this._getDragHorizontalDirection();
+
+		if (!isOverElement) {
+			return false;
+		}
+
+		return this.floating ?
+			( ((horizontalDirection && horizontalDirection === "right") || verticalDirection === "down") ? 2 : 1 )
+			: ( verticalDirection && (verticalDirection === "down" ? 2 : 1) );
+
+	},
+
+	_intersectsWithSides: function(item) {
+
+		var isOverBottomHalf = this._isOverAxis(this.positionAbs.top + this.offset.click.top, item.top + (item.height/2), item.height),
+			isOverRightHalf = this._isOverAxis(this.positionAbs.left + this.offset.click.left, item.left + (item.width/2), item.width),
+			verticalDirection = this._getDragVerticalDirection(),
+			horizontalDirection = this._getDragHorizontalDirection();
+
+		if (this.floating && horizontalDirection) {
+			return ((horizontalDirection === "right" && isOverRightHalf) || (horizontalDirection === "left" && !isOverRightHalf));
+		} else {
+			return verticalDirection && ((verticalDirection === "down" && isOverBottomHalf) || (verticalDirection === "up" && !isOverBottomHalf));
+		}
+
+	},
+
+	_getDragVerticalDirection: function() {
+		var delta = this.positionAbs.top - this.lastPositionAbs.top;
+		return delta !== 0 && (delta > 0 ? "down" : "up");
+	},
+
+	_getDragHorizontalDirection: function() {
+		var delta = this.positionAbs.left - this.lastPositionAbs.left;
+		return delta !== 0 && (delta > 0 ? "right" : "left");
+	},
+
+	refresh: function(event) {
+		this._refreshItems(event);
+		this._setHandleClassName();
+		this.refreshPositions();
+		return this;
+	},
+
+	_connectWith: function() {
+		var options = this.options;
+		return options.connectWith.constructor === String ? [options.connectWith] : options.connectWith;
+	},
+
+	_getItemsAsjQuery: function(connected) {
+
+		var i, j, cur, inst,
+			items = [],
+			queries = [],
+			connectWith = this._connectWith();
+
+		if(connectWith && connected) {
+			for (i = connectWith.length - 1; i >= 0; i--){
+				cur = $(connectWith[i], this.document[0]);
+				for ( j = cur.length - 1; j >= 0; j--){
+					inst = $.data(cur[j], this.widgetFullName);
+					if(inst && inst !== this && !inst.options.disabled) {
+						queries.push([$.isFunction(inst.options.items) ? inst.options.items.call(inst.element) : $(inst.options.items, inst.element).not(".ui-sortable-helper").not(".ui-sortable-placeholder"), inst]);
+					}
+				}
+			}
+		}
+
+		queries.push([$.isFunction(this.options.items) ? this.options.items.call(this.element, null, { options: this.options, item: this.currentItem }) : $(this.options.items, this.element).not(".ui-sortable-helper").not(".ui-sortable-placeholder"), this]);
+
+		function addItems() {
+			items.push( this );
+		}
+		for (i = queries.length - 1; i >= 0; i--){
+			queries[i][0].each( addItems );
+		}
+
+		return $(items);
+
+	},
+
+	_removeCurrentsFromItems: function() {
+
+		var list = this.currentItem.find(":data(" + this.widgetName + "-item)");
+
+		this.items = $.grep(this.items, function (item) {
+			for (var j=0; j < list.length; j++) {
+				if(list[j] === item.item[0]) {
+					return false;
+				}
+			}
+			return true;
+		});
+
+	},
+
+	_refreshItems: function(event) {
+
+		this.items = [];
+		this.containers = [this];
+
+		var i, j, cur, inst, targetData, _queries, item, queriesLength,
+			items = this.items,
+			queries = [[$.isFunction(this.options.items) ? this.options.items.call(this.element[0], event, { item: this.currentItem }) : $(this.options.items, this.element), this]],
+			connectWith = this._connectWith();
+
+		if(connectWith && this.ready) { //Shouldn't be run the first time through due to massive slow-down
+			for (i = connectWith.length - 1; i >= 0; i--){
+				cur = $(connectWith[i], this.document[0]);
+				for (j = cur.length - 1; j >= 0; j--){
+					inst = $.data(cur[j], this.widgetFullName);
+					if(inst && inst !== this && !inst.options.disabled) {
+						queries.push([$.isFunction(inst.options.items) ? inst.options.items.call(inst.element[0], event, { item: this.currentItem }) : $(inst.options.items, inst.element), inst]);
+						this.containers.push(inst);
+					}
+				}
+			}
+		}
+
+		for (i = queries.length - 1; i >= 0; i--) {
+			targetData = queries[i][1];
+			_queries = queries[i][0];
+
+			for (j=0, queriesLength = _queries.length; j < queriesLength; j++) {
+				item = $(_queries[j]);
+
+				item.data(this.widgetName + "-item", targetData); // Data for target checking (mouse manager)
+
+				items.push({
+					item: item,
+					instance: targetData,
+					width: 0, height: 0,
+					left: 0, top: 0
+				});
+			}
+		}
+
+	},
+
+	refreshPositions: function(fast) {
+
+		// Determine whether items are being displayed horizontally
+		this.floating = this.items.length ?
+			this.options.axis === "x" || this._isFloating( this.items[ 0 ].item ) :
+			false;
+
+		//This has to be redone because due to the item being moved out/into the offsetParent, the offsetParent's position will change
+		if(this.offsetParent && this.helper) {
+			this.offset.parent = this._getParentOffset();
+		}
+
+		var i, item, t, p;
+
+		for (i = this.items.length - 1; i >= 0; i--){
+			item = this.items[i];
+
+			//We ignore calculating positions of all connected containers when we're not over them
+			if(item.instance !== this.currentContainer && this.currentContainer && item.item[0] !== this.currentItem[0]) {
+				continue;
+			}
+
+			t = this.options.toleranceElement ? $(this.options.toleranceElement, item.item) : item.item;
+
+			if (!fast) {
+				item.width = t.outerWidth();
+				item.height = t.outerHeight();
+			}
+
+			p = t.offset();
+			item.left = p.left;
+			item.top = p.top;
+		}
+
+		if(this.options.custom && this.options.custom.refreshContainers) {
+			this.options.custom.refreshContainers.call(this);
+		} else {
+			for (i = this.containers.length - 1; i >= 0; i--){
+				p = this.containers[i].element.offset();
+				this.containers[i].containerCache.left = p.left;
+				this.containers[i].containerCache.top = p.top;
+				this.containers[i].containerCache.width = this.containers[i].element.outerWidth();
+				this.containers[i].containerCache.height = this.containers[i].element.outerHeight();
+			}
+		}
+
+		return this;
+	},
+
+	_createPlaceholder: function(that) {
+		that = that || this;
+		var className,
+			o = that.options;
+
+		if(!o.placeholder || o.placeholder.constructor === String) {
+			className = o.placeholder;
+			o.placeholder = {
+				element: function() {
+
+					var nodeName = that.currentItem[0].nodeName.toLowerCase(),
+						element = $( "<" + nodeName + ">", that.document[0] )
+							.addClass(className || that.currentItem[0].className+" ui-sortable-placeholder")
+							.removeClass("ui-sortable-helper");
+
+					if ( nodeName === "tbody" ) {
+						that._createTrPlaceholder(
+							that.currentItem.find( "tr" ).eq( 0 ),
+							$( "<tr>", that.document[ 0 ] ).appendTo( element )
+						);
+					} else if ( nodeName === "tr" ) {
+						that._createTrPlaceholder( that.currentItem, element );
+					} else if ( nodeName === "img" ) {
+						element.attr( "src", that.currentItem.attr( "src" ) );
+					}
+
+					if ( !className ) {
+						element.css( "visibility", "hidden" );
+					}
+
+					return element;
+				},
+				update: function(container, p) {
+
+					// 1. If a className is set as 'placeholder option, we don't force sizes - the class is responsible for that
+					// 2. The option 'forcePlaceholderSize can be enabled to force it even if a class name is specified
+					if(className && !o.forcePlaceholderSize) {
+						return;
+					}
+
+					//If the element doesn't have a actual height by itself (without styles coming from a stylesheet), it receives the inline height from the dragged item
+					if(!p.height()) { p.height(that.currentItem.innerHeight() - parseInt(that.currentItem.css("paddingTop")||0, 10) - parseInt(that.currentItem.css("paddingBottom")||0, 10)); }
+					if(!p.width()) { p.width(that.currentItem.innerWidth() - parseInt(that.currentItem.css("paddingLeft")||0, 10) - parseInt(that.currentItem.css("paddingRight")||0, 10)); }
+				}
+			};
+		}
+
+		//Create the placeholder
+		that.placeholder = $(o.placeholder.element.call(that.element, that.currentItem));
+
+		//Append it after the actual current item
+		that.currentItem.after(that.placeholder);
+
+		//Update the size of the placeholder (TODO: Logic to fuzzy, see line 316/317)
+		o.placeholder.update(that, that.placeholder);
+
+	},
+
+	_createTrPlaceholder: function( sourceTr, targetTr ) {
+		var that = this;
+
+		sourceTr.children().each(function() {
+			$( "<td>&#160;</td>", that.document[ 0 ] )
+				.attr( "colspan", $( this ).attr( "colspan" ) || 1 )
+				.appendTo( targetTr );
+		});
+	},
+
+	_contactContainers: function(event) {
+		var i, j, dist, itemWithLeastDistance, posProperty, sizeProperty, cur, nearBottom, floating, axis,
+			innermostContainer = null,
+			innermostIndex = null;
+
+		// get innermost container that intersects with item
+		for (i = this.containers.length - 1; i >= 0; i--) {
+
+			// never consider a container that's located within the item itself
+			if($.contains(this.currentItem[0], this.containers[i].element[0])) {
+				continue;
+			}
+
+			if(this._intersectsWith(this.containers[i].containerCache)) {
+
+				// if we've already found a container and it's more "inner" than this, then continue
+				if(innermostContainer && $.contains(this.containers[i].element[0], innermostContainer.element[0])) {
+					continue;
+				}
+
+				innermostContainer = this.containers[i];
+				innermostIndex = i;
+
+			} else {
+				// container doesn't intersect. trigger "out" event if necessary
+				if(this.containers[i].containerCache.over) {
+					this.containers[i]._trigger("out", event, this._uiHash(this));
+					this.containers[i].containerCache.over = 0;
+				}
+			}
+
+		}
+
+		// if no intersecting containers found, return
+		if(!innermostContainer) {
+			return;
+		}
+
+		// move the item into the container if it's not there already
+		if(this.containers.length === 1) {
+			if (!this.containers[innermostIndex].containerCache.over) {
+				this.containers[innermostIndex]._trigger("over", event, this._uiHash(this));
+				this.containers[innermostIndex].containerCache.over = 1;
+			}
+		} else {
+
+			//When entering a new container, we will find the item with the least distance and append our item near it
+			dist = 10000;
+			itemWithLeastDistance = null;
+			floating = innermostContainer.floating || this._isFloating(this.currentItem);
+			posProperty = floating ? "left" : "top";
+			sizeProperty = floating ? "width" : "height";
+			axis = floating ? "clientX" : "clientY";
+
+			for (j = this.items.length - 1; j >= 0; j--) {
+				if(!$.contains(this.containers[innermostIndex].element[0], this.items[j].item[0])) {
+					continue;
+				}
+				if(this.items[j].item[0] === this.currentItem[0]) {
+					continue;
+				}
+
+				cur = this.items[j].item.offset()[posProperty];
+				nearBottom = false;
+				if ( event[ axis ] - cur > this.items[ j ][ sizeProperty ] / 2 ) {
+					nearBottom = true;
+				}
+
+				if ( Math.abs( event[ axis ] - cur ) < dist ) {
+					dist = Math.abs( event[ axis ] - cur );
+					itemWithLeastDistance = this.items[ j ];
+					this.direction = nearBottom ? "up": "down";
+				}
+			}
+
+			//Check if dropOnEmpty is enabled
+			if(!itemWithLeastDistance && !this.options.dropOnEmpty) {
+				return;
+			}
+
+			if(this.currentContainer === this.containers[innermostIndex]) {
+				if ( !this.currentContainer.containerCache.over ) {
+					this.containers[ innermostIndex ]._trigger( "over", event, this._uiHash() );
+					this.currentContainer.containerCache.over = 1;
+				}
+				return;
+			}
+
+			itemWithLeastDistance ? this._rearrange(event, itemWithLeastDistance, null, true) : this._rearrange(event, null, this.containers[innermostIndex].element, true);
+			this._trigger("change", event, this._uiHash());
+			this.containers[innermostIndex]._trigger("change", event, this._uiHash(this));
+			this.currentContainer = this.containers[innermostIndex];
+
+			//Update the placeholder
+			this.options.placeholder.update(this.currentContainer, this.placeholder);
+
+			this.containers[innermostIndex]._trigger("over", event, this._uiHash(this));
+			this.containers[innermostIndex].containerCache.over = 1;
+		}
+
+
+	},
+
+	_createHelper: function(event) {
+
+		var o = this.options,
+			helper = $.isFunction(o.helper) ? $(o.helper.apply(this.element[0], [event, this.currentItem])) : (o.helper === "clone" ? this.currentItem.clone() : this.currentItem);
+
+		//Add the helper to the DOM if that didn't happen already
+		if(!helper.parents("body").length) {
+			$(o.appendTo !== "parent" ? o.appendTo : this.currentItem[0].parentNode)[0].appendChild(helper[0]);
+		}
+
+		if(helper[0] === this.currentItem[0]) {
+			this._storedCSS = { width: this.currentItem[0].style.width, height: this.currentItem[0].style.height, position: this.currentItem.css("position"), top: this.currentItem.css("top"), left: this.currentItem.css("left") };
+		}
+
+		if(!helper[0].style.width || o.forceHelperSize) {
+			helper.width(this.currentItem.width());
+		}
+		if(!helper[0].style.height || o.forceHelperSize) {
+			helper.height(this.currentItem.height());
+		}
+
+		return helper;
+
+	},
+
+	_adjustOffsetFromHelper: function(obj) {
+		if (typeof obj === "string") {
+			obj = obj.split(" ");
+		}
+		if ($.isArray(obj)) {
+			obj = {left: +obj[0], top: +obj[1] || 0};
+		}
+		if ("left" in obj) {
+			this.offset.click.left = obj.left + this.margins.left;
+		}
+		if ("right" in obj) {
+			this.offset.click.left = this.helperProportions.width - obj.right + this.margins.left;
+		}
+		if ("top" in obj) {
+			this.offset.click.top = obj.top + this.margins.top;
+		}
+		if ("bottom" in obj) {
+			this.offset.click.top = this.helperProportions.height - obj.bottom + this.margins.top;
+		}
+	},
+
+	_getParentOffset: function() {
+
+
+		//Get the offsetParent and cache its position
+		this.offsetParent = this.helper.offsetParent();
+		var po = this.offsetParent.offset();
+
+		// This is a special case where we need to modify a offset calculated on start, since the following happened:
+		// 1. The position of the helper is absolute, so it's position is calculated based on the next positioned parent
+		// 2. The actual offset parent is a child of the scroll parent, and the scroll parent isn't the document, which means that
+		//    the scroll is included in the initial calculation of the offset of the parent, and never recalculated upon drag
+		if(this.cssPosition === "absolute" && this.scrollParent[0] !== this.document[0] && $.contains(this.scrollParent[0], this.offsetParent[0])) {
+			po.left += this.scrollParent.scrollLeft();
+			po.top += this.scrollParent.scrollTop();
+		}
+
+		// This needs to be actually done for all browsers, since pageX/pageY includes this information
+		// with an ugly IE fix
+		if( this.offsetParent[0] === this.document[0].body || (this.offsetParent[0].tagName && this.offsetParent[0].tagName.toLowerCase() === "html" && $.ui.ie)) {
+			po = { top: 0, left: 0 };
+		}
+
+		return {
+			top: po.top + (parseInt(this.offsetParent.css("borderTopWidth"),10) || 0),
+			left: po.left + (parseInt(this.offsetParent.css("borderLeftWidth"),10) || 0)
+		};
+
+	},
+
+	_getRelativeOffset: function() {
+
+		if(this.cssPosition === "relative") {
+			var p = this.currentItem.position();
+			return {
+				top: p.top - (parseInt(this.helper.css("top"),10) || 0) + this.scrollParent.scrollTop(),
+				left: p.left - (parseInt(this.helper.css("left"),10) || 0) + this.scrollParent.scrollLeft()
+			};
+		} else {
+			return { top: 0, left: 0 };
+		}
+
+	},
+
+	_cacheMargins: function() {
+		this.margins = {
+			left: (parseInt(this.currentItem.css("marginLeft"),10) || 0),
+			top: (parseInt(this.currentItem.css("marginTop"),10) || 0)
+		};
+	},
+
+	_cacheHelperProportions: function() {
+		this.helperProportions = {
+			width: this.helper.outerWidth(),
+			height: this.helper.outerHeight()
+		};
+	},
+
+	_setContainment: function() {
+
+		var ce, co, over,
+			o = this.options;
+		if(o.containment === "parent") {
+			o.containment = this.helper[0].parentNode;
+		}
+		if(o.containment === "document" || o.containment === "window") {
+			this.containment = [
+				0 - this.offset.relative.left - this.offset.parent.left,
+				0 - this.offset.relative.top - this.offset.parent.top,
+				o.containment === "document" ? this.document.width() : this.window.width() - this.helperProportions.width - this.margins.left,
+				(o.containment === "document" ? this.document.width() : this.window.height() || this.document[0].body.parentNode.scrollHeight) - this.helperProportions.height - this.margins.top
+			];
+		}
+
+		if(!(/^(document|window|parent)$/).test(o.containment)) {
+			ce = $(o.containment)[0];
+			co = $(o.containment).offset();
+			over = ($(ce).css("overflow") !== "hidden");
+
+			this.containment = [
+				co.left + (parseInt($(ce).css("borderLeftWidth"),10) || 0) + (parseInt($(ce).css("paddingLeft"),10) || 0) - this.margins.left,
+				co.top + (parseInt($(ce).css("borderTopWidth"),10) || 0) + (parseInt($(ce).css("paddingTop"),10) || 0) - this.margins.top,
+				co.left+(over ? Math.max(ce.scrollWidth,ce.offsetWidth) : ce.offsetWidth) - (parseInt($(ce).css("borderLeftWidth"),10) || 0) - (parseInt($(ce).css("paddingRight"),10) || 0) - this.helperProportions.width - this.margins.left,
+				co.top+(over ? Math.max(ce.scrollHeight,ce.offsetHeight) : ce.offsetHeight) - (parseInt($(ce).css("borderTopWidth"),10) || 0) - (parseInt($(ce).css("paddingBottom"),10) || 0) - this.helperProportions.height - this.margins.top
+			];
+		}
+
+	},
+
+	_convertPositionTo: function(d, pos) {
+
+		if(!pos) {
+			pos = this.position;
+		}
+		var mod = d === "absolute" ? 1 : -1,
+			scroll = this.cssPosition === "absolute" && !(this.scrollParent[0] !== this.document[0] && $.contains(this.scrollParent[0], this.offsetParent[0])) ? this.offsetParent : this.scrollParent,
+			scrollIsRootNode = (/(html|body)/i).test(scroll[0].tagName);
+
+		return {
+			top: (
+				pos.top	+																// The absolute mouse position
+				this.offset.relative.top * mod +										// Only for relative positioned nodes: Relative offset from element to offset parent
+				this.offset.parent.top * mod -											// The offsetParent's offset without borders (offset + border)
+				( ( this.cssPosition === "fixed" ? -this.scrollParent.scrollTop() : ( scrollIsRootNode ? 0 : scroll.scrollTop() ) ) * mod)
+			),
+			left: (
+				pos.left +																// The absolute mouse position
+				this.offset.relative.left * mod +										// Only for relative positioned nodes: Relative offset from element to offset parent
+				this.offset.parent.left * mod	-										// The offsetParent's offset without borders (offset + border)
+				( ( this.cssPosition === "fixed" ? -this.scrollParent.scrollLeft() : scrollIsRootNode ? 0 : scroll.scrollLeft() ) * mod)
+			)
+		};
+
+	},
+
+	_generatePosition: function(event) {
+
+		var top, left,
+			o = this.options,
+			pageX = event.pageX,
+			pageY = event.pageY,
+			scroll = this.cssPosition === "absolute" && !(this.scrollParent[0] !== this.document[0] && $.contains(this.scrollParent[0], this.offsetParent[0])) ? this.offsetParent : this.scrollParent, scrollIsRootNode = (/(html|body)/i).test(scroll[0].tagName);
+
+		// This is another very weird special case that only happens for relative elements:
+		// 1. If the css position is relative
+		// 2. and the scroll parent is the document or similar to the offset parent
+		// we have to refresh the relative offset during the scroll so there are no jumps
+		if(this.cssPosition === "relative" && !(this.scrollParent[0] !== this.document[0] && this.scrollParent[0] !== this.offsetParent[0])) {
+			this.offset.relative = this._getRelativeOffset();
+		}
+
+		/*
+		 * - Position constraining -
+		 * Constrain the position to a mix of grid, containment.
+		 */
+
+		if(this.originalPosition) { //If we are not dragging yet, we won't check for options
+
+			if(this.containment) {
+				if(event.pageX - this.offset.click.left < this.containment[0]) {
+					pageX = this.containment[0] + this.offset.click.left;
+				}
+				if(event.pageY - this.offset.click.top < this.containment[1]) {
+					pageY = this.containment[1] + this.offset.click.top;
+				}
+				if(event.pageX - this.offset.click.left > this.containment[2]) {
+					pageX = this.containment[2] + this.offset.click.left;
+				}
+				if(event.pageY - this.offset.click.top > this.containment[3]) {
+					pageY = this.containment[3] + this.offset.click.top;
+				}
+			}
+
+			if(o.grid) {
+				top = this.originalPageY + Math.round((pageY - this.originalPageY) / o.grid[1]) * o.grid[1];
+				pageY = this.containment ? ( (top - this.offset.click.top >= this.containment[1] && top - this.offset.click.top <= this.containment[3]) ? top : ((top - this.offset.click.top >= this.containment[1]) ? top - o.grid[1] : top + o.grid[1])) : top;
+
+				left = this.originalPageX + Math.round((pageX - this.originalPageX) / o.grid[0]) * o.grid[0];
+				pageX = this.containment ? ( (left - this.offset.click.left >= this.containment[0] && left - this.offset.click.left <= this.containment[2]) ? left : ((left - this.offset.click.left >= this.containment[0]) ? left - o.grid[0] : left + o.grid[0])) : left;
+			}
+
+		}
+
+		return {
+			top: (
+				pageY -																// The absolute mouse position
+				this.offset.click.top -													// Click offset (relative to the element)
+				this.offset.relative.top	-											// Only for relative positioned nodes: Relative offset from element to offset parent
+				this.offset.parent.top +												// The offsetParent's offset without borders (offset + border)
+				( ( this.cssPosition === "fixed" ? -this.scrollParent.scrollTop() : ( scrollIsRootNode ? 0 : scroll.scrollTop() ) ))
+			),
+			left: (
+				pageX -																// The absolute mouse position
+				this.offset.click.left -												// Click offset (relative to the element)
+				this.offset.relative.left	-											// Only for relative positioned nodes: Relative offset from element to offset parent
+				this.offset.parent.left +												// The offsetParent's offset without borders (offset + border)
+				( ( this.cssPosition === "fixed" ? -this.scrollParent.scrollLeft() : scrollIsRootNode ? 0 : scroll.scrollLeft() ))
+			)
+		};
+
+	},
+
+	_rearrange: function(event, i, a, hardRefresh) {
+
+		a ? a[0].appendChild(this.placeholder[0]) : i.item[0].parentNode.insertBefore(this.placeholder[0], (this.direction === "down" ? i.item[0] : i.item[0].nextSibling));
+
+		//Various things done here to improve the performance:
+		// 1. we create a setTimeout, that calls refreshPositions
+		// 2. on the instance, we have a counter variable, that get's higher after every append
+		// 3. on the local scope, we copy the counter variable, and check in the timeout, if it's still the same
+		// 4. this lets only the last addition to the timeout stack through
+		this.counter = this.counter ? ++this.counter : 1;
+		var counter = this.counter;
+
+		this._delay(function() {
+			if(counter === this.counter) {
+				this.refreshPositions(!hardRefresh); //Precompute after each DOM insertion, NOT on mousemove
+			}
+		});
+
+	},
+
+	_clear: function(event, noPropagation) {
+
+		this.reverting = false;
+		// We delay all events that have to be triggered to after the point where the placeholder has been removed and
+		// everything else normalized again
+		var i,
+			delayedTriggers = [];
+
+		// We first have to update the dom position of the actual currentItem
+		// Note: don't do it if the current item is already removed (by a user), or it gets reappended (see #4088)
+		if(!this._noFinalSort && this.currentItem.parent().length) {
+			this.placeholder.before(this.currentItem);
+		}
+		this._noFinalSort = null;
+
+		if(this.helper[0] === this.currentItem[0]) {
+			for(i in this._storedCSS) {
+				if(this._storedCSS[i] === "auto" || this._storedCSS[i] === "static") {
+					this._storedCSS[i] = "";
+				}
+			}
+			this.currentItem.css(this._storedCSS).removeClass("ui-sortable-helper");
+		} else {
+			this.currentItem.show();
+		}
+
+		if(this.fromOutside && !noPropagation) {
+			delayedTriggers.push(function(event) { this._trigger("receive", event, this._uiHash(this.fromOutside)); });
+		}
+		if((this.fromOutside || this.domPosition.prev !== this.currentItem.prev().not(".ui-sortable-helper")[0] || this.domPosition.parent !== this.currentItem.parent()[0]) && !noPropagation) {
+			delayedTriggers.push(function(event) { this._trigger("update", event, this._uiHash()); }); //Trigger update callback if the DOM position has changed
+		}
+
+		// Check if the items Container has Changed and trigger appropriate
+		// events.
+		if (this !== this.currentContainer) {
+			if(!noPropagation) {
+				delayedTriggers.push(function(event) { this._trigger("remove", event, this._uiHash()); });
+				delayedTriggers.push((function(c) { return function(event) { c._trigger("receive", event, this._uiHash(this)); };  }).call(this, this.currentContainer));
+				delayedTriggers.push((function(c) { return function(event) { c._trigger("update", event, this._uiHash(this));  }; }).call(this, this.currentContainer));
+			}
+		}
+
+
+		//Post events to containers
+		function delayEvent( type, instance, container ) {
+			return function( event ) {
+				container._trigger( type, event, instance._uiHash( instance ) );
+			};
+		}
+		for (i = this.containers.length - 1; i >= 0; i--){
+			if (!noPropagation) {
+				delayedTriggers.push( delayEvent( "deactivate", this, this.containers[ i ] ) );
+			}
+			if(this.containers[i].containerCache.over) {
+				delayedTriggers.push( delayEvent( "out", this, this.containers[ i ] ) );
+				this.containers[i].containerCache.over = 0;
+			}
+		}
+
+		//Do what was originally in plugins
+		if ( this.storedCursor ) {
+			this.document.find( "body" ).css( "cursor", this.storedCursor );
+			this.storedStylesheet.remove();
+		}
+		if(this._storedOpacity) {
+			this.helper.css("opacity", this._storedOpacity);
+		}
+		if(this._storedZIndex) {
+			this.helper.css("zIndex", this._storedZIndex === "auto" ? "" : this._storedZIndex);
+		}
+
+		this.dragging = false;
+
+		if(!noPropagation) {
+			this._trigger("beforeStop", event, this._uiHash());
+		}
+
+		//$(this.placeholder[0]).remove(); would have been the jQuery way - unfortunately, it unbinds ALL events from the original node!
+		this.placeholder[0].parentNode.removeChild(this.placeholder[0]);
+
+		if ( !this.cancelHelperRemoval ) {
+			if ( this.helper[ 0 ] !== this.currentItem[ 0 ] ) {
+				this.helper.remove();
+			}
+			this.helper = null;
+		}
+
+		if(!noPropagation) {
+			for (i=0; i < delayedTriggers.length; i++) {
+				delayedTriggers[i].call(this, event);
+			} //Trigger all delayed events
+			this._trigger("stop", event, this._uiHash());
+		}
+
+		this.fromOutside = false;
+		return !this.cancelHelperRemoval;
+
+	},
+
+	_trigger: function() {
+		if ($.Widget.prototype._trigger.apply(this, arguments) === false) {
+			this.cancel();
+		}
+	},
+
+	_uiHash: function(_inst) {
+		var inst = _inst || this;
+		return {
+			helper: inst.helper,
+			placeholder: inst.placeholder || $([]),
+			position: inst.position,
+			originalPosition: inst.originalPosition,
+			offset: inst.positionAbs,
+			item: inst.currentItem,
+			sender: _inst ? _inst.element : null
+		};
+	}
+
+});
+
+
 /*!
  * jQuery UI Accordion 1.11.4
  * http://jqueryui.com
@@ -112,7 +5789,573 @@ var C=I.widget("ui.sortable",I.ui.mouse,{version:"1.11.4",widgetEventPrefix:"sor
  *
  * http://api.jqueryui.com/accordion/
  */
-var ac=I.widget("ui.accordion",{version:"1.11.4",options:{active:0,animate:{},collapsible:false,event:"click",header:"> li > :first-child,> :not(li):even",heightStyle:"auto",icons:{activeHeader:"ui-icon-triangle-1-s",header:"ui-icon-triangle-1-e"},activate:null,beforeActivate:null},hideProps:{borderTopWidth:"hide",borderBottomWidth:"hide",paddingTop:"hide",paddingBottom:"hide",height:"hide"},showProps:{borderTopWidth:"show",borderBottomWidth:"show",paddingTop:"show",paddingBottom:"show",height:"show"},_create:function(){var ad=this.options;this.prevShow=this.prevHide=I();this.element.addClass("ui-accordion ui-widget ui-helper-reset").attr("role","tablist");if(!ad.collapsible&&(ad.active===false||ad.active==null)){ad.active=0}this._processPanels();if(ad.active<0){ad.active+=this.headers.length}this._refresh()},_getCreateEventData:function(){return{header:this.active,panel:!this.active.length?I():this.active.next()}},_createIcons:function(){var ad=this.options.icons;if(ad){I("<span>").addClass("ui-accordion-header-icon ui-icon "+ad.header).prependTo(this.headers);this.active.children(".ui-accordion-header-icon").removeClass(ad.header).addClass(ad.activeHeader);this.headers.addClass("ui-accordion-icons")}},_destroyIcons:function(){this.headers.removeClass("ui-accordion-icons").children(".ui-accordion-header-icon").remove()},_destroy:function(){var ad;this.element.removeClass("ui-accordion ui-widget ui-helper-reset").removeAttr("role");this.headers.removeClass("ui-accordion-header ui-accordion-header-active ui-state-default ui-corner-all ui-state-active ui-state-disabled ui-corner-top").removeAttr("role").removeAttr("aria-expanded").removeAttr("aria-selected").removeAttr("aria-controls").removeAttr("tabIndex").removeUniqueId();this._destroyIcons();ad=this.headers.next().removeClass("ui-helper-reset ui-widget-content ui-corner-bottom ui-accordion-content ui-accordion-content-active ui-state-disabled").css("display","").removeAttr("role").removeAttr("aria-hidden").removeAttr("aria-labelledby").removeUniqueId();if(this.options.heightStyle!=="content"){ad.css("height","")}},_setOption:function(ad,ae){if(ad==="active"){this._activate(ae);return}if(ad==="event"){if(this.options.event){this._off(this.headers,this.options.event)}this._setupEvents(ae)}this._super(ad,ae);if(ad==="collapsible"&&!ae&&this.options.active===false){this._activate(0)}if(ad==="icons"){this._destroyIcons();if(ae){this._createIcons()}}if(ad==="disabled"){this.element.toggleClass("ui-state-disabled",!!ae).attr("aria-disabled",ae);this.headers.add(this.headers.next()).toggleClass("ui-state-disabled",!!ae)}},_keydown:function(ag){if(ag.altKey||ag.ctrlKey){return}var ah=I.ui.keyCode,af=this.headers.length,ad=this.headers.index(ag.target),ae=false;switch(ag.keyCode){case ah.RIGHT:case ah.DOWN:ae=this.headers[(ad+1)%af];break;case ah.LEFT:case ah.UP:ae=this.headers[(ad-1+af)%af];break;case ah.SPACE:case ah.ENTER:this._eventHandler(ag);break;case ah.HOME:ae=this.headers[0];break;case ah.END:ae=this.headers[af-1];break}if(ae){I(ag.target).attr("tabIndex",-1);I(ae).attr("tabIndex",0);ae.focus();ag.preventDefault()}},_panelKeyDown:function(ad){if(ad.keyCode===I.ui.keyCode.UP&&ad.ctrlKey){I(ad.currentTarget).prev().focus()}},refresh:function(){var ad=this.options;this._processPanels();if((ad.active===false&&ad.collapsible===true)||!this.headers.length){ad.active=false;this.active=I()}else{if(ad.active===false){this._activate(0)}else{if(this.active.length&&!I.contains(this.element[0],this.active[0])){if(this.headers.length===this.headers.find(".ui-state-disabled").length){ad.active=false;this.active=I()}else{this._activate(Math.max(0,ad.active-1))}}else{ad.active=this.headers.index(this.active)}}}this._destroyIcons();this._refresh()},_processPanels:function(){var ae=this.headers,ad=this.panels;this.headers=this.element.find(this.options.header).addClass("ui-accordion-header ui-state-default ui-corner-all");this.panels=this.headers.next().addClass("ui-accordion-content ui-helper-reset ui-widget-content ui-corner-bottom").filter(":not(.ui-accordion-content-active)").hide();if(ad){this._off(ae.not(this.headers));this._off(ad.not(this.panels))}},_refresh:function(){var ag,ae=this.options,ad=ae.heightStyle,af=this.element.parent();this.active=this._findActive(ae.active).addClass("ui-accordion-header-active ui-state-active ui-corner-top").removeClass("ui-corner-all");this.active.next().addClass("ui-accordion-content-active").show();this.headers.attr("role","tab").each(function(){var ak=I(this),aj=ak.uniqueId().attr("id"),ah=ak.next(),ai=ah.uniqueId().attr("id");ak.attr("aria-controls",ai);ah.attr("aria-labelledby",aj)}).next().attr("role","tabpanel");this.headers.not(this.active).attr({"aria-selected":"false","aria-expanded":"false",tabIndex:-1}).next().attr({"aria-hidden":"true"}).hide();if(!this.active.length){this.headers.eq(0).attr("tabIndex",0)}else{this.active.attr({"aria-selected":"true","aria-expanded":"true",tabIndex:0}).next().attr({"aria-hidden":"false"})}this._createIcons();this._setupEvents(ae.event);if(ad==="fill"){ag=af.height();this.element.siblings(":visible").each(function(){var ai=I(this),ah=ai.css("position");if(ah==="absolute"||ah==="fixed"){return}ag-=ai.outerHeight(true)});this.headers.each(function(){ag-=I(this).outerHeight(true)});this.headers.next().each(function(){I(this).height(Math.max(0,ag-I(this).innerHeight()+I(this).height()))}).css("overflow","auto")}else{if(ad==="auto"){ag=0;this.headers.next().each(function(){ag=Math.max(ag,I(this).css("height","").height())}).height(ag)}}},_activate:function(ad){var ae=this._findActive(ad)[0];if(ae===this.active[0]){return}ae=ae||this.active[0];this._eventHandler({target:ae,currentTarget:ae,preventDefault:I.noop})},_findActive:function(ad){return typeof ad==="number"?this.headers.eq(ad):I()},_setupEvents:function(ae){var ad={keydown:"_keydown"};if(ae){I.each(ae.split(" "),function(ag,af){ad[af]="_eventHandler"})}this._off(this.headers.add(this.headers.next()));this._on(this.headers,ad);this._on(this.headers.next(),{keydown:"_panelKeyDown"});this._hoverable(this.headers);this._focusable(this.headers)},_eventHandler:function(ad){var al=this.options,ag=this.active,ah=I(ad.currentTarget),aj=ah[0]===ag[0],ae=aj&&al.collapsible,af=ae?I():ah.next(),ai=ag.next(),ak={oldHeader:ag,oldPanel:ai,newHeader:ae?I():ah,newPanel:af};ad.preventDefault();if((aj&&!al.collapsible)||(this._trigger("beforeActivate",ad,ak)===false)){return}al.active=ae?false:this.headers.index(ah);this.active=aj?I():ah;this._toggle(ak);ag.removeClass("ui-accordion-header-active ui-state-active");if(al.icons){ag.children(".ui-accordion-header-icon").removeClass(al.icons.activeHeader).addClass(al.icons.header)}if(!aj){ah.removeClass("ui-corner-all").addClass("ui-accordion-header-active ui-state-active ui-corner-top");if(al.icons){ah.children(".ui-accordion-header-icon").removeClass(al.icons.header).addClass(al.icons.activeHeader)}ah.next().addClass("ui-accordion-content-active")}},_toggle:function(af){var ad=af.newPanel,ae=this.prevShow.length?this.prevShow:af.oldPanel;this.prevShow.add(this.prevHide).stop(true,true);this.prevShow=ad;this.prevHide=ae;if(this.options.animate){this._animate(ad,ae,af)}else{ae.hide();ad.show();this._toggleComplete(af)}ae.attr({"aria-hidden":"true"});ae.prev().attr({"aria-selected":"false","aria-expanded":"false"});if(ad.length&&ae.length){ae.prev().attr({tabIndex:-1,"aria-expanded":"false"})}else{if(ad.length){this.headers.filter(function(){return parseInt(I(this).attr("tabIndex"),10)===0}).attr("tabIndex",-1)}}ad.attr("aria-hidden","false").prev().attr({"aria-selected":"true","aria-expanded":"true",tabIndex:0})},_animate:function(ad,am,ai){var al,ak,ah,aj=this,an=0,ag=ad.css("box-sizing"),ao=ad.length&&(!am.length||(ad.index()<am.index())),af=this.options.animate||{},ap=ao&&af.down||af,ae=function(){aj._toggleComplete(ai)};if(typeof ap==="number"){ah=ap}if(typeof ap==="string"){ak=ap}ak=ak||ap.easing||af.easing;ah=ah||ap.duration||af.duration;if(!am.length){return ad.animate(this.showProps,ah,ak,ae)}if(!ad.length){return am.animate(this.hideProps,ah,ak,ae)}al=ad.show().outerHeight();am.animate(this.hideProps,{duration:ah,easing:ak,step:function(aq,ar){ar.now=Math.round(aq)}});ad.hide().animate(this.showProps,{duration:ah,easing:ak,complete:ae,step:function(aq,ar){ar.now=Math.round(aq);if(ar.prop!=="height"){if(ag==="content-box"){an+=ar.now}}else{if(aj.options.heightStyle!=="content"){ar.now=Math.round(al-am.outerHeight()-an);an=0}}}})},_toggleComplete:function(ae){var ad=ae.oldPanel;ad.removeClass("ui-accordion-content-active").prev().removeClass("ui-corner-top").addClass("ui-corner-all");if(ad.length){ad.parent()[0].className=ad.parent()[0].className}this._trigger("activate",null,ae)}});
+
+
+var accordion = $.widget( "ui.accordion", {
+	version: "1.11.4",
+	options: {
+		active: 0,
+		animate: {},
+		collapsible: false,
+		event: "click",
+		header: "> li > :first-child,> :not(li):even",
+		heightStyle: "auto",
+		icons: {
+			activeHeader: "ui-icon-triangle-1-s",
+			header: "ui-icon-triangle-1-e"
+		},
+
+		// callbacks
+		activate: null,
+		beforeActivate: null
+	},
+
+	hideProps: {
+		borderTopWidth: "hide",
+		borderBottomWidth: "hide",
+		paddingTop: "hide",
+		paddingBottom: "hide",
+		height: "hide"
+	},
+
+	showProps: {
+		borderTopWidth: "show",
+		borderBottomWidth: "show",
+		paddingTop: "show",
+		paddingBottom: "show",
+		height: "show"
+	},
+
+	_create: function() {
+		var options = this.options;
+		this.prevShow = this.prevHide = $();
+		this.element.addClass( "ui-accordion ui-widget ui-helper-reset" )
+			// ARIA
+			.attr( "role", "tablist" );
+
+		// don't allow collapsible: false and active: false / null
+		if ( !options.collapsible && (options.active === false || options.active == null) ) {
+			options.active = 0;
+		}
+
+		this._processPanels();
+		// handle negative values
+		if ( options.active < 0 ) {
+			options.active += this.headers.length;
+		}
+		this._refresh();
+	},
+
+	_getCreateEventData: function() {
+		return {
+			header: this.active,
+			panel: !this.active.length ? $() : this.active.next()
+		};
+	},
+
+	_createIcons: function() {
+		var icons = this.options.icons;
+		if ( icons ) {
+			$( "<span>" )
+				.addClass( "ui-accordion-header-icon ui-icon " + icons.header )
+				.prependTo( this.headers );
+			this.active.children( ".ui-accordion-header-icon" )
+				.removeClass( icons.header )
+				.addClass( icons.activeHeader );
+			this.headers.addClass( "ui-accordion-icons" );
+		}
+	},
+
+	_destroyIcons: function() {
+		this.headers
+			.removeClass( "ui-accordion-icons" )
+			.children( ".ui-accordion-header-icon" )
+				.remove();
+	},
+
+	_destroy: function() {
+		var contents;
+
+		// clean up main element
+		this.element
+			.removeClass( "ui-accordion ui-widget ui-helper-reset" )
+			.removeAttr( "role" );
+
+		// clean up headers
+		this.headers
+			.removeClass( "ui-accordion-header ui-accordion-header-active ui-state-default " +
+				"ui-corner-all ui-state-active ui-state-disabled ui-corner-top" )
+			.removeAttr( "role" )
+			.removeAttr( "aria-expanded" )
+			.removeAttr( "aria-selected" )
+			.removeAttr( "aria-controls" )
+			.removeAttr( "tabIndex" )
+			.removeUniqueId();
+
+		this._destroyIcons();
+
+		// clean up content panels
+		contents = this.headers.next()
+			.removeClass( "ui-helper-reset ui-widget-content ui-corner-bottom " +
+				"ui-accordion-content ui-accordion-content-active ui-state-disabled" )
+			.css( "display", "" )
+			.removeAttr( "role" )
+			.removeAttr( "aria-hidden" )
+			.removeAttr( "aria-labelledby" )
+			.removeUniqueId();
+
+		if ( this.options.heightStyle !== "content" ) {
+			contents.css( "height", "" );
+		}
+	},
+
+	_setOption: function( key, value ) {
+		if ( key === "active" ) {
+			// _activate() will handle invalid values and update this.options
+			this._activate( value );
+			return;
+		}
+
+		if ( key === "event" ) {
+			if ( this.options.event ) {
+				this._off( this.headers, this.options.event );
+			}
+			this._setupEvents( value );
+		}
+
+		this._super( key, value );
+
+		// setting collapsible: false while collapsed; open first panel
+		if ( key === "collapsible" && !value && this.options.active === false ) {
+			this._activate( 0 );
+		}
+
+		if ( key === "icons" ) {
+			this._destroyIcons();
+			if ( value ) {
+				this._createIcons();
+			}
+		}
+
+		// #5332 - opacity doesn't cascade to positioned elements in IE
+		// so we need to add the disabled class to the headers and panels
+		if ( key === "disabled" ) {
+			this.element
+				.toggleClass( "ui-state-disabled", !!value )
+				.attr( "aria-disabled", value );
+			this.headers.add( this.headers.next() )
+				.toggleClass( "ui-state-disabled", !!value );
+		}
+	},
+
+	_keydown: function( event ) {
+		if ( event.altKey || event.ctrlKey ) {
+			return;
+		}
+
+		var keyCode = $.ui.keyCode,
+			length = this.headers.length,
+			currentIndex = this.headers.index( event.target ),
+			toFocus = false;
+
+		switch ( event.keyCode ) {
+			case keyCode.RIGHT:
+			case keyCode.DOWN:
+				toFocus = this.headers[ ( currentIndex + 1 ) % length ];
+				break;
+			case keyCode.LEFT:
+			case keyCode.UP:
+				toFocus = this.headers[ ( currentIndex - 1 + length ) % length ];
+				break;
+			case keyCode.SPACE:
+			case keyCode.ENTER:
+				this._eventHandler( event );
+				break;
+			case keyCode.HOME:
+				toFocus = this.headers[ 0 ];
+				break;
+			case keyCode.END:
+				toFocus = this.headers[ length - 1 ];
+				break;
+		}
+
+		if ( toFocus ) {
+			$( event.target ).attr( "tabIndex", -1 );
+			$( toFocus ).attr( "tabIndex", 0 );
+			toFocus.focus();
+			event.preventDefault();
+		}
+	},
+
+	_panelKeyDown: function( event ) {
+		if ( event.keyCode === $.ui.keyCode.UP && event.ctrlKey ) {
+			$( event.currentTarget ).prev().focus();
+		}
+	},
+
+	refresh: function() {
+		var options = this.options;
+		this._processPanels();
+
+		// was collapsed or no panel
+		if ( ( options.active === false && options.collapsible === true ) || !this.headers.length ) {
+			options.active = false;
+			this.active = $();
+		// active false only when collapsible is true
+		} else if ( options.active === false ) {
+			this._activate( 0 );
+		// was active, but active panel is gone
+		} else if ( this.active.length && !$.contains( this.element[ 0 ], this.active[ 0 ] ) ) {
+			// all remaining panel are disabled
+			if ( this.headers.length === this.headers.find(".ui-state-disabled").length ) {
+				options.active = false;
+				this.active = $();
+			// activate previous panel
+			} else {
+				this._activate( Math.max( 0, options.active - 1 ) );
+			}
+		// was active, active panel still exists
+		} else {
+			// make sure active index is correct
+			options.active = this.headers.index( this.active );
+		}
+
+		this._destroyIcons();
+
+		this._refresh();
+	},
+
+	_processPanels: function() {
+		var prevHeaders = this.headers,
+			prevPanels = this.panels;
+
+		this.headers = this.element.find( this.options.header )
+			.addClass( "ui-accordion-header ui-state-default ui-corner-all" );
+
+		this.panels = this.headers.next()
+			.addClass( "ui-accordion-content ui-helper-reset ui-widget-content ui-corner-bottom" )
+			.filter( ":not(.ui-accordion-content-active)" )
+			.hide();
+
+		// Avoid memory leaks (#10056)
+		if ( prevPanels ) {
+			this._off( prevHeaders.not( this.headers ) );
+			this._off( prevPanels.not( this.panels ) );
+		}
+	},
+
+	_refresh: function() {
+		var maxHeight,
+			options = this.options,
+			heightStyle = options.heightStyle,
+			parent = this.element.parent();
+
+		this.active = this._findActive( options.active )
+			.addClass( "ui-accordion-header-active ui-state-active ui-corner-top" )
+			.removeClass( "ui-corner-all" );
+		this.active.next()
+			.addClass( "ui-accordion-content-active" )
+			.show();
+
+		this.headers
+			.attr( "role", "tab" )
+			.each(function() {
+				var header = $( this ),
+					headerId = header.uniqueId().attr( "id" ),
+					panel = header.next(),
+					panelId = panel.uniqueId().attr( "id" );
+				
+				header.attr( "aria-controls", panelId );
+				panel.attr( "aria-labelledby", headerId );
+			})
+			.next()
+				.attr( "role", "tabpanel" );
+
+		this.headers
+			.not( this.active )
+			.attr({
+				"aria-selected": "false",
+				"aria-expanded": "false",
+				tabIndex: -1
+			})
+			.next()
+				.attr({
+					"aria-hidden": "true"
+				})
+				.hide();
+
+		// make sure at least one header is in the tab order
+		if ( !this.active.length ) {
+			this.headers.eq( 0 ).attr( "tabIndex", 0 );
+		} else {
+			this.active.attr({
+				"aria-selected": "true",
+				"aria-expanded": "true",
+				tabIndex: 0
+			})
+			.next()
+				.attr({
+					"aria-hidden": "false"
+				});
+		}
+
+		this._createIcons();
+
+		this._setupEvents( options.event );
+
+		if ( heightStyle === "fill" ) {
+			maxHeight = parent.height();
+			this.element.siblings( ":visible" ).each(function() {
+				var elem = $( this ),
+					position = elem.css( "position" );
+
+				if ( position === "absolute" || position === "fixed" ) {
+					return;
+				}
+				maxHeight -= elem.outerHeight( true );
+			});
+
+			this.headers.each(function() {
+				maxHeight -= $( this ).outerHeight( true );
+			});
+
+			this.headers.next()
+				.each(function() {
+					$( this ).height( Math.max( 0, maxHeight -
+						$( this ).innerHeight() + $( this ).height() ) );
+				})
+				.css( "overflow", "auto" );
+		} else if ( heightStyle === "auto" ) {
+			maxHeight = 0;
+			this.headers.next()
+				.each(function() {
+					maxHeight = Math.max( maxHeight, $( this ).css( "height", "" ).height() );
+				})
+				.height( maxHeight );
+		}
+	},
+
+	_activate: function( index ) {
+		var active = this._findActive( index )[ 0 ];
+
+		// trying to activate the already active panel
+		if ( active === this.active[ 0 ] ) {
+			return;
+		}
+
+		// trying to collapse, simulate a click on the currently active header
+		active = active || this.active[ 0 ];
+
+		this._eventHandler({
+			target: active,
+			currentTarget: active,
+			preventDefault: $.noop
+		});
+	},
+
+	_findActive: function( selector ) {
+		return typeof selector === "number" ? this.headers.eq( selector ) : $();
+	},
+
+	_setupEvents: function( event ) {
+		var events = {
+			keydown: "_keydown"
+		};
+		if ( event ) {
+			$.each( event.split( " " ), function( index, eventName ) {
+				events[ eventName ] = "_eventHandler";
+			});
+		}
+
+		this._off( this.headers.add( this.headers.next() ) );
+		this._on( this.headers, events );
+		this._on( this.headers.next(), { keydown: "_panelKeyDown" });
+		this._hoverable( this.headers );
+		this._focusable( this.headers );
+	},
+
+	_eventHandler: function( event ) {
+		var options = this.options,
+			active = this.active,
+			clicked = $( event.currentTarget ),
+			clickedIsActive = clicked[ 0 ] === active[ 0 ],
+			collapsing = clickedIsActive && options.collapsible,
+			toShow = collapsing ? $() : clicked.next(),
+			toHide = active.next(),
+			eventData = {
+				oldHeader: active,
+				oldPanel: toHide,
+				newHeader: collapsing ? $() : clicked,
+				newPanel: toShow
+			};
+
+		event.preventDefault();
+
+		if (
+				// click on active header, but not collapsible
+				( clickedIsActive && !options.collapsible ) ||
+				// allow canceling activation
+				( this._trigger( "beforeActivate", event, eventData ) === false ) ) {
+			return;
+		}
+
+		options.active = collapsing ? false : this.headers.index( clicked );
+
+		// when the call to ._toggle() comes after the class changes
+		// it causes a very odd bug in IE 8 (see #6720)
+		this.active = clickedIsActive ? $() : clicked;
+		this._toggle( eventData );
+
+		// switch classes
+		// corner classes on the previously active header stay after the animation
+		active.removeClass( "ui-accordion-header-active ui-state-active" );
+		if ( options.icons ) {
+			active.children( ".ui-accordion-header-icon" )
+				.removeClass( options.icons.activeHeader )
+				.addClass( options.icons.header );
+		}
+
+		if ( !clickedIsActive ) {
+			clicked
+				.removeClass( "ui-corner-all" )
+				.addClass( "ui-accordion-header-active ui-state-active ui-corner-top" );
+			if ( options.icons ) {
+				clicked.children( ".ui-accordion-header-icon" )
+					.removeClass( options.icons.header )
+					.addClass( options.icons.activeHeader );
+			}
+
+			clicked
+				.next()
+				.addClass( "ui-accordion-content-active" );
+		}
+	},
+
+	_toggle: function( data ) {
+		var toShow = data.newPanel,
+			toHide = this.prevShow.length ? this.prevShow : data.oldPanel;
+
+		// handle activating a panel during the animation for another activation
+		this.prevShow.add( this.prevHide ).stop( true, true );
+		this.prevShow = toShow;
+		this.prevHide = toHide;
+
+		if ( this.options.animate ) {
+			this._animate( toShow, toHide, data );
+		} else {
+			toHide.hide();
+			toShow.show();
+			this._toggleComplete( data );
+		}
+
+		toHide.attr({
+			"aria-hidden": "true"
+		});
+		toHide.prev().attr({
+			"aria-selected": "false",
+			"aria-expanded": "false"
+		});
+		// if we're switching panels, remove the old header from the tab order
+		// if we're opening from collapsed state, remove the previous header from the tab order
+		// if we're collapsing, then keep the collapsing header in the tab order
+		if ( toShow.length && toHide.length ) {
+			toHide.prev().attr({
+				"tabIndex": -1,
+				"aria-expanded": "false"
+			});
+		} else if ( toShow.length ) {
+			this.headers.filter(function() {
+				return parseInt( $( this ).attr( "tabIndex" ), 10 ) === 0;
+			})
+			.attr( "tabIndex", -1 );
+		}
+
+		toShow
+			.attr( "aria-hidden", "false" )
+			.prev()
+				.attr({
+					"aria-selected": "true",
+					"aria-expanded": "true",
+					tabIndex: 0
+				});
+	},
+
+	_animate: function( toShow, toHide, data ) {
+		var total, easing, duration,
+			that = this,
+			adjust = 0,
+			boxSizing = toShow.css( "box-sizing" ),
+			down = toShow.length &&
+				( !toHide.length || ( toShow.index() < toHide.index() ) ),
+			animate = this.options.animate || {},
+			options = down && animate.down || animate,
+			complete = function() {
+				that._toggleComplete( data );
+			};
+
+		if ( typeof options === "number" ) {
+			duration = options;
+		}
+		if ( typeof options === "string" ) {
+			easing = options;
+		}
+		// fall back from options to animation in case of partial down settings
+		easing = easing || options.easing || animate.easing;
+		duration = duration || options.duration || animate.duration;
+
+		if ( !toHide.length ) {
+			return toShow.animate( this.showProps, duration, easing, complete );
+		}
+		if ( !toShow.length ) {
+			return toHide.animate( this.hideProps, duration, easing, complete );
+		}
+
+		total = toShow.show().outerHeight();
+		toHide.animate( this.hideProps, {
+			duration: duration,
+			easing: easing,
+			step: function( now, fx ) {
+				fx.now = Math.round( now );
+			}
+		});
+		toShow
+			.hide()
+			.animate( this.showProps, {
+				duration: duration,
+				easing: easing,
+				complete: complete,
+				step: function( now, fx ) {
+					fx.now = Math.round( now );
+					if ( fx.prop !== "height" ) {
+						if ( boxSizing === "content-box" ) {
+							adjust += fx.now;
+						}
+					} else if ( that.options.heightStyle !== "content" ) {
+						fx.now = Math.round( total - toHide.outerHeight() - adjust );
+						adjust = 0;
+					}
+				}
+			});
+	},
+
+	_toggleComplete: function( data ) {
+		var toHide = data.oldPanel;
+
+		toHide
+			.removeClass( "ui-accordion-content-active" )
+			.prev()
+				.removeClass( "ui-corner-top" )
+				.addClass( "ui-corner-all" );
+
+		// Work around for rendering bug in IE (#5421)
+		if ( toHide.length ) {
+			toHide.parent()[ 0 ].className = toHide.parent()[ 0 ].className;
+		}
+		this._trigger( "activate", null, data );
+	}
+});
+
+
 /*!
  * jQuery UI Menu 1.11.4
  * http://jqueryui.com
@@ -123,7 +6366,627 @@ var ac=I.widget("ui.accordion",{version:"1.11.4",options:{active:0,animate:{},co
  *
  * http://api.jqueryui.com/menu/
  */
-var Z=I.widget("ui.menu",{version:"1.11.4",defaultElement:"<ul>",delay:300,options:{icons:{submenu:"ui-icon-carat-1-e"},items:"> *",menus:"ul",position:{my:"left-1 top",at:"right top"},role:"menu",blur:null,focus:null,select:null},_create:function(){this.activeMenu=this.element;this.mouseHandled=false;this.element.uniqueId().addClass("ui-menu ui-widget ui-widget-content").toggleClass("ui-menu-icons",!!this.element.find(".ui-icon").length).attr({role:this.options.role,tabIndex:0});if(this.options.disabled){this.element.addClass("ui-state-disabled").attr("aria-disabled","true")}this._on({"mousedown .ui-menu-item":function(ad){ad.preventDefault()},"click .ui-menu-item":function(ad){var ae=I(ad.target);if(!this.mouseHandled&&ae.not(".ui-state-disabled").length){this.select(ad);if(!ad.isPropagationStopped()){this.mouseHandled=true}if(ae.has(".ui-menu").length){this.expand(ad)}else{if(!this.element.is(":focus")&&I(this.document[0].activeElement).closest(".ui-menu").length){this.element.trigger("focus",[true]);if(this.active&&this.active.parents(".ui-menu").length===1){clearTimeout(this.timer)}}}}},"mouseenter .ui-menu-item":function(ad){if(this.previousFilter){return}var ae=I(ad.currentTarget);ae.siblings(".ui-state-active").removeClass("ui-state-active");this.focus(ad,ae)},mouseleave:"collapseAll","mouseleave .ui-menu":"collapseAll",focus:function(af,ad){var ae=this.active||this.element.find(this.options.items).eq(0);if(!ad){this.focus(af,ae)}},blur:function(ad){this._delay(function(){if(!I.contains(this.element[0],this.document[0].activeElement)){this.collapseAll(ad)}})},keydown:"_keydown"});this.refresh();this._on(this.document,{click:function(ad){if(this._closeOnDocumentClick(ad)){this.collapseAll(ad)}this.mouseHandled=false}})},_destroy:function(){this.element.removeAttr("aria-activedescendant").find(".ui-menu").addBack().removeClass("ui-menu ui-widget ui-widget-content ui-menu-icons ui-front").removeAttr("role").removeAttr("tabIndex").removeAttr("aria-labelledby").removeAttr("aria-expanded").removeAttr("aria-hidden").removeAttr("aria-disabled").removeUniqueId().show();this.element.find(".ui-menu-item").removeClass("ui-menu-item").removeAttr("role").removeAttr("aria-disabled").removeUniqueId().removeClass("ui-state-hover").removeAttr("tabIndex").removeAttr("role").removeAttr("aria-haspopup").children().each(function(){var ad=I(this);if(ad.data("ui-menu-submenu-carat")){ad.remove()}});this.element.find(".ui-menu-divider").removeClass("ui-menu-divider ui-widget-content")},_keydown:function(ah){var ae,ag,ai,af,ad=true;switch(ah.keyCode){case I.ui.keyCode.PAGE_UP:this.previousPage(ah);break;case I.ui.keyCode.PAGE_DOWN:this.nextPage(ah);break;case I.ui.keyCode.HOME:this._move("first","first",ah);break;case I.ui.keyCode.END:this._move("last","last",ah);break;case I.ui.keyCode.UP:this.previous(ah);break;case I.ui.keyCode.DOWN:this.next(ah);break;case I.ui.keyCode.LEFT:this.collapse(ah);break;case I.ui.keyCode.RIGHT:if(this.active&&!this.active.is(".ui-state-disabled")){this.expand(ah)}break;case I.ui.keyCode.ENTER:case I.ui.keyCode.SPACE:this._activate(ah);break;case I.ui.keyCode.ESCAPE:this.collapse(ah);break;default:ad=false;ag=this.previousFilter||"";ai=String.fromCharCode(ah.keyCode);af=false;clearTimeout(this.filterTimer);if(ai===ag){af=true}else{ai=ag+ai}ae=this._filterMenuItems(ai);ae=af&&ae.index(this.active.next())!==-1?this.active.nextAll(".ui-menu-item"):ae;if(!ae.length){ai=String.fromCharCode(ah.keyCode);ae=this._filterMenuItems(ai)}if(ae.length){this.focus(ah,ae);this.previousFilter=ai;this.filterTimer=this._delay(function(){delete this.previousFilter},1000)}else{delete this.previousFilter}}if(ad){ah.preventDefault()}},_activate:function(ad){if(!this.active.is(".ui-state-disabled")){if(this.active.is("[aria-haspopup='true']")){this.expand(ad)}else{this.select(ad)}}},refresh:function(){var ah,ae,ag=this,af=this.options.icons.submenu,ad=this.element.find(this.options.menus);this.element.toggleClass("ui-menu-icons",!!this.element.find(".ui-icon").length);ad.filter(":not(.ui-menu)").addClass("ui-menu ui-widget ui-widget-content ui-front").hide().attr({role:this.options.role,"aria-hidden":"true","aria-expanded":"false"}).each(function(){var ak=I(this),aj=ak.parent(),ai=I("<span>").addClass("ui-menu-icon ui-icon "+af).data("ui-menu-submenu-carat",true);aj.attr("aria-haspopup","true").prepend(ai);ak.attr("aria-labelledby",aj.attr("id"))});ah=ad.add(this.element);ae=ah.find(this.options.items);ae.not(".ui-menu-item").each(function(){var ai=I(this);if(ag._isDivider(ai)){ai.addClass("ui-widget-content ui-menu-divider")}});ae.not(".ui-menu-item, .ui-menu-divider").addClass("ui-menu-item").uniqueId().attr({tabIndex:-1,role:this._itemRole()});ae.filter(".ui-state-disabled").attr("aria-disabled","true");if(this.active&&!I.contains(this.element[0],this.active[0])){this.blur()}},_itemRole:function(){return{menu:"menuitem",listbox:"option"}[this.options.role]},_setOption:function(ad,ae){if(ad==="icons"){this.element.find(".ui-menu-icon").removeClass(this.options.icons.submenu).addClass(ae.submenu)}if(ad==="disabled"){this.element.toggleClass("ui-state-disabled",!!ae).attr("aria-disabled",ae)}this._super(ad,ae)},focus:function(ae,ad){var ag,af;this.blur(ae,ae&&ae.type==="focus");this._scrollIntoView(ad);this.active=ad.first();af=this.active.addClass("ui-state-focus").removeClass("ui-state-active");if(this.options.role){this.element.attr("aria-activedescendant",af.attr("id"))}this.active.parent().closest(".ui-menu-item").addClass("ui-state-active");if(ae&&ae.type==="keydown"){this._close()}else{this.timer=this._delay(function(){this._close()},this.delay)}ag=ad.children(".ui-menu");if(ag.length&&ae&&(/^mouse/.test(ae.type))){this._startOpening(ag)}this.activeMenu=ad.parent();this._trigger("focus",ae,{item:ad})},_scrollIntoView:function(ag){var aj,af,ah,ad,ae,ai;if(this._hasScroll()){aj=parseFloat(I.css(this.activeMenu[0],"borderTopWidth"))||0;af=parseFloat(I.css(this.activeMenu[0],"paddingTop"))||0;ah=ag.offset().top-this.activeMenu.offset().top-aj-af;ad=this.activeMenu.scrollTop();ae=this.activeMenu.height();ai=ag.outerHeight();if(ah<0){this.activeMenu.scrollTop(ad+ah)}else{if(ah+ai>ae){this.activeMenu.scrollTop(ad+ah-ae+ai)}}}},blur:function(ae,ad){if(!ad){clearTimeout(this.timer)}if(!this.active){return}this.active.removeClass("ui-state-focus");this.active=null;this._trigger("blur",ae,{item:this.active})},_startOpening:function(ad){clearTimeout(this.timer);if(ad.attr("aria-hidden")!=="true"){return}this.timer=this._delay(function(){this._close();this._open(ad)},this.delay)},_open:function(ae){var ad=I.extend({of:this.active},this.options.position);clearTimeout(this.timer);this.element.find(".ui-menu").not(ae.parents(".ui-menu")).hide().attr("aria-hidden","true");ae.show().removeAttr("aria-hidden").attr("aria-expanded","true").position(ad)},collapseAll:function(ae,ad){clearTimeout(this.timer);this.timer=this._delay(function(){var af=ad?this.element:I(ae&&ae.target).closest(this.element.find(".ui-menu"));if(!af.length){af=this.element}this._close(af);this.blur(ae);this.activeMenu=af},this.delay)},_close:function(ad){if(!ad){ad=this.active?this.active.parent():this.element}ad.find(".ui-menu").hide().attr("aria-hidden","true").attr("aria-expanded","false").end().find(".ui-state-active").not(".ui-state-focus").removeClass("ui-state-active")},_closeOnDocumentClick:function(ad){return !I(ad.target).closest(".ui-menu").length},_isDivider:function(ad){return !/[^\-\u2014\u2013\s]/.test(ad.text())},collapse:function(ae){var ad=this.active&&this.active.parent().closest(".ui-menu-item",this.element);if(ad&&ad.length){this._close();this.focus(ae,ad)}},expand:function(ae){var ad=this.active&&this.active.children(".ui-menu ").find(this.options.items).first();if(ad&&ad.length){this._open(ad.parent());this._delay(function(){this.focus(ae,ad)})}},next:function(ad){this._move("next","first",ad)},previous:function(ad){this._move("prev","last",ad)},isFirstItem:function(){return this.active&&!this.active.prevAll(".ui-menu-item").length},isLastItem:function(){return this.active&&!this.active.nextAll(".ui-menu-item").length},_move:function(ag,ae,af){var ad;if(this.active){if(ag==="first"||ag==="last"){ad=this.active[ag==="first"?"prevAll":"nextAll"](".ui-menu-item").eq(-1)}else{ad=this.active[ag+"All"](".ui-menu-item").eq(0)}}if(!ad||!ad.length||!this.active){ad=this.activeMenu.find(this.options.items)[ae]()}this.focus(af,ad)},nextPage:function(af){var ae,ag,ad;if(!this.active){this.next(af);return}if(this.isLastItem()){return}if(this._hasScroll()){ag=this.active.offset().top;ad=this.element.height();this.active.nextAll(".ui-menu-item").each(function(){ae=I(this);return ae.offset().top-ag-ad<0});this.focus(af,ae)}else{this.focus(af,this.activeMenu.find(this.options.items)[!this.active?"first":"last"]())}},previousPage:function(af){var ae,ag,ad;if(!this.active){this.next(af);return}if(this.isFirstItem()){return}if(this._hasScroll()){ag=this.active.offset().top;ad=this.element.height();this.active.prevAll(".ui-menu-item").each(function(){ae=I(this);return ae.offset().top-ag+ad>0});this.focus(af,ae)}else{this.focus(af,this.activeMenu.find(this.options.items).first())}},_hasScroll:function(){return this.element.outerHeight()<this.element.prop("scrollHeight")},select:function(ad){this.active=this.active||I(ad.target).closest(".ui-menu-item");var ae={item:this.active};if(!this.active.has(".ui-menu").length){this.collapseAll(ad,true)}this._trigger("select",ad,ae)},_filterMenuItems:function(af){var ad=af.replace(/[\-\[\]{}()*+?.,\\\^$|#\s]/g,"\\$&"),ae=new RegExp("^"+ad,"i");return this.activeMenu.find(this.options.items).filter(".ui-menu-item").filter(function(){return ae.test(I.trim(I(this).text()))})}});
+
+
+var menu = $.widget( "ui.menu", {
+	version: "1.11.4",
+	defaultElement: "<ul>",
+	delay: 300,
+	options: {
+		icons: {
+			submenu: "ui-icon-carat-1-e"
+		},
+		items: "> *",
+		menus: "ul",
+		position: {
+			my: "left-1 top",
+			at: "right top"
+		},
+		role: "menu",
+
+		// callbacks
+		blur: null,
+		focus: null,
+		select: null
+	},
+
+	_create: function() {
+		this.activeMenu = this.element;
+
+		// Flag used to prevent firing of the click handler
+		// as the event bubbles up through nested menus
+		this.mouseHandled = false;
+		this.element
+			.uniqueId()
+			.addClass( "ui-menu ui-widget ui-widget-content" )
+			.toggleClass( "ui-menu-icons", !!this.element.find( ".ui-icon" ).length )
+			.attr({
+				role: this.options.role,
+				tabIndex: 0
+			});
+
+		if ( this.options.disabled ) {
+			this.element
+				.addClass( "ui-state-disabled" )
+				.attr( "aria-disabled", "true" );
+		}
+
+		this._on({
+			// Prevent focus from sticking to links inside menu after clicking
+			// them (focus should always stay on UL during navigation).
+			"mousedown .ui-menu-item": function( event ) {
+				event.preventDefault();
+			},
+			"click .ui-menu-item": function( event ) {
+				var target = $( event.target );
+				if ( !this.mouseHandled && target.not( ".ui-state-disabled" ).length ) {
+					this.select( event );
+
+					// Only set the mouseHandled flag if the event will bubble, see #9469.
+					if ( !event.isPropagationStopped() ) {
+						this.mouseHandled = true;
+					}
+
+					// Open submenu on click
+					if ( target.has( ".ui-menu" ).length ) {
+						this.expand( event );
+					} else if ( !this.element.is( ":focus" ) && $( this.document[ 0 ].activeElement ).closest( ".ui-menu" ).length ) {
+
+						// Redirect focus to the menu
+						this.element.trigger( "focus", [ true ] );
+
+						// If the active item is on the top level, let it stay active.
+						// Otherwise, blur the active item since it is no longer visible.
+						if ( this.active && this.active.parents( ".ui-menu" ).length === 1 ) {
+							clearTimeout( this.timer );
+						}
+					}
+				}
+			},
+			"mouseenter .ui-menu-item": function( event ) {
+				// Ignore mouse events while typeahead is active, see #10458.
+				// Prevents focusing the wrong item when typeahead causes a scroll while the mouse
+				// is over an item in the menu
+				if ( this.previousFilter ) {
+					return;
+				}
+				var target = $( event.currentTarget );
+				// Remove ui-state-active class from siblings of the newly focused menu item
+				// to avoid a jump caused by adjacent elements both having a class with a border
+				target.siblings( ".ui-state-active" ).removeClass( "ui-state-active" );
+				this.focus( event, target );
+			},
+			mouseleave: "collapseAll",
+			"mouseleave .ui-menu": "collapseAll",
+			focus: function( event, keepActiveItem ) {
+				// If there's already an active item, keep it active
+				// If not, activate the first item
+				var item = this.active || this.element.find( this.options.items ).eq( 0 );
+
+				if ( !keepActiveItem ) {
+					this.focus( event, item );
+				}
+			},
+			blur: function( event ) {
+				this._delay(function() {
+					if ( !$.contains( this.element[0], this.document[0].activeElement ) ) {
+						this.collapseAll( event );
+					}
+				});
+			},
+			keydown: "_keydown"
+		});
+
+		this.refresh();
+
+		// Clicks outside of a menu collapse any open menus
+		this._on( this.document, {
+			click: function( event ) {
+				if ( this._closeOnDocumentClick( event ) ) {
+					this.collapseAll( event );
+				}
+
+				// Reset the mouseHandled flag
+				this.mouseHandled = false;
+			}
+		});
+	},
+
+	_destroy: function() {
+		// Destroy (sub)menus
+		this.element
+			.removeAttr( "aria-activedescendant" )
+			.find( ".ui-menu" ).addBack()
+				.removeClass( "ui-menu ui-widget ui-widget-content ui-menu-icons ui-front" )
+				.removeAttr( "role" )
+				.removeAttr( "tabIndex" )
+				.removeAttr( "aria-labelledby" )
+				.removeAttr( "aria-expanded" )
+				.removeAttr( "aria-hidden" )
+				.removeAttr( "aria-disabled" )
+				.removeUniqueId()
+				.show();
+
+		// Destroy menu items
+		this.element.find( ".ui-menu-item" )
+			.removeClass( "ui-menu-item" )
+			.removeAttr( "role" )
+			.removeAttr( "aria-disabled" )
+			.removeUniqueId()
+			.removeClass( "ui-state-hover" )
+			.removeAttr( "tabIndex" )
+			.removeAttr( "role" )
+			.removeAttr( "aria-haspopup" )
+			.children().each( function() {
+				var elem = $( this );
+				if ( elem.data( "ui-menu-submenu-carat" ) ) {
+					elem.remove();
+				}
+			});
+
+		// Destroy menu dividers
+		this.element.find( ".ui-menu-divider" ).removeClass( "ui-menu-divider ui-widget-content" );
+	},
+
+	_keydown: function( event ) {
+		var match, prev, character, skip,
+			preventDefault = true;
+
+		switch ( event.keyCode ) {
+		case $.ui.keyCode.PAGE_UP:
+			this.previousPage( event );
+			break;
+		case $.ui.keyCode.PAGE_DOWN:
+			this.nextPage( event );
+			break;
+		case $.ui.keyCode.HOME:
+			this._move( "first", "first", event );
+			break;
+		case $.ui.keyCode.END:
+			this._move( "last", "last", event );
+			break;
+		case $.ui.keyCode.UP:
+			this.previous( event );
+			break;
+		case $.ui.keyCode.DOWN:
+			this.next( event );
+			break;
+		case $.ui.keyCode.LEFT:
+			this.collapse( event );
+			break;
+		case $.ui.keyCode.RIGHT:
+			if ( this.active && !this.active.is( ".ui-state-disabled" ) ) {
+				this.expand( event );
+			}
+			break;
+		case $.ui.keyCode.ENTER:
+		case $.ui.keyCode.SPACE:
+			this._activate( event );
+			break;
+		case $.ui.keyCode.ESCAPE:
+			this.collapse( event );
+			break;
+		default:
+			preventDefault = false;
+			prev = this.previousFilter || "";
+			character = String.fromCharCode( event.keyCode );
+			skip = false;
+
+			clearTimeout( this.filterTimer );
+
+			if ( character === prev ) {
+				skip = true;
+			} else {
+				character = prev + character;
+			}
+
+			match = this._filterMenuItems( character );
+			match = skip && match.index( this.active.next() ) !== -1 ?
+				this.active.nextAll( ".ui-menu-item" ) :
+				match;
+
+			// If no matches on the current filter, reset to the last character pressed
+			// to move down the menu to the first item that starts with that character
+			if ( !match.length ) {
+				character = String.fromCharCode( event.keyCode );
+				match = this._filterMenuItems( character );
+			}
+
+			if ( match.length ) {
+				this.focus( event, match );
+				this.previousFilter = character;
+				this.filterTimer = this._delay(function() {
+					delete this.previousFilter;
+				}, 1000 );
+			} else {
+				delete this.previousFilter;
+			}
+		}
+
+		if ( preventDefault ) {
+			event.preventDefault();
+		}
+	},
+
+	_activate: function( event ) {
+		if ( !this.active.is( ".ui-state-disabled" ) ) {
+			if ( this.active.is( "[aria-haspopup='true']" ) ) {
+				this.expand( event );
+			} else {
+				this.select( event );
+			}
+		}
+	},
+
+	refresh: function() {
+		var menus, items,
+			that = this,
+			icon = this.options.icons.submenu,
+			submenus = this.element.find( this.options.menus );
+
+		this.element.toggleClass( "ui-menu-icons", !!this.element.find( ".ui-icon" ).length );
+
+		// Initialize nested menus
+		submenus.filter( ":not(.ui-menu)" )
+			.addClass( "ui-menu ui-widget ui-widget-content ui-front" )
+			.hide()
+			.attr({
+				role: this.options.role,
+				"aria-hidden": "true",
+				"aria-expanded": "false"
+			})
+			.each(function() {
+				var menu = $( this ),
+					item = menu.parent(),
+					submenuCarat = $( "<span>" )
+						.addClass( "ui-menu-icon ui-icon " + icon )
+						.data( "ui-menu-submenu-carat", true );
+
+				item
+					.attr( "aria-haspopup", "true" )
+					.prepend( submenuCarat );
+				menu.attr( "aria-labelledby", item.attr( "id" ) );
+			});
+
+		menus = submenus.add( this.element );
+		items = menus.find( this.options.items );
+
+		// Initialize menu-items containing spaces and/or dashes only as dividers
+		items.not( ".ui-menu-item" ).each(function() {
+			var item = $( this );
+			if ( that._isDivider( item ) ) {
+				item.addClass( "ui-widget-content ui-menu-divider" );
+			}
+		});
+
+		// Don't refresh list items that are already adapted
+		items.not( ".ui-menu-item, .ui-menu-divider" )
+			.addClass( "ui-menu-item" )
+			.uniqueId()
+			.attr({
+				tabIndex: -1,
+				role: this._itemRole()
+			});
+
+		// Add aria-disabled attribute to any disabled menu item
+		items.filter( ".ui-state-disabled" ).attr( "aria-disabled", "true" );
+
+		// If the active item has been removed, blur the menu
+		if ( this.active && !$.contains( this.element[ 0 ], this.active[ 0 ] ) ) {
+			this.blur();
+		}
+	},
+
+	_itemRole: function() {
+		return {
+			menu: "menuitem",
+			listbox: "option"
+		}[ this.options.role ];
+	},
+
+	_setOption: function( key, value ) {
+		if ( key === "icons" ) {
+			this.element.find( ".ui-menu-icon" )
+				.removeClass( this.options.icons.submenu )
+				.addClass( value.submenu );
+		}
+		if ( key === "disabled" ) {
+			this.element
+				.toggleClass( "ui-state-disabled", !!value )
+				.attr( "aria-disabled", value );
+		}
+		this._super( key, value );
+	},
+
+	focus: function( event, item ) {
+		var nested, focused;
+		this.blur( event, event && event.type === "focus" );
+
+		this._scrollIntoView( item );
+
+		this.active = item.first();
+		focused = this.active.addClass( "ui-state-focus" ).removeClass( "ui-state-active" );
+		// Only update aria-activedescendant if there's a role
+		// otherwise we assume focus is managed elsewhere
+		if ( this.options.role ) {
+			this.element.attr( "aria-activedescendant", focused.attr( "id" ) );
+		}
+
+		// Highlight active parent menu item, if any
+		this.active
+			.parent()
+			.closest( ".ui-menu-item" )
+			.addClass( "ui-state-active" );
+
+		if ( event && event.type === "keydown" ) {
+			this._close();
+		} else {
+			this.timer = this._delay(function() {
+				this._close();
+			}, this.delay );
+		}
+
+		nested = item.children( ".ui-menu" );
+		if ( nested.length && event && ( /^mouse/.test( event.type ) ) ) {
+			this._startOpening(nested);
+		}
+		this.activeMenu = item.parent();
+
+		this._trigger( "focus", event, { item: item } );
+	},
+
+	_scrollIntoView: function( item ) {
+		var borderTop, paddingTop, offset, scroll, elementHeight, itemHeight;
+		if ( this._hasScroll() ) {
+			borderTop = parseFloat( $.css( this.activeMenu[0], "borderTopWidth" ) ) || 0;
+			paddingTop = parseFloat( $.css( this.activeMenu[0], "paddingTop" ) ) || 0;
+			offset = item.offset().top - this.activeMenu.offset().top - borderTop - paddingTop;
+			scroll = this.activeMenu.scrollTop();
+			elementHeight = this.activeMenu.height();
+			itemHeight = item.outerHeight();
+
+			if ( offset < 0 ) {
+				this.activeMenu.scrollTop( scroll + offset );
+			} else if ( offset + itemHeight > elementHeight ) {
+				this.activeMenu.scrollTop( scroll + offset - elementHeight + itemHeight );
+			}
+		}
+	},
+
+	blur: function( event, fromFocus ) {
+		if ( !fromFocus ) {
+			clearTimeout( this.timer );
+		}
+
+		if ( !this.active ) {
+			return;
+		}
+
+		this.active.removeClass( "ui-state-focus" );
+		this.active = null;
+
+		this._trigger( "blur", event, { item: this.active } );
+	},
+
+	_startOpening: function( submenu ) {
+		clearTimeout( this.timer );
+
+		// Don't open if already open fixes a Firefox bug that caused a .5 pixel
+		// shift in the submenu position when mousing over the carat icon
+		if ( submenu.attr( "aria-hidden" ) !== "true" ) {
+			return;
+		}
+
+		this.timer = this._delay(function() {
+			this._close();
+			this._open( submenu );
+		}, this.delay );
+	},
+
+	_open: function( submenu ) {
+		var position = $.extend({
+			of: this.active
+		}, this.options.position );
+
+		clearTimeout( this.timer );
+		this.element.find( ".ui-menu" ).not( submenu.parents( ".ui-menu" ) )
+			.hide()
+			.attr( "aria-hidden", "true" );
+
+		submenu
+			.show()
+			.removeAttr( "aria-hidden" )
+			.attr( "aria-expanded", "true" )
+			.position( position );
+	},
+
+	collapseAll: function( event, all ) {
+		clearTimeout( this.timer );
+		this.timer = this._delay(function() {
+			// If we were passed an event, look for the submenu that contains the event
+			var currentMenu = all ? this.element :
+				$( event && event.target ).closest( this.element.find( ".ui-menu" ) );
+
+			// If we found no valid submenu ancestor, use the main menu to close all sub menus anyway
+			if ( !currentMenu.length ) {
+				currentMenu = this.element;
+			}
+
+			this._close( currentMenu );
+
+			this.blur( event );
+			this.activeMenu = currentMenu;
+		}, this.delay );
+	},
+
+	// With no arguments, closes the currently active menu - if nothing is active
+	// it closes all menus.  If passed an argument, it will search for menus BELOW
+	_close: function( startMenu ) {
+		if ( !startMenu ) {
+			startMenu = this.active ? this.active.parent() : this.element;
+		}
+
+		startMenu
+			.find( ".ui-menu" )
+				.hide()
+				.attr( "aria-hidden", "true" )
+				.attr( "aria-expanded", "false" )
+			.end()
+			.find( ".ui-state-active" ).not( ".ui-state-focus" )
+				.removeClass( "ui-state-active" );
+	},
+
+	_closeOnDocumentClick: function( event ) {
+		return !$( event.target ).closest( ".ui-menu" ).length;
+	},
+
+	_isDivider: function( item ) {
+
+		// Match hyphen, em dash, en dash
+		return !/[^\-\u2014\u2013\s]/.test( item.text() );
+	},
+
+	collapse: function( event ) {
+		var newItem = this.active &&
+			this.active.parent().closest( ".ui-menu-item", this.element );
+		if ( newItem && newItem.length ) {
+			this._close();
+			this.focus( event, newItem );
+		}
+	},
+
+	expand: function( event ) {
+		var newItem = this.active &&
+			this.active
+				.children( ".ui-menu " )
+				.find( this.options.items )
+				.first();
+
+		if ( newItem && newItem.length ) {
+			this._open( newItem.parent() );
+
+			// Delay so Firefox will not hide activedescendant change in expanding submenu from AT
+			this._delay(function() {
+				this.focus( event, newItem );
+			});
+		}
+	},
+
+	next: function( event ) {
+		this._move( "next", "first", event );
+	},
+
+	previous: function( event ) {
+		this._move( "prev", "last", event );
+	},
+
+	isFirstItem: function() {
+		return this.active && !this.active.prevAll( ".ui-menu-item" ).length;
+	},
+
+	isLastItem: function() {
+		return this.active && !this.active.nextAll( ".ui-menu-item" ).length;
+	},
+
+	_move: function( direction, filter, event ) {
+		var next;
+		if ( this.active ) {
+			if ( direction === "first" || direction === "last" ) {
+				next = this.active
+					[ direction === "first" ? "prevAll" : "nextAll" ]( ".ui-menu-item" )
+					.eq( -1 );
+			} else {
+				next = this.active
+					[ direction + "All" ]( ".ui-menu-item" )
+					.eq( 0 );
+			}
+		}
+		if ( !next || !next.length || !this.active ) {
+			next = this.activeMenu.find( this.options.items )[ filter ]();
+		}
+
+		this.focus( event, next );
+	},
+
+	nextPage: function( event ) {
+		var item, base, height;
+
+		if ( !this.active ) {
+			this.next( event );
+			return;
+		}
+		if ( this.isLastItem() ) {
+			return;
+		}
+		if ( this._hasScroll() ) {
+			base = this.active.offset().top;
+			height = this.element.height();
+			this.active.nextAll( ".ui-menu-item" ).each(function() {
+				item = $( this );
+				return item.offset().top - base - height < 0;
+			});
+
+			this.focus( event, item );
+		} else {
+			this.focus( event, this.activeMenu.find( this.options.items )
+				[ !this.active ? "first" : "last" ]() );
+		}
+	},
+
+	previousPage: function( event ) {
+		var item, base, height;
+		if ( !this.active ) {
+			this.next( event );
+			return;
+		}
+		if ( this.isFirstItem() ) {
+			return;
+		}
+		if ( this._hasScroll() ) {
+			base = this.active.offset().top;
+			height = this.element.height();
+			this.active.prevAll( ".ui-menu-item" ).each(function() {
+				item = $( this );
+				return item.offset().top - base + height > 0;
+			});
+
+			this.focus( event, item );
+		} else {
+			this.focus( event, this.activeMenu.find( this.options.items ).first() );
+		}
+	},
+
+	_hasScroll: function() {
+		return this.element.outerHeight() < this.element.prop( "scrollHeight" );
+	},
+
+	select: function( event ) {
+		// TODO: It should never be possible to not have an active item at this
+		// point, but the tests don't trigger mouseenter before click.
+		this.active = this.active || $( event.target ).closest( ".ui-menu-item" );
+		var ui = { item: this.active };
+		if ( !this.active.has( ".ui-menu" ).length ) {
+			this.collapseAll( event, true );
+		}
+		this._trigger( "select", event, ui );
+	},
+
+	_filterMenuItems: function(character) {
+		var escapedCharacter = character.replace( /[\-\[\]{}()*+?.,\\\^$|#\s]/g, "\\$&" ),
+			regex = new RegExp( "^" + escapedCharacter, "i" );
+
+		return this.activeMenu
+			.find( this.options.items )
+
+			// Only match on items, not dividers or other content (#10571)
+			.filter( ".ui-menu-item" )
+			.filter(function() {
+				return regex.test( $.trim( $( this ).text() ) );
+			});
+	}
+});
+
+
 /*!
  * jQuery UI Autocomplete 1.11.4
  * http://jqueryui.com
@@ -134,7 +6997,608 @@ var Z=I.widget("ui.menu",{version:"1.11.4",defaultElement:"<ul>",delay:300,optio
  *
  * http://api.jqueryui.com/autocomplete/
  */
-I.widget("ui.autocomplete",{version:"1.11.4",defaultElement:"<input>",options:{appendTo:null,autoFocus:false,delay:300,minLength:1,position:{my:"left top",at:"left bottom",collision:"none"},source:null,change:null,close:null,focus:null,open:null,response:null,search:null,select:null},requestIndex:0,pending:0,_create:function(){var af,ad,ag,ai=this.element[0].nodeName.toLowerCase(),ah=ai==="textarea",ae=ai==="input";this.isMultiLine=ah?true:ae?false:this.element.prop("isContentEditable");this.valueMethod=this.element[ah||ae?"val":"text"];this.isNewMenu=true;this.element.addClass("ui-autocomplete-input").attr("autocomplete","off");this._on(this.element,{keydown:function(aj){if(this.element.prop("readOnly")){af=true;ag=true;ad=true;return}af=false;ag=false;ad=false;var ak=I.ui.keyCode;switch(aj.keyCode){case ak.PAGE_UP:af=true;this._move("previousPage",aj);break;case ak.PAGE_DOWN:af=true;this._move("nextPage",aj);break;case ak.UP:af=true;this._keyEvent("previous",aj);break;case ak.DOWN:af=true;this._keyEvent("next",aj);break;case ak.ENTER:if(this.menu.active){af=true;aj.preventDefault();this.menu.select(aj)}break;case ak.TAB:if(this.menu.active){this.menu.select(aj)}break;case ak.ESCAPE:if(this.menu.element.is(":visible")){if(!this.isMultiLine){this._value(this.term)}this.close(aj);aj.preventDefault()}break;default:ad=true;this._searchTimeout(aj);break}},keypress:function(aj){if(af){af=false;if(!this.isMultiLine||this.menu.element.is(":visible")){aj.preventDefault()}return}if(ad){return}var ak=I.ui.keyCode;switch(aj.keyCode){case ak.PAGE_UP:this._move("previousPage",aj);break;case ak.PAGE_DOWN:this._move("nextPage",aj);break;case ak.UP:this._keyEvent("previous",aj);break;case ak.DOWN:this._keyEvent("next",aj);break}},input:function(aj){if(ag){ag=false;aj.preventDefault();return}this._searchTimeout(aj)},focus:function(){this.selectedItem=null;this.previous=this._value()},blur:function(aj){if(this.cancelBlur){delete this.cancelBlur;return}clearTimeout(this.searching);this.close(aj);this._change(aj)}});this._initSource();this.menu=I("<ul>").addClass("ui-autocomplete ui-front").appendTo(this._appendTo()).menu({role:null}).hide().menu("instance");this._on(this.menu.element,{mousedown:function(aj){aj.preventDefault();this.cancelBlur=true;this._delay(function(){delete this.cancelBlur});var ak=this.menu.element[0];if(!I(aj.target).closest(".ui-menu-item").length){this._delay(function(){var al=this;this.document.one("mousedown",function(am){if(am.target!==al.element[0]&&am.target!==ak&&!I.contains(ak,am.target)){al.close()}})})}},menufocus:function(al,am){var aj,ak;if(this.isNewMenu){this.isNewMenu=false;if(al.originalEvent&&/^mouse/.test(al.originalEvent.type)){this.menu.blur();this.document.one("mousemove",function(){I(al.target).trigger(al.originalEvent)});return}}ak=am.item.data("ui-autocomplete-item");if(false!==this._trigger("focus",al,{item:ak})){if(al.originalEvent&&/^key/.test(al.originalEvent.type)){this._value(ak.value)}}aj=am.item.attr("aria-label")||ak.value;if(aj&&I.trim(aj).length){this.liveRegion.children().hide();I("<div>").text(aj).appendTo(this.liveRegion)}},menuselect:function(al,am){var ak=am.item.data("ui-autocomplete-item"),aj=this.previous;if(this.element[0]!==this.document[0].activeElement){this.element.focus();this.previous=aj;this._delay(function(){this.previous=aj;this.selectedItem=ak})}if(false!==this._trigger("select",al,{item:ak})){this._value(ak.value)}this.term=this._value();this.close(al);this.selectedItem=ak}});this.liveRegion=I("<span>",{role:"status","aria-live":"assertive","aria-relevant":"additions"}).addClass("ui-helper-hidden-accessible").appendTo(this.document[0].body);this._on(this.window,{beforeunload:function(){this.element.removeAttr("autocomplete")}})},_destroy:function(){clearTimeout(this.searching);this.element.removeClass("ui-autocomplete-input").removeAttr("autocomplete");this.menu.element.remove();this.liveRegion.remove()},_setOption:function(ad,ae){this._super(ad,ae);if(ad==="source"){this._initSource()}if(ad==="appendTo"){this.menu.element.appendTo(this._appendTo())}if(ad==="disabled"&&ae&&this.xhr){this.xhr.abort()}},_appendTo:function(){var ad=this.options.appendTo;if(ad){ad=ad.jquery||ad.nodeType?I(ad):this.document.find(ad).eq(0)}if(!ad||!ad[0]){ad=this.element.closest(".ui-front")}if(!ad.length){ad=this.document[0].body}return ad},_initSource:function(){var af,ad,ae=this;if(I.isArray(this.options.source)){af=this.options.source;this.source=function(ah,ag){ag(I.ui.autocomplete.filter(af,ah.term))}}else{if(typeof this.options.source==="string"){ad=this.options.source;this.source=function(ah,ag){if(ae.xhr){ae.xhr.abort()}ae.xhr=I.ajax({url:ad,data:ah,dataType:"json",success:function(ai){ag(ai)},error:function(){ag([])}})}}else{this.source=this.options.source}}},_searchTimeout:function(ad){clearTimeout(this.searching);this.searching=this._delay(function(){var af=this.term===this._value(),ae=this.menu.element.is(":visible"),ag=ad.altKey||ad.ctrlKey||ad.metaKey||ad.shiftKey;if(!af||(af&&!ae&&!ag)){this.selectedItem=null;this.search(null,ad)}},this.options.delay)},search:function(ae,ad){ae=ae!=null?ae:this._value();this.term=this._value();if(ae.length<this.options.minLength){return this.close(ad)}if(this._trigger("search",ad)===false){return}return this._search(ae)},_search:function(ad){this.pending++;this.element.addClass("ui-autocomplete-loading");this.cancelSearch=false;this.source({term:ad},this._response())},_response:function(){var ad=++this.requestIndex;return I.proxy(function(ae){if(ad===this.requestIndex){this.__response(ae)}this.pending--;if(!this.pending){this.element.removeClass("ui-autocomplete-loading")}},this)},__response:function(ad){if(ad){ad=this._normalize(ad)}this._trigger("response",null,{content:ad});if(!this.options.disabled&&ad&&ad.length&&!this.cancelSearch){this._suggest(ad);this._trigger("open")}else{this._close()}},close:function(ad){this.cancelSearch=true;this._close(ad)},_close:function(ad){if(this.menu.element.is(":visible")){this.menu.element.hide();this.menu.blur();this.isNewMenu=true;this._trigger("close",ad)}},_change:function(ad){if(this.previous!==this._value()){this._trigger("change",ad,{item:this.selectedItem})}},_normalize:function(ad){if(ad.length&&ad[0].label&&ad[0].value){return ad}return I.map(ad,function(ae){if(typeof ae==="string"){return{label:ae,value:ae}}return I.extend({},ae,{label:ae.label||ae.value,value:ae.value||ae.label})})},_suggest:function(ad){var ae=this.menu.element.empty();this._renderMenu(ae,ad);this.isNewMenu=true;this.menu.refresh();ae.show();this._resizeMenu();ae.position(I.extend({of:this.element},this.options.position));if(this.options.autoFocus){this.menu.next()}},_resizeMenu:function(){var ad=this.menu.element;ad.outerWidth(Math.max(ad.width("").outerWidth()+1,this.element.outerWidth()))},_renderMenu:function(ae,ad){var af=this;I.each(ad,function(ag,ah){af._renderItemData(ae,ah)})},_renderItemData:function(ad,ae){return this._renderItem(ad,ae).data("ui-autocomplete-item",ae)},_renderItem:function(ad,ae){return I("<li>").text(ae.label).appendTo(ad)},_move:function(ae,ad){if(!this.menu.element.is(":visible")){this.search(null,ad);return}if(this.menu.isFirstItem()&&/^previous/.test(ae)||this.menu.isLastItem()&&/^next/.test(ae)){if(!this.isMultiLine){this._value(this.term)}this.menu.blur();return}this.menu[ae](ad)},widget:function(){return this.menu.element},_value:function(){return this.valueMethod.apply(this.element,arguments)},_keyEvent:function(ae,ad){if(!this.isMultiLine||this.menu.element.is(":visible")){this._move(ae,ad);ad.preventDefault()}}});I.extend(I.ui.autocomplete,{escapeRegex:function(ad){return ad.replace(/[\-\[\]{}()*+?.,\\\^$|#\s]/g,"\\$&")},filter:function(af,ad){var ae=new RegExp(I.ui.autocomplete.escapeRegex(ad),"i");return I.grep(af,function(ag){return ae.test(ag.label||ag.value||ag)})}});I.widget("ui.autocomplete",I.ui.autocomplete,{options:{messages:{noResults:"No search results.",results:function(ad){return ad+(ad>1?" results are":" result is")+" available, use up and down arrow keys to navigate."}}},__response:function(ae){var ad;this._superApply(arguments);if(this.options.disabled||this.cancelSearch){return}if(ae&&ae.length){ad=this.options.messages.results(ae.length)}else{ad=this.options.messages.noResults}this.liveRegion.children().hide();I("<div>").text(ad).appendTo(this.liveRegion)}});var c=I.ui.autocomplete;
+
+
+$.widget( "ui.autocomplete", {
+	version: "1.11.4",
+	defaultElement: "<input>",
+	options: {
+		appendTo: null,
+		autoFocus: false,
+		delay: 300,
+		minLength: 1,
+		position: {
+			my: "left top",
+			at: "left bottom",
+			collision: "none"
+		},
+		source: null,
+
+		// callbacks
+		change: null,
+		close: null,
+		focus: null,
+		open: null,
+		response: null,
+		search: null,
+		select: null
+	},
+
+	requestIndex: 0,
+	pending: 0,
+
+	_create: function() {
+		// Some browsers only repeat keydown events, not keypress events,
+		// so we use the suppressKeyPress flag to determine if we've already
+		// handled the keydown event. #7269
+		// Unfortunately the code for & in keypress is the same as the up arrow,
+		// so we use the suppressKeyPressRepeat flag to avoid handling keypress
+		// events when we know the keydown event was used to modify the
+		// search term. #7799
+		var suppressKeyPress, suppressKeyPressRepeat, suppressInput,
+			nodeName = this.element[ 0 ].nodeName.toLowerCase(),
+			isTextarea = nodeName === "textarea",
+			isInput = nodeName === "input";
+
+		this.isMultiLine =
+			// Textareas are always multi-line
+			isTextarea ? true :
+			// Inputs are always single-line, even if inside a contentEditable element
+			// IE also treats inputs as contentEditable
+			isInput ? false :
+			// All other element types are determined by whether or not they're contentEditable
+			this.element.prop( "isContentEditable" );
+
+		this.valueMethod = this.element[ isTextarea || isInput ? "val" : "text" ];
+		this.isNewMenu = true;
+
+		this.element
+			.addClass( "ui-autocomplete-input" )
+			.attr( "autocomplete", "off" );
+
+		this._on( this.element, {
+			keydown: function( event ) {
+				if ( this.element.prop( "readOnly" ) ) {
+					suppressKeyPress = true;
+					suppressInput = true;
+					suppressKeyPressRepeat = true;
+					return;
+				}
+
+				suppressKeyPress = false;
+				suppressInput = false;
+				suppressKeyPressRepeat = false;
+				var keyCode = $.ui.keyCode;
+				switch ( event.keyCode ) {
+				case keyCode.PAGE_UP:
+					suppressKeyPress = true;
+					this._move( "previousPage", event );
+					break;
+				case keyCode.PAGE_DOWN:
+					suppressKeyPress = true;
+					this._move( "nextPage", event );
+					break;
+				case keyCode.UP:
+					suppressKeyPress = true;
+					this._keyEvent( "previous", event );
+					break;
+				case keyCode.DOWN:
+					suppressKeyPress = true;
+					this._keyEvent( "next", event );
+					break;
+				case keyCode.ENTER:
+					// when menu is open and has focus
+					if ( this.menu.active ) {
+						// #6055 - Opera still allows the keypress to occur
+						// which causes forms to submit
+						suppressKeyPress = true;
+						event.preventDefault();
+						this.menu.select( event );
+					}
+					break;
+				case keyCode.TAB:
+					if ( this.menu.active ) {
+						this.menu.select( event );
+					}
+					break;
+				case keyCode.ESCAPE:
+					if ( this.menu.element.is( ":visible" ) ) {
+						if ( !this.isMultiLine ) {
+							this._value( this.term );
+						}
+						this.close( event );
+						// Different browsers have different default behavior for escape
+						// Single press can mean undo or clear
+						// Double press in IE means clear the whole form
+						event.preventDefault();
+					}
+					break;
+				default:
+					suppressKeyPressRepeat = true;
+					// search timeout should be triggered before the input value is changed
+					this._searchTimeout( event );
+					break;
+				}
+			},
+			keypress: function( event ) {
+				if ( suppressKeyPress ) {
+					suppressKeyPress = false;
+					if ( !this.isMultiLine || this.menu.element.is( ":visible" ) ) {
+						event.preventDefault();
+					}
+					return;
+				}
+				if ( suppressKeyPressRepeat ) {
+					return;
+				}
+
+				// replicate some key handlers to allow them to repeat in Firefox and Opera
+				var keyCode = $.ui.keyCode;
+				switch ( event.keyCode ) {
+				case keyCode.PAGE_UP:
+					this._move( "previousPage", event );
+					break;
+				case keyCode.PAGE_DOWN:
+					this._move( "nextPage", event );
+					break;
+				case keyCode.UP:
+					this._keyEvent( "previous", event );
+					break;
+				case keyCode.DOWN:
+					this._keyEvent( "next", event );
+					break;
+				}
+			},
+			input: function( event ) {
+				if ( suppressInput ) {
+					suppressInput = false;
+					event.preventDefault();
+					return;
+				}
+				this._searchTimeout( event );
+			},
+			focus: function() {
+				this.selectedItem = null;
+				this.previous = this._value();
+			},
+			blur: function( event ) {
+				if ( this.cancelBlur ) {
+					delete this.cancelBlur;
+					return;
+				}
+
+				clearTimeout( this.searching );
+				this.close( event );
+				this._change( event );
+			}
+		});
+
+		this._initSource();
+		this.menu = $( "<ul>" )
+			.addClass( "ui-autocomplete ui-front" )
+			.appendTo( this._appendTo() )
+			.menu({
+				// disable ARIA support, the live region takes care of that
+				role: null
+			})
+			.hide()
+			.menu( "instance" );
+
+		this._on( this.menu.element, {
+			mousedown: function( event ) {
+				// prevent moving focus out of the text field
+				event.preventDefault();
+
+				// IE doesn't prevent moving focus even with event.preventDefault()
+				// so we set a flag to know when we should ignore the blur event
+				this.cancelBlur = true;
+				this._delay(function() {
+					delete this.cancelBlur;
+				});
+
+				// clicking on the scrollbar causes focus to shift to the body
+				// but we can't detect a mouseup or a click immediately afterward
+				// so we have to track the next mousedown and close the menu if
+				// the user clicks somewhere outside of the autocomplete
+				var menuElement = this.menu.element[ 0 ];
+				if ( !$( event.target ).closest( ".ui-menu-item" ).length ) {
+					this._delay(function() {
+						var that = this;
+						this.document.one( "mousedown", function( event ) {
+							if ( event.target !== that.element[ 0 ] &&
+									event.target !== menuElement &&
+									!$.contains( menuElement, event.target ) ) {
+								that.close();
+							}
+						});
+					});
+				}
+			},
+			menufocus: function( event, ui ) {
+				var label, item;
+				// support: Firefox
+				// Prevent accidental activation of menu items in Firefox (#7024 #9118)
+				if ( this.isNewMenu ) {
+					this.isNewMenu = false;
+					if ( event.originalEvent && /^mouse/.test( event.originalEvent.type ) ) {
+						this.menu.blur();
+
+						this.document.one( "mousemove", function() {
+							$( event.target ).trigger( event.originalEvent );
+						});
+
+						return;
+					}
+				}
+
+				item = ui.item.data( "ui-autocomplete-item" );
+				if ( false !== this._trigger( "focus", event, { item: item } ) ) {
+					// use value to match what will end up in the input, if it was a key event
+					if ( event.originalEvent && /^key/.test( event.originalEvent.type ) ) {
+						this._value( item.value );
+					}
+				}
+
+				// Announce the value in the liveRegion
+				label = ui.item.attr( "aria-label" ) || item.value;
+				if ( label && $.trim( label ).length ) {
+					this.liveRegion.children().hide();
+					$( "<div>" ).text( label ).appendTo( this.liveRegion );
+				}
+			},
+			menuselect: function( event, ui ) {
+				var item = ui.item.data( "ui-autocomplete-item" ),
+					previous = this.previous;
+
+				// only trigger when focus was lost (click on menu)
+				if ( this.element[ 0 ] !== this.document[ 0 ].activeElement ) {
+					this.element.focus();
+					this.previous = previous;
+					// #6109 - IE triggers two focus events and the second
+					// is asynchronous, so we need to reset the previous
+					// term synchronously and asynchronously :-(
+					this._delay(function() {
+						this.previous = previous;
+						this.selectedItem = item;
+					});
+				}
+
+				if ( false !== this._trigger( "select", event, { item: item } ) ) {
+					this._value( item.value );
+				}
+				// reset the term after the select event
+				// this allows custom select handling to work properly
+				this.term = this._value();
+
+				this.close( event );
+				this.selectedItem = item;
+			}
+		});
+
+		this.liveRegion = $( "<span>", {
+				role: "status",
+				"aria-live": "assertive",
+				"aria-relevant": "additions"
+			})
+			.addClass( "ui-helper-hidden-accessible" )
+			.appendTo( this.document[ 0 ].body );
+
+		// turning off autocomplete prevents the browser from remembering the
+		// value when navigating through history, so we re-enable autocomplete
+		// if the page is unloaded before the widget is destroyed. #7790
+		this._on( this.window, {
+			beforeunload: function() {
+				this.element.removeAttr( "autocomplete" );
+			}
+		});
+	},
+
+	_destroy: function() {
+		clearTimeout( this.searching );
+		this.element
+			.removeClass( "ui-autocomplete-input" )
+			.removeAttr( "autocomplete" );
+		this.menu.element.remove();
+		this.liveRegion.remove();
+	},
+
+	_setOption: function( key, value ) {
+		this._super( key, value );
+		if ( key === "source" ) {
+			this._initSource();
+		}
+		if ( key === "appendTo" ) {
+			this.menu.element.appendTo( this._appendTo() );
+		}
+		if ( key === "disabled" && value && this.xhr ) {
+			this.xhr.abort();
+		}
+	},
+
+	_appendTo: function() {
+		var element = this.options.appendTo;
+
+		if ( element ) {
+			element = element.jquery || element.nodeType ?
+				$( element ) :
+				this.document.find( element ).eq( 0 );
+		}
+
+		if ( !element || !element[ 0 ] ) {
+			element = this.element.closest( ".ui-front" );
+		}
+
+		if ( !element.length ) {
+			element = this.document[ 0 ].body;
+		}
+
+		return element;
+	},
+
+	_initSource: function() {
+		var array, url,
+			that = this;
+		if ( $.isArray( this.options.source ) ) {
+			array = this.options.source;
+			this.source = function( request, response ) {
+				response( $.ui.autocomplete.filter( array, request.term ) );
+			};
+		} else if ( typeof this.options.source === "string" ) {
+			url = this.options.source;
+			this.source = function( request, response ) {
+				if ( that.xhr ) {
+					that.xhr.abort();
+				}
+				that.xhr = $.ajax({
+					url: url,
+					data: request,
+					dataType: "json",
+					success: function( data ) {
+						response( data );
+					},
+					error: function() {
+						response([]);
+					}
+				});
+			};
+		} else {
+			this.source = this.options.source;
+		}
+	},
+
+	_searchTimeout: function( event ) {
+		clearTimeout( this.searching );
+		this.searching = this._delay(function() {
+
+			// Search if the value has changed, or if the user retypes the same value (see #7434)
+			var equalValues = this.term === this._value(),
+				menuVisible = this.menu.element.is( ":visible" ),
+				modifierKey = event.altKey || event.ctrlKey || event.metaKey || event.shiftKey;
+
+			if ( !equalValues || ( equalValues && !menuVisible && !modifierKey ) ) {
+				this.selectedItem = null;
+				this.search( null, event );
+			}
+		}, this.options.delay );
+	},
+
+	search: function( value, event ) {
+		value = value != null ? value : this._value();
+
+		// always save the actual value, not the one passed as an argument
+		this.term = this._value();
+
+		if ( value.length < this.options.minLength ) {
+			return this.close( event );
+		}
+
+		if ( this._trigger( "search", event ) === false ) {
+			return;
+		}
+
+		return this._search( value );
+	},
+
+	_search: function( value ) {
+		this.pending++;
+		this.element.addClass( "ui-autocomplete-loading" );
+		this.cancelSearch = false;
+
+		this.source( { term: value }, this._response() );
+	},
+
+	_response: function() {
+		var index = ++this.requestIndex;
+
+		return $.proxy(function( content ) {
+			if ( index === this.requestIndex ) {
+				this.__response( content );
+			}
+
+			this.pending--;
+			if ( !this.pending ) {
+				this.element.removeClass( "ui-autocomplete-loading" );
+			}
+		}, this );
+	},
+
+	__response: function( content ) {
+		if ( content ) {
+			content = this._normalize( content );
+		}
+		this._trigger( "response", null, { content: content } );
+		if ( !this.options.disabled && content && content.length && !this.cancelSearch ) {
+			this._suggest( content );
+			this._trigger( "open" );
+		} else {
+			// use ._close() instead of .close() so we don't cancel future searches
+			this._close();
+		}
+	},
+
+	close: function( event ) {
+		this.cancelSearch = true;
+		this._close( event );
+	},
+
+	_close: function( event ) {
+		if ( this.menu.element.is( ":visible" ) ) {
+			this.menu.element.hide();
+			this.menu.blur();
+			this.isNewMenu = true;
+			this._trigger( "close", event );
+		}
+	},
+
+	_change: function( event ) {
+		if ( this.previous !== this._value() ) {
+			this._trigger( "change", event, { item: this.selectedItem } );
+		}
+	},
+
+	_normalize: function( items ) {
+		// assume all items have the right format when the first item is complete
+		if ( items.length && items[ 0 ].label && items[ 0 ].value ) {
+			return items;
+		}
+		return $.map( items, function( item ) {
+			if ( typeof item === "string" ) {
+				return {
+					label: item,
+					value: item
+				};
+			}
+			return $.extend( {}, item, {
+				label: item.label || item.value,
+				value: item.value || item.label
+			});
+		});
+	},
+
+	_suggest: function( items ) {
+		var ul = this.menu.element.empty();
+		this._renderMenu( ul, items );
+		this.isNewMenu = true;
+		this.menu.refresh();
+
+		// size and position menu
+		ul.show();
+		this._resizeMenu();
+		ul.position( $.extend({
+			of: this.element
+		}, this.options.position ) );
+
+		if ( this.options.autoFocus ) {
+			this.menu.next();
+		}
+	},
+
+	_resizeMenu: function() {
+		var ul = this.menu.element;
+		ul.outerWidth( Math.max(
+			// Firefox wraps long text (possibly a rounding bug)
+			// so we add 1px to avoid the wrapping (#7513)
+			ul.width( "" ).outerWidth() + 1,
+			this.element.outerWidth()
+		) );
+	},
+
+	_renderMenu: function( ul, items ) {
+		var that = this;
+		$.each( items, function( index, item ) {
+			that._renderItemData( ul, item );
+		});
+	},
+
+	_renderItemData: function( ul, item ) {
+		return this._renderItem( ul, item ).data( "ui-autocomplete-item", item );
+	},
+
+	_renderItem: function( ul, item ) {
+		return $( "<li>" ).text( item.label ).appendTo( ul );
+	},
+
+	_move: function( direction, event ) {
+		if ( !this.menu.element.is( ":visible" ) ) {
+			this.search( null, event );
+			return;
+		}
+		if ( this.menu.isFirstItem() && /^previous/.test( direction ) ||
+				this.menu.isLastItem() && /^next/.test( direction ) ) {
+
+			if ( !this.isMultiLine ) {
+				this._value( this.term );
+			}
+
+			this.menu.blur();
+			return;
+		}
+		this.menu[ direction ]( event );
+	},
+
+	widget: function() {
+		return this.menu.element;
+	},
+
+	_value: function() {
+		return this.valueMethod.apply( this.element, arguments );
+	},
+
+	_keyEvent: function( keyEvent, event ) {
+		if ( !this.isMultiLine || this.menu.element.is( ":visible" ) ) {
+			this._move( keyEvent, event );
+
+			// prevents moving cursor to beginning/end of the text field in some browsers
+			event.preventDefault();
+		}
+	}
+});
+
+$.extend( $.ui.autocomplete, {
+	escapeRegex: function( value ) {
+		return value.replace( /[\-\[\]{}()*+?.,\\\^$|#\s]/g, "\\$&" );
+	},
+	filter: function( array, term ) {
+		var matcher = new RegExp( $.ui.autocomplete.escapeRegex( term ), "i" );
+		return $.grep( array, function( value ) {
+			return matcher.test( value.label || value.value || value );
+		});
+	}
+});
+
+// live region extension, adding a `messages` option
+// NOTE: This is an experimental API. We are still investigating
+// a full solution for string manipulation and internationalization.
+$.widget( "ui.autocomplete", $.ui.autocomplete, {
+	options: {
+		messages: {
+			noResults: "No search results.",
+			results: function( amount ) {
+				return amount + ( amount > 1 ? " results are" : " result is" ) +
+					" available, use up and down arrow keys to navigate.";
+			}
+		}
+	},
+
+	__response: function( content ) {
+		var message;
+		this._superApply( arguments );
+		if ( this.options.disabled || this.cancelSearch ) {
+			return;
+		}
+		if ( content && content.length ) {
+			message = this.options.messages.results( content.length );
+		} else {
+			message = this.options.messages.noResults;
+		}
+		this.liveRegion.children().hide();
+		$( "<div>" ).text( message ).appendTo( this.liveRegion );
+	}
+});
+
+var autocomplete = $.ui.autocomplete;
+
+
 /*!
  * jQuery UI Button 1.11.4
  * http://jqueryui.com
@@ -145,7 +7609,393 @@ I.widget("ui.autocomplete",{version:"1.11.4",defaultElement:"<input>",options:{a
  *
  * http://api.jqueryui.com/button/
  */
-var r,Y="ui-button ui-widget ui-state-default ui-corner-all",y="ui-button-icons-only ui-button-icon-only ui-button-text-icons ui-button-text-icon-primary ui-button-text-icon-secondary ui-button-text-only",n=function(){var ad=I(this);setTimeout(function(){ad.find(":ui-button").button("refresh")},1)},z=function(ae){var ad=ae.name,af=ae.form,ag=I([]);if(ad){ad=ad.replace(/'/g,"\\'");if(af){ag=I(af).find("[name='"+ad+"'][type=radio]")}else{ag=I("[name='"+ad+"'][type=radio]",ae.ownerDocument).filter(function(){return !this.form})}}return ag};I.widget("ui.button",{version:"1.11.4",defaultElement:"<button>",options:{disabled:null,text:true,label:null,icons:{primary:null,secondary:null}},_create:function(){this.element.closest("form").unbind("reset"+this.eventNamespace).bind("reset"+this.eventNamespace,n);if(typeof this.options.disabled!=="boolean"){this.options.disabled=!!this.element.prop("disabled")}else{this.element.prop("disabled",this.options.disabled)}this._determineButtonType();this.hasTitle=!!this.buttonElement.attr("title");var af=this,ad=this.options,ag=this.type==="checkbox"||this.type==="radio",ae=!ag?"ui-state-active":"";if(ad.label===null){ad.label=(this.type==="input"?this.buttonElement.val():this.buttonElement.html())}this._hoverable(this.buttonElement);this.buttonElement.addClass(Y).attr("role","button").bind("mouseenter"+this.eventNamespace,function(){if(ad.disabled){return}if(this===r){I(this).addClass("ui-state-active")}}).bind("mouseleave"+this.eventNamespace,function(){if(ad.disabled){return}I(this).removeClass(ae)}).bind("click"+this.eventNamespace,function(ah){if(ad.disabled){ah.preventDefault();ah.stopImmediatePropagation()}});this._on({focus:function(){this.buttonElement.addClass("ui-state-focus")},blur:function(){this.buttonElement.removeClass("ui-state-focus")}});if(ag){this.element.bind("change"+this.eventNamespace,function(){af.refresh()})}if(this.type==="checkbox"){this.buttonElement.bind("click"+this.eventNamespace,function(){if(ad.disabled){return false}})}else{if(this.type==="radio"){this.buttonElement.bind("click"+this.eventNamespace,function(){if(ad.disabled){return false}I(this).addClass("ui-state-active");af.buttonElement.attr("aria-pressed","true");var ah=af.element[0];z(ah).not(ah).map(function(){return I(this).button("widget")[0]}).removeClass("ui-state-active").attr("aria-pressed","false")})}else{this.buttonElement.bind("mousedown"+this.eventNamespace,function(){if(ad.disabled){return false}I(this).addClass("ui-state-active");r=this;af.document.one("mouseup",function(){r=null})}).bind("mouseup"+this.eventNamespace,function(){if(ad.disabled){return false}I(this).removeClass("ui-state-active")}).bind("keydown"+this.eventNamespace,function(ah){if(ad.disabled){return false}if(ah.keyCode===I.ui.keyCode.SPACE||ah.keyCode===I.ui.keyCode.ENTER){I(this).addClass("ui-state-active")}}).bind("keyup"+this.eventNamespace+" blur"+this.eventNamespace,function(){I(this).removeClass("ui-state-active")});if(this.buttonElement.is("a")){this.buttonElement.keyup(function(ah){if(ah.keyCode===I.ui.keyCode.SPACE){I(this).click()}})}}}this._setOption("disabled",ad.disabled);this._resetButton()},_determineButtonType:function(){var ad,af,ae;if(this.element.is("[type=checkbox]")){this.type="checkbox"}else{if(this.element.is("[type=radio]")){this.type="radio"}else{if(this.element.is("input")){this.type="input"}else{this.type="button"}}}if(this.type==="checkbox"||this.type==="radio"){ad=this.element.parents().last();af="label[for='"+this.element.attr("id")+"']";this.buttonElement=ad.find(af);if(!this.buttonElement.length){ad=ad.length?ad.siblings():this.element.siblings();this.buttonElement=ad.filter(af);if(!this.buttonElement.length){this.buttonElement=ad.find(af)}}this.element.addClass("ui-helper-hidden-accessible");ae=this.element.is(":checked");if(ae){this.buttonElement.addClass("ui-state-active")}this.buttonElement.prop("aria-pressed",ae)}else{this.buttonElement=this.element}},widget:function(){return this.buttonElement},_destroy:function(){this.element.removeClass("ui-helper-hidden-accessible");this.buttonElement.removeClass(Y+" ui-state-active "+y).removeAttr("role").removeAttr("aria-pressed").html(this.buttonElement.find(".ui-button-text").html());if(!this.hasTitle){this.buttonElement.removeAttr("title")}},_setOption:function(ad,ae){this._super(ad,ae);if(ad==="disabled"){this.widget().toggleClass("ui-state-disabled",!!ae);this.element.prop("disabled",!!ae);if(ae){if(this.type==="checkbox"||this.type==="radio"){this.buttonElement.removeClass("ui-state-focus")}else{this.buttonElement.removeClass("ui-state-focus ui-state-active")}}return}this._resetButton()},refresh:function(){var ad=this.element.is("input, button")?this.element.is(":disabled"):this.element.hasClass("ui-button-disabled");if(ad!==this.options.disabled){this._setOption("disabled",ad)}if(this.type==="radio"){z(this.element[0]).each(function(){if(I(this).is(":checked")){I(this).button("widget").addClass("ui-state-active").attr("aria-pressed","true")}else{I(this).button("widget").removeClass("ui-state-active").attr("aria-pressed","false")}})}else{if(this.type==="checkbox"){if(this.element.is(":checked")){this.buttonElement.addClass("ui-state-active").attr("aria-pressed","true")}else{this.buttonElement.removeClass("ui-state-active").attr("aria-pressed","false")}}}},_resetButton:function(){if(this.type==="input"){if(this.options.label){this.element.val(this.options.label)}return}var ah=this.buttonElement.removeClass(y),af=I("<span></span>",this.document[0]).addClass("ui-button-text").html(this.options.label).appendTo(ah.empty()).text(),ae=this.options.icons,ad=ae.primary&&ae.secondary,ag=[];if(ae.primary||ae.secondary){if(this.options.text){ag.push("ui-button-text-icon"+(ad?"s":(ae.primary?"-primary":"-secondary")))}if(ae.primary){ah.prepend("<span class='ui-button-icon-primary ui-icon "+ae.primary+"'></span>")}if(ae.secondary){ah.append("<span class='ui-button-icon-secondary ui-icon "+ae.secondary+"'></span>")}if(!this.options.text){ag.push(ad?"ui-button-icons-only":"ui-button-icon-only");if(!this.hasTitle){ah.attr("title",I.trim(af))}}}else{ag.push("ui-button-text-only")}ah.addClass(ag.join(" "))}});I.widget("ui.buttonset",{version:"1.11.4",options:{items:"button, input[type=button], input[type=submit], input[type=reset], input[type=checkbox], input[type=radio], a, :data(ui-button)"},_create:function(){this.element.addClass("ui-buttonset")},_init:function(){this.refresh()},_setOption:function(ad,ae){if(ad==="disabled"){this.buttons.button("option",ad,ae)}this._super(ad,ae)},refresh:function(){var ae=this.element.css("direction")==="rtl",ad=this.element.find(this.options.items),af=ad.filter(":ui-button");ad.not(":ui-button").button();af.button("refresh");this.buttons=ad.map(function(){return I(this).button("widget")[0]}).removeClass("ui-corner-all ui-corner-left ui-corner-right").filter(":first").addClass(ae?"ui-corner-right":"ui-corner-left").end().filter(":last").addClass(ae?"ui-corner-left":"ui-corner-right").end().end()},_destroy:function(){this.element.removeClass("ui-buttonset");this.buttons.map(function(){return I(this).button("widget")[0]}).removeClass("ui-corner-left ui-corner-right").end().button("destroy")}});var q=I.ui.button;
+
+
+var lastActive,
+	baseClasses = "ui-button ui-widget ui-state-default ui-corner-all",
+	typeClasses = "ui-button-icons-only ui-button-icon-only ui-button-text-icons ui-button-text-icon-primary ui-button-text-icon-secondary ui-button-text-only",
+	formResetHandler = function() {
+		var form = $( this );
+		setTimeout(function() {
+			form.find( ":ui-button" ).button( "refresh" );
+		}, 1 );
+	},
+	radioGroup = function( radio ) {
+		var name = radio.name,
+			form = radio.form,
+			radios = $( [] );
+		if ( name ) {
+			name = name.replace( /'/g, "\\'" );
+			if ( form ) {
+				radios = $( form ).find( "[name='" + name + "'][type=radio]" );
+			} else {
+				radios = $( "[name='" + name + "'][type=radio]", radio.ownerDocument )
+					.filter(function() {
+						return !this.form;
+					});
+			}
+		}
+		return radios;
+	};
+
+$.widget( "ui.button", {
+	version: "1.11.4",
+	defaultElement: "<button>",
+	options: {
+		disabled: null,
+		text: true,
+		label: null,
+		icons: {
+			primary: null,
+			secondary: null
+		}
+	},
+	_create: function() {
+		this.element.closest( "form" )
+			.unbind( "reset" + this.eventNamespace )
+			.bind( "reset" + this.eventNamespace, formResetHandler );
+
+		if ( typeof this.options.disabled !== "boolean" ) {
+			this.options.disabled = !!this.element.prop( "disabled" );
+		} else {
+			this.element.prop( "disabled", this.options.disabled );
+		}
+
+		this._determineButtonType();
+		this.hasTitle = !!this.buttonElement.attr( "title" );
+
+		var that = this,
+			options = this.options,
+			toggleButton = this.type === "checkbox" || this.type === "radio",
+			activeClass = !toggleButton ? "ui-state-active" : "";
+
+		if ( options.label === null ) {
+			options.label = (this.type === "input" ? this.buttonElement.val() : this.buttonElement.html());
+		}
+
+		this._hoverable( this.buttonElement );
+
+		this.buttonElement
+			.addClass( baseClasses )
+			.attr( "role", "button" )
+			.bind( "mouseenter" + this.eventNamespace, function() {
+				if ( options.disabled ) {
+					return;
+				}
+				if ( this === lastActive ) {
+					$( this ).addClass( "ui-state-active" );
+				}
+			})
+			.bind( "mouseleave" + this.eventNamespace, function() {
+				if ( options.disabled ) {
+					return;
+				}
+				$( this ).removeClass( activeClass );
+			})
+			.bind( "click" + this.eventNamespace, function( event ) {
+				if ( options.disabled ) {
+					event.preventDefault();
+					event.stopImmediatePropagation();
+				}
+			});
+
+		// Can't use _focusable() because the element that receives focus
+		// and the element that gets the ui-state-focus class are different
+		this._on({
+			focus: function() {
+				this.buttonElement.addClass( "ui-state-focus" );
+			},
+			blur: function() {
+				this.buttonElement.removeClass( "ui-state-focus" );
+			}
+		});
+
+		if ( toggleButton ) {
+			this.element.bind( "change" + this.eventNamespace, function() {
+				that.refresh();
+			});
+		}
+
+		if ( this.type === "checkbox" ) {
+			this.buttonElement.bind( "click" + this.eventNamespace, function() {
+				if ( options.disabled ) {
+					return false;
+				}
+			});
+		} else if ( this.type === "radio" ) {
+			this.buttonElement.bind( "click" + this.eventNamespace, function() {
+				if ( options.disabled ) {
+					return false;
+				}
+				$( this ).addClass( "ui-state-active" );
+				that.buttonElement.attr( "aria-pressed", "true" );
+
+				var radio = that.element[ 0 ];
+				radioGroup( radio )
+					.not( radio )
+					.map(function() {
+						return $( this ).button( "widget" )[ 0 ];
+					})
+					.removeClass( "ui-state-active" )
+					.attr( "aria-pressed", "false" );
+			});
+		} else {
+			this.buttonElement
+				.bind( "mousedown" + this.eventNamespace, function() {
+					if ( options.disabled ) {
+						return false;
+					}
+					$( this ).addClass( "ui-state-active" );
+					lastActive = this;
+					that.document.one( "mouseup", function() {
+						lastActive = null;
+					});
+				})
+				.bind( "mouseup" + this.eventNamespace, function() {
+					if ( options.disabled ) {
+						return false;
+					}
+					$( this ).removeClass( "ui-state-active" );
+				})
+				.bind( "keydown" + this.eventNamespace, function(event) {
+					if ( options.disabled ) {
+						return false;
+					}
+					if ( event.keyCode === $.ui.keyCode.SPACE || event.keyCode === $.ui.keyCode.ENTER ) {
+						$( this ).addClass( "ui-state-active" );
+					}
+				})
+				// see #8559, we bind to blur here in case the button element loses
+				// focus between keydown and keyup, it would be left in an "active" state
+				.bind( "keyup" + this.eventNamespace + " blur" + this.eventNamespace, function() {
+					$( this ).removeClass( "ui-state-active" );
+				});
+
+			if ( this.buttonElement.is("a") ) {
+				this.buttonElement.keyup(function(event) {
+					if ( event.keyCode === $.ui.keyCode.SPACE ) {
+						// TODO pass through original event correctly (just as 2nd argument doesn't work)
+						$( this ).click();
+					}
+				});
+			}
+		}
+
+		this._setOption( "disabled", options.disabled );
+		this._resetButton();
+	},
+
+	_determineButtonType: function() {
+		var ancestor, labelSelector, checked;
+
+		if ( this.element.is("[type=checkbox]") ) {
+			this.type = "checkbox";
+		} else if ( this.element.is("[type=radio]") ) {
+			this.type = "radio";
+		} else if ( this.element.is("input") ) {
+			this.type = "input";
+		} else {
+			this.type = "button";
+		}
+
+		if ( this.type === "checkbox" || this.type === "radio" ) {
+			// we don't search against the document in case the element
+			// is disconnected from the DOM
+			ancestor = this.element.parents().last();
+			labelSelector = "label[for='" + this.element.attr("id") + "']";
+			this.buttonElement = ancestor.find( labelSelector );
+			if ( !this.buttonElement.length ) {
+				ancestor = ancestor.length ? ancestor.siblings() : this.element.siblings();
+				this.buttonElement = ancestor.filter( labelSelector );
+				if ( !this.buttonElement.length ) {
+					this.buttonElement = ancestor.find( labelSelector );
+				}
+			}
+			this.element.addClass( "ui-helper-hidden-accessible" );
+
+			checked = this.element.is( ":checked" );
+			if ( checked ) {
+				this.buttonElement.addClass( "ui-state-active" );
+			}
+			this.buttonElement.prop( "aria-pressed", checked );
+		} else {
+			this.buttonElement = this.element;
+		}
+	},
+
+	widget: function() {
+		return this.buttonElement;
+	},
+
+	_destroy: function() {
+		this.element
+			.removeClass( "ui-helper-hidden-accessible" );
+		this.buttonElement
+			.removeClass( baseClasses + " ui-state-active " + typeClasses )
+			.removeAttr( "role" )
+			.removeAttr( "aria-pressed" )
+			.html( this.buttonElement.find(".ui-button-text").html() );
+
+		if ( !this.hasTitle ) {
+			this.buttonElement.removeAttr( "title" );
+		}
+	},
+
+	_setOption: function( key, value ) {
+		this._super( key, value );
+		if ( key === "disabled" ) {
+			this.widget().toggleClass( "ui-state-disabled", !!value );
+			this.element.prop( "disabled", !!value );
+			if ( value ) {
+				if ( this.type === "checkbox" || this.type === "radio" ) {
+					this.buttonElement.removeClass( "ui-state-focus" );
+				} else {
+					this.buttonElement.removeClass( "ui-state-focus ui-state-active" );
+				}
+			}
+			return;
+		}
+		this._resetButton();
+	},
+
+	refresh: function() {
+		//See #8237 & #8828
+		var isDisabled = this.element.is( "input, button" ) ? this.element.is( ":disabled" ) : this.element.hasClass( "ui-button-disabled" );
+
+		if ( isDisabled !== this.options.disabled ) {
+			this._setOption( "disabled", isDisabled );
+		}
+		if ( this.type === "radio" ) {
+			radioGroup( this.element[0] ).each(function() {
+				if ( $( this ).is( ":checked" ) ) {
+					$( this ).button( "widget" )
+						.addClass( "ui-state-active" )
+						.attr( "aria-pressed", "true" );
+				} else {
+					$( this ).button( "widget" )
+						.removeClass( "ui-state-active" )
+						.attr( "aria-pressed", "false" );
+				}
+			});
+		} else if ( this.type === "checkbox" ) {
+			if ( this.element.is( ":checked" ) ) {
+				this.buttonElement
+					.addClass( "ui-state-active" )
+					.attr( "aria-pressed", "true" );
+			} else {
+				this.buttonElement
+					.removeClass( "ui-state-active" )
+					.attr( "aria-pressed", "false" );
+			}
+		}
+	},
+
+	_resetButton: function() {
+		if ( this.type === "input" ) {
+			if ( this.options.label ) {
+				this.element.val( this.options.label );
+			}
+			return;
+		}
+		var buttonElement = this.buttonElement.removeClass( typeClasses ),
+			buttonText = $( "<span></span>", this.document[0] )
+				.addClass( "ui-button-text" )
+				.html( this.options.label )
+				.appendTo( buttonElement.empty() )
+				.text(),
+			icons = this.options.icons,
+			multipleIcons = icons.primary && icons.secondary,
+			buttonClasses = [];
+
+		if ( icons.primary || icons.secondary ) {
+			if ( this.options.text ) {
+				buttonClasses.push( "ui-button-text-icon" + ( multipleIcons ? "s" : ( icons.primary ? "-primary" : "-secondary" ) ) );
+			}
+
+			if ( icons.primary ) {
+				buttonElement.prepend( "<span class='ui-button-icon-primary ui-icon " + icons.primary + "'></span>" );
+			}
+
+			if ( icons.secondary ) {
+				buttonElement.append( "<span class='ui-button-icon-secondary ui-icon " + icons.secondary + "'></span>" );
+			}
+
+			if ( !this.options.text ) {
+				buttonClasses.push( multipleIcons ? "ui-button-icons-only" : "ui-button-icon-only" );
+
+				if ( !this.hasTitle ) {
+					buttonElement.attr( "title", $.trim( buttonText ) );
+				}
+			}
+		} else {
+			buttonClasses.push( "ui-button-text-only" );
+		}
+		buttonElement.addClass( buttonClasses.join( " " ) );
+	}
+});
+
+$.widget( "ui.buttonset", {
+	version: "1.11.4",
+	options: {
+		items: "button, input[type=button], input[type=submit], input[type=reset], input[type=checkbox], input[type=radio], a, :data(ui-button)"
+	},
+
+	_create: function() {
+		this.element.addClass( "ui-buttonset" );
+	},
+
+	_init: function() {
+		this.refresh();
+	},
+
+	_setOption: function( key, value ) {
+		if ( key === "disabled" ) {
+			this.buttons.button( "option", key, value );
+		}
+
+		this._super( key, value );
+	},
+
+	refresh: function() {
+		var rtl = this.element.css( "direction" ) === "rtl",
+			allButtons = this.element.find( this.options.items ),
+			existingButtons = allButtons.filter( ":ui-button" );
+
+		// Initialize new buttons
+		allButtons.not( ":ui-button" ).button();
+
+		// Refresh existing buttons
+		existingButtons.button( "refresh" );
+
+		this.buttons = allButtons
+			.map(function() {
+				return $( this ).button( "widget" )[ 0 ];
+			})
+				.removeClass( "ui-corner-all ui-corner-left ui-corner-right" )
+				.filter( ":first" )
+					.addClass( rtl ? "ui-corner-right" : "ui-corner-left" )
+				.end()
+				.filter( ":last" )
+					.addClass( rtl ? "ui-corner-left" : "ui-corner-right" )
+				.end()
+			.end();
+	},
+
+	_destroy: function() {
+		this.element.removeClass( "ui-buttonset" );
+		this.buttons
+			.map(function() {
+				return $( this ).button( "widget" )[ 0 ];
+			})
+				.removeClass( "ui-corner-left ui-corner-right" )
+			.end()
+			.button( "destroy" );
+	}
+});
+
+var button = $.ui.button;
+
+
 /*!
  * jQuery UI Datepicker 1.11.4
  * http://jqueryui.com
@@ -156,7 +8006,2068 @@ var r,Y="ui-button ui-widget ui-state-default ui-corner-all",y="ui-button-icons-
  *
  * http://api.jqueryui.com/datepicker/
  */
-I.extend(I.ui,{datepicker:{version:"1.11.4"}});var l;function t(ae){var ad,af;while(ae.length&&ae[0]!==document){ad=ae.css("position");if(ad==="absolute"||ad==="relative"||ad==="fixed"){af=parseInt(ae.css("zIndex"),10);if(!isNaN(af)&&af!==0){return af}}ae=ae.parent()}return 0}function ab(){this._curInst=null;this._keyEvent=false;this._disabledInputs=[];this._datepickerShowing=false;this._inDialog=false;this._mainDivId="ui-datepicker-div";this._inlineClass="ui-datepicker-inline";this._appendClass="ui-datepicker-append";this._triggerClass="ui-datepicker-trigger";this._dialogClass="ui-datepicker-dialog";this._disableClass="ui-datepicker-disabled";this._unselectableClass="ui-datepicker-unselectable";this._currentClass="ui-datepicker-current-day";this._dayOverClass="ui-datepicker-days-cell-over";this.regional=[];this.regional[""]={closeText:"Done",prevText:"Prev",nextText:"Next",currentText:"Today",monthNames:["January","February","March","April","May","June","July","August","September","October","November","December"],monthNamesShort:["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"],dayNames:["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"],dayNamesShort:["Sun","Mon","Tue","Wed","Thu","Fri","Sat"],dayNamesMin:["Su","Mo","Tu","We","Th","Fr","Sa"],weekHeader:"Wk",dateFormat:"mm/dd/yy",firstDay:0,isRTL:false,showMonthAfterYear:false,yearSuffix:""};this._defaults={showOn:"focus",showAnim:"fadeIn",showOptions:{},defaultDate:null,appendText:"",buttonText:"...",buttonImage:"",buttonImageOnly:false,hideIfNoPrevNext:false,navigationAsDateFormat:false,gotoCurrent:false,changeMonth:false,changeYear:false,yearRange:"c-10:c+10",showOtherMonths:false,selectOtherMonths:false,showWeek:false,calculateWeek:this.iso8601Week,shortYearCutoff:"+10",minDate:null,maxDate:null,duration:"fast",beforeShowDay:null,beforeShow:null,onSelect:null,onChangeMonthYear:null,onClose:null,numberOfMonths:1,showCurrentAtPos:0,stepMonths:1,stepBigMonths:12,altField:"",altFormat:"",constrainInput:true,showButtonPanel:false,autoSize:false,disabled:false};I.extend(this._defaults,this.regional[""]);this.regional.en=I.extend(true,{},this.regional[""]);this.regional["en-US"]=I.extend(true,{},this.regional.en);this.dpDiv=h(I("<div id='"+this._mainDivId+"' class='ui-datepicker ui-widget ui-widget-content ui-helper-clearfix ui-corner-all'></div>"))}I.extend(ab.prototype,{markerClassName:"hasDatepicker",maxRows:4,_widgetDatepicker:function(){return this.dpDiv},setDefaults:function(ad){x(this._defaults,ad||{});return this},_attachDatepicker:function(ag,ad){var ah,af,ae;ah=ag.nodeName.toLowerCase();af=(ah==="div"||ah==="span");if(!ag.id){this.uuid+=1;ag.id="dp"+this.uuid}ae=this._newInst(I(ag),af);ae.settings=I.extend({},ad||{});if(ah==="input"){this._connectDatepicker(ag,ae)}else{if(af){this._inlineDatepicker(ag,ae)}}},_newInst:function(ae,ad){var af=ae[0].id.replace(/([^A-Za-z0-9_\-])/g,"\\\\$1");return{id:af,input:ae,selectedDay:0,selectedMonth:0,selectedYear:0,drawMonth:0,drawYear:0,inline:ad,dpDiv:(!ad?this.dpDiv:h(I("<div class='"+this._inlineClass+" ui-datepicker ui-widget ui-widget-content ui-helper-clearfix ui-corner-all'></div>")))}},_connectDatepicker:function(af,ae){var ad=I(af);ae.append=I([]);ae.trigger=I([]);if(ad.hasClass(this.markerClassName)){return}this._attachments(ad,ae);ad.addClass(this.markerClassName).keydown(this._doKeyDown).keypress(this._doKeyPress).keyup(this._doKeyUp);this._autoSize(ae);I.data(af,"datepicker",ae);if(ae.settings.disabled){this._disableDatepicker(af)}},_attachments:function(af,ai){var ae,ah,ad,aj=this._get(ai,"appendText"),ag=this._get(ai,"isRTL");if(ai.append){ai.append.remove()}if(aj){ai.append=I("<span class='"+this._appendClass+"'>"+aj+"</span>");af[ag?"before":"after"](ai.append)}af.unbind("focus",this._showDatepicker);if(ai.trigger){ai.trigger.remove()}ae=this._get(ai,"showOn");if(ae==="focus"||ae==="both"){af.focus(this._showDatepicker)}if(ae==="button"||ae==="both"){ah=this._get(ai,"buttonText");ad=this._get(ai,"buttonImage");ai.trigger=I(this._get(ai,"buttonImageOnly")?I("<img/>").addClass(this._triggerClass).attr({src:ad,alt:ah,title:ah}):I("<button type='button'></button>").addClass(this._triggerClass).html(!ad?ah:I("<img/>").attr({src:ad,alt:ah,title:ah})));af[ag?"before":"after"](ai.trigger);ai.trigger.click(function(){if(I.datepicker._datepickerShowing&&I.datepicker._lastInput===af[0]){I.datepicker._hideDatepicker()}else{if(I.datepicker._datepickerShowing&&I.datepicker._lastInput!==af[0]){I.datepicker._hideDatepicker();I.datepicker._showDatepicker(af[0])}else{I.datepicker._showDatepicker(af[0])}}return false})}},_autoSize:function(aj){if(this._get(aj,"autoSize")&&!aj.inline){var ag,ae,af,ai,ah=new Date(2009,12-1,20),ad=this._get(aj,"dateFormat");if(ad.match(/[DM]/)){ag=function(ak){ae=0;af=0;for(ai=0;ai<ak.length;ai++){if(ak[ai].length>ae){ae=ak[ai].length;af=ai}}return af};ah.setMonth(ag(this._get(aj,(ad.match(/MM/)?"monthNames":"monthNamesShort"))));ah.setDate(ag(this._get(aj,(ad.match(/DD/)?"dayNames":"dayNamesShort")))+20-ah.getDay())}aj.input.attr("size",this._formatDate(aj,ah).length)}},_inlineDatepicker:function(ae,ad){var af=I(ae);if(af.hasClass(this.markerClassName)){return}af.addClass(this.markerClassName).append(ad.dpDiv);I.data(ae,"datepicker",ad);this._setDate(ad,this._getDefaultDate(ad),true);this._updateDatepicker(ad);this._updateAlternate(ad);if(ad.settings.disabled){this._disableDatepicker(ae)}ad.dpDiv.css("display","block")},_dialogDatepicker:function(ak,ae,ai,af,aj){var ad,an,ah,am,al,ag=this._dialogInst;if(!ag){this.uuid+=1;ad="dp"+this.uuid;this._dialogInput=I("<input type='text' id='"+ad+"' style='position: absolute; top: -100px; width: 0px;'/>");this._dialogInput.keydown(this._doKeyDown);I("body").append(this._dialogInput);ag=this._dialogInst=this._newInst(this._dialogInput,false);ag.settings={};I.data(this._dialogInput[0],"datepicker",ag)}x(ag.settings,af||{});ae=(ae&&ae.constructor===Date?this._formatDate(ag,ae):ae);this._dialogInput.val(ae);this._pos=(aj?(aj.length?aj:[aj.pageX,aj.pageY]):null);if(!this._pos){an=document.documentElement.clientWidth;ah=document.documentElement.clientHeight;am=document.documentElement.scrollLeft||document.body.scrollLeft;al=document.documentElement.scrollTop||document.body.scrollTop;this._pos=[(an/2)-100+am,(ah/2)-150+al]}this._dialogInput.css("left",(this._pos[0]+20)+"px").css("top",this._pos[1]+"px");ag.settings.onSelect=ai;this._inDialog=true;this.dpDiv.addClass(this._dialogClass);this._showDatepicker(this._dialogInput[0]);if(I.blockUI){I.blockUI(this.dpDiv)}I.data(this._dialogInput[0],"datepicker",ag);return this},_destroyDatepicker:function(af){var ag,ad=I(af),ae=I.data(af,"datepicker");if(!ad.hasClass(this.markerClassName)){return}ag=af.nodeName.toLowerCase();I.removeData(af,"datepicker");if(ag==="input"){ae.append.remove();ae.trigger.remove();ad.removeClass(this.markerClassName).unbind("focus",this._showDatepicker).unbind("keydown",this._doKeyDown).unbind("keypress",this._doKeyPress).unbind("keyup",this._doKeyUp)}else{if(ag==="div"||ag==="span"){ad.removeClass(this.markerClassName).empty()}}if(l===ae){l=null}},_enableDatepicker:function(ag){var ah,af,ad=I(ag),ae=I.data(ag,"datepicker");if(!ad.hasClass(this.markerClassName)){return}ah=ag.nodeName.toLowerCase();if(ah==="input"){ag.disabled=false;ae.trigger.filter("button").each(function(){this.disabled=false}).end().filter("img").css({opacity:"1.0",cursor:""})}else{if(ah==="div"||ah==="span"){af=ad.children("."+this._inlineClass);af.children().removeClass("ui-state-disabled");af.find("select.ui-datepicker-month, select.ui-datepicker-year").prop("disabled",false)}}this._disabledInputs=I.map(this._disabledInputs,function(ai){return(ai===ag?null:ai)})},_disableDatepicker:function(ag){var ah,af,ad=I(ag),ae=I.data(ag,"datepicker");if(!ad.hasClass(this.markerClassName)){return}ah=ag.nodeName.toLowerCase();if(ah==="input"){ag.disabled=true;ae.trigger.filter("button").each(function(){this.disabled=true}).end().filter("img").css({opacity:"0.5",cursor:"default"})}else{if(ah==="div"||ah==="span"){af=ad.children("."+this._inlineClass);af.children().addClass("ui-state-disabled");af.find("select.ui-datepicker-month, select.ui-datepicker-year").prop("disabled",true)}}this._disabledInputs=I.map(this._disabledInputs,function(ai){return(ai===ag?null:ai)});this._disabledInputs[this._disabledInputs.length]=ag},_isDisabledDatepicker:function(ae){if(!ae){return false}for(var ad=0;ad<this._disabledInputs.length;ad++){if(this._disabledInputs[ad]===ae){return true}}return false},_getInst:function(ae){try{return I.data(ae,"datepicker")}catch(ad){throw"Missing instance data for this datepicker"}},_optionDatepicker:function(aj,ae,ai){var af,ad,ah,ak,ag=this._getInst(aj);if(arguments.length===2&&typeof ae==="string"){return(ae==="defaults"?I.extend({},I.datepicker._defaults):(ag?(ae==="all"?I.extend({},ag.settings):this._get(ag,ae)):null))}af=ae||{};if(typeof ae==="string"){af={};af[ae]=ai}if(ag){if(this._curInst===ag){this._hideDatepicker()}ad=this._getDateDatepicker(aj,true);ah=this._getMinMaxDate(ag,"min");ak=this._getMinMaxDate(ag,"max");x(ag.settings,af);if(ah!==null&&af.dateFormat!==undefined&&af.minDate===undefined){ag.settings.minDate=this._formatDate(ag,ah)}if(ak!==null&&af.dateFormat!==undefined&&af.maxDate===undefined){ag.settings.maxDate=this._formatDate(ag,ak)}if("disabled" in af){if(af.disabled){this._disableDatepicker(aj)}else{this._enableDatepicker(aj)}}this._attachments(I(aj),ag);this._autoSize(ag);this._setDate(ag,ad);this._updateAlternate(ag);this._updateDatepicker(ag)}},_changeDatepicker:function(af,ad,ae){this._optionDatepicker(af,ad,ae)},_refreshDatepicker:function(ae){var ad=this._getInst(ae);if(ad){this._updateDatepicker(ad)}},_setDateDatepicker:function(af,ad){var ae=this._getInst(af);if(ae){this._setDate(ae,ad);this._updateDatepicker(ae);this._updateAlternate(ae)}},_getDateDatepicker:function(af,ad){var ae=this._getInst(af);if(ae&&!ae.inline){this._setDateFromField(ae,ad)}return(ae?this._getDate(ae):null)},_doKeyDown:function(ag){var ae,ad,ai,ah=I.datepicker._getInst(ag.target),aj=true,af=ah.dpDiv.is(".ui-datepicker-rtl");ah._keyEvent=true;if(I.datepicker._datepickerShowing){switch(ag.keyCode){case 9:I.datepicker._hideDatepicker();aj=false;break;case 13:ai=I("td."+I.datepicker._dayOverClass+":not(."+I.datepicker._currentClass+")",ah.dpDiv);if(ai[0]){I.datepicker._selectDay(ag.target,ah.selectedMonth,ah.selectedYear,ai[0])}ae=I.datepicker._get(ah,"onSelect");if(ae){ad=I.datepicker._formatDate(ah);ae.apply((ah.input?ah.input[0]:null),[ad,ah])}else{I.datepicker._hideDatepicker()}return false;case 27:I.datepicker._hideDatepicker();break;case 33:I.datepicker._adjustDate(ag.target,(ag.ctrlKey?-I.datepicker._get(ah,"stepBigMonths"):-I.datepicker._get(ah,"stepMonths")),"M");break;case 34:I.datepicker._adjustDate(ag.target,(ag.ctrlKey?+I.datepicker._get(ah,"stepBigMonths"):+I.datepicker._get(ah,"stepMonths")),"M");break;case 35:if(ag.ctrlKey||ag.metaKey){I.datepicker._clearDate(ag.target)}aj=ag.ctrlKey||ag.metaKey;break;case 36:if(ag.ctrlKey||ag.metaKey){I.datepicker._gotoToday(ag.target)}aj=ag.ctrlKey||ag.metaKey;break;case 37:if(ag.ctrlKey||ag.metaKey){I.datepicker._adjustDate(ag.target,(af?+1:-1),"D")}aj=ag.ctrlKey||ag.metaKey;if(ag.originalEvent.altKey){I.datepicker._adjustDate(ag.target,(ag.ctrlKey?-I.datepicker._get(ah,"stepBigMonths"):-I.datepicker._get(ah,"stepMonths")),"M")}break;case 38:if(ag.ctrlKey||ag.metaKey){I.datepicker._adjustDate(ag.target,-7,"D")}aj=ag.ctrlKey||ag.metaKey;break;case 39:if(ag.ctrlKey||ag.metaKey){I.datepicker._adjustDate(ag.target,(af?-1:+1),"D")}aj=ag.ctrlKey||ag.metaKey;if(ag.originalEvent.altKey){I.datepicker._adjustDate(ag.target,(ag.ctrlKey?+I.datepicker._get(ah,"stepBigMonths"):+I.datepicker._get(ah,"stepMonths")),"M")}break;case 40:if(ag.ctrlKey||ag.metaKey){I.datepicker._adjustDate(ag.target,+7,"D")}aj=ag.ctrlKey||ag.metaKey;break;default:aj=false}}else{if(ag.keyCode===36&&ag.ctrlKey){I.datepicker._showDatepicker(this)}else{aj=false}}if(aj){ag.preventDefault();ag.stopPropagation()}},_doKeyPress:function(af){var ae,ad,ag=I.datepicker._getInst(af.target);if(I.datepicker._get(ag,"constrainInput")){ae=I.datepicker._possibleChars(I.datepicker._get(ag,"dateFormat"));ad=String.fromCharCode(af.charCode==null?af.keyCode:af.charCode);return af.ctrlKey||af.metaKey||(ad<" "||!ae||ae.indexOf(ad)>-1)}},_doKeyUp:function(af){var ad,ag=I.datepicker._getInst(af.target);if(ag.input.val()!==ag.lastVal){try{ad=I.datepicker.parseDate(I.datepicker._get(ag,"dateFormat"),(ag.input?ag.input.val():null),I.datepicker._getFormatConfig(ag));if(ad){I.datepicker._setDateFromField(ag);I.datepicker._updateAlternate(ag);I.datepicker._updateDatepicker(ag)}}catch(ae){}}return true},_showDatepicker:function(ae){ae=ae.target||ae;if(ae.nodeName.toLowerCase()!=="input"){ae=I("input",ae.parentNode)[0]}if(I.datepicker._isDisabledDatepicker(ae)||I.datepicker._lastInput===ae){return}var ag,ak,af,ai,aj,ad,ah;ag=I.datepicker._getInst(ae);if(I.datepicker._curInst&&I.datepicker._curInst!==ag){I.datepicker._curInst.dpDiv.stop(true,true);if(ag&&I.datepicker._datepickerShowing){I.datepicker._hideDatepicker(I.datepicker._curInst.input[0])}}ak=I.datepicker._get(ag,"beforeShow");af=ak?ak.apply(ae,[ae,ag]):{};if(af===false){return}x(ag.settings,af);ag.lastVal=null;I.datepicker._lastInput=ae;I.datepicker._setDateFromField(ag);if(I.datepicker._inDialog){ae.value=""}if(!I.datepicker._pos){I.datepicker._pos=I.datepicker._findPos(ae);I.datepicker._pos[1]+=ae.offsetHeight}ai=false;I(ae).parents().each(function(){ai|=I(this).css("position")==="fixed";return !ai});aj={left:I.datepicker._pos[0],top:I.datepicker._pos[1]};I.datepicker._pos=null;ag.dpDiv.empty();ag.dpDiv.css({position:"absolute",display:"block",top:"-1000px"});I.datepicker._updateDatepicker(ag);aj=I.datepicker._checkOffset(ag,aj,ai);ag.dpDiv.css({position:(I.datepicker._inDialog&&I.blockUI?"static":(ai?"fixed":"absolute")),display:"none",left:aj.left+"px",top:aj.top+2+"px"});if(!ag.inline){ad=I.datepicker._get(ag,"showAnim");ah=I.datepicker._get(ag,"duration");ag.dpDiv.css("z-index",t(I(ae))+1);I.datepicker._datepickerShowing=true;if(I.effects&&I.effects.effect[ad]){ag.dpDiv.show(ad,I.datepicker._get(ag,"showOptions"),ah)}else{ag.dpDiv[ad||"show"](ad?ah:null)}if(I.datepicker._shouldFocusInput(ag)){ag.input.focus()}I.datepicker._curInst=ag}},_updateDatepicker:function(ag){this.maxRows=4;l=ag;ag.dpDiv.empty().append(this._generateHTML(ag));this._attachHandlers(ag);var ai,ad=this._getNumberOfMonths(ag),ah=ad[1],af=17,ae=ag.dpDiv.find("."+this._dayOverClass+" a");if(ae.length>0){p.apply(ae.get(0))}ag.dpDiv.removeClass("ui-datepicker-multi-2 ui-datepicker-multi-3 ui-datepicker-multi-4").width("");if(ah>1){ag.dpDiv.addClass("ui-datepicker-multi-"+ah).css("width",(af*ah)+"em")}ag.dpDiv[(ad[0]!==1||ad[1]!==1?"add":"remove")+"Class"]("ui-datepicker-multi");ag.dpDiv[(this._get(ag,"isRTL")?"add":"remove")+"Class"]("ui-datepicker-rtl");if(ag===I.datepicker._curInst&&I.datepicker._datepickerShowing&&I.datepicker._shouldFocusInput(ag)){ag.input.focus()}if(ag.yearshtml){ai=ag.yearshtml;setTimeout(function(){if(ai===ag.yearshtml&&ag.yearshtml){ag.dpDiv.find("select.ui-datepicker-year:first").replaceWith(ag.yearshtml)}ai=ag.yearshtml=null},0)}},_shouldFocusInput:function(ad){return ad.input&&ad.input.is(":visible")&&!ad.input.is(":disabled")&&!ad.input.is(":focus")},_checkOffset:function(ai,ag,af){var ah=ai.dpDiv.outerWidth(),al=ai.dpDiv.outerHeight(),ak=ai.input?ai.input.outerWidth():0,ad=ai.input?ai.input.outerHeight():0,aj=document.documentElement.clientWidth+(af?0:I(document).scrollLeft()),ae=document.documentElement.clientHeight+(af?0:I(document).scrollTop());ag.left-=(this._get(ai,"isRTL")?(ah-ak):0);ag.left-=(af&&ag.left===ai.input.offset().left)?I(document).scrollLeft():0;ag.top-=(af&&ag.top===(ai.input.offset().top+ad))?I(document).scrollTop():0;ag.left-=Math.min(ag.left,(ag.left+ah>aj&&aj>ah)?Math.abs(ag.left+ah-aj):0);ag.top-=Math.min(ag.top,(ag.top+al>ae&&ae>al)?Math.abs(al+ad):0);return ag},_findPos:function(ag){var ad,af=this._getInst(ag),ae=this._get(af,"isRTL");while(ag&&(ag.type==="hidden"||ag.nodeType!==1||I.expr.filters.hidden(ag))){ag=ag[ae?"previousSibling":"nextSibling"]}ad=I(ag).offset();return[ad.left,ad.top]},_hideDatepicker:function(af){var ae,ai,ah,ad,ag=this._curInst;if(!ag||(af&&ag!==I.data(af,"datepicker"))){return}if(this._datepickerShowing){ae=this._get(ag,"showAnim");ai=this._get(ag,"duration");ah=function(){I.datepicker._tidyDialog(ag)};if(I.effects&&(I.effects.effect[ae]||I.effects[ae])){ag.dpDiv.hide(ae,I.datepicker._get(ag,"showOptions"),ai,ah)}else{ag.dpDiv[(ae==="slideDown"?"slideUp":(ae==="fadeIn"?"fadeOut":"hide"))]((ae?ai:null),ah)}if(!ae){ah()}this._datepickerShowing=false;ad=this._get(ag,"onClose");if(ad){ad.apply((ag.input?ag.input[0]:null),[(ag.input?ag.input.val():""),ag])}this._lastInput=null;if(this._inDialog){this._dialogInput.css({position:"absolute",left:"0",top:"-100px"});if(I.blockUI){I.unblockUI();I("body").append(this.dpDiv)}}this._inDialog=false}},_tidyDialog:function(ad){ad.dpDiv.removeClass(this._dialogClass).unbind(".ui-datepicker-calendar")},_checkExternalClick:function(ae){if(!I.datepicker._curInst){return}var ad=I(ae.target),af=I.datepicker._getInst(ad[0]);if(((ad[0].id!==I.datepicker._mainDivId&&ad.parents("#"+I.datepicker._mainDivId).length===0&&!ad.hasClass(I.datepicker.markerClassName)&&!ad.closest("."+I.datepicker._triggerClass).length&&I.datepicker._datepickerShowing&&!(I.datepicker._inDialog&&I.blockUI)))||(ad.hasClass(I.datepicker.markerClassName)&&I.datepicker._curInst!==af)){I.datepicker._hideDatepicker()}},_adjustDate:function(ah,ag,af){var ae=I(ah),ad=this._getInst(ae[0]);if(this._isDisabledDatepicker(ae[0])){return}this._adjustInstDate(ad,ag+(af==="M"?this._get(ad,"showCurrentAtPos"):0),af);this._updateDatepicker(ad)},_gotoToday:function(ag){var ad,af=I(ag),ae=this._getInst(af[0]);if(this._get(ae,"gotoCurrent")&&ae.currentDay){ae.selectedDay=ae.currentDay;ae.drawMonth=ae.selectedMonth=ae.currentMonth;ae.drawYear=ae.selectedYear=ae.currentYear}else{ad=new Date();ae.selectedDay=ad.getDate();ae.drawMonth=ae.selectedMonth=ad.getMonth();ae.drawYear=ae.selectedYear=ad.getFullYear()}this._notifyChange(ae);this._adjustDate(af)},_selectMonthYear:function(ah,ad,ag){var af=I(ah),ae=this._getInst(af[0]);ae["selected"+(ag==="M"?"Month":"Year")]=ae["draw"+(ag==="M"?"Month":"Year")]=parseInt(ad.options[ad.selectedIndex].value,10);this._notifyChange(ae);this._adjustDate(af)},_selectDay:function(ai,ag,ad,ah){var ae,af=I(ai);if(I(ah).hasClass(this._unselectableClass)||this._isDisabledDatepicker(af[0])){return}ae=this._getInst(af[0]);ae.selectedDay=ae.currentDay=I("a",ah).html();ae.selectedMonth=ae.currentMonth=ag;ae.selectedYear=ae.currentYear=ad;this._selectDate(ai,this._formatDate(ae,ae.currentDay,ae.currentMonth,ae.currentYear))},_clearDate:function(ae){var ad=I(ae);this._selectDate(ad,"")},_selectDate:function(ah,ad){var ae,ag=I(ah),af=this._getInst(ag[0]);ad=(ad!=null?ad:this._formatDate(af));if(af.input){af.input.val(ad)}this._updateAlternate(af);ae=this._get(af,"onSelect");if(ae){ae.apply((af.input?af.input[0]:null),[ad,af])}else{if(af.input){af.input.trigger("change")}}if(af.inline){this._updateDatepicker(af)}else{this._hideDatepicker();this._lastInput=af.input[0];if(typeof(af.input[0])!=="object"){af.input.focus()}this._lastInput=null}},_updateAlternate:function(ah){var ag,af,ad,ae=this._get(ah,"altField");if(ae){ag=this._get(ah,"altFormat")||this._get(ah,"dateFormat");af=this._getDate(ah);ad=this.formatDate(ag,af,this._getFormatConfig(ah));I(ae).each(function(){I(this).val(ad)})}},noWeekends:function(ae){var ad=ae.getDay();return[(ad>0&&ad<6),""]},iso8601Week:function(ad){var ae,af=new Date(ad.getTime());af.setDate(af.getDate()+4-(af.getDay()||7));ae=af.getTime();af.setMonth(0);af.setDate(1);return Math.floor(Math.round((ae-af)/86400000)/7)+1},parseDate:function(au,ao,aw){if(au==null||ao==null){throw"Invalid arguments"}ao=(typeof ao==="object"?ao.toString():ao+"");if(ao===""){return null}var ag,aq,ae,av=0,aj=(aw?aw.shortYearCutoff:null)||this._defaults.shortYearCutoff,af=(typeof aj!=="string"?aj:new Date().getFullYear()%100+parseInt(aj,10)),am=(aw?aw.dayNamesShort:null)||this._defaults.dayNamesShort,ay=(aw?aw.dayNames:null)||this._defaults.dayNames,ad=(aw?aw.monthNamesShort:null)||this._defaults.monthNamesShort,ah=(aw?aw.monthNames:null)||this._defaults.monthNames,ai=-1,az=-1,at=-1,al=-1,ar=false,ax,an=function(aB){var aC=(ag+1<au.length&&au.charAt(ag+1)===aB);if(aC){ag++}return aC},aA=function(aD){var aB=an(aD),aE=(aD==="@"?14:(aD==="!"?20:(aD==="y"&&aB?4:(aD==="o"?3:2)))),aG=(aD==="y"?aE:1),aF=new RegExp("^\\d{"+aG+","+aE+"}"),aC=ao.substring(av).match(aF);if(!aC){throw"Missing number at position "+av}av+=aC[0].length;return parseInt(aC[0],10)},ak=function(aC,aD,aF){var aB=-1,aE=I.map(an(aC)?aF:aD,function(aH,aG){return[[aG,aH]]}).sort(function(aH,aG){return -(aH[1].length-aG[1].length)});I.each(aE,function(aH,aI){var aG=aI[1];if(ao.substr(av,aG.length).toLowerCase()===aG.toLowerCase()){aB=aI[0];av+=aG.length;return false}});if(aB!==-1){return aB+1}else{throw"Unknown name at position "+av}},ap=function(){if(ao.charAt(av)!==au.charAt(ag)){throw"Unexpected literal at position "+av}av++};for(ag=0;ag<au.length;ag++){if(ar){if(au.charAt(ag)==="'"&&!an("'")){ar=false}else{ap()}}else{switch(au.charAt(ag)){case"d":at=aA("d");break;case"D":ak("D",am,ay);break;case"o":al=aA("o");break;case"m":az=aA("m");break;case"M":az=ak("M",ad,ah);break;case"y":ai=aA("y");break;case"@":ax=new Date(aA("@"));ai=ax.getFullYear();az=ax.getMonth()+1;at=ax.getDate();break;case"!":ax=new Date((aA("!")-this._ticksTo1970)/10000);ai=ax.getFullYear();az=ax.getMonth()+1;at=ax.getDate();break;case"'":if(an("'")){ap()}else{ar=true}break;default:ap()}}}if(av<ao.length){ae=ao.substr(av);if(!/^\s+/.test(ae)){throw"Extra/unparsed characters found in date: "+ae}}if(ai===-1){ai=new Date().getFullYear()}else{if(ai<100){ai+=new Date().getFullYear()-new Date().getFullYear()%100+(ai<=af?0:-100)}}if(al>-1){az=1;at=al;do{aq=this._getDaysInMonth(ai,az-1);if(at<=aq){break}az++;at-=aq}while(true)}ax=this._daylightSavingAdjust(new Date(ai,az-1,at));if(ax.getFullYear()!==ai||ax.getMonth()+1!==az||ax.getDate()!==at){throw"Invalid date"}return ax},ATOM:"yy-mm-dd",COOKIE:"D, dd M yy",ISO_8601:"yy-mm-dd",RFC_822:"D, d M y",RFC_850:"DD, dd-M-y",RFC_1036:"D, d M y",RFC_1123:"D, d M yy",RFC_2822:"D, d M yy",RSS:"D, d M y",TICKS:"!",TIMESTAMP:"@",W3C:"yy-mm-dd",_ticksTo1970:(((1970-1)*365+Math.floor(1970/4)-Math.floor(1970/100)+Math.floor(1970/400))*24*60*60*10000000),formatDate:function(am,ag,ah){if(!ag){return""}var ao,ap=(ah?ah.dayNamesShort:null)||this._defaults.dayNamesShort,ae=(ah?ah.dayNames:null)||this._defaults.dayNames,ak=(ah?ah.monthNamesShort:null)||this._defaults.monthNamesShort,ai=(ah?ah.monthNames:null)||this._defaults.monthNames,an=function(aq){var ar=(ao+1<am.length&&am.charAt(ao+1)===aq);if(ar){ao++}return ar},ad=function(at,au,aq){var ar=""+au;if(an(at)){while(ar.length<aq){ar="0"+ar}}return ar},aj=function(aq,at,ar,au){return(an(aq)?au[at]:ar[at])},af="",al=false;if(ag){for(ao=0;ao<am.length;ao++){if(al){if(am.charAt(ao)==="'"&&!an("'")){al=false}else{af+=am.charAt(ao)}}else{switch(am.charAt(ao)){case"d":af+=ad("d",ag.getDate(),2);break;case"D":af+=aj("D",ag.getDay(),ap,ae);break;case"o":af+=ad("o",Math.round((new Date(ag.getFullYear(),ag.getMonth(),ag.getDate()).getTime()-new Date(ag.getFullYear(),0,0).getTime())/86400000),3);break;case"m":af+=ad("m",ag.getMonth()+1,2);break;case"M":af+=aj("M",ag.getMonth(),ak,ai);break;case"y":af+=(an("y")?ag.getFullYear():(ag.getYear()%100<10?"0":"")+ag.getYear()%100);break;case"@":af+=ag.getTime();break;case"!":af+=ag.getTime()*10000+this._ticksTo1970;break;case"'":if(an("'")){af+="'"}else{al=true}break;default:af+=am.charAt(ao)}}}}return af},_possibleChars:function(ah){var ag,af="",ae=false,ad=function(ai){var aj=(ag+1<ah.length&&ah.charAt(ag+1)===ai);if(aj){ag++}return aj};for(ag=0;ag<ah.length;ag++){if(ae){if(ah.charAt(ag)==="'"&&!ad("'")){ae=false}else{af+=ah.charAt(ag)}}else{switch(ah.charAt(ag)){case"d":case"m":case"y":case"@":af+="0123456789";break;case"D":case"M":return null;case"'":if(ad("'")){af+="'"}else{ae=true}break;default:af+=ah.charAt(ag)}}}return af},_get:function(ae,ad){return ae.settings[ad]!==undefined?ae.settings[ad]:this._defaults[ad]},_setDateFromField:function(ai,af){if(ai.input.val()===ai.lastVal){return}var ad=this._get(ai,"dateFormat"),ak=ai.lastVal=ai.input?ai.input.val():null,aj=this._getDefaultDate(ai),ae=aj,ag=this._getFormatConfig(ai);try{ae=this.parseDate(ad,ak,ag)||aj}catch(ah){ak=(af?"":ak)}ai.selectedDay=ae.getDate();ai.drawMonth=ai.selectedMonth=ae.getMonth();ai.drawYear=ai.selectedYear=ae.getFullYear();ai.currentDay=(ak?ae.getDate():0);ai.currentMonth=(ak?ae.getMonth():0);ai.currentYear=(ak?ae.getFullYear():0);this._adjustInstDate(ai)},_getDefaultDate:function(ad){return this._restrictMinMax(ad,this._determineDate(ad,this._get(ad,"defaultDate"),new Date()))},_determineDate:function(ah,ae,ai){var ag=function(ak){var aj=new Date();aj.setDate(aj.getDate()+ak);return aj},af=function(aq){try{return I.datepicker.parseDate(I.datepicker._get(ah,"dateFormat"),aq,I.datepicker._getFormatConfig(ah))}catch(ap){}var ak=(aq.toLowerCase().match(/^c/)?I.datepicker._getDate(ah):null)||new Date(),al=ak.getFullYear(),ao=ak.getMonth(),aj=ak.getDate(),an=/([+\-]?[0-9]+)\s*(d|D|w|W|m|M|y|Y)?/g,am=an.exec(aq);while(am){switch(am[2]||"d"){case"d":case"D":aj+=parseInt(am[1],10);break;case"w":case"W":aj+=parseInt(am[1],10)*7;break;case"m":case"M":ao+=parseInt(am[1],10);aj=Math.min(aj,I.datepicker._getDaysInMonth(al,ao));break;case"y":case"Y":al+=parseInt(am[1],10);aj=Math.min(aj,I.datepicker._getDaysInMonth(al,ao));break}am=an.exec(aq)}return new Date(al,ao,aj)},ad=(ae==null||ae===""?ai:(typeof ae==="string"?af(ae):(typeof ae==="number"?(isNaN(ae)?ai:ag(ae)):new Date(ae.getTime()))));ad=(ad&&ad.toString()==="Invalid Date"?ai:ad);if(ad){ad.setHours(0);ad.setMinutes(0);ad.setSeconds(0);ad.setMilliseconds(0)}return this._daylightSavingAdjust(ad)},_daylightSavingAdjust:function(ad){if(!ad){return null}ad.setHours(ad.getHours()>12?ad.getHours()+2:0);return ad},_setDate:function(aj,ag,ai){var ad=!ag,af=aj.selectedMonth,ah=aj.selectedYear,ae=this._restrictMinMax(aj,this._determineDate(aj,ag,new Date()));aj.selectedDay=aj.currentDay=ae.getDate();aj.drawMonth=aj.selectedMonth=aj.currentMonth=ae.getMonth();aj.drawYear=aj.selectedYear=aj.currentYear=ae.getFullYear();if((af!==aj.selectedMonth||ah!==aj.selectedYear)&&!ai){this._notifyChange(aj)}this._adjustInstDate(aj);if(aj.input){aj.input.val(ad?"":this._formatDate(aj))}},_getDate:function(ae){var ad=(!ae.currentYear||(ae.input&&ae.input.val()==="")?null:this._daylightSavingAdjust(new Date(ae.currentYear,ae.currentMonth,ae.currentDay)));return ad},_attachHandlers:function(ae){var ad=this._get(ae,"stepMonths"),af="#"+ae.id.replace(/\\\\/g,"\\");ae.dpDiv.find("[data-handler]").map(function(){var ag={prev:function(){I.datepicker._adjustDate(af,-ad,"M")},next:function(){I.datepicker._adjustDate(af,+ad,"M")},hide:function(){I.datepicker._hideDatepicker()},today:function(){I.datepicker._gotoToday(af)},selectDay:function(){I.datepicker._selectDay(af,+this.getAttribute("data-month"),+this.getAttribute("data-year"),this);return false},selectMonth:function(){I.datepicker._selectMonthYear(af,this,"M");return false},selectYear:function(){I.datepicker._selectMonthYear(af,this,"Y");return false}};I(this).bind(this.getAttribute("data-event"),ag[this.getAttribute("data-handler")])})},_generateHTML:function(aU){var ax,aw,aP,aH,ah,aY,aS,aL,a1,aF,a5,ao,aq,ap,ae,aX,am,aA,a0,aN,a6,az,aE,an,ai,aQ,aJ,aM,aK,al,aC,ar,aT,aW,ag,aZ,a3,aI,at,aV=new Date(),ay=this._daylightSavingAdjust(new Date(aV.getFullYear(),aV.getMonth(),aV.getDate())),a2=this._get(aU,"isRTL"),a4=this._get(aU,"showButtonPanel"),aO=this._get(aU,"hideIfNoPrevNext"),aD=this._get(aU,"navigationAsDateFormat"),au=this._getNumberOfMonths(aU),ak=this._get(aU,"showCurrentAtPos"),aG=this._get(aU,"stepMonths"),aB=(au[0]!==1||au[1]!==1),af=this._daylightSavingAdjust((!aU.currentDay?new Date(9999,9,9):new Date(aU.currentYear,aU.currentMonth,aU.currentDay))),aj=this._getMinMaxDate(aU,"min"),av=this._getMinMaxDate(aU,"max"),ad=aU.drawMonth-ak,aR=aU.drawYear;if(ad<0){ad+=12;aR--}if(av){ax=this._daylightSavingAdjust(new Date(av.getFullYear(),av.getMonth()-(au[0]*au[1])+1,av.getDate()));ax=(aj&&ax<aj?aj:ax);while(this._daylightSavingAdjust(new Date(aR,ad,1))>ax){ad--;if(ad<0){ad=11;aR--}}}aU.drawMonth=ad;aU.drawYear=aR;aw=this._get(aU,"prevText");aw=(!aD?aw:this.formatDate(aw,this._daylightSavingAdjust(new Date(aR,ad-aG,1)),this._getFormatConfig(aU)));aP=(this._canAdjustMonth(aU,-1,aR,ad)?"<a class='ui-datepicker-prev ui-corner-all' data-handler='prev' data-event='click' title='"+aw+"'><span class='ui-icon ui-icon-circle-triangle-"+(a2?"e":"w")+"'>"+aw+"</span></a>":(aO?"":"<a class='ui-datepicker-prev ui-corner-all ui-state-disabled' title='"+aw+"'><span class='ui-icon ui-icon-circle-triangle-"+(a2?"e":"w")+"'>"+aw+"</span></a>"));aH=this._get(aU,"nextText");aH=(!aD?aH:this.formatDate(aH,this._daylightSavingAdjust(new Date(aR,ad+aG,1)),this._getFormatConfig(aU)));ah=(this._canAdjustMonth(aU,+1,aR,ad)?"<a class='ui-datepicker-next ui-corner-all' data-handler='next' data-event='click' title='"+aH+"'><span class='ui-icon ui-icon-circle-triangle-"+(a2?"w":"e")+"'>"+aH+"</span></a>":(aO?"":"<a class='ui-datepicker-next ui-corner-all ui-state-disabled' title='"+aH+"'><span class='ui-icon ui-icon-circle-triangle-"+(a2?"w":"e")+"'>"+aH+"</span></a>"));aY=this._get(aU,"currentText");aS=(this._get(aU,"gotoCurrent")&&aU.currentDay?af:ay);aY=(!aD?aY:this.formatDate(aY,aS,this._getFormatConfig(aU)));aL=(!aU.inline?"<button type='button' class='ui-datepicker-close ui-state-default ui-priority-primary ui-corner-all' data-handler='hide' data-event='click'>"+this._get(aU,"closeText")+"</button>":"");a1=(a4)?"<div class='ui-datepicker-buttonpane ui-widget-content'>"+(a2?aL:"")+(this._isInRange(aU,aS)?"<button type='button' class='ui-datepicker-current ui-state-default ui-priority-secondary ui-corner-all' data-handler='today' data-event='click'>"+aY+"</button>":"")+(a2?"":aL)+"</div>":"";aF=parseInt(this._get(aU,"firstDay"),10);aF=(isNaN(aF)?0:aF);a5=this._get(aU,"showWeek");ao=this._get(aU,"dayNames");aq=this._get(aU,"dayNamesMin");ap=this._get(aU,"monthNames");ae=this._get(aU,"monthNamesShort");aX=this._get(aU,"beforeShowDay");am=this._get(aU,"showOtherMonths");aA=this._get(aU,"selectOtherMonths");a0=this._getDefaultDate(aU);aN="";a6;for(az=0;az<au[0];az++){aE="";this.maxRows=4;for(an=0;an<au[1];an++){ai=this._daylightSavingAdjust(new Date(aR,ad,aU.selectedDay));aQ=" ui-corner-all";aJ="";if(aB){aJ+="<div class='ui-datepicker-group";if(au[1]>1){switch(an){case 0:aJ+=" ui-datepicker-group-first";aQ=" ui-corner-"+(a2?"right":"left");break;case au[1]-1:aJ+=" ui-datepicker-group-last";aQ=" ui-corner-"+(a2?"left":"right");break;default:aJ+=" ui-datepicker-group-middle";aQ="";break}}aJ+="'>"}aJ+="<div class='ui-datepicker-header ui-widget-header ui-helper-clearfix"+aQ+"'>"+(/all|left/.test(aQ)&&az===0?(a2?ah:aP):"")+(/all|right/.test(aQ)&&az===0?(a2?aP:ah):"")+this._generateMonthYearHeader(aU,ad,aR,aj,av,az>0||an>0,ap,ae)+"</div><table class='ui-datepicker-calendar'><thead><tr>";aM=(a5?"<th class='ui-datepicker-week-col'>"+this._get(aU,"weekHeader")+"</th>":"");for(a6=0;a6<7;a6++){aK=(a6+aF)%7;aM+="<th scope='col'"+((a6+aF+6)%7>=5?" class='ui-datepicker-week-end'":"")+"><span title='"+ao[aK]+"'>"+aq[aK]+"</span></th>"}aJ+=aM+"</tr></thead><tbody>";al=this._getDaysInMonth(aR,ad);if(aR===aU.selectedYear&&ad===aU.selectedMonth){aU.selectedDay=Math.min(aU.selectedDay,al)}aC=(this._getFirstDayOfMonth(aR,ad)-aF+7)%7;ar=Math.ceil((aC+al)/7);aT=(aB?this.maxRows>ar?this.maxRows:ar:ar);this.maxRows=aT;aW=this._daylightSavingAdjust(new Date(aR,ad,1-aC));for(ag=0;ag<aT;ag++){aJ+="<tr>";aZ=(!a5?"":"<td class='ui-datepicker-week-col'>"+this._get(aU,"calculateWeek")(aW)+"</td>");for(a6=0;a6<7;a6++){a3=(aX?aX.apply((aU.input?aU.input[0]:null),[aW]):[true,""]);aI=(aW.getMonth()!==ad);at=(aI&&!aA)||!a3[0]||(aj&&aW<aj)||(av&&aW>av);aZ+="<td class='"+((a6+aF+6)%7>=5?" ui-datepicker-week-end":"")+(aI?" ui-datepicker-other-month":"")+((aW.getTime()===ai.getTime()&&ad===aU.selectedMonth&&aU._keyEvent)||(a0.getTime()===aW.getTime()&&a0.getTime()===ai.getTime())?" "+this._dayOverClass:"")+(at?" "+this._unselectableClass+" ui-state-disabled":"")+(aI&&!am?"":" "+a3[1]+(aW.getTime()===af.getTime()?" "+this._currentClass:"")+(aW.getTime()===ay.getTime()?" ui-datepicker-today":""))+"'"+((!aI||am)&&a3[2]?" title='"+a3[2].replace(/'/g,"&#39;")+"'":"")+(at?"":" data-handler='selectDay' data-event='click' data-month='"+aW.getMonth()+"' data-year='"+aW.getFullYear()+"'")+">"+(aI&&!am?"&#xa0;":(at?"<span class='ui-state-default'>"+aW.getDate()+"</span>":"<a class='ui-state-default"+(aW.getTime()===ay.getTime()?" ui-state-highlight":"")+(aW.getTime()===af.getTime()?" ui-state-active":"")+(aI?" ui-priority-secondary":"")+"' href='#'>"+aW.getDate()+"</a>"))+"</td>";aW.setDate(aW.getDate()+1);aW=this._daylightSavingAdjust(aW)}aJ+=aZ+"</tr>"}ad++;if(ad>11){ad=0;aR++}aJ+="</tbody></table>"+(aB?"</div>"+((au[0]>0&&an===au[1]-1)?"<div class='ui-datepicker-row-break'></div>":""):"");aE+=aJ}aN+=aE}aN+=a1;aU._keyEvent=false;return aN},_generateMonthYearHeader:function(ah,af,ap,aj,an,aq,al,ad){var av,ae,aw,at,ai,ar,ao,ak,ag=this._get(ah,"changeMonth"),ax=this._get(ah,"changeYear"),ay=this._get(ah,"showMonthAfterYear"),am="<div class='ui-datepicker-title'>",au="";if(aq||!ag){au+="<span class='ui-datepicker-month'>"+al[af]+"</span>"}else{av=(aj&&aj.getFullYear()===ap);ae=(an&&an.getFullYear()===ap);au+="<select class='ui-datepicker-month' data-handler='selectMonth' data-event='change'>";for(aw=0;aw<12;aw++){if((!av||aw>=aj.getMonth())&&(!ae||aw<=an.getMonth())){au+="<option value='"+aw+"'"+(aw===af?" selected='selected'":"")+">"+ad[aw]+"</option>"}}au+="</select>"}if(!ay){am+=au+(aq||!(ag&&ax)?"&#xa0;":"")}if(!ah.yearshtml){ah.yearshtml="";if(aq||!ax){am+="<span class='ui-datepicker-year'>"+ap+"</span>"}else{at=this._get(ah,"yearRange").split(":");ai=new Date().getFullYear();ar=function(aA){var az=(aA.match(/c[+\-].*/)?ap+parseInt(aA.substring(1),10):(aA.match(/[+\-].*/)?ai+parseInt(aA,10):parseInt(aA,10)));return(isNaN(az)?ai:az)};ao=ar(at[0]);ak=Math.max(ao,ar(at[1]||""));ao=(aj?Math.max(ao,aj.getFullYear()):ao);ak=(an?Math.min(ak,an.getFullYear()):ak);ah.yearshtml+="<select class='ui-datepicker-year' data-handler='selectYear' data-event='change'>";for(;ao<=ak;ao++){ah.yearshtml+="<option value='"+ao+"'"+(ao===ap?" selected='selected'":"")+">"+ao+"</option>"}ah.yearshtml+="</select>";am+=ah.yearshtml;ah.yearshtml=null}}am+=this._get(ah,"yearSuffix");if(ay){am+=(aq||!(ag&&ax)?"&#xa0;":"")+au}am+="</div>";return am},_adjustInstDate:function(ag,aj,ai){var af=ag.drawYear+(ai==="Y"?aj:0),ah=ag.drawMonth+(ai==="M"?aj:0),ad=Math.min(ag.selectedDay,this._getDaysInMonth(af,ah))+(ai==="D"?aj:0),ae=this._restrictMinMax(ag,this._daylightSavingAdjust(new Date(af,ah,ad)));ag.selectedDay=ae.getDate();ag.drawMonth=ag.selectedMonth=ae.getMonth();ag.drawYear=ag.selectedYear=ae.getFullYear();if(ai==="M"||ai==="Y"){this._notifyChange(ag)}},_restrictMinMax:function(ag,ae){var af=this._getMinMaxDate(ag,"min"),ah=this._getMinMaxDate(ag,"max"),ad=(af&&ae<af?af:ae);return(ah&&ad>ah?ah:ad)},_notifyChange:function(ae){var ad=this._get(ae,"onChangeMonthYear");if(ad){ad.apply((ae.input?ae.input[0]:null),[ae.selectedYear,ae.selectedMonth+1,ae])}},_getNumberOfMonths:function(ae){var ad=this._get(ae,"numberOfMonths");return(ad==null?[1,1]:(typeof ad==="number"?[1,ad]:ad))},_getMinMaxDate:function(ae,ad){return this._determineDate(ae,this._get(ae,ad+"Date"),null)},_getDaysInMonth:function(ad,ae){return 32-this._daylightSavingAdjust(new Date(ad,ae,32)).getDate()},_getFirstDayOfMonth:function(ad,ae){return new Date(ad,ae,1).getDay()},_canAdjustMonth:function(ag,ai,af,ah){var ad=this._getNumberOfMonths(ag),ae=this._daylightSavingAdjust(new Date(af,ah+(ai<0?ai:ad[0]*ad[1]),1));if(ai<0){ae.setDate(this._getDaysInMonth(ae.getFullYear(),ae.getMonth()))}return this._isInRange(ag,ae)},_isInRange:function(ah,af){var ae,ak,ag=this._getMinMaxDate(ah,"min"),ad=this._getMinMaxDate(ah,"max"),al=null,ai=null,aj=this._get(ah,"yearRange");if(aj){ae=aj.split(":");ak=new Date().getFullYear();al=parseInt(ae[0],10);ai=parseInt(ae[1],10);if(ae[0].match(/[+\-].*/)){al+=ak}if(ae[1].match(/[+\-].*/)){ai+=ak}}return((!ag||af.getTime()>=ag.getTime())&&(!ad||af.getTime()<=ad.getTime())&&(!al||af.getFullYear()>=al)&&(!ai||af.getFullYear()<=ai))},_getFormatConfig:function(ad){var ae=this._get(ad,"shortYearCutoff");ae=(typeof ae!=="string"?ae:new Date().getFullYear()%100+parseInt(ae,10));return{shortYearCutoff:ae,dayNamesShort:this._get(ad,"dayNamesShort"),dayNames:this._get(ad,"dayNames"),monthNamesShort:this._get(ad,"monthNamesShort"),monthNames:this._get(ad,"monthNames")}},_formatDate:function(ag,ad,ah,af){if(!ad){ag.currentDay=ag.selectedDay;ag.currentMonth=ag.selectedMonth;ag.currentYear=ag.selectedYear}var ae=(ad?(typeof ad==="object"?ad:this._daylightSavingAdjust(new Date(af,ah,ad))):this._daylightSavingAdjust(new Date(ag.currentYear,ag.currentMonth,ag.currentDay)));return this.formatDate(this._get(ag,"dateFormat"),ae,this._getFormatConfig(ag))}});function h(ae){var ad="button, .ui-datepicker-prev, .ui-datepicker-next, .ui-datepicker-calendar td a";return ae.delegate(ad,"mouseout",function(){I(this).removeClass("ui-state-hover");if(this.className.indexOf("ui-datepicker-prev")!==-1){I(this).removeClass("ui-datepicker-prev-hover")}if(this.className.indexOf("ui-datepicker-next")!==-1){I(this).removeClass("ui-datepicker-next-hover")}}).delegate(ad,"mouseover",p)}function p(){if(!I.datepicker._isDisabledDatepicker(l.inline?l.dpDiv.parent()[0]:l.input[0])){I(this).parents(".ui-datepicker-calendar").find("a").removeClass("ui-state-hover");I(this).addClass("ui-state-hover");if(this.className.indexOf("ui-datepicker-prev")!==-1){I(this).addClass("ui-datepicker-prev-hover")}if(this.className.indexOf("ui-datepicker-next")!==-1){I(this).addClass("ui-datepicker-next-hover")}}}function x(af,ae){I.extend(af,ae);for(var ad in ae){if(ae[ad]==null){af[ad]=ae[ad]}}return af}I.fn.datepicker=function(ae){if(!this.length){return this}if(!I.datepicker.initialized){I(document).mousedown(I.datepicker._checkExternalClick);I.datepicker.initialized=true}if(I("#"+I.datepicker._mainDivId).length===0){I("body").append(I.datepicker.dpDiv)}var ad=Array.prototype.slice.call(arguments,1);if(typeof ae==="string"&&(ae==="isDisabled"||ae==="getDate"||ae==="widget")){return I.datepicker["_"+ae+"Datepicker"].apply(I.datepicker,[this[0]].concat(ad))}if(ae==="option"&&arguments.length===2&&typeof arguments[1]==="string"){return I.datepicker["_"+ae+"Datepicker"].apply(I.datepicker,[this[0]].concat(ad))}return this.each(function(){typeof ae==="string"?I.datepicker["_"+ae+"Datepicker"].apply(I.datepicker,[this].concat(ad)):I.datepicker._attachDatepicker(this,ae)})};I.datepicker=new ab();I.datepicker.initialized=false;I.datepicker.uuid=new Date().getTime();I.datepicker.version="1.11.4";var E=I.datepicker;
+
+
+$.extend($.ui, { datepicker: { version: "1.11.4" } });
+
+var datepicker_instActive;
+
+function datepicker_getZindex( elem ) {
+	var position, value;
+	while ( elem.length && elem[ 0 ] !== document ) {
+		// Ignore z-index if position is set to a value where z-index is ignored by the browser
+		// This makes behavior of this function consistent across browsers
+		// WebKit always returns auto if the element is positioned
+		position = elem.css( "position" );
+		if ( position === "absolute" || position === "relative" || position === "fixed" ) {
+			// IE returns 0 when zIndex is not specified
+			// other browsers return a string
+			// we ignore the case of nested elements with an explicit value of 0
+			// <div style="z-index: -10;"><div style="z-index: 0;"></div></div>
+			value = parseInt( elem.css( "zIndex" ), 10 );
+			if ( !isNaN( value ) && value !== 0 ) {
+				return value;
+			}
+		}
+		elem = elem.parent();
+	}
+
+	return 0;
+}
+/* Date picker manager.
+   Use the singleton instance of this class, $.datepicker, to interact with the date picker.
+   Settings for (groups of) date pickers are maintained in an instance object,
+   allowing multiple different settings on the same page. */
+
+function Datepicker() {
+	this._curInst = null; // The current instance in use
+	this._keyEvent = false; // If the last event was a key event
+	this._disabledInputs = []; // List of date picker inputs that have been disabled
+	this._datepickerShowing = false; // True if the popup picker is showing , false if not
+	this._inDialog = false; // True if showing within a "dialog", false if not
+	this._mainDivId = "ui-datepicker-div"; // The ID of the main datepicker division
+	this._inlineClass = "ui-datepicker-inline"; // The name of the inline marker class
+	this._appendClass = "ui-datepicker-append"; // The name of the append marker class
+	this._triggerClass = "ui-datepicker-trigger"; // The name of the trigger marker class
+	this._dialogClass = "ui-datepicker-dialog"; // The name of the dialog marker class
+	this._disableClass = "ui-datepicker-disabled"; // The name of the disabled covering marker class
+	this._unselectableClass = "ui-datepicker-unselectable"; // The name of the unselectable cell marker class
+	this._currentClass = "ui-datepicker-current-day"; // The name of the current day marker class
+	this._dayOverClass = "ui-datepicker-days-cell-over"; // The name of the day hover marker class
+	this.regional = []; // Available regional settings, indexed by language code
+	this.regional[""] = { // Default regional settings
+		closeText: "Done", // Display text for close link
+		prevText: "Prev", // Display text for previous month link
+		nextText: "Next", // Display text for next month link
+		currentText: "Today", // Display text for current month link
+		monthNames: ["January","February","March","April","May","June",
+			"July","August","September","October","November","December"], // Names of months for drop-down and formatting
+		monthNamesShort: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"], // For formatting
+		dayNames: ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"], // For formatting
+		dayNamesShort: ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"], // For formatting
+		dayNamesMin: ["Su","Mo","Tu","We","Th","Fr","Sa"], // Column headings for days starting at Sunday
+		weekHeader: "Wk", // Column header for week of the year
+		dateFormat: "mm/dd/yy", // See format options on parseDate
+		firstDay: 0, // The first day of the week, Sun = 0, Mon = 1, ...
+		isRTL: false, // True if right-to-left language, false if left-to-right
+		showMonthAfterYear: false, // True if the year select precedes month, false for month then year
+		yearSuffix: "" // Additional text to append to the year in the month headers
+	};
+	this._defaults = { // Global defaults for all the date picker instances
+		showOn: "focus", // "focus" for popup on focus,
+			// "button" for trigger button, or "both" for either
+		showAnim: "fadeIn", // Name of jQuery animation for popup
+		showOptions: {}, // Options for enhanced animations
+		defaultDate: null, // Used when field is blank: actual date,
+			// +/-number for offset from today, null for today
+		appendText: "", // Display text following the input box, e.g. showing the format
+		buttonText: "...", // Text for trigger button
+		buttonImage: "", // URL for trigger button image
+		buttonImageOnly: false, // True if the image appears alone, false if it appears on a button
+		hideIfNoPrevNext: false, // True to hide next/previous month links
+			// if not applicable, false to just disable them
+		navigationAsDateFormat: false, // True if date formatting applied to prev/today/next links
+		gotoCurrent: false, // True if today link goes back to current selection instead
+		changeMonth: false, // True if month can be selected directly, false if only prev/next
+		changeYear: false, // True if year can be selected directly, false if only prev/next
+		yearRange: "c-10:c+10", // Range of years to display in drop-down,
+			// either relative to today's year (-nn:+nn), relative to currently displayed year
+			// (c-nn:c+nn), absolute (nnnn:nnnn), or a combination of the above (nnnn:-n)
+		showOtherMonths: false, // True to show dates in other months, false to leave blank
+		selectOtherMonths: false, // True to allow selection of dates in other months, false for unselectable
+		showWeek: false, // True to show week of the year, false to not show it
+		calculateWeek: this.iso8601Week, // How to calculate the week of the year,
+			// takes a Date and returns the number of the week for it
+		shortYearCutoff: "+10", // Short year values < this are in the current century,
+			// > this are in the previous century,
+			// string value starting with "+" for current year + value
+		minDate: null, // The earliest selectable date, or null for no limit
+		maxDate: null, // The latest selectable date, or null for no limit
+		duration: "fast", // Duration of display/closure
+		beforeShowDay: null, // Function that takes a date and returns an array with
+			// [0] = true if selectable, false if not, [1] = custom CSS class name(s) or "",
+			// [2] = cell title (optional), e.g. $.datepicker.noWeekends
+		beforeShow: null, // Function that takes an input field and
+			// returns a set of custom settings for the date picker
+		onSelect: null, // Define a callback function when a date is selected
+		onChangeMonthYear: null, // Define a callback function when the month or year is changed
+		onClose: null, // Define a callback function when the datepicker is closed
+		numberOfMonths: 1, // Number of months to show at a time
+		showCurrentAtPos: 0, // The position in multipe months at which to show the current month (starting at 0)
+		stepMonths: 1, // Number of months to step back/forward
+		stepBigMonths: 12, // Number of months to step back/forward for the big links
+		altField: "", // Selector for an alternate field to store selected dates into
+		altFormat: "", // The date format to use for the alternate field
+		constrainInput: true, // The input is constrained by the current date format
+		showButtonPanel: false, // True to show button panel, false to not show it
+		autoSize: false, // True to size the input for the date format, false to leave as is
+		disabled: false // The initial disabled state
+	};
+	$.extend(this._defaults, this.regional[""]);
+	this.regional.en = $.extend( true, {}, this.regional[ "" ]);
+	this.regional[ "en-US" ] = $.extend( true, {}, this.regional.en );
+	this.dpDiv = datepicker_bindHover($("<div id='" + this._mainDivId + "' class='ui-datepicker ui-widget ui-widget-content ui-helper-clearfix ui-corner-all'></div>"));
+}
+
+$.extend(Datepicker.prototype, {
+	/* Class name added to elements to indicate already configured with a date picker. */
+	markerClassName: "hasDatepicker",
+
+	//Keep track of the maximum number of rows displayed (see #7043)
+	maxRows: 4,
+
+	// TODO rename to "widget" when switching to widget factory
+	_widgetDatepicker: function() {
+		return this.dpDiv;
+	},
+
+	/* Override the default settings for all instances of the date picker.
+	 * @param  settings  object - the new settings to use as defaults (anonymous object)
+	 * @return the manager object
+	 */
+	setDefaults: function(settings) {
+		datepicker_extendRemove(this._defaults, settings || {});
+		return this;
+	},
+
+	/* Attach the date picker to a jQuery selection.
+	 * @param  target	element - the target input field or division or span
+	 * @param  settings  object - the new settings to use for this date picker instance (anonymous)
+	 */
+	_attachDatepicker: function(target, settings) {
+		var nodeName, inline, inst;
+		nodeName = target.nodeName.toLowerCase();
+		inline = (nodeName === "div" || nodeName === "span");
+		if (!target.id) {
+			this.uuid += 1;
+			target.id = "dp" + this.uuid;
+		}
+		inst = this._newInst($(target), inline);
+		inst.settings = $.extend({}, settings || {});
+		if (nodeName === "input") {
+			this._connectDatepicker(target, inst);
+		} else if (inline) {
+			this._inlineDatepicker(target, inst);
+		}
+	},
+
+	/* Create a new instance object. */
+	_newInst: function(target, inline) {
+		var id = target[0].id.replace(/([^A-Za-z0-9_\-])/g, "\\\\$1"); // escape jQuery meta chars
+		return {id: id, input: target, // associated target
+			selectedDay: 0, selectedMonth: 0, selectedYear: 0, // current selection
+			drawMonth: 0, drawYear: 0, // month being drawn
+			inline: inline, // is datepicker inline or not
+			dpDiv: (!inline ? this.dpDiv : // presentation div
+			datepicker_bindHover($("<div class='" + this._inlineClass + " ui-datepicker ui-widget ui-widget-content ui-helper-clearfix ui-corner-all'></div>")))};
+	},
+
+	/* Attach the date picker to an input field. */
+	_connectDatepicker: function(target, inst) {
+		var input = $(target);
+		inst.append = $([]);
+		inst.trigger = $([]);
+		if (input.hasClass(this.markerClassName)) {
+			return;
+		}
+		this._attachments(input, inst);
+		input.addClass(this.markerClassName).keydown(this._doKeyDown).
+			keypress(this._doKeyPress).keyup(this._doKeyUp);
+		this._autoSize(inst);
+		$.data(target, "datepicker", inst);
+		//If disabled option is true, disable the datepicker once it has been attached to the input (see ticket #5665)
+		if( inst.settings.disabled ) {
+			this._disableDatepicker( target );
+		}
+	},
+
+	/* Make attachments based on settings. */
+	_attachments: function(input, inst) {
+		var showOn, buttonText, buttonImage,
+			appendText = this._get(inst, "appendText"),
+			isRTL = this._get(inst, "isRTL");
+
+		if (inst.append) {
+			inst.append.remove();
+		}
+		if (appendText) {
+			inst.append = $("<span class='" + this._appendClass + "'>" + appendText + "</span>");
+			input[isRTL ? "before" : "after"](inst.append);
+		}
+
+		input.unbind("focus", this._showDatepicker);
+
+		if (inst.trigger) {
+			inst.trigger.remove();
+		}
+
+		showOn = this._get(inst, "showOn");
+		if (showOn === "focus" || showOn === "both") { // pop-up date picker when in the marked field
+			input.focus(this._showDatepicker);
+		}
+		if (showOn === "button" || showOn === "both") { // pop-up date picker when button clicked
+			buttonText = this._get(inst, "buttonText");
+			buttonImage = this._get(inst, "buttonImage");
+			inst.trigger = $(this._get(inst, "buttonImageOnly") ?
+				$("<img/>").addClass(this._triggerClass).
+					attr({ src: buttonImage, alt: buttonText, title: buttonText }) :
+				$("<button type='button'></button>").addClass(this._triggerClass).
+					html(!buttonImage ? buttonText : $("<img/>").attr(
+					{ src:buttonImage, alt:buttonText, title:buttonText })));
+			input[isRTL ? "before" : "after"](inst.trigger);
+			inst.trigger.click(function() {
+				if ($.datepicker._datepickerShowing && $.datepicker._lastInput === input[0]) {
+					$.datepicker._hideDatepicker();
+				} else if ($.datepicker._datepickerShowing && $.datepicker._lastInput !== input[0]) {
+					$.datepicker._hideDatepicker();
+					$.datepicker._showDatepicker(input[0]);
+				} else {
+					$.datepicker._showDatepicker(input[0]);
+				}
+				return false;
+			});
+		}
+	},
+
+	/* Apply the maximum length for the date format. */
+	_autoSize: function(inst) {
+		if (this._get(inst, "autoSize") && !inst.inline) {
+			var findMax, max, maxI, i,
+				date = new Date(2009, 12 - 1, 20), // Ensure double digits
+				dateFormat = this._get(inst, "dateFormat");
+
+			if (dateFormat.match(/[DM]/)) {
+				findMax = function(names) {
+					max = 0;
+					maxI = 0;
+					for (i = 0; i < names.length; i++) {
+						if (names[i].length > max) {
+							max = names[i].length;
+							maxI = i;
+						}
+					}
+					return maxI;
+				};
+				date.setMonth(findMax(this._get(inst, (dateFormat.match(/MM/) ?
+					"monthNames" : "monthNamesShort"))));
+				date.setDate(findMax(this._get(inst, (dateFormat.match(/DD/) ?
+					"dayNames" : "dayNamesShort"))) + 20 - date.getDay());
+			}
+			inst.input.attr("size", this._formatDate(inst, date).length);
+		}
+	},
+
+	/* Attach an inline date picker to a div. */
+	_inlineDatepicker: function(target, inst) {
+		var divSpan = $(target);
+		if (divSpan.hasClass(this.markerClassName)) {
+			return;
+		}
+		divSpan.addClass(this.markerClassName).append(inst.dpDiv);
+		$.data(target, "datepicker", inst);
+		this._setDate(inst, this._getDefaultDate(inst), true);
+		this._updateDatepicker(inst);
+		this._updateAlternate(inst);
+		//If disabled option is true, disable the datepicker before showing it (see ticket #5665)
+		if( inst.settings.disabled ) {
+			this._disableDatepicker( target );
+		}
+		// Set display:block in place of inst.dpDiv.show() which won't work on disconnected elements
+		// http://bugs.jqueryui.com/ticket/7552 - A Datepicker created on a detached div has zero height
+		inst.dpDiv.css( "display", "block" );
+	},
+
+	/* Pop-up the date picker in a "dialog" box.
+	 * @param  input element - ignored
+	 * @param  date	string or Date - the initial date to display
+	 * @param  onSelect  function - the function to call when a date is selected
+	 * @param  settings  object - update the dialog date picker instance's settings (anonymous object)
+	 * @param  pos int[2] - coordinates for the dialog's position within the screen or
+	 *					event - with x/y coordinates or
+	 *					leave empty for default (screen centre)
+	 * @return the manager object
+	 */
+	_dialogDatepicker: function(input, date, onSelect, settings, pos) {
+		var id, browserWidth, browserHeight, scrollX, scrollY,
+			inst = this._dialogInst; // internal instance
+
+		if (!inst) {
+			this.uuid += 1;
+			id = "dp" + this.uuid;
+			this._dialogInput = $("<input type='text' id='" + id +
+				"' style='position: absolute; top: -100px; width: 0px;'/>");
+			this._dialogInput.keydown(this._doKeyDown);
+			$("body").append(this._dialogInput);
+			inst = this._dialogInst = this._newInst(this._dialogInput, false);
+			inst.settings = {};
+			$.data(this._dialogInput[0], "datepicker", inst);
+		}
+		datepicker_extendRemove(inst.settings, settings || {});
+		date = (date && date.constructor === Date ? this._formatDate(inst, date) : date);
+		this._dialogInput.val(date);
+
+		this._pos = (pos ? (pos.length ? pos : [pos.pageX, pos.pageY]) : null);
+		if (!this._pos) {
+			browserWidth = document.documentElement.clientWidth;
+			browserHeight = document.documentElement.clientHeight;
+			scrollX = document.documentElement.scrollLeft || document.body.scrollLeft;
+			scrollY = document.documentElement.scrollTop || document.body.scrollTop;
+			this._pos = // should use actual width/height below
+				[(browserWidth / 2) - 100 + scrollX, (browserHeight / 2) - 150 + scrollY];
+		}
+
+		// move input on screen for focus, but hidden behind dialog
+		this._dialogInput.css("left", (this._pos[0] + 20) + "px").css("top", this._pos[1] + "px");
+		inst.settings.onSelect = onSelect;
+		this._inDialog = true;
+		this.dpDiv.addClass(this._dialogClass);
+		this._showDatepicker(this._dialogInput[0]);
+		if ($.blockUI) {
+			$.blockUI(this.dpDiv);
+		}
+		$.data(this._dialogInput[0], "datepicker", inst);
+		return this;
+	},
+
+	/* Detach a datepicker from its control.
+	 * @param  target	element - the target input field or division or span
+	 */
+	_destroyDatepicker: function(target) {
+		var nodeName,
+			$target = $(target),
+			inst = $.data(target, "datepicker");
+
+		if (!$target.hasClass(this.markerClassName)) {
+			return;
+		}
+
+		nodeName = target.nodeName.toLowerCase();
+		$.removeData(target, "datepicker");
+		if (nodeName === "input") {
+			inst.append.remove();
+			inst.trigger.remove();
+			$target.removeClass(this.markerClassName).
+				unbind("focus", this._showDatepicker).
+				unbind("keydown", this._doKeyDown).
+				unbind("keypress", this._doKeyPress).
+				unbind("keyup", this._doKeyUp);
+		} else if (nodeName === "div" || nodeName === "span") {
+			$target.removeClass(this.markerClassName).empty();
+		}
+
+		if ( datepicker_instActive === inst ) {
+			datepicker_instActive = null;
+		}
+	},
+
+	/* Enable the date picker to a jQuery selection.
+	 * @param  target	element - the target input field or division or span
+	 */
+	_enableDatepicker: function(target) {
+		var nodeName, inline,
+			$target = $(target),
+			inst = $.data(target, "datepicker");
+
+		if (!$target.hasClass(this.markerClassName)) {
+			return;
+		}
+
+		nodeName = target.nodeName.toLowerCase();
+		if (nodeName === "input") {
+			target.disabled = false;
+			inst.trigger.filter("button").
+				each(function() { this.disabled = false; }).end().
+				filter("img").css({opacity: "1.0", cursor: ""});
+		} else if (nodeName === "div" || nodeName === "span") {
+			inline = $target.children("." + this._inlineClass);
+			inline.children().removeClass("ui-state-disabled");
+			inline.find("select.ui-datepicker-month, select.ui-datepicker-year").
+				prop("disabled", false);
+		}
+		this._disabledInputs = $.map(this._disabledInputs,
+			function(value) { return (value === target ? null : value); }); // delete entry
+	},
+
+	/* Disable the date picker to a jQuery selection.
+	 * @param  target	element - the target input field or division or span
+	 */
+	_disableDatepicker: function(target) {
+		var nodeName, inline,
+			$target = $(target),
+			inst = $.data(target, "datepicker");
+
+		if (!$target.hasClass(this.markerClassName)) {
+			return;
+		}
+
+		nodeName = target.nodeName.toLowerCase();
+		if (nodeName === "input") {
+			target.disabled = true;
+			inst.trigger.filter("button").
+				each(function() { this.disabled = true; }).end().
+				filter("img").css({opacity: "0.5", cursor: "default"});
+		} else if (nodeName === "div" || nodeName === "span") {
+			inline = $target.children("." + this._inlineClass);
+			inline.children().addClass("ui-state-disabled");
+			inline.find("select.ui-datepicker-month, select.ui-datepicker-year").
+				prop("disabled", true);
+		}
+		this._disabledInputs = $.map(this._disabledInputs,
+			function(value) { return (value === target ? null : value); }); // delete entry
+		this._disabledInputs[this._disabledInputs.length] = target;
+	},
+
+	/* Is the first field in a jQuery collection disabled as a datepicker?
+	 * @param  target	element - the target input field or division or span
+	 * @return boolean - true if disabled, false if enabled
+	 */
+	_isDisabledDatepicker: function(target) {
+		if (!target) {
+			return false;
+		}
+		for (var i = 0; i < this._disabledInputs.length; i++) {
+			if (this._disabledInputs[i] === target) {
+				return true;
+			}
+		}
+		return false;
+	},
+
+	/* Retrieve the instance data for the target control.
+	 * @param  target  element - the target input field or division or span
+	 * @return  object - the associated instance data
+	 * @throws  error if a jQuery problem getting data
+	 */
+	_getInst: function(target) {
+		try {
+			return $.data(target, "datepicker");
+		}
+		catch (err) {
+			throw "Missing instance data for this datepicker";
+		}
+	},
+
+	/* Update or retrieve the settings for a date picker attached to an input field or division.
+	 * @param  target  element - the target input field or division or span
+	 * @param  name	object - the new settings to update or
+	 *				string - the name of the setting to change or retrieve,
+	 *				when retrieving also "all" for all instance settings or
+	 *				"defaults" for all global defaults
+	 * @param  value   any - the new value for the setting
+	 *				(omit if above is an object or to retrieve a value)
+	 */
+	_optionDatepicker: function(target, name, value) {
+		var settings, date, minDate, maxDate,
+			inst = this._getInst(target);
+
+		if (arguments.length === 2 && typeof name === "string") {
+			return (name === "defaults" ? $.extend({}, $.datepicker._defaults) :
+				(inst ? (name === "all" ? $.extend({}, inst.settings) :
+				this._get(inst, name)) : null));
+		}
+
+		settings = name || {};
+		if (typeof name === "string") {
+			settings = {};
+			settings[name] = value;
+		}
+
+		if (inst) {
+			if (this._curInst === inst) {
+				this._hideDatepicker();
+			}
+
+			date = this._getDateDatepicker(target, true);
+			minDate = this._getMinMaxDate(inst, "min");
+			maxDate = this._getMinMaxDate(inst, "max");
+			datepicker_extendRemove(inst.settings, settings);
+			// reformat the old minDate/maxDate values if dateFormat changes and a new minDate/maxDate isn't provided
+			if (minDate !== null && settings.dateFormat !== undefined && settings.minDate === undefined) {
+				inst.settings.minDate = this._formatDate(inst, minDate);
+			}
+			if (maxDate !== null && settings.dateFormat !== undefined && settings.maxDate === undefined) {
+				inst.settings.maxDate = this._formatDate(inst, maxDate);
+			}
+			if ( "disabled" in settings ) {
+				if ( settings.disabled ) {
+					this._disableDatepicker(target);
+				} else {
+					this._enableDatepicker(target);
+				}
+			}
+			this._attachments($(target), inst);
+			this._autoSize(inst);
+			this._setDate(inst, date);
+			this._updateAlternate(inst);
+			this._updateDatepicker(inst);
+		}
+	},
+
+	// change method deprecated
+	_changeDatepicker: function(target, name, value) {
+		this._optionDatepicker(target, name, value);
+	},
+
+	/* Redraw the date picker attached to an input field or division.
+	 * @param  target  element - the target input field or division or span
+	 */
+	_refreshDatepicker: function(target) {
+		var inst = this._getInst(target);
+		if (inst) {
+			this._updateDatepicker(inst);
+		}
+	},
+
+	/* Set the dates for a jQuery selection.
+	 * @param  target element - the target input field or division or span
+	 * @param  date	Date - the new date
+	 */
+	_setDateDatepicker: function(target, date) {
+		var inst = this._getInst(target);
+		if (inst) {
+			this._setDate(inst, date);
+			this._updateDatepicker(inst);
+			this._updateAlternate(inst);
+		}
+	},
+
+	/* Get the date(s) for the first entry in a jQuery selection.
+	 * @param  target element - the target input field or division or span
+	 * @param  noDefault boolean - true if no default date is to be used
+	 * @return Date - the current date
+	 */
+	_getDateDatepicker: function(target, noDefault) {
+		var inst = this._getInst(target);
+		if (inst && !inst.inline) {
+			this._setDateFromField(inst, noDefault);
+		}
+		return (inst ? this._getDate(inst) : null);
+	},
+
+	/* Handle keystrokes. */
+	_doKeyDown: function(event) {
+		var onSelect, dateStr, sel,
+			inst = $.datepicker._getInst(event.target),
+			handled = true,
+			isRTL = inst.dpDiv.is(".ui-datepicker-rtl");
+
+		inst._keyEvent = true;
+		if ($.datepicker._datepickerShowing) {
+			switch (event.keyCode) {
+				case 9: $.datepicker._hideDatepicker();
+						handled = false;
+						break; // hide on tab out
+				case 13: sel = $("td." + $.datepicker._dayOverClass + ":not(." +
+									$.datepicker._currentClass + ")", inst.dpDiv);
+						if (sel[0]) {
+							$.datepicker._selectDay(event.target, inst.selectedMonth, inst.selectedYear, sel[0]);
+						}
+
+						onSelect = $.datepicker._get(inst, "onSelect");
+						if (onSelect) {
+							dateStr = $.datepicker._formatDate(inst);
+
+							// trigger custom callback
+							onSelect.apply((inst.input ? inst.input[0] : null), [dateStr, inst]);
+						} else {
+							$.datepicker._hideDatepicker();
+						}
+
+						return false; // don't submit the form
+				case 27: $.datepicker._hideDatepicker();
+						break; // hide on escape
+				case 33: $.datepicker._adjustDate(event.target, (event.ctrlKey ?
+							-$.datepicker._get(inst, "stepBigMonths") :
+							-$.datepicker._get(inst, "stepMonths")), "M");
+						break; // previous month/year on page up/+ ctrl
+				case 34: $.datepicker._adjustDate(event.target, (event.ctrlKey ?
+							+$.datepicker._get(inst, "stepBigMonths") :
+							+$.datepicker._get(inst, "stepMonths")), "M");
+						break; // next month/year on page down/+ ctrl
+				case 35: if (event.ctrlKey || event.metaKey) {
+							$.datepicker._clearDate(event.target);
+						}
+						handled = event.ctrlKey || event.metaKey;
+						break; // clear on ctrl or command +end
+				case 36: if (event.ctrlKey || event.metaKey) {
+							$.datepicker._gotoToday(event.target);
+						}
+						handled = event.ctrlKey || event.metaKey;
+						break; // current on ctrl or command +home
+				case 37: if (event.ctrlKey || event.metaKey) {
+							$.datepicker._adjustDate(event.target, (isRTL ? +1 : -1), "D");
+						}
+						handled = event.ctrlKey || event.metaKey;
+						// -1 day on ctrl or command +left
+						if (event.originalEvent.altKey) {
+							$.datepicker._adjustDate(event.target, (event.ctrlKey ?
+								-$.datepicker._get(inst, "stepBigMonths") :
+								-$.datepicker._get(inst, "stepMonths")), "M");
+						}
+						// next month/year on alt +left on Mac
+						break;
+				case 38: if (event.ctrlKey || event.metaKey) {
+							$.datepicker._adjustDate(event.target, -7, "D");
+						}
+						handled = event.ctrlKey || event.metaKey;
+						break; // -1 week on ctrl or command +up
+				case 39: if (event.ctrlKey || event.metaKey) {
+							$.datepicker._adjustDate(event.target, (isRTL ? -1 : +1), "D");
+						}
+						handled = event.ctrlKey || event.metaKey;
+						// +1 day on ctrl or command +right
+						if (event.originalEvent.altKey) {
+							$.datepicker._adjustDate(event.target, (event.ctrlKey ?
+								+$.datepicker._get(inst, "stepBigMonths") :
+								+$.datepicker._get(inst, "stepMonths")), "M");
+						}
+						// next month/year on alt +right
+						break;
+				case 40: if (event.ctrlKey || event.metaKey) {
+							$.datepicker._adjustDate(event.target, +7, "D");
+						}
+						handled = event.ctrlKey || event.metaKey;
+						break; // +1 week on ctrl or command +down
+				default: handled = false;
+			}
+		} else if (event.keyCode === 36 && event.ctrlKey) { // display the date picker on ctrl+home
+			$.datepicker._showDatepicker(this);
+		} else {
+			handled = false;
+		}
+
+		if (handled) {
+			event.preventDefault();
+			event.stopPropagation();
+		}
+	},
+
+	/* Filter entered characters - based on date format. */
+	_doKeyPress: function(event) {
+		var chars, chr,
+			inst = $.datepicker._getInst(event.target);
+
+		if ($.datepicker._get(inst, "constrainInput")) {
+			chars = $.datepicker._possibleChars($.datepicker._get(inst, "dateFormat"));
+			chr = String.fromCharCode(event.charCode == null ? event.keyCode : event.charCode);
+			return event.ctrlKey || event.metaKey || (chr < " " || !chars || chars.indexOf(chr) > -1);
+		}
+	},
+
+	/* Synchronise manual entry and field/alternate field. */
+	_doKeyUp: function(event) {
+		var date,
+			inst = $.datepicker._getInst(event.target);
+
+		if (inst.input.val() !== inst.lastVal) {
+			try {
+				date = $.datepicker.parseDate($.datepicker._get(inst, "dateFormat"),
+					(inst.input ? inst.input.val() : null),
+					$.datepicker._getFormatConfig(inst));
+
+				if (date) { // only if valid
+					$.datepicker._setDateFromField(inst);
+					$.datepicker._updateAlternate(inst);
+					$.datepicker._updateDatepicker(inst);
+				}
+			}
+			catch (err) {
+			}
+		}
+		return true;
+	},
+
+	/* Pop-up the date picker for a given input field.
+	 * If false returned from beforeShow event handler do not show.
+	 * @param  input  element - the input field attached to the date picker or
+	 *					event - if triggered by focus
+	 */
+	_showDatepicker: function(input) {
+		input = input.target || input;
+		if (input.nodeName.toLowerCase() !== "input") { // find from button/image trigger
+			input = $("input", input.parentNode)[0];
+		}
+
+		if ($.datepicker._isDisabledDatepicker(input) || $.datepicker._lastInput === input) { // already here
+			return;
+		}
+
+		var inst, beforeShow, beforeShowSettings, isFixed,
+			offset, showAnim, duration;
+
+		inst = $.datepicker._getInst(input);
+		if ($.datepicker._curInst && $.datepicker._curInst !== inst) {
+			$.datepicker._curInst.dpDiv.stop(true, true);
+			if ( inst && $.datepicker._datepickerShowing ) {
+				$.datepicker._hideDatepicker( $.datepicker._curInst.input[0] );
+			}
+		}
+
+		beforeShow = $.datepicker._get(inst, "beforeShow");
+		beforeShowSettings = beforeShow ? beforeShow.apply(input, [input, inst]) : {};
+		if(beforeShowSettings === false){
+			return;
+		}
+		datepicker_extendRemove(inst.settings, beforeShowSettings);
+
+		inst.lastVal = null;
+		$.datepicker._lastInput = input;
+		$.datepicker._setDateFromField(inst);
+
+		if ($.datepicker._inDialog) { // hide cursor
+			input.value = "";
+		}
+		if (!$.datepicker._pos) { // position below input
+			$.datepicker._pos = $.datepicker._findPos(input);
+			$.datepicker._pos[1] += input.offsetHeight; // add the height
+		}
+
+		isFixed = false;
+		$(input).parents().each(function() {
+			isFixed |= $(this).css("position") === "fixed";
+			return !isFixed;
+		});
+
+		offset = {left: $.datepicker._pos[0], top: $.datepicker._pos[1]};
+		$.datepicker._pos = null;
+		//to avoid flashes on Firefox
+		inst.dpDiv.empty();
+		// determine sizing offscreen
+		inst.dpDiv.css({position: "absolute", display: "block", top: "-1000px"});
+		$.datepicker._updateDatepicker(inst);
+		// fix width for dynamic number of date pickers
+		// and adjust position before showing
+		offset = $.datepicker._checkOffset(inst, offset, isFixed);
+		inst.dpDiv.css({position: ($.datepicker._inDialog && $.blockUI ?
+			"static" : (isFixed ? "fixed" : "absolute")), display: "none",
+			//zhump
+			left: offset.left + "px", top: offset.top + 2 + "px"});
+
+		if (!inst.inline) {
+			showAnim = $.datepicker._get(inst, "showAnim");
+			duration = $.datepicker._get(inst, "duration");
+			inst.dpDiv.css( "z-index", datepicker_getZindex( $( input ) ) + 1 );
+			$.datepicker._datepickerShowing = true;
+
+			if ( $.effects && $.effects.effect[ showAnim ] ) {
+				inst.dpDiv.show(showAnim, $.datepicker._get(inst, "showOptions"), duration);
+			} else {
+				inst.dpDiv[showAnim || "show"](showAnim ? duration : null);
+			}
+
+			if ( $.datepicker._shouldFocusInput( inst ) ) {
+				inst.input.focus();
+			}
+
+			$.datepicker._curInst = inst;
+		}
+	},
+
+	/* Generate the date picker content. */
+	_updateDatepicker: function(inst) {
+		this.maxRows = 4; //Reset the max number of rows being displayed (see #7043)
+		datepicker_instActive = inst; // for delegate hover events
+		inst.dpDiv.empty().append(this._generateHTML(inst));
+		this._attachHandlers(inst);
+
+		var origyearshtml,
+			numMonths = this._getNumberOfMonths(inst),
+			cols = numMonths[1],
+			width = 17,
+			activeCell = inst.dpDiv.find( "." + this._dayOverClass + " a" );
+
+		if ( activeCell.length > 0 ) {
+			datepicker_handleMouseover.apply( activeCell.get( 0 ) );
+		}
+
+		inst.dpDiv.removeClass("ui-datepicker-multi-2 ui-datepicker-multi-3 ui-datepicker-multi-4").width("");
+		if (cols > 1) {
+			inst.dpDiv.addClass("ui-datepicker-multi-" + cols).css("width", (width * cols) + "em");
+		}
+		inst.dpDiv[(numMonths[0] !== 1 || numMonths[1] !== 1 ? "add" : "remove") +
+			"Class"]("ui-datepicker-multi");
+		inst.dpDiv[(this._get(inst, "isRTL") ? "add" : "remove") +
+			"Class"]("ui-datepicker-rtl");
+
+		if (inst === $.datepicker._curInst && $.datepicker._datepickerShowing && $.datepicker._shouldFocusInput( inst ) ) {
+			inst.input.focus();
+		}
+
+		// deffered render of the years select (to avoid flashes on Firefox)
+		if( inst.yearshtml ){
+			origyearshtml = inst.yearshtml;
+			setTimeout(function(){
+				//assure that inst.yearshtml didn't change.
+				if( origyearshtml === inst.yearshtml && inst.yearshtml ){
+					inst.dpDiv.find("select.ui-datepicker-year:first").replaceWith(inst.yearshtml);
+				}
+				origyearshtml = inst.yearshtml = null;
+			}, 0);
+		}
+	},
+
+	// #6694 - don't focus the input if it's already focused
+	// this breaks the change event in IE
+	// Support: IE and jQuery <1.9
+	_shouldFocusInput: function( inst ) {
+		return inst.input && inst.input.is( ":visible" ) && !inst.input.is( ":disabled" ) && !inst.input.is( ":focus" );
+	},
+
+	/* Check positioning to remain on screen. */
+	_checkOffset: function(inst, offset, isFixed) {
+		var dpWidth = inst.dpDiv.outerWidth(),
+			dpHeight = inst.dpDiv.outerHeight(),
+			inputWidth = inst.input ? inst.input.outerWidth() : 0,
+			inputHeight = inst.input ? inst.input.outerHeight() : 0,
+			viewWidth = document.documentElement.clientWidth + (isFixed ? 0 : $(document).scrollLeft()),
+			viewHeight = document.documentElement.clientHeight + (isFixed ? 0 : $(document).scrollTop());
+
+		offset.left -= (this._get(inst, "isRTL") ? (dpWidth - inputWidth) : 0);
+		offset.left -= (isFixed && offset.left === inst.input.offset().left) ? $(document).scrollLeft() : 0;
+		offset.top -= (isFixed && offset.top === (inst.input.offset().top + inputHeight)) ? $(document).scrollTop() : 0;
+
+		// now check if datepicker is showing outside window viewport - move to a better place if so.
+		offset.left -= Math.min(offset.left, (offset.left + dpWidth > viewWidth && viewWidth > dpWidth) ?
+			Math.abs(offset.left + dpWidth - viewWidth) : 0);
+		offset.top -= Math.min(offset.top, (offset.top + dpHeight > viewHeight && viewHeight > dpHeight) ?
+			Math.abs(dpHeight + inputHeight) : 0);
+
+		return offset;
+	},
+
+	/* Find an object's position on the screen. */
+	_findPos: function(obj) {
+		var position,
+			inst = this._getInst(obj),
+			isRTL = this._get(inst, "isRTL");
+
+		while (obj && (obj.type === "hidden" || obj.nodeType !== 1 || $.expr.filters.hidden(obj))) {
+			obj = obj[isRTL ? "previousSibling" : "nextSibling"];
+		}
+
+		position = $(obj).offset();
+		return [position.left, position.top];
+	},
+
+	/* Hide the date picker from view.
+	 * @param  input  element - the input field attached to the date picker
+	 */
+	_hideDatepicker: function(input) {
+		var showAnim, duration, postProcess, onClose,
+			inst = this._curInst;
+
+		if (!inst || (input && inst !== $.data(input, "datepicker"))) {
+			return;
+		}
+
+		if (this._datepickerShowing) {
+			showAnim = this._get(inst, "showAnim");
+			duration = this._get(inst, "duration");
+			postProcess = function() {
+				$.datepicker._tidyDialog(inst);
+			};
+
+			// DEPRECATED: after BC for 1.8.x $.effects[ showAnim ] is not needed
+			if ( $.effects && ( $.effects.effect[ showAnim ] || $.effects[ showAnim ] ) ) {
+				inst.dpDiv.hide(showAnim, $.datepicker._get(inst, "showOptions"), duration, postProcess);
+			} else {
+				inst.dpDiv[(showAnim === "slideDown" ? "slideUp" :
+					(showAnim === "fadeIn" ? "fadeOut" : "hide"))]((showAnim ? duration : null), postProcess);
+			}
+
+			if (!showAnim) {
+				postProcess();
+			}
+			this._datepickerShowing = false;
+
+			onClose = this._get(inst, "onClose");
+			if (onClose) {
+				onClose.apply((inst.input ? inst.input[0] : null), [(inst.input ? inst.input.val() : ""), inst]);
+			}
+
+			this._lastInput = null;
+			if (this._inDialog) {
+				this._dialogInput.css({ position: "absolute", left: "0", top: "-100px" });
+				if ($.blockUI) {
+					$.unblockUI();
+					$("body").append(this.dpDiv);
+				}
+			}
+			this._inDialog = false;
+		}
+	},
+
+	/* Tidy up after a dialog display. */
+	_tidyDialog: function(inst) {
+		inst.dpDiv.removeClass(this._dialogClass).unbind(".ui-datepicker-calendar");
+	},
+
+	/* Close date picker if clicked elsewhere. */
+	_checkExternalClick: function(event) {
+		if (!$.datepicker._curInst) {
+			return;
+		}
+
+		var $target = $(event.target),
+			inst = $.datepicker._getInst($target[0]);
+
+		if ( ( ( $target[0].id !== $.datepicker._mainDivId &&
+				$target.parents("#" + $.datepicker._mainDivId).length === 0 &&
+				!$target.hasClass($.datepicker.markerClassName) &&
+				!$target.closest("." + $.datepicker._triggerClass).length &&
+				$.datepicker._datepickerShowing && !($.datepicker._inDialog && $.blockUI) ) ) ||
+			( $target.hasClass($.datepicker.markerClassName) && $.datepicker._curInst !== inst ) ) {
+				$.datepicker._hideDatepicker();
+		}
+	},
+
+	/* Adjust one of the date sub-fields. */
+	_adjustDate: function(id, offset, period) {
+		var target = $(id),
+			inst = this._getInst(target[0]);
+
+		if (this._isDisabledDatepicker(target[0])) {
+			return;
+		}
+		this._adjustInstDate(inst, offset +
+			(period === "M" ? this._get(inst, "showCurrentAtPos") : 0), // undo positioning
+			period);
+		this._updateDatepicker(inst);
+	},
+
+	/* Action for current link. */
+	_gotoToday: function(id) {
+		var date,
+			target = $(id),
+			inst = this._getInst(target[0]);
+
+		if (this._get(inst, "gotoCurrent") && inst.currentDay) {
+			inst.selectedDay = inst.currentDay;
+			inst.drawMonth = inst.selectedMonth = inst.currentMonth;
+			inst.drawYear = inst.selectedYear = inst.currentYear;
+		} else {
+			date = new Date();
+			inst.selectedDay = date.getDate();
+			inst.drawMonth = inst.selectedMonth = date.getMonth();
+			inst.drawYear = inst.selectedYear = date.getFullYear();
+		}
+		this._notifyChange(inst);
+		this._adjustDate(target);
+	},
+
+	/* Action for selecting a new month/year. */
+	_selectMonthYear: function(id, select, period) {
+		var target = $(id),
+			inst = this._getInst(target[0]);
+
+		inst["selected" + (period === "M" ? "Month" : "Year")] =
+		inst["draw" + (period === "M" ? "Month" : "Year")] =
+			parseInt(select.options[select.selectedIndex].value,10);
+
+		this._notifyChange(inst);
+		this._adjustDate(target);
+	},
+
+	/* Action for selecting a day. */
+	_selectDay: function(id, month, year, td) {
+		var inst,
+			target = $(id);
+
+		if ($(td).hasClass(this._unselectableClass) || this._isDisabledDatepicker(target[0])) {
+			return;
+		}
+
+		inst = this._getInst(target[0]);
+		inst.selectedDay = inst.currentDay = $("a", td).html();
+		inst.selectedMonth = inst.currentMonth = month;
+		inst.selectedYear = inst.currentYear = year;
+		this._selectDate(id, this._formatDate(inst,
+			inst.currentDay, inst.currentMonth, inst.currentYear));
+	},
+
+	/* Erase the input field and hide the date picker. */
+	_clearDate: function(id) {
+		var target = $(id);
+		this._selectDate(target, "");
+	},
+
+	/* Update the input field with the selected date. */
+	_selectDate: function(id, dateStr) {
+		var onSelect,
+			target = $(id),
+			inst = this._getInst(target[0]);
+
+		dateStr = (dateStr != null ? dateStr : this._formatDate(inst));
+		if (inst.input) {
+			inst.input.val(dateStr);
+		}
+		this._updateAlternate(inst);
+
+		onSelect = this._get(inst, "onSelect");
+		if (onSelect) {
+			onSelect.apply((inst.input ? inst.input[0] : null), [dateStr, inst]);  // trigger custom callback
+		} else if (inst.input) {
+			inst.input.trigger("change"); // fire the change event
+		}
+
+		if (inst.inline){
+			this._updateDatepicker(inst);
+		} else {
+			this._hideDatepicker();
+			this._lastInput = inst.input[0];
+			if (typeof(inst.input[0]) !== "object") {
+				inst.input.focus(); // restore focus
+			}
+			this._lastInput = null;
+		}
+	},
+
+	/* Update any alternate field to synchronise with the main field. */
+	_updateAlternate: function(inst) {
+		var altFormat, date, dateStr,
+			altField = this._get(inst, "altField");
+
+		if (altField) { // update alternate field too
+			altFormat = this._get(inst, "altFormat") || this._get(inst, "dateFormat");
+			date = this._getDate(inst);
+			dateStr = this.formatDate(altFormat, date, this._getFormatConfig(inst));
+			$(altField).each(function() { $(this).val(dateStr); });
+		}
+	},
+
+	/* Set as beforeShowDay function to prevent selection of weekends.
+	 * @param  date  Date - the date to customise
+	 * @return [boolean, string] - is this date selectable?, what is its CSS class?
+	 */
+	noWeekends: function(date) {
+		var day = date.getDay();
+		return [(day > 0 && day < 6), ""];
+	},
+
+	/* Set as calculateWeek to determine the week of the year based on the ISO 8601 definition.
+	 * @param  date  Date - the date to get the week for
+	 * @return  number - the number of the week within the year that contains this date
+	 */
+	iso8601Week: function(date) {
+		var time,
+			checkDate = new Date(date.getTime());
+
+		// Find Thursday of this week starting on Monday
+		checkDate.setDate(checkDate.getDate() + 4 - (checkDate.getDay() || 7));
+
+		time = checkDate.getTime();
+		checkDate.setMonth(0); // Compare with Jan 1
+		checkDate.setDate(1);
+		return Math.floor(Math.round((time - checkDate) / 86400000) / 7) + 1;
+	},
+
+	/* Parse a string value into a date object.
+	 * See formatDate below for the possible formats.
+	 *
+	 * @param  format string - the expected format of the date
+	 * @param  value string - the date in the above format
+	 * @param  settings Object - attributes include:
+	 *					shortYearCutoff  number - the cutoff year for determining the century (optional)
+	 *					dayNamesShort	string[7] - abbreviated names of the days from Sunday (optional)
+	 *					dayNames		string[7] - names of the days from Sunday (optional)
+	 *					monthNamesShort string[12] - abbreviated names of the months (optional)
+	 *					monthNames		string[12] - names of the months (optional)
+	 * @return  Date - the extracted date value or null if value is blank
+	 */
+	parseDate: function (format, value, settings) {
+		if (format == null || value == null) {
+			throw "Invalid arguments";
+		}
+
+		value = (typeof value === "object" ? value.toString() : value + "");
+		if (value === "") {
+			return null;
+		}
+
+		var iFormat, dim, extra,
+			iValue = 0,
+			shortYearCutoffTemp = (settings ? settings.shortYearCutoff : null) || this._defaults.shortYearCutoff,
+			shortYearCutoff = (typeof shortYearCutoffTemp !== "string" ? shortYearCutoffTemp :
+				new Date().getFullYear() % 100 + parseInt(shortYearCutoffTemp, 10)),
+			dayNamesShort = (settings ? settings.dayNamesShort : null) || this._defaults.dayNamesShort,
+			dayNames = (settings ? settings.dayNames : null) || this._defaults.dayNames,
+			monthNamesShort = (settings ? settings.monthNamesShort : null) || this._defaults.monthNamesShort,
+			monthNames = (settings ? settings.monthNames : null) || this._defaults.monthNames,
+			year = -1,
+			month = -1,
+			day = -1,
+			doy = -1,
+			literal = false,
+			date,
+			// Check whether a format character is doubled
+			lookAhead = function(match) {
+				var matches = (iFormat + 1 < format.length && format.charAt(iFormat + 1) === match);
+				if (matches) {
+					iFormat++;
+				}
+				return matches;
+			},
+			// Extract a number from the string value
+			getNumber = function(match) {
+				var isDoubled = lookAhead(match),
+					size = (match === "@" ? 14 : (match === "!" ? 20 :
+					(match === "y" && isDoubled ? 4 : (match === "o" ? 3 : 2)))),
+					minSize = (match === "y" ? size : 1),
+					digits = new RegExp("^\\d{" + minSize + "," + size + "}"),
+					num = value.substring(iValue).match(digits);
+				if (!num) {
+					throw "Missing number at position " + iValue;
+				}
+				iValue += num[0].length;
+				return parseInt(num[0], 10);
+			},
+			// Extract a name from the string value and convert to an index
+			getName = function(match, shortNames, longNames) {
+				var index = -1,
+					names = $.map(lookAhead(match) ? longNames : shortNames, function (v, k) {
+						return [ [k, v] ];
+					}).sort(function (a, b) {
+						return -(a[1].length - b[1].length);
+					});
+
+				$.each(names, function (i, pair) {
+					var name = pair[1];
+					if (value.substr(iValue, name.length).toLowerCase() === name.toLowerCase()) {
+						index = pair[0];
+						iValue += name.length;
+						return false;
+					}
+				});
+				if (index !== -1) {
+					return index + 1;
+				} else {
+					throw "Unknown name at position " + iValue;
+				}
+			},
+			// Confirm that a literal character matches the string value
+			checkLiteral = function() {
+				if (value.charAt(iValue) !== format.charAt(iFormat)) {
+					throw "Unexpected literal at position " + iValue;
+				}
+				iValue++;
+			};
+
+		for (iFormat = 0; iFormat < format.length; iFormat++) {
+			if (literal) {
+				if (format.charAt(iFormat) === "'" && !lookAhead("'")) {
+					literal = false;
+				} else {
+					checkLiteral();
+				}
+			} else {
+				switch (format.charAt(iFormat)) {
+					case "d":
+						day = getNumber("d");
+						break;
+					case "D":
+						getName("D", dayNamesShort, dayNames);
+						break;
+					case "o":
+						doy = getNumber("o");
+						break;
+					case "m":
+						month = getNumber("m");
+						break;
+					case "M":
+						month = getName("M", monthNamesShort, monthNames);
+						break;
+					case "y":
+						year = getNumber("y");
+						break;
+					case "@":
+						date = new Date(getNumber("@"));
+						year = date.getFullYear();
+						month = date.getMonth() + 1;
+						day = date.getDate();
+						break;
+					case "!":
+						date = new Date((getNumber("!") - this._ticksTo1970) / 10000);
+						year = date.getFullYear();
+						month = date.getMonth() + 1;
+						day = date.getDate();
+						break;
+					case "'":
+						if (lookAhead("'")){
+							checkLiteral();
+						} else {
+							literal = true;
+						}
+						break;
+					default:
+						checkLiteral();
+				}
+			}
+		}
+
+		if (iValue < value.length){
+			extra = value.substr(iValue);
+			if (!/^\s+/.test(extra)) {
+				throw "Extra/unparsed characters found in date: " + extra;
+			}
+		}
+
+		if (year === -1) {
+			year = new Date().getFullYear();
+		} else if (year < 100) {
+			year += new Date().getFullYear() - new Date().getFullYear() % 100 +
+				(year <= shortYearCutoff ? 0 : -100);
+		}
+
+		if (doy > -1) {
+			month = 1;
+			day = doy;
+			do {
+				dim = this._getDaysInMonth(year, month - 1);
+				if (day <= dim) {
+					break;
+				}
+				month++;
+				day -= dim;
+			} while (true);
+		}
+
+		date = this._daylightSavingAdjust(new Date(year, month - 1, day));
+		if (date.getFullYear() !== year || date.getMonth() + 1 !== month || date.getDate() !== day) {
+			throw "Invalid date"; // E.g. 31/02/00
+		}
+		return date;
+	},
+
+	/* Standard date formats. */
+	ATOM: "yy-mm-dd", // RFC 3339 (ISO 8601)
+	COOKIE: "D, dd M yy",
+	ISO_8601: "yy-mm-dd",
+	RFC_822: "D, d M y",
+	RFC_850: "DD, dd-M-y",
+	RFC_1036: "D, d M y",
+	RFC_1123: "D, d M yy",
+	RFC_2822: "D, d M yy",
+	RSS: "D, d M y", // RFC 822
+	TICKS: "!",
+	TIMESTAMP: "@",
+	W3C: "yy-mm-dd", // ISO 8601
+
+	_ticksTo1970: (((1970 - 1) * 365 + Math.floor(1970 / 4) - Math.floor(1970 / 100) +
+		Math.floor(1970 / 400)) * 24 * 60 * 60 * 10000000),
+
+	/* Format a date object into a string value.
+	 * The format can be combinations of the following:
+	 * d  - day of month (no leading zero)
+	 * dd - day of month (two digit)
+	 * o  - day of year (no leading zeros)
+	 * oo - day of year (three digit)
+	 * D  - day name short
+	 * DD - day name long
+	 * m  - month of year (no leading zero)
+	 * mm - month of year (two digit)
+	 * M  - month name short
+	 * MM - month name long
+	 * y  - year (two digit)
+	 * yy - year (four digit)
+	 * @ - Unix timestamp (ms since 01/01/1970)
+	 * ! - Windows ticks (100ns since 01/01/0001)
+	 * "..." - literal text
+	 * '' - single quote
+	 *
+	 * @param  format string - the desired format of the date
+	 * @param  date Date - the date value to format
+	 * @param  settings Object - attributes include:
+	 *					dayNamesShort	string[7] - abbreviated names of the days from Sunday (optional)
+	 *					dayNames		string[7] - names of the days from Sunday (optional)
+	 *					monthNamesShort string[12] - abbreviated names of the months (optional)
+	 *					monthNames		string[12] - names of the months (optional)
+	 * @return  string - the date in the above format
+	 */
+	formatDate: function (format, date, settings) {
+		if (!date) {
+			return "";
+		}
+
+		var iFormat,
+			dayNamesShort = (settings ? settings.dayNamesShort : null) || this._defaults.dayNamesShort,
+			dayNames = (settings ? settings.dayNames : null) || this._defaults.dayNames,
+			monthNamesShort = (settings ? settings.monthNamesShort : null) || this._defaults.monthNamesShort,
+			monthNames = (settings ? settings.monthNames : null) || this._defaults.monthNames,
+			// Check whether a format character is doubled
+			lookAhead = function(match) {
+				var matches = (iFormat + 1 < format.length && format.charAt(iFormat + 1) === match);
+				if (matches) {
+					iFormat++;
+				}
+				return matches;
+			},
+			// Format a number, with leading zero if necessary
+			formatNumber = function(match, value, len) {
+				var num = "" + value;
+				if (lookAhead(match)) {
+					while (num.length < len) {
+						num = "0" + num;
+					}
+				}
+				return num;
+			},
+			// Format a name, short or long as requested
+			formatName = function(match, value, shortNames, longNames) {
+				return (lookAhead(match) ? longNames[value] : shortNames[value]);
+			},
+			output = "",
+			literal = false;
+
+		if (date) {
+			for (iFormat = 0; iFormat < format.length; iFormat++) {
+				if (literal) {
+					if (format.charAt(iFormat) === "'" && !lookAhead("'")) {
+						literal = false;
+					} else {
+						output += format.charAt(iFormat);
+					}
+				} else {
+					switch (format.charAt(iFormat)) {
+						case "d":
+							output += formatNumber("d", date.getDate(), 2);
+							break;
+						case "D":
+							output += formatName("D", date.getDay(), dayNamesShort, dayNames);
+							break;
+						case "o":
+							output += formatNumber("o",
+								Math.round((new Date(date.getFullYear(), date.getMonth(), date.getDate()).getTime() - new Date(date.getFullYear(), 0, 0).getTime()) / 86400000), 3);
+							break;
+						case "m":
+							output += formatNumber("m", date.getMonth() + 1, 2);
+							break;
+						case "M":
+							output += formatName("M", date.getMonth(), monthNamesShort, monthNames);
+							break;
+						case "y":
+							output += (lookAhead("y") ? date.getFullYear() :
+								(date.getYear() % 100 < 10 ? "0" : "") + date.getYear() % 100);
+							break;
+						case "@":
+							output += date.getTime();
+							break;
+						case "!":
+							output += date.getTime() * 10000 + this._ticksTo1970;
+							break;
+						case "'":
+							if (lookAhead("'")) {
+								output += "'";
+							} else {
+								literal = true;
+							}
+							break;
+						default:
+							output += format.charAt(iFormat);
+					}
+				}
+			}
+		}
+		return output;
+	},
+
+	/* Extract all possible characters from the date format. */
+	_possibleChars: function (format) {
+		var iFormat,
+			chars = "",
+			literal = false,
+			// Check whether a format character is doubled
+			lookAhead = function(match) {
+				var matches = (iFormat + 1 < format.length && format.charAt(iFormat + 1) === match);
+				if (matches) {
+					iFormat++;
+				}
+				return matches;
+			};
+
+		for (iFormat = 0; iFormat < format.length; iFormat++) {
+			if (literal) {
+				if (format.charAt(iFormat) === "'" && !lookAhead("'")) {
+					literal = false;
+				} else {
+					chars += format.charAt(iFormat);
+				}
+			} else {
+				switch (format.charAt(iFormat)) {
+					case "d": case "m": case "y": case "@":
+						chars += "0123456789";
+						break;
+					case "D": case "M":
+						return null; // Accept anything
+					case "'":
+						if (lookAhead("'")) {
+							chars += "'";
+						} else {
+							literal = true;
+						}
+						break;
+					default:
+						chars += format.charAt(iFormat);
+				}
+			}
+		}
+		return chars;
+	},
+
+	/* Get a setting value, defaulting if necessary. */
+	_get: function(inst, name) {
+		return inst.settings[name] !== undefined ?
+			inst.settings[name] : this._defaults[name];
+	},
+
+	/* Parse existing date and initialise date picker. */
+	_setDateFromField: function(inst, noDefault) {
+		if (inst.input.val() === inst.lastVal) {
+			return;
+		}
+
+		var dateFormat = this._get(inst, "dateFormat"),
+			dates = inst.lastVal = inst.input ? inst.input.val() : null,
+			defaultDate = this._getDefaultDate(inst),
+			date = defaultDate,
+			settings = this._getFormatConfig(inst);
+
+		try {
+			date = this.parseDate(dateFormat, dates, settings) || defaultDate;
+		} catch (event) {
+			dates = (noDefault ? "" : dates);
+		}
+		inst.selectedDay = date.getDate();
+		inst.drawMonth = inst.selectedMonth = date.getMonth();
+		inst.drawYear = inst.selectedYear = date.getFullYear();
+		inst.currentDay = (dates ? date.getDate() : 0);
+		inst.currentMonth = (dates ? date.getMonth() : 0);
+		inst.currentYear = (dates ? date.getFullYear() : 0);
+		this._adjustInstDate(inst);
+	},
+
+	/* Retrieve the default date shown on opening. */
+	_getDefaultDate: function(inst) {
+		return this._restrictMinMax(inst,
+			this._determineDate(inst, this._get(inst, "defaultDate"), new Date()));
+	},
+
+	/* A date may be specified as an exact value or a relative one. */
+	_determineDate: function(inst, date, defaultDate) {
+		var offsetNumeric = function(offset) {
+				var date = new Date();
+				date.setDate(date.getDate() + offset);
+				return date;
+			},
+			offsetString = function(offset) {
+				try {
+					return $.datepicker.parseDate($.datepicker._get(inst, "dateFormat"),
+						offset, $.datepicker._getFormatConfig(inst));
+				}
+				catch (e) {
+					// Ignore
+				}
+
+				var date = (offset.toLowerCase().match(/^c/) ?
+					$.datepicker._getDate(inst) : null) || new Date(),
+					year = date.getFullYear(),
+					month = date.getMonth(),
+					day = date.getDate(),
+					pattern = /([+\-]?[0-9]+)\s*(d|D|w|W|m|M|y|Y)?/g,
+					matches = pattern.exec(offset);
+
+				while (matches) {
+					switch (matches[2] || "d") {
+						case "d" : case "D" :
+							day += parseInt(matches[1],10); break;
+						case "w" : case "W" :
+							day += parseInt(matches[1],10) * 7; break;
+						case "m" : case "M" :
+							month += parseInt(matches[1],10);
+							day = Math.min(day, $.datepicker._getDaysInMonth(year, month));
+							break;
+						case "y": case "Y" :
+							year += parseInt(matches[1],10);
+							day = Math.min(day, $.datepicker._getDaysInMonth(year, month));
+							break;
+					}
+					matches = pattern.exec(offset);
+				}
+				return new Date(year, month, day);
+			},
+			newDate = (date == null || date === "" ? defaultDate : (typeof date === "string" ? offsetString(date) :
+				(typeof date === "number" ? (isNaN(date) ? defaultDate : offsetNumeric(date)) : new Date(date.getTime()))));
+
+		newDate = (newDate && newDate.toString() === "Invalid Date" ? defaultDate : newDate);
+		if (newDate) {
+			newDate.setHours(0);
+			newDate.setMinutes(0);
+			newDate.setSeconds(0);
+			newDate.setMilliseconds(0);
+		}
+		return this._daylightSavingAdjust(newDate);
+	},
+
+	/* Handle switch to/from daylight saving.
+	 * Hours may be non-zero on daylight saving cut-over:
+	 * > 12 when midnight changeover, but then cannot generate
+	 * midnight datetime, so jump to 1AM, otherwise reset.
+	 * @param  date  (Date) the date to check
+	 * @return  (Date) the corrected date
+	 */
+	_daylightSavingAdjust: function(date) {
+		if (!date) {
+			return null;
+		}
+		date.setHours(date.getHours() > 12 ? date.getHours() + 2 : 0);
+		return date;
+	},
+
+	/* Set the date(s) directly. */
+	_setDate: function(inst, date, noChange) {
+		var clear = !date,
+			origMonth = inst.selectedMonth,
+			origYear = inst.selectedYear,
+			newDate = this._restrictMinMax(inst, this._determineDate(inst, date, new Date()));
+
+		inst.selectedDay = inst.currentDay = newDate.getDate();
+		inst.drawMonth = inst.selectedMonth = inst.currentMonth = newDate.getMonth();
+		inst.drawYear = inst.selectedYear = inst.currentYear = newDate.getFullYear();
+		if ((origMonth !== inst.selectedMonth || origYear !== inst.selectedYear) && !noChange) {
+			this._notifyChange(inst);
+		}
+		this._adjustInstDate(inst);
+		if (inst.input) {
+			inst.input.val(clear ? "" : this._formatDate(inst));
+		}
+	},
+
+	/* Retrieve the date(s) directly. */
+	_getDate: function(inst) {
+		var startDate = (!inst.currentYear || (inst.input && inst.input.val() === "") ? null :
+			this._daylightSavingAdjust(new Date(
+			inst.currentYear, inst.currentMonth, inst.currentDay)));
+			return startDate;
+	},
+
+	/* Attach the onxxx handlers.  These are declared statically so
+	 * they work with static code transformers like Caja.
+	 */
+	_attachHandlers: function(inst) {
+		var stepMonths = this._get(inst, "stepMonths"),
+			id = "#" + inst.id.replace( /\\\\/g, "\\" );
+		inst.dpDiv.find("[data-handler]").map(function () {
+			var handler = {
+				prev: function () {
+					$.datepicker._adjustDate(id, -stepMonths, "M");
+				},
+				next: function () {
+					$.datepicker._adjustDate(id, +stepMonths, "M");
+				},
+				hide: function () {
+					$.datepicker._hideDatepicker();
+				},
+				today: function () {
+					$.datepicker._gotoToday(id);
+				},
+				selectDay: function () {
+					$.datepicker._selectDay(id, +this.getAttribute("data-month"), +this.getAttribute("data-year"), this);
+					return false;
+				},
+				selectMonth: function () {
+					$.datepicker._selectMonthYear(id, this, "M");
+					return false;
+				},
+				selectYear: function () {
+					$.datepicker._selectMonthYear(id, this, "Y");
+					return false;
+				}
+			};
+			$(this).bind(this.getAttribute("data-event"), handler[this.getAttribute("data-handler")]);
+		});
+	},
+
+	/* Generate the HTML for the current state of the date picker. */
+	_generateHTML: function(inst) {
+		var maxDraw, prevText, prev, nextText, next, currentText, gotoDate,
+			controls, buttonPanel, firstDay, showWeek, dayNames, dayNamesMin,
+			monthNames, monthNamesShort, beforeShowDay, showOtherMonths,
+			selectOtherMonths, defaultDate, html, dow, row, group, col, selectedDate,
+			cornerClass, calender, thead, day, daysInMonth, leadDays, curRows, numRows,
+			printDate, dRow, tbody, daySettings, otherMonth, unselectable,
+			tempDate = new Date(),
+			today = this._daylightSavingAdjust(
+				new Date(tempDate.getFullYear(), tempDate.getMonth(), tempDate.getDate())), // clear time
+			isRTL = this._get(inst, "isRTL"),
+			showButtonPanel = this._get(inst, "showButtonPanel"),
+			hideIfNoPrevNext = this._get(inst, "hideIfNoPrevNext"),
+			navigationAsDateFormat = this._get(inst, "navigationAsDateFormat"),
+			numMonths = this._getNumberOfMonths(inst),
+			showCurrentAtPos = this._get(inst, "showCurrentAtPos"),
+			stepMonths = this._get(inst, "stepMonths"),
+			isMultiMonth = (numMonths[0] !== 1 || numMonths[1] !== 1),
+			currentDate = this._daylightSavingAdjust((!inst.currentDay ? new Date(9999, 9, 9) :
+				new Date(inst.currentYear, inst.currentMonth, inst.currentDay))),
+			minDate = this._getMinMaxDate(inst, "min"),
+			maxDate = this._getMinMaxDate(inst, "max"),
+			drawMonth = inst.drawMonth - showCurrentAtPos,
+			drawYear = inst.drawYear;
+
+		if (drawMonth < 0) {
+			drawMonth += 12;
+			drawYear--;
+		}
+		if (maxDate) {
+			maxDraw = this._daylightSavingAdjust(new Date(maxDate.getFullYear(),
+				maxDate.getMonth() - (numMonths[0] * numMonths[1]) + 1, maxDate.getDate()));
+			maxDraw = (minDate && maxDraw < minDate ? minDate : maxDraw);
+			while (this._daylightSavingAdjust(new Date(drawYear, drawMonth, 1)) > maxDraw) {
+				drawMonth--;
+				if (drawMonth < 0) {
+					drawMonth = 11;
+					drawYear--;
+				}
+			}
+		}
+		inst.drawMonth = drawMonth;
+		inst.drawYear = drawYear;
+
+		prevText = this._get(inst, "prevText");
+		prevText = (!navigationAsDateFormat ? prevText : this.formatDate(prevText,
+			this._daylightSavingAdjust(new Date(drawYear, drawMonth - stepMonths, 1)),
+			this._getFormatConfig(inst)));
+
+		prev = (this._canAdjustMonth(inst, -1, drawYear, drawMonth) ?
+			"<a class='ui-datepicker-prev ui-corner-all' data-handler='prev' data-event='click'" +
+			" title='" + prevText + "'><span class='ui-icon ui-icon-circle-triangle-" + ( isRTL ? "e" : "w") + "'>" + prevText + "</span></a>" :
+			(hideIfNoPrevNext ? "" : "<a class='ui-datepicker-prev ui-corner-all ui-state-disabled' title='"+ prevText +"'><span class='ui-icon ui-icon-circle-triangle-" + ( isRTL ? "e" : "w") + "'>" + prevText + "</span></a>"));
+
+		nextText = this._get(inst, "nextText");
+		nextText = (!navigationAsDateFormat ? nextText : this.formatDate(nextText,
+			this._daylightSavingAdjust(new Date(drawYear, drawMonth + stepMonths, 1)),
+			this._getFormatConfig(inst)));
+
+		next = (this._canAdjustMonth(inst, +1, drawYear, drawMonth) ?
+			"<a class='ui-datepicker-next ui-corner-all' data-handler='next' data-event='click'" +
+			" title='" + nextText + "'><span class='ui-icon ui-icon-circle-triangle-" + ( isRTL ? "w" : "e") + "'>" + nextText + "</span></a>" :
+			(hideIfNoPrevNext ? "" : "<a class='ui-datepicker-next ui-corner-all ui-state-disabled' title='"+ nextText + "'><span class='ui-icon ui-icon-circle-triangle-" + ( isRTL ? "w" : "e") + "'>" + nextText + "</span></a>"));
+
+		currentText = this._get(inst, "currentText");
+		gotoDate = (this._get(inst, "gotoCurrent") && inst.currentDay ? currentDate : today);
+		currentText = (!navigationAsDateFormat ? currentText :
+			this.formatDate(currentText, gotoDate, this._getFormatConfig(inst)));
+
+		controls = (!inst.inline ? "<button type='button' class='ui-datepicker-close ui-state-default ui-priority-primary ui-corner-all' data-handler='hide' data-event='click'>" +
+			this._get(inst, "closeText") + "</button>" : "");
+
+		buttonPanel = (showButtonPanel) ? "<div class='ui-datepicker-buttonpane ui-widget-content'>" + (isRTL ? controls : "") +
+			(this._isInRange(inst, gotoDate) ? "<button type='button' class='ui-datepicker-current ui-state-default ui-priority-secondary ui-corner-all' data-handler='today' data-event='click'" +
+			">" + currentText + "</button>" : "") + (isRTL ? "" : controls) + "</div>" : "";
+
+		firstDay = parseInt(this._get(inst, "firstDay"),10);
+		firstDay = (isNaN(firstDay) ? 0 : firstDay);
+
+		showWeek = this._get(inst, "showWeek");
+		dayNames = this._get(inst, "dayNames");
+		dayNamesMin = this._get(inst, "dayNamesMin");
+		monthNames = this._get(inst, "monthNames");
+		monthNamesShort = this._get(inst, "monthNamesShort");
+		beforeShowDay = this._get(inst, "beforeShowDay");
+		showOtherMonths = this._get(inst, "showOtherMonths");
+		selectOtherMonths = this._get(inst, "selectOtherMonths");
+		defaultDate = this._getDefaultDate(inst);
+		html = "";
+		dow;
+		for (row = 0; row < numMonths[0]; row++) {
+			group = "";
+			this.maxRows = 4;
+			for (col = 0; col < numMonths[1]; col++) {
+				selectedDate = this._daylightSavingAdjust(new Date(drawYear, drawMonth, inst.selectedDay));
+				cornerClass = " ui-corner-all";
+				calender = "";
+				if (isMultiMonth) {
+					calender += "<div class='ui-datepicker-group";
+					if (numMonths[1] > 1) {
+						switch (col) {
+							case 0: calender += " ui-datepicker-group-first";
+								cornerClass = " ui-corner-" + (isRTL ? "right" : "left"); break;
+							case numMonths[1]-1: calender += " ui-datepicker-group-last";
+								cornerClass = " ui-corner-" + (isRTL ? "left" : "right"); break;
+							default: calender += " ui-datepicker-group-middle"; cornerClass = ""; break;
+						}
+					}
+					calender += "'>";
+				}
+				calender += "<div class='ui-datepicker-header ui-widget-header ui-helper-clearfix" + cornerClass + "'>" +
+					(/all|left/.test(cornerClass) && row === 0 ? (isRTL ? next : prev) : "") +
+					(/all|right/.test(cornerClass) && row === 0 ? (isRTL ? prev : next) : "") +
+					this._generateMonthYearHeader(inst, drawMonth, drawYear, minDate, maxDate,
+					row > 0 || col > 0, monthNames, monthNamesShort) + // draw month headers
+					"</div><table class='ui-datepicker-calendar'><thead>" +
+					"<tr>";
+				thead = (showWeek ? "<th class='ui-datepicker-week-col'>" + this._get(inst, "weekHeader") + "</th>" : "");
+				for (dow = 0; dow < 7; dow++) { // days of the week
+					day = (dow + firstDay) % 7;
+					thead += "<th scope='col'" + ((dow + firstDay + 6) % 7 >= 5 ? " class='ui-datepicker-week-end'" : "") + ">" +
+						"<span title='" + dayNames[day] + "'>" + dayNamesMin[day] + "</span></th>";
+				}
+				calender += thead + "</tr></thead><tbody>";
+				daysInMonth = this._getDaysInMonth(drawYear, drawMonth);
+				if (drawYear === inst.selectedYear && drawMonth === inst.selectedMonth) {
+					inst.selectedDay = Math.min(inst.selectedDay, daysInMonth);
+				}
+				leadDays = (this._getFirstDayOfMonth(drawYear, drawMonth) - firstDay + 7) % 7;
+				curRows = Math.ceil((leadDays + daysInMonth) / 7); // calculate the number of rows to generate
+				numRows = (isMultiMonth ? this.maxRows > curRows ? this.maxRows : curRows : curRows); //If multiple months, use the higher number of rows (see #7043)
+				this.maxRows = numRows;
+				printDate = this._daylightSavingAdjust(new Date(drawYear, drawMonth, 1 - leadDays));
+				for (dRow = 0; dRow < numRows; dRow++) { // create date picker rows
+					calender += "<tr>";
+					tbody = (!showWeek ? "" : "<td class='ui-datepicker-week-col'>" +
+						this._get(inst, "calculateWeek")(printDate) + "</td>");
+					for (dow = 0; dow < 7; dow++) { // create date picker days
+						daySettings = (beforeShowDay ?
+							beforeShowDay.apply((inst.input ? inst.input[0] : null), [printDate]) : [true, ""]);
+						otherMonth = (printDate.getMonth() !== drawMonth);
+						unselectable = (otherMonth && !selectOtherMonths) || !daySettings[0] ||
+							(minDate && printDate < minDate) || (maxDate && printDate > maxDate);
+						tbody += "<td class='" +
+							((dow + firstDay + 6) % 7 >= 5 ? " ui-datepicker-week-end" : "") + // highlight weekends
+							(otherMonth ? " ui-datepicker-other-month" : "") + // highlight days from other months
+							((printDate.getTime() === selectedDate.getTime() && drawMonth === inst.selectedMonth && inst._keyEvent) || // user pressed key
+							(defaultDate.getTime() === printDate.getTime() && defaultDate.getTime() === selectedDate.getTime()) ?
+							// or defaultDate is current printedDate and defaultDate is selectedDate
+							" " + this._dayOverClass : "") + // highlight selected day
+							(unselectable ? " " + this._unselectableClass + " ui-state-disabled": "") +  // highlight unselectable days
+							(otherMonth && !showOtherMonths ? "" : " " + daySettings[1] + // highlight custom dates
+							(printDate.getTime() === currentDate.getTime() ? " " + this._currentClass : "") + // highlight selected day
+							(printDate.getTime() === today.getTime() ? " ui-datepicker-today" : "")) + "'" + // highlight today (if different)
+							((!otherMonth || showOtherMonths) && daySettings[2] ? " title='" + daySettings[2].replace(/'/g, "&#39;") + "'" : "") + // cell title
+							(unselectable ? "" : " data-handler='selectDay' data-event='click' data-month='" + printDate.getMonth() + "' data-year='" + printDate.getFullYear() + "'") + ">" + // actions
+							(otherMonth && !showOtherMonths ? "&#xa0;" : // display for other months
+							(unselectable ? "<span class='ui-state-default'>" + printDate.getDate() + "</span>" : "<a class='ui-state-default" +
+							(printDate.getTime() === today.getTime() ? " ui-state-highlight" : "") +
+							(printDate.getTime() === currentDate.getTime() ? " ui-state-active" : "") + // highlight selected day
+							(otherMonth ? " ui-priority-secondary" : "") + // distinguish dates from other months
+							"' href='#'>" + printDate.getDate() + "</a>")) + "</td>"; // display selectable date
+						printDate.setDate(printDate.getDate() + 1);
+						printDate = this._daylightSavingAdjust(printDate);
+					}
+					calender += tbody + "</tr>";
+				}
+				drawMonth++;
+				if (drawMonth > 11) {
+					drawMonth = 0;
+					drawYear++;
+				}
+				calender += "</tbody></table>" + (isMultiMonth ? "</div>" +
+							((numMonths[0] > 0 && col === numMonths[1]-1) ? "<div class='ui-datepicker-row-break'></div>" : "") : "");
+				group += calender;
+			}
+			html += group;
+		}
+		html += buttonPanel;
+		inst._keyEvent = false;
+		return html;
+	},
+
+	/* Generate the month and year header. */
+	_generateMonthYearHeader: function(inst, drawMonth, drawYear, minDate, maxDate,
+			secondary, monthNames, monthNamesShort) {
+
+		var inMinYear, inMaxYear, month, years, thisYear, determineYear, year, endYear,
+			changeMonth = this._get(inst, "changeMonth"),
+			changeYear = this._get(inst, "changeYear"),
+			showMonthAfterYear = this._get(inst, "showMonthAfterYear"),
+			html = "<div class='ui-datepicker-title'>",
+			monthHtml = "";
+
+		// month selection
+		if (secondary || !changeMonth) {
+			monthHtml += "<span class='ui-datepicker-month'>" + monthNames[drawMonth] + "</span>";
+		} else {
+			inMinYear = (minDate && minDate.getFullYear() === drawYear);
+			inMaxYear = (maxDate && maxDate.getFullYear() === drawYear);
+			monthHtml += "<select class='ui-datepicker-month' data-handler='selectMonth' data-event='change'>";
+			for ( month = 0; month < 12; month++) {
+				if ((!inMinYear || month >= minDate.getMonth()) && (!inMaxYear || month <= maxDate.getMonth())) {
+					monthHtml += "<option value='" + month + "'" +
+						(month === drawMonth ? " selected='selected'" : "") +
+						">" + monthNamesShort[month] + "</option>";
+				}
+			}
+			monthHtml += "</select>";
+		}
+
+		if (!showMonthAfterYear) {
+			html += monthHtml + (secondary || !(changeMonth && changeYear) ? "&#xa0;" : "");
+		}
+
+		// year selection
+		if ( !inst.yearshtml ) {
+			inst.yearshtml = "";
+			if (secondary || !changeYear) {
+				html += "<span class='ui-datepicker-year'>" + drawYear + "</span>";
+			} else {
+				// determine range of years to display
+				years = this._get(inst, "yearRange").split(":");
+				thisYear = new Date().getFullYear();
+				determineYear = function(value) {
+					var year = (value.match(/c[+\-].*/) ? drawYear + parseInt(value.substring(1), 10) :
+						(value.match(/[+\-].*/) ? thisYear + parseInt(value, 10) :
+						parseInt(value, 10)));
+					return (isNaN(year) ? thisYear : year);
+				};
+				year = determineYear(years[0]);
+				endYear = Math.max(year, determineYear(years[1] || ""));
+				year = (minDate ? Math.max(year, minDate.getFullYear()) : year);
+				endYear = (maxDate ? Math.min(endYear, maxDate.getFullYear()) : endYear);
+				inst.yearshtml += "<select class='ui-datepicker-year' data-handler='selectYear' data-event='change'>";
+				for (; year <= endYear; year++) {
+					inst.yearshtml += "<option value='" + year + "'" +
+						(year === drawYear ? " selected='selected'" : "") +
+						">" + year + "</option>";
+				}
+				inst.yearshtml += "</select>";
+
+				html += inst.yearshtml;
+				inst.yearshtml = null;
+			}
+		}
+
+		html += this._get(inst, "yearSuffix");
+		if (showMonthAfterYear) {
+			html += (secondary || !(changeMonth && changeYear) ? "&#xa0;" : "") + monthHtml;
+		}
+		html += "</div>"; // Close datepicker_header
+		return html;
+	},
+
+	/* Adjust one of the date sub-fields. */
+	_adjustInstDate: function(inst, offset, period) {
+		var year = inst.drawYear + (period === "Y" ? offset : 0),
+			month = inst.drawMonth + (period === "M" ? offset : 0),
+			day = Math.min(inst.selectedDay, this._getDaysInMonth(year, month)) + (period === "D" ? offset : 0),
+			date = this._restrictMinMax(inst, this._daylightSavingAdjust(new Date(year, month, day)));
+
+		inst.selectedDay = date.getDate();
+		inst.drawMonth = inst.selectedMonth = date.getMonth();
+		inst.drawYear = inst.selectedYear = date.getFullYear();
+		if (period === "M" || period === "Y") {
+			this._notifyChange(inst);
+		}
+	},
+
+	/* Ensure a date is within any min/max bounds. */
+	_restrictMinMax: function(inst, date) {
+		var minDate = this._getMinMaxDate(inst, "min"),
+			maxDate = this._getMinMaxDate(inst, "max"),
+			newDate = (minDate && date < minDate ? minDate : date);
+		return (maxDate && newDate > maxDate ? maxDate : newDate);
+	},
+
+	/* Notify change of month/year. */
+	_notifyChange: function(inst) {
+		var onChange = this._get(inst, "onChangeMonthYear");
+		if (onChange) {
+			onChange.apply((inst.input ? inst.input[0] : null),
+				[inst.selectedYear, inst.selectedMonth + 1, inst]);
+		}
+	},
+
+	/* Determine the number of months to show. */
+	_getNumberOfMonths: function(inst) {
+		var numMonths = this._get(inst, "numberOfMonths");
+		return (numMonths == null ? [1, 1] : (typeof numMonths === "number" ? [1, numMonths] : numMonths));
+	},
+
+	/* Determine the current maximum date - ensure no time components are set. */
+	_getMinMaxDate: function(inst, minMax) {
+		return this._determineDate(inst, this._get(inst, minMax + "Date"), null);
+	},
+
+	/* Find the number of days in a given month. */
+	_getDaysInMonth: function(year, month) {
+		return 32 - this._daylightSavingAdjust(new Date(year, month, 32)).getDate();
+	},
+
+	/* Find the day of the week of the first of a month. */
+	_getFirstDayOfMonth: function(year, month) {
+		return new Date(year, month, 1).getDay();
+	},
+
+	/* Determines if we should allow a "next/prev" month display change. */
+	_canAdjustMonth: function(inst, offset, curYear, curMonth) {
+		var numMonths = this._getNumberOfMonths(inst),
+			date = this._daylightSavingAdjust(new Date(curYear,
+			curMonth + (offset < 0 ? offset : numMonths[0] * numMonths[1]), 1));
+
+		if (offset < 0) {
+			date.setDate(this._getDaysInMonth(date.getFullYear(), date.getMonth()));
+		}
+		return this._isInRange(inst, date);
+	},
+
+	/* Is the given date in the accepted range? */
+	_isInRange: function(inst, date) {
+		var yearSplit, currentYear,
+			minDate = this._getMinMaxDate(inst, "min"),
+			maxDate = this._getMinMaxDate(inst, "max"),
+			minYear = null,
+			maxYear = null,
+			years = this._get(inst, "yearRange");
+			if (years){
+				yearSplit = years.split(":");
+				currentYear = new Date().getFullYear();
+				minYear = parseInt(yearSplit[0], 10);
+				maxYear = parseInt(yearSplit[1], 10);
+				if ( yearSplit[0].match(/[+\-].*/) ) {
+					minYear += currentYear;
+				}
+				if ( yearSplit[1].match(/[+\-].*/) ) {
+					maxYear += currentYear;
+				}
+			}
+
+		return ((!minDate || date.getTime() >= minDate.getTime()) &&
+			(!maxDate || date.getTime() <= maxDate.getTime()) &&
+			(!minYear || date.getFullYear() >= minYear) &&
+			(!maxYear || date.getFullYear() <= maxYear));
+	},
+
+	/* Provide the configuration settings for formatting/parsing. */
+	_getFormatConfig: function(inst) {
+		var shortYearCutoff = this._get(inst, "shortYearCutoff");
+		shortYearCutoff = (typeof shortYearCutoff !== "string" ? shortYearCutoff :
+			new Date().getFullYear() % 100 + parseInt(shortYearCutoff, 10));
+		return {shortYearCutoff: shortYearCutoff,
+			dayNamesShort: this._get(inst, "dayNamesShort"), dayNames: this._get(inst, "dayNames"),
+			monthNamesShort: this._get(inst, "monthNamesShort"), monthNames: this._get(inst, "monthNames")};
+	},
+
+	/* Format the given date for display. */
+	_formatDate: function(inst, day, month, year) {
+		if (!day) {
+			inst.currentDay = inst.selectedDay;
+			inst.currentMonth = inst.selectedMonth;
+			inst.currentYear = inst.selectedYear;
+		}
+		var date = (day ? (typeof day === "object" ? day :
+			this._daylightSavingAdjust(new Date(year, month, day))) :
+			this._daylightSavingAdjust(new Date(inst.currentYear, inst.currentMonth, inst.currentDay)));
+		return this.formatDate(this._get(inst, "dateFormat"), date, this._getFormatConfig(inst));
+	}
+});
+
+/*
+ * Bind hover events for datepicker elements.
+ * Done via delegate so the binding only occurs once in the lifetime of the parent div.
+ * Global datepicker_instActive, set by _updateDatepicker allows the handlers to find their way back to the active picker.
+ */
+function datepicker_bindHover(dpDiv) {
+	var selector = "button, .ui-datepicker-prev, .ui-datepicker-next, .ui-datepicker-calendar td a";
+	return dpDiv.delegate(selector, "mouseout", function() {
+			$(this).removeClass("ui-state-hover");
+			if (this.className.indexOf("ui-datepicker-prev") !== -1) {
+				$(this).removeClass("ui-datepicker-prev-hover");
+			}
+			if (this.className.indexOf("ui-datepicker-next") !== -1) {
+				$(this).removeClass("ui-datepicker-next-hover");
+			}
+		})
+		.delegate( selector, "mouseover", datepicker_handleMouseover );
+}
+
+function datepicker_handleMouseover() {
+	if (!$.datepicker._isDisabledDatepicker( datepicker_instActive.inline? datepicker_instActive.dpDiv.parent()[0] : datepicker_instActive.input[0])) {
+		$(this).parents(".ui-datepicker-calendar").find("a").removeClass("ui-state-hover");
+		$(this).addClass("ui-state-hover");
+		if (this.className.indexOf("ui-datepicker-prev") !== -1) {
+			$(this).addClass("ui-datepicker-prev-hover");
+		}
+		if (this.className.indexOf("ui-datepicker-next") !== -1) {
+			$(this).addClass("ui-datepicker-next-hover");
+		}
+	}
+}
+
+/* jQuery extend now ignores nulls! */
+function datepicker_extendRemove(target, props) {
+	$.extend(target, props);
+	for (var name in props) {
+		if (props[name] == null) {
+			target[name] = props[name];
+		}
+	}
+	return target;
+}
+
+/* Invoke the datepicker functionality.
+   @param  options  string - a command, optionally followed by additional parameters or
+					Object - settings for attaching new datepicker functionality
+   @return  jQuery object */
+$.fn.datepicker = function(options){
+
+	/* Verify an empty collection wasn't passed - Fixes #6976 */
+	if ( !this.length ) {
+		return this;
+	}
+
+	/* Initialise the date picker. */
+	if (!$.datepicker.initialized) {
+		$(document).mousedown($.datepicker._checkExternalClick);
+		$.datepicker.initialized = true;
+	}
+
+	/* Append datepicker main container to body if not exist. */
+	if ($("#"+$.datepicker._mainDivId).length === 0) {
+		$("body").append($.datepicker.dpDiv);
+	}
+
+	var otherArgs = Array.prototype.slice.call(arguments, 1);
+	if (typeof options === "string" && (options === "isDisabled" || options === "getDate" || options === "widget")) {
+		return $.datepicker["_" + options + "Datepicker"].
+			apply($.datepicker, [this[0]].concat(otherArgs));
+	}
+	if (options === "option" && arguments.length === 2 && typeof arguments[1] === "string") {
+		return $.datepicker["_" + options + "Datepicker"].
+			apply($.datepicker, [this[0]].concat(otherArgs));
+	}
+	return this.each(function() {
+		typeof options === "string" ?
+			$.datepicker["_" + options + "Datepicker"].
+				apply($.datepicker, [this].concat(otherArgs)) :
+			$.datepicker._attachDatepicker(this, options);
+	});
+};
+
+$.datepicker = new Datepicker(); // singleton instance
+$.datepicker.initialized = false;
+$.datepicker.uuid = new Date().getTime();
+$.datepicker.version = "1.11.4";
+
+var datepicker = $.datepicker;
+
+
 /*!
  * jQuery UI Progressbar 1.11.4
  * http://jqueryui.com
@@ -167,7 +10078,141 @@ I.extend(I.ui,{datepicker:{version:"1.11.4"}});var l;function t(ae){var ad,af;wh
  *
  * http://api.jqueryui.com/progressbar/
  */
-var U=I.widget("ui.progressbar",{version:"1.11.4",options:{max:100,value:0,change:null,complete:null},min:0,_create:function(){this.oldValue=this.options.value=this._constrainedValue();this.element.addClass("ui-progressbar ui-widget ui-widget-content ui-corner-all").attr({role:"progressbar","aria-valuemin":this.min});this.valueDiv=I("<div class='ui-progressbar-value ui-widget-header ui-corner-left'></div>").appendTo(this.element);this._refreshValue()},_destroy:function(){this.element.removeClass("ui-progressbar ui-widget ui-widget-content ui-corner-all").removeAttr("role").removeAttr("aria-valuemin").removeAttr("aria-valuemax").removeAttr("aria-valuenow");this.valueDiv.remove()},value:function(ad){if(ad===undefined){return this.options.value}this.options.value=this._constrainedValue(ad);this._refreshValue()},_constrainedValue:function(ad){if(ad===undefined){ad=this.options.value}this.indeterminate=ad===false;if(typeof ad!=="number"){ad=0}return this.indeterminate?false:Math.min(this.options.max,Math.max(this.min,ad))},_setOptions:function(ad){var ae=ad.value;delete ad.value;this._super(ad);this.options.value=this._constrainedValue(ae);this._refreshValue()},_setOption:function(ad,ae){if(ad==="max"){ae=Math.max(this.min,ae)}if(ad==="disabled"){this.element.toggleClass("ui-state-disabled",!!ae).attr("aria-disabled",ae)}this._super(ad,ae)},_percentage:function(){return this.indeterminate?100:100*(this.options.value-this.min)/(this.options.max-this.min)},_refreshValue:function(){var ae=this.options.value,ad=this._percentage();this.valueDiv.toggle(this.indeterminate||ae>this.min).toggleClass("ui-corner-right",ae===this.options.max).width(ad.toFixed(0)+"%");this.element.toggleClass("ui-progressbar-indeterminate",this.indeterminate);if(this.indeterminate){this.element.removeAttr("aria-valuenow");if(!this.overlayDiv){this.overlayDiv=I("<div class='ui-progressbar-overlay'></div>").appendTo(this.valueDiv)}}else{this.element.attr({"aria-valuemax":this.options.max,"aria-valuenow":ae});if(this.overlayDiv){this.overlayDiv.remove();this.overlayDiv=null}}if(this.oldValue!==ae){this.oldValue=ae;this._trigger("change")}if(ae===this.options.max){this._trigger("complete")}}});
+
+
+var progressbar = $.widget( "ui.progressbar", {
+	version: "1.11.4",
+	options: {
+		max: 100,
+		value: 0,
+
+		change: null,
+		complete: null
+	},
+
+	min: 0,
+
+	_create: function() {
+		// Constrain initial value
+		this.oldValue = this.options.value = this._constrainedValue();
+
+		this.element
+			.addClass( "ui-progressbar ui-widget ui-widget-content ui-corner-all" )
+			.attr({
+				// Only set static values, aria-valuenow and aria-valuemax are
+				// set inside _refreshValue()
+				role: "progressbar",
+				"aria-valuemin": this.min
+			});
+
+		this.valueDiv = $( "<div class='ui-progressbar-value ui-widget-header ui-corner-left'></div>" )
+			.appendTo( this.element );
+
+		this._refreshValue();
+	},
+
+	_destroy: function() {
+		this.element
+			.removeClass( "ui-progressbar ui-widget ui-widget-content ui-corner-all" )
+			.removeAttr( "role" )
+			.removeAttr( "aria-valuemin" )
+			.removeAttr( "aria-valuemax" )
+			.removeAttr( "aria-valuenow" );
+
+		this.valueDiv.remove();
+	},
+
+	value: function( newValue ) {
+		if ( newValue === undefined ) {
+			return this.options.value;
+		}
+
+		this.options.value = this._constrainedValue( newValue );
+		this._refreshValue();
+	},
+
+	_constrainedValue: function( newValue ) {
+		if ( newValue === undefined ) {
+			newValue = this.options.value;
+		}
+
+		this.indeterminate = newValue === false;
+
+		// sanitize value
+		if ( typeof newValue !== "number" ) {
+			newValue = 0;
+		}
+
+		return this.indeterminate ? false :
+			Math.min( this.options.max, Math.max( this.min, newValue ) );
+	},
+
+	_setOptions: function( options ) {
+		// Ensure "value" option is set after other values (like max)
+		var value = options.value;
+		delete options.value;
+
+		this._super( options );
+
+		this.options.value = this._constrainedValue( value );
+		this._refreshValue();
+	},
+
+	_setOption: function( key, value ) {
+		if ( key === "max" ) {
+			// Don't allow a max less than min
+			value = Math.max( this.min, value );
+		}
+		if ( key === "disabled" ) {
+			this.element
+				.toggleClass( "ui-state-disabled", !!value )
+				.attr( "aria-disabled", value );
+		}
+		this._super( key, value );
+	},
+
+	_percentage: function() {
+		return this.indeterminate ? 100 : 100 * ( this.options.value - this.min ) / ( this.options.max - this.min );
+	},
+
+	_refreshValue: function() {
+		var value = this.options.value,
+			percentage = this._percentage();
+
+		this.valueDiv
+			.toggle( this.indeterminate || value > this.min )
+			.toggleClass( "ui-corner-right", value === this.options.max )
+			.width( percentage.toFixed(0) + "%" );
+
+		this.element.toggleClass( "ui-progressbar-indeterminate", this.indeterminate );
+
+		if ( this.indeterminate ) {
+			this.element.removeAttr( "aria-valuenow" );
+			if ( !this.overlayDiv ) {
+				this.overlayDiv = $( "<div class='ui-progressbar-overlay'></div>" ).appendTo( this.valueDiv );
+			}
+		} else {
+			this.element.attr({
+				"aria-valuemax": this.options.max,
+				"aria-valuenow": value
+			});
+			if ( this.overlayDiv ) {
+				this.overlayDiv.remove();
+				this.overlayDiv = null;
+			}
+		}
+
+		if ( this.oldValue !== value ) {
+			this.oldValue = value;
+			this._trigger( "change" );
+		}
+		if ( value === this.options.max ) {
+			this._trigger( "complete" );
+		}
+	}
+});
+
+
 /*!
  * jQuery UI Selectmenu 1.11.4
  * http://jqueryui.com
@@ -178,7 +10223,595 @@ var U=I.widget("ui.progressbar",{version:"1.11.4",options:{max:100,value:0,chang
  *
  * http://api.jqueryui.com/selectmenu
  */
-var V=I.widget("ui.selectmenu",{version:"1.11.4",defaultElement:"<select>",options:{appendTo:null,disabled:null,icons:{button:"ui-icon-triangle-1-s"},position:{my:"left top",at:"left bottom",collision:"none"},width:null,change:null,close:null,focus:null,open:null,select:null},_create:function(){var ad=this.element.uniqueId().attr("id");this.ids={element:ad,button:ad+"-button",menu:ad+"-menu"};this._drawButton();this._drawMenu();if(this.options.disabled){this.disable()}},_drawButton:function(){var ad=this;this.label=I("label[for='"+this.ids.element+"']").attr("for",this.ids.button);this._on(this.label,{click:function(ae){this.button.focus();ae.preventDefault()}});this.element.hide();this.button=I("<span>",{"class":"ui-selectmenu-button ui-widget ui-state-default ui-corner-all",tabindex:this.options.disabled?-1:0,id:this.ids.button,role:"combobox","aria-expanded":"false","aria-autocomplete":"list","aria-owns":this.ids.menu,"aria-haspopup":"true"}).insertAfter(this.element);I("<span>",{"class":"ui-icon "+this.options.icons.button}).prependTo(this.button);this.buttonText=I("<span>",{"class":"ui-selectmenu-text"}).appendTo(this.button);this._setText(this.buttonText,this.element.find("option:selected").text());this._resizeButton();this._on(this.button,this._buttonEvents);this.button.one("focusin",function(){if(!ad.menuItems){ad._refreshMenu()}});this._hoverable(this.button);this._focusable(this.button)},_drawMenu:function(){var ad=this;this.menu=I("<ul>",{"aria-hidden":"true","aria-labelledby":this.ids.button,id:this.ids.menu});this.menuWrap=I("<div>",{"class":"ui-selectmenu-menu ui-front"}).append(this.menu).appendTo(this._appendTo());this.menuInstance=this.menu.menu({role:"listbox",select:function(ae,af){ae.preventDefault();ad._setSelection();ad._select(af.item.data("ui-selectmenu-item"),ae)},focus:function(af,ag){var ae=ag.item.data("ui-selectmenu-item");if(ad.focusIndex!=null&&ae.index!==ad.focusIndex){ad._trigger("focus",af,{item:ae});if(!ad.isOpen){ad._select(ae,af)}}ad.focusIndex=ae.index;ad.button.attr("aria-activedescendant",ad.menuItems.eq(ae.index).attr("id"))}}).menu("instance");this.menu.addClass("ui-corner-bottom").removeClass("ui-corner-all");this.menuInstance._off(this.menu,"mouseleave");this.menuInstance._closeOnDocumentClick=function(){return false};this.menuInstance._isDivider=function(){return false}},refresh:function(){this._refreshMenu();this._setText(this.buttonText,this._getSelectedItem().text());if(!this.options.width){this._resizeButton()}},_refreshMenu:function(){this.menu.empty();var ae,ad=this.element.find("option");if(!ad.length){return}this._parseOptions(ad);this._renderMenu(this.menu,this.items);this.menuInstance.refresh();this.menuItems=this.menu.find("li").not(".ui-selectmenu-optgroup");ae=this._getSelectedItem();this.menuInstance.focus(null,ae);this._setAria(ae.data("ui-selectmenu-item"));this._setOption("disabled",this.element.prop("disabled"))},open:function(ad){if(this.options.disabled){return}if(!this.menuItems){this._refreshMenu()}else{this.menu.find(".ui-state-focus").removeClass("ui-state-focus");this.menuInstance.focus(null,this._getSelectedItem())}this.isOpen=true;this._toggleAttr();this._resizeMenu();this._position();this._on(this.document,this._documentClick);this._trigger("open",ad)},_position:function(){this.menuWrap.position(I.extend({of:this.button},this.options.position))},close:function(ad){if(!this.isOpen){return}this.isOpen=false;this._toggleAttr();this.range=null;this._off(this.document);this._trigger("close",ad)},widget:function(){return this.button},menuWidget:function(){return this.menu},_renderMenu:function(af,ae){var ag=this,ad="";I.each(ae,function(ah,ai){if(ai.optgroup!==ad){I("<li>",{"class":"ui-selectmenu-optgroup ui-menu-divider"+(ai.element.parent("optgroup").prop("disabled")?" ui-state-disabled":""),text:ai.optgroup}).appendTo(af);ad=ai.optgroup}ag._renderItemData(af,ai)})},_renderItemData:function(ad,ae){return this._renderItem(ad,ae).data("ui-selectmenu-item",ae)},_renderItem:function(ae,af){var ad=I("<li>");if(af.disabled){ad.addClass("ui-state-disabled")}this._setText(ad,af.label);return ad.appendTo(ae)},_setText:function(ad,ae){if(ae){ad.text(ae)}else{ad.html("&#160;")}},_move:function(ah,ag){var af,ae,ad=".ui-menu-item";if(this.isOpen){af=this.menuItems.eq(this.focusIndex)}else{af=this.menuItems.eq(this.element[0].selectedIndex);ad+=":not(.ui-state-disabled)"}if(ah==="first"||ah==="last"){ae=af[ah==="first"?"prevAll":"nextAll"](ad).eq(-1)}else{ae=af[ah+"All"](ad).eq(0)}if(ae.length){this.menuInstance.focus(ag,ae)}},_getSelectedItem:function(){return this.menuItems.eq(this.element[0].selectedIndex)},_toggle:function(ad){this[this.isOpen?"close":"open"](ad)},_setSelection:function(){var ad;if(!this.range){return}if(window.getSelection){ad=window.getSelection();ad.removeAllRanges();ad.addRange(this.range)}else{this.range.select()}this.button.focus()},_documentClick:{mousedown:function(ad){if(!this.isOpen){return}if(!I(ad.target).closest(".ui-selectmenu-menu, #"+this.ids.button).length){this.close(ad)}}},_buttonEvents:{mousedown:function(){var ad;if(window.getSelection){ad=window.getSelection();if(ad.rangeCount){this.range=ad.getRangeAt(0)}}else{this.range=document.selection.createRange()}},click:function(ad){this._setSelection();this._toggle(ad)},keydown:function(ae){var ad=true;switch(ae.keyCode){case I.ui.keyCode.TAB:case I.ui.keyCode.ESCAPE:this.close(ae);ad=false;break;case I.ui.keyCode.ENTER:if(this.isOpen){this._selectFocusedItem(ae)}break;case I.ui.keyCode.UP:if(ae.altKey){this._toggle(ae)}else{this._move("prev",ae)}break;case I.ui.keyCode.DOWN:if(ae.altKey){this._toggle(ae)}else{this._move("next",ae)}break;case I.ui.keyCode.SPACE:if(this.isOpen){this._selectFocusedItem(ae)}else{this._toggle(ae)}break;case I.ui.keyCode.LEFT:this._move("prev",ae);break;case I.ui.keyCode.RIGHT:this._move("next",ae);break;case I.ui.keyCode.HOME:case I.ui.keyCode.PAGE_UP:this._move("first",ae);break;case I.ui.keyCode.END:case I.ui.keyCode.PAGE_DOWN:this._move("last",ae);break;default:this.menu.trigger(ae);ad=false}if(ad){ae.preventDefault()}}},_selectFocusedItem:function(ae){var ad=this.menuItems.eq(this.focusIndex);if(!ad.hasClass("ui-state-disabled")){this._select(ad.data("ui-selectmenu-item"),ae)}},_select:function(ae,ad){var af=this.element[0].selectedIndex;this.element[0].selectedIndex=ae.index;this._setText(this.buttonText,ae.label);this._setAria(ae);this._trigger("select",ad,{item:ae});if(ae.index!==af){this._trigger("change",ad,{item:ae})}this.close(ad)},_setAria:function(ad){var ae=this.menuItems.eq(ad.index).attr("id");this.button.attr({"aria-labelledby":ae,"aria-activedescendant":ae});this.menu.attr("aria-activedescendant",ae)},_setOption:function(ad,ae){if(ad==="icons"){this.button.find("span.ui-icon").removeClass(this.options.icons.button).addClass(ae.button)}this._super(ad,ae);if(ad==="appendTo"){this.menuWrap.appendTo(this._appendTo())}if(ad==="disabled"){this.menuInstance.option("disabled",ae);this.button.toggleClass("ui-state-disabled",ae).attr("aria-disabled",ae);this.element.prop("disabled",ae);if(ae){this.button.attr("tabindex",-1);this.close()}else{this.button.attr("tabindex",0)}}if(ad==="width"){this._resizeButton()}},_appendTo:function(){var ad=this.options.appendTo;if(ad){ad=ad.jquery||ad.nodeType?I(ad):this.document.find(ad).eq(0)}if(!ad||!ad[0]){ad=this.element.closest(".ui-front")}if(!ad.length){ad=this.document[0].body}return ad},_toggleAttr:function(){this.button.toggleClass("ui-corner-top",this.isOpen).toggleClass("ui-corner-all",!this.isOpen).attr("aria-expanded",this.isOpen);this.menuWrap.toggleClass("ui-selectmenu-open",this.isOpen);this.menu.attr("aria-hidden",!this.isOpen)},_resizeButton:function(){var ad=this.options.width;if(!ad){ad=this.element.show().outerWidth();this.element.hide()}this.button.outerWidth(ad)},_resizeMenu:function(){this.menu.outerWidth(Math.max(this.button.outerWidth(),this.menu.width("").outerWidth()+1))},_getCreateOptions:function(){return{disabled:this.element.prop("disabled")}},_parseOptions:function(ad){var ae=[];ad.each(function(ag,ai){var ah=I(ai),af=ah.parent("optgroup");ae.push({element:ah,index:ag,value:ah.val(),label:ah.text(),optgroup:af.attr("label")||"",disabled:af.prop("disabled")||ah.prop("disabled")})});this.items=ae},_destroy:function(){this.menuWrap.remove();this.button.remove();this.element.show();this.element.removeUniqueId();this.label.attr("for",this.ids.element)}});
+
+
+var selectmenu = $.widget( "ui.selectmenu", {
+	version: "1.11.4",
+	defaultElement: "<select>",
+	options: {
+		appendTo: null,
+		disabled: null,
+		icons: {
+			button: "ui-icon-triangle-1-s"
+		},
+		position: {
+			my: "left top",
+			at: "left bottom",
+			collision: "none"
+		},
+		width: null,
+
+		// callbacks
+		change: null,
+		close: null,
+		focus: null,
+		open: null,
+		select: null
+	},
+
+	_create: function() {
+		var selectmenuId = this.element.uniqueId().attr( "id" );
+		this.ids = {
+			element: selectmenuId,
+			button: selectmenuId + "-button",
+			menu: selectmenuId + "-menu"
+		};
+
+		this._drawButton();
+		this._drawMenu();
+
+		if ( this.options.disabled ) {
+			this.disable();
+		}
+	},
+
+	_drawButton: function() {
+		var that = this;
+
+		// Associate existing label with the new button
+		this.label = $( "label[for='" + this.ids.element + "']" ).attr( "for", this.ids.button );
+		this._on( this.label, {
+			click: function( event ) {
+				this.button.focus();
+				event.preventDefault();
+			}
+		});
+
+		// Hide original select element
+		this.element.hide();
+
+		// Create button
+		this.button = $( "<span>", {
+			"class": "ui-selectmenu-button ui-widget ui-state-default ui-corner-all",
+			tabindex: this.options.disabled ? -1 : 0,
+			id: this.ids.button,
+			role: "combobox",
+			"aria-expanded": "false",
+			"aria-autocomplete": "list",
+			"aria-owns": this.ids.menu,
+			"aria-haspopup": "true"
+		})
+			.insertAfter( this.element );
+
+		$( "<span>", {
+			"class": "ui-icon " + this.options.icons.button
+		})
+			.prependTo( this.button );
+
+		this.buttonText = $( "<span>", {
+			"class": "ui-selectmenu-text"
+		})
+			.appendTo( this.button );
+
+		this._setText( this.buttonText, this.element.find( "option:selected" ).text() );
+		this._resizeButton();
+
+		this._on( this.button, this._buttonEvents );
+		this.button.one( "focusin", function() {
+
+			// Delay rendering the menu items until the button receives focus.
+			// The menu may have already been rendered via a programmatic open.
+			if ( !that.menuItems ) {
+				that._refreshMenu();
+			}
+		});
+		this._hoverable( this.button );
+		this._focusable( this.button );
+	},
+
+	_drawMenu: function() {
+		var that = this;
+
+		// Create menu
+		this.menu = $( "<ul>", {
+			"aria-hidden": "true",
+			"aria-labelledby": this.ids.button,
+			id: this.ids.menu
+		});
+
+		// Wrap menu
+		this.menuWrap = $( "<div>", {
+			"class": "ui-selectmenu-menu ui-front"
+		})
+			.append( this.menu )
+			.appendTo( this._appendTo() );
+
+		// Initialize menu widget
+		this.menuInstance = this.menu
+			.menu({
+				role: "listbox",
+				select: function( event, ui ) {
+					event.preventDefault();
+
+					// support: IE8
+					// If the item was selected via a click, the text selection
+					// will be destroyed in IE
+					that._setSelection();
+
+					that._select( ui.item.data( "ui-selectmenu-item" ), event );
+				},
+				focus: function( event, ui ) {
+					var item = ui.item.data( "ui-selectmenu-item" );
+
+					// Prevent inital focus from firing and check if its a newly focused item
+					if ( that.focusIndex != null && item.index !== that.focusIndex ) {
+						that._trigger( "focus", event, { item: item } );
+						if ( !that.isOpen ) {
+							that._select( item, event );
+						}
+					}
+					that.focusIndex = item.index;
+
+					that.button.attr( "aria-activedescendant",
+						that.menuItems.eq( item.index ).attr( "id" ) );
+				}
+			})
+			.menu( "instance" );
+
+		// Adjust menu styles to dropdown
+		this.menu
+			.addClass( "ui-corner-bottom" )
+			.removeClass( "ui-corner-all" );
+
+		// Don't close the menu on mouseleave
+		this.menuInstance._off( this.menu, "mouseleave" );
+
+		// Cancel the menu's collapseAll on document click
+		this.menuInstance._closeOnDocumentClick = function() {
+			return false;
+		};
+
+		// Selects often contain empty items, but never contain dividers
+		this.menuInstance._isDivider = function() {
+			return false;
+		};
+	},
+
+	refresh: function() {
+		this._refreshMenu();
+		this._setText( this.buttonText, this._getSelectedItem().text() );
+		if ( !this.options.width ) {
+			this._resizeButton();
+		}
+	},
+
+	_refreshMenu: function() {
+		this.menu.empty();
+
+		var item,
+			options = this.element.find( "option" );
+
+		if ( !options.length ) {
+			return;
+		}
+
+		this._parseOptions( options );
+		this._renderMenu( this.menu, this.items );
+
+		this.menuInstance.refresh();
+		this.menuItems = this.menu.find( "li" ).not( ".ui-selectmenu-optgroup" );
+
+		item = this._getSelectedItem();
+
+		// Update the menu to have the correct item focused
+		this.menuInstance.focus( null, item );
+		this._setAria( item.data( "ui-selectmenu-item" ) );
+
+		// Set disabled state
+		this._setOption( "disabled", this.element.prop( "disabled" ) );
+	},
+
+	open: function( event ) {
+		if ( this.options.disabled ) {
+			return;
+		}
+
+		// If this is the first time the menu is being opened, render the items
+		if ( !this.menuItems ) {
+			this._refreshMenu();
+		} else {
+
+			// Menu clears focus on close, reset focus to selected item
+			this.menu.find( ".ui-state-focus" ).removeClass( "ui-state-focus" );
+			this.menuInstance.focus( null, this._getSelectedItem() );
+		}
+
+		this.isOpen = true;
+		this._toggleAttr();
+		this._resizeMenu();
+		this._position();
+
+		this._on( this.document, this._documentClick );
+
+		this._trigger( "open", event );
+	},
+
+	_position: function() {
+		this.menuWrap.position( $.extend( { of: this.button }, this.options.position ) );
+	},
+
+	close: function( event ) {
+		if ( !this.isOpen ) {
+			return;
+		}
+
+		this.isOpen = false;
+		this._toggleAttr();
+
+		this.range = null;
+		this._off( this.document );
+
+		this._trigger( "close", event );
+	},
+
+	widget: function() {
+		return this.button;
+	},
+
+	menuWidget: function() {
+		return this.menu;
+	},
+
+	_renderMenu: function( ul, items ) {
+		var that = this,
+			currentOptgroup = "";
+
+		$.each( items, function( index, item ) {
+			if ( item.optgroup !== currentOptgroup ) {
+				$( "<li>", {
+					"class": "ui-selectmenu-optgroup ui-menu-divider" +
+						( item.element.parent( "optgroup" ).prop( "disabled" ) ?
+							" ui-state-disabled" :
+							"" ),
+					text: item.optgroup
+				})
+					.appendTo( ul );
+
+				currentOptgroup = item.optgroup;
+			}
+
+			that._renderItemData( ul, item );
+		});
+	},
+
+	_renderItemData: function( ul, item ) {
+		return this._renderItem( ul, item ).data( "ui-selectmenu-item", item );
+	},
+
+	_renderItem: function( ul, item ) {
+		var li = $( "<li>" );
+
+		if ( item.disabled ) {
+			li.addClass( "ui-state-disabled" );
+		}
+		this._setText( li, item.label );
+
+		return li.appendTo( ul );
+	},
+
+	_setText: function( element, value ) {
+		if ( value ) {
+			element.text( value );
+		} else {
+			element.html( "&#160;" );
+		}
+	},
+
+	_move: function( direction, event ) {
+		var item, next,
+			filter = ".ui-menu-item";
+
+		if ( this.isOpen ) {
+			item = this.menuItems.eq( this.focusIndex );
+		} else {
+			item = this.menuItems.eq( this.element[ 0 ].selectedIndex );
+			filter += ":not(.ui-state-disabled)";
+		}
+
+		if ( direction === "first" || direction === "last" ) {
+			next = item[ direction === "first" ? "prevAll" : "nextAll" ]( filter ).eq( -1 );
+		} else {
+			next = item[ direction + "All" ]( filter ).eq( 0 );
+		}
+
+		if ( next.length ) {
+			this.menuInstance.focus( event, next );
+		}
+	},
+
+	_getSelectedItem: function() {
+		return this.menuItems.eq( this.element[ 0 ].selectedIndex );
+	},
+
+	_toggle: function( event ) {
+		this[ this.isOpen ? "close" : "open" ]( event );
+	},
+
+	_setSelection: function() {
+		var selection;
+
+		if ( !this.range ) {
+			return;
+		}
+
+		if ( window.getSelection ) {
+			selection = window.getSelection();
+			selection.removeAllRanges();
+			selection.addRange( this.range );
+
+		// support: IE8
+		} else {
+			this.range.select();
+		}
+
+		// support: IE
+		// Setting the text selection kills the button focus in IE, but
+		// restoring the focus doesn't kill the selection.
+		this.button.focus();
+	},
+
+	_documentClick: {
+		mousedown: function( event ) {
+			if ( !this.isOpen ) {
+				return;
+			}
+
+			if ( !$( event.target ).closest( ".ui-selectmenu-menu, #" + this.ids.button ).length ) {
+				this.close( event );
+			}
+		}
+	},
+
+	_buttonEvents: {
+
+		// Prevent text selection from being reset when interacting with the selectmenu (#10144)
+		mousedown: function() {
+			var selection;
+
+			if ( window.getSelection ) {
+				selection = window.getSelection();
+				if ( selection.rangeCount ) {
+					this.range = selection.getRangeAt( 0 );
+				}
+
+			// support: IE8
+			} else {
+				this.range = document.selection.createRange();
+			}
+		},
+
+		click: function( event ) {
+			this._setSelection();
+			this._toggle( event );
+		},
+
+		keydown: function( event ) {
+			var preventDefault = true;
+			switch ( event.keyCode ) {
+				case $.ui.keyCode.TAB:
+				case $.ui.keyCode.ESCAPE:
+					this.close( event );
+					preventDefault = false;
+					break;
+				case $.ui.keyCode.ENTER:
+					if ( this.isOpen ) {
+						this._selectFocusedItem( event );
+					}
+					break;
+				case $.ui.keyCode.UP:
+					if ( event.altKey ) {
+						this._toggle( event );
+					} else {
+						this._move( "prev", event );
+					}
+					break;
+				case $.ui.keyCode.DOWN:
+					if ( event.altKey ) {
+						this._toggle( event );
+					} else {
+						this._move( "next", event );
+					}
+					break;
+				case $.ui.keyCode.SPACE:
+					if ( this.isOpen ) {
+						this._selectFocusedItem( event );
+					} else {
+						this._toggle( event );
+					}
+					break;
+				case $.ui.keyCode.LEFT:
+					this._move( "prev", event );
+					break;
+				case $.ui.keyCode.RIGHT:
+					this._move( "next", event );
+					break;
+				case $.ui.keyCode.HOME:
+				case $.ui.keyCode.PAGE_UP:
+					this._move( "first", event );
+					break;
+				case $.ui.keyCode.END:
+				case $.ui.keyCode.PAGE_DOWN:
+					this._move( "last", event );
+					break;
+				default:
+					this.menu.trigger( event );
+					preventDefault = false;
+			}
+
+			if ( preventDefault ) {
+				event.preventDefault();
+			}
+		}
+	},
+
+	_selectFocusedItem: function( event ) {
+		var item = this.menuItems.eq( this.focusIndex );
+		if ( !item.hasClass( "ui-state-disabled" ) ) {
+			this._select( item.data( "ui-selectmenu-item" ), event );
+		}
+	},
+
+	_select: function( item, event ) {
+		var oldIndex = this.element[ 0 ].selectedIndex;
+
+		// Change native select element
+		this.element[ 0 ].selectedIndex = item.index;
+		this._setText( this.buttonText, item.label );
+		this._setAria( item );
+		this._trigger( "select", event, { item: item } );
+
+		if ( item.index !== oldIndex ) {
+			this._trigger( "change", event, { item: item } );
+		}
+
+		this.close( event );
+	},
+
+	_setAria: function( item ) {
+		var id = this.menuItems.eq( item.index ).attr( "id" );
+
+		this.button.attr({
+			"aria-labelledby": id,
+			"aria-activedescendant": id
+		});
+		this.menu.attr( "aria-activedescendant", id );
+	},
+
+	_setOption: function( key, value ) {
+		if ( key === "icons" ) {
+			this.button.find( "span.ui-icon" )
+				.removeClass( this.options.icons.button )
+				.addClass( value.button );
+		}
+
+		this._super( key, value );
+
+		if ( key === "appendTo" ) {
+			this.menuWrap.appendTo( this._appendTo() );
+		}
+
+		if ( key === "disabled" ) {
+			this.menuInstance.option( "disabled", value );
+			this.button
+				.toggleClass( "ui-state-disabled", value )
+				.attr( "aria-disabled", value );
+
+			this.element.prop( "disabled", value );
+			if ( value ) {
+				this.button.attr( "tabindex", -1 );
+				this.close();
+			} else {
+				this.button.attr( "tabindex", 0 );
+			}
+		}
+
+		if ( key === "width" ) {
+			this._resizeButton();
+		}
+	},
+
+	_appendTo: function() {
+		var element = this.options.appendTo;
+
+		if ( element ) {
+			element = element.jquery || element.nodeType ?
+				$( element ) :
+				this.document.find( element ).eq( 0 );
+		}
+
+		if ( !element || !element[ 0 ] ) {
+			element = this.element.closest( ".ui-front" );
+		}
+
+		if ( !element.length ) {
+			element = this.document[ 0 ].body;
+		}
+
+		return element;
+	},
+
+	_toggleAttr: function() {
+		this.button
+			.toggleClass( "ui-corner-top", this.isOpen )
+			.toggleClass( "ui-corner-all", !this.isOpen )
+			.attr( "aria-expanded", this.isOpen );
+		this.menuWrap.toggleClass( "ui-selectmenu-open", this.isOpen );
+		this.menu.attr( "aria-hidden", !this.isOpen );
+	},
+
+	_resizeButton: function() {
+		var width = this.options.width;
+
+		if ( !width ) {
+			width = this.element.show().outerWidth();
+			this.element.hide();
+		}
+
+		this.button.outerWidth( width );
+	},
+
+	_resizeMenu: function() {
+		this.menu.outerWidth( Math.max(
+			this.button.outerWidth(),
+
+			// support: IE10
+			// IE10 wraps long text (possibly a rounding bug)
+			// so we add 1px to avoid the wrapping
+			this.menu.width( "" ).outerWidth() + 1
+		) );
+	},
+
+	_getCreateOptions: function() {
+		return { disabled: this.element.prop( "disabled" ) };
+	},
+
+	_parseOptions: function( options ) {
+		var data = [];
+		options.each(function( index, item ) {
+			var option = $( item ),
+				optgroup = option.parent( "optgroup" );
+			data.push({
+				element: option,
+				index: index,
+				value: option.val(),
+				label: option.text(),
+				optgroup: optgroup.attr( "label" ) || "",
+				disabled: optgroup.prop( "disabled" ) || option.prop( "disabled" )
+			});
+		});
+		this.items = data;
+	},
+
+	_destroy: function() {
+		this.menuWrap.remove();
+		this.button.remove();
+		this.element.show();
+		this.element.removeUniqueId();
+		this.label.attr( "for", this.ids.element );
+	}
+});
+
+
 /*!
  * jQuery UI Slider 1.11.4
  * http://jqueryui.com
@@ -189,7 +10822,698 @@ var V=I.widget("ui.selectmenu",{version:"1.11.4",defaultElement:"<select>",optio
  *
  * http://api.jqueryui.com/slider/
  */
-var g=I.widget("ui.slider",I.ui.mouse,{version:"1.11.4",widgetEventPrefix:"slide",options:{animate:false,distance:0,max:100,min:0,orientation:"horizontal",range:false,step:1,value:0,values:null,change:null,slide:null,start:null,stop:null},numPages:5,_create:function(){this._keySliding=false;this._mouseSliding=false;this._animateOff=true;this._handleIndex=null;this._detectOrientation();this._mouseInit();this._calculateNewMax();this.element.addClass("ui-slider ui-slider-"+this.orientation+" ui-widget ui-widget-content ui-corner-all");this._refresh();this._setOption("disabled",this.options.disabled);this._animateOff=false},_refresh:function(){this._createRange();this._createHandles();this._setupEvents();this._refreshValue()},_createHandles:function(){var ag,ad,ae=this.options,ai=this.element.find(".ui-slider-handle").addClass("ui-state-default ui-corner-all"),ah="<span class='ui-slider-handle ui-state-default ui-corner-all' tabindex='0'></span>",af=[];ad=(ae.values&&ae.values.length)||1;if(ai.length>ad){ai.slice(ad).remove();ai=ai.slice(0,ad)}for(ag=ai.length;ag<ad;ag++){af.push(ah)}this.handles=ai.add(I(af.join("")).appendTo(this.element));this.handle=this.handles.eq(0);this.handles.each(function(aj){I(this).data("ui-slider-handle-index",aj)})},_createRange:function(){var ad=this.options,ae="";if(ad.range){if(ad.range===true){if(!ad.values){ad.values=[this._valueMin(),this._valueMin()]}else{if(ad.values.length&&ad.values.length!==2){ad.values=[ad.values[0],ad.values[0]]}else{if(I.isArray(ad.values)){ad.values=ad.values.slice(0)}}}}if(!this.range||!this.range.length){this.range=I("<div></div>").appendTo(this.element);ae="ui-slider-range ui-widget-header ui-corner-all"}else{this.range.removeClass("ui-slider-range-min ui-slider-range-max").css({left:"",bottom:""})}this.range.addClass(ae+((ad.range==="min"||ad.range==="max")?" ui-slider-range-"+ad.range:""))}else{if(this.range){this.range.remove()}this.range=null}},_setupEvents:function(){this._off(this.handles);this._on(this.handles,this._handleEvents);this._hoverable(this.handles);this._focusable(this.handles)},_destroy:function(){this.handles.remove();if(this.range){this.range.remove()}this.element.removeClass("ui-slider ui-slider-horizontal ui-slider-vertical ui-widget ui-widget-content ui-corner-all");this._mouseDestroy()},_mouseCapture:function(af){var aj,am,ae,ah,al,an,ai,ad,ak=this,ag=this.options;if(ag.disabled){return false}this.elementSize={width:this.element.outerWidth(),height:this.element.outerHeight()};this.elementOffset=this.element.offset();aj={x:af.pageX,y:af.pageY};am=this._normValueFromMouse(aj);ae=this._valueMax()-this._valueMin()+1;this.handles.each(function(ao){var ap=Math.abs(am-ak.values(ao));if((ae>ap)||(ae===ap&&(ao===ak._lastChangedValue||ak.values(ao)===ag.min))){ae=ap;ah=I(this);al=ao}});an=this._start(af,al);if(an===false){return false}this._mouseSliding=true;this._handleIndex=al;ah.addClass("ui-state-active").focus();ai=ah.offset();ad=!I(af.target).parents().addBack().is(".ui-slider-handle");this._clickOffset=ad?{left:0,top:0}:{left:af.pageX-ai.left-(ah.width()/2),top:af.pageY-ai.top-(ah.height()/2)-(parseInt(ah.css("borderTopWidth"),10)||0)-(parseInt(ah.css("borderBottomWidth"),10)||0)+(parseInt(ah.css("marginTop"),10)||0)};if(!this.handles.hasClass("ui-state-hover")){this._slide(af,al,am)}this._animateOff=true;return true},_mouseStart:function(){return true},_mouseDrag:function(af){var ad={x:af.pageX,y:af.pageY},ae=this._normValueFromMouse(ad);this._slide(af,this._handleIndex,ae);return false},_mouseStop:function(ad){this.handles.removeClass("ui-state-active");this._mouseSliding=false;this._stop(ad,this._handleIndex);this._change(ad,this._handleIndex);this._handleIndex=null;this._clickOffset=null;this._animateOff=false;return false},_detectOrientation:function(){this.orientation=(this.options.orientation==="vertical")?"vertical":"horizontal"},_normValueFromMouse:function(ae){var ad,ah,ag,af,ai;if(this.orientation==="horizontal"){ad=this.elementSize.width;ah=ae.x-this.elementOffset.left-(this._clickOffset?this._clickOffset.left:0)}else{ad=this.elementSize.height;ah=ae.y-this.elementOffset.top-(this._clickOffset?this._clickOffset.top:0)}ag=(ah/ad);if(ag>1){ag=1}if(ag<0){ag=0}if(this.orientation==="vertical"){ag=1-ag}af=this._valueMax()-this._valueMin();ai=this._valueMin()+ag*af;return this._trimAlignValue(ai)},_start:function(af,ae){var ad={handle:this.handles[ae],value:this.value()};if(this.options.values&&this.options.values.length){ad.value=this.values(ae);ad.values=this.values()}return this._trigger("start",af,ad)},_slide:function(ah,ag,af){var ad,ae,ai;if(this.options.values&&this.options.values.length){ad=this.values(ag?0:1);if((this.options.values.length===2&&this.options.range===true)&&((ag===0&&af>ad)||(ag===1&&af<ad))){af=ad}if(af!==this.values(ag)){ae=this.values();ae[ag]=af;ai=this._trigger("slide",ah,{handle:this.handles[ag],value:af,values:ae});ad=this.values(ag?0:1);if(ai!==false){this.values(ag,af)}}}else{if(af!==this.value()){ai=this._trigger("slide",ah,{handle:this.handles[ag],value:af});if(ai!==false){this.value(af)}}}},_stop:function(af,ae){var ad={handle:this.handles[ae],value:this.value()};if(this.options.values&&this.options.values.length){ad.value=this.values(ae);ad.values=this.values()}this._trigger("stop",af,ad)},_change:function(af,ae){if(!this._keySliding&&!this._mouseSliding){var ad={handle:this.handles[ae],value:this.value()};if(this.options.values&&this.options.values.length){ad.value=this.values(ae);ad.values=this.values()}this._lastChangedValue=ae;this._trigger("change",af,ad)}},value:function(ad){if(arguments.length){this.options.value=this._trimAlignValue(ad);this._refreshValue();this._change(null,0);return}return this._value()},values:function(ae,ah){var ag,ad,af;if(arguments.length>1){this.options.values[ae]=this._trimAlignValue(ah);this._refreshValue();this._change(null,ae);return}if(arguments.length){if(I.isArray(arguments[0])){ag=this.options.values;ad=arguments[0];for(af=0;af<ag.length;af+=1){ag[af]=this._trimAlignValue(ad[af]);this._change(null,af)}this._refreshValue()}else{if(this.options.values&&this.options.values.length){return this._values(ae)}else{return this.value()}}}else{return this._values()}},_setOption:function(ae,af){var ad,ag=0;if(ae==="range"&&this.options.range===true){if(af==="min"){this.options.value=this._values(0);this.options.values=null}else{if(af==="max"){this.options.value=this._values(this.options.values.length-1);this.options.values=null}}}if(I.isArray(this.options.values)){ag=this.options.values.length}if(ae==="disabled"){this.element.toggleClass("ui-state-disabled",!!af)}this._super(ae,af);switch(ae){case"orientation":this._detectOrientation();this.element.removeClass("ui-slider-horizontal ui-slider-vertical").addClass("ui-slider-"+this.orientation);this._refreshValue();this.handles.css(af==="horizontal"?"bottom":"left","");break;case"value":this._animateOff=true;this._refreshValue();this._change(null,0);this._animateOff=false;break;case"values":this._animateOff=true;this._refreshValue();for(ad=0;ad<ag;ad+=1){this._change(null,ad)}this._animateOff=false;break;case"step":case"min":case"max":this._animateOff=true;this._calculateNewMax();this._refreshValue();this._animateOff=false;break;case"range":this._animateOff=true;this._refresh();this._animateOff=false;break}},_value:function(){var ad=this.options.value;ad=this._trimAlignValue(ad);return ad},_values:function(ad){var ag,af,ae;if(arguments.length){ag=this.options.values[ad];ag=this._trimAlignValue(ag);return ag}else{if(this.options.values&&this.options.values.length){af=this.options.values.slice();for(ae=0;ae<af.length;ae+=1){af[ae]=this._trimAlignValue(af[ae])}return af}else{return[]}}},_trimAlignValue:function(ag){if(ag<=this._valueMin()){return this._valueMin()}if(ag>=this._valueMax()){return this._valueMax()}var ad=(this.options.step>0)?this.options.step:1,af=(ag-this._valueMin())%ad,ae=ag-af;if(Math.abs(af)*2>=ad){ae+=(af>0)?ad:(-ad)}return parseFloat(ae.toFixed(5))},_calculateNewMax:function(){var ad=this.options.max,ae=this._valueMin(),af=this.options.step,ag=Math.floor((+(ad-ae).toFixed(this._precision()))/af)*af;ad=ag+ae;this.max=parseFloat(ad.toFixed(this._precision()))},_precision:function(){var ad=this._precisionOf(this.options.step);if(this.options.min!==null){ad=Math.max(ad,this._precisionOf(this.options.min))}return ad},_precisionOf:function(ae){var af=ae.toString(),ad=af.indexOf(".");return ad===-1?0:af.length-ad-1},_valueMin:function(){return this.options.min},_valueMax:function(){return this.max},_refreshValue:function(){var ai,ah,al,aj,am,ag=this.options.range,af=this.options,ak=this,ae=(!this._animateOff)?af.animate:false,ad={};if(this.options.values&&this.options.values.length){this.handles.each(function(an){ah=(ak.values(an)-ak._valueMin())/(ak._valueMax()-ak._valueMin())*100;ad[ak.orientation==="horizontal"?"left":"bottom"]=ah+"%";I(this).stop(1,1)[ae?"animate":"css"](ad,af.animate);if(ak.options.range===true){if(ak.orientation==="horizontal"){if(an===0){ak.range.stop(1,1)[ae?"animate":"css"]({left:ah+"%"},af.animate)}if(an===1){ak.range[ae?"animate":"css"]({width:(ah-ai)+"%"},{queue:false,duration:af.animate})}}else{if(an===0){ak.range.stop(1,1)[ae?"animate":"css"]({bottom:(ah)+"%"},af.animate)}if(an===1){ak.range[ae?"animate":"css"]({height:(ah-ai)+"%"},{queue:false,duration:af.animate})}}}ai=ah})}else{al=this.value();aj=this._valueMin();am=this._valueMax();ah=(am!==aj)?(al-aj)/(am-aj)*100:0;ad[this.orientation==="horizontal"?"left":"bottom"]=ah+"%";this.handle.stop(1,1)[ae?"animate":"css"](ad,af.animate);if(ag==="min"&&this.orientation==="horizontal"){this.range.stop(1,1)[ae?"animate":"css"]({width:ah+"%"},af.animate)}if(ag==="max"&&this.orientation==="horizontal"){this.range[ae?"animate":"css"]({width:(100-ah)+"%"},{queue:false,duration:af.animate})}if(ag==="min"&&this.orientation==="vertical"){this.range.stop(1,1)[ae?"animate":"css"]({height:ah+"%"},af.animate)}if(ag==="max"&&this.orientation==="vertical"){this.range[ae?"animate":"css"]({height:(100-ah)+"%"},{queue:false,duration:af.animate})}}},_handleEvents:{keydown:function(ah){var ai,af,ae,ag,ad=I(ah.target).data("ui-slider-handle-index");switch(ah.keyCode){case I.ui.keyCode.HOME:case I.ui.keyCode.END:case I.ui.keyCode.PAGE_UP:case I.ui.keyCode.PAGE_DOWN:case I.ui.keyCode.UP:case I.ui.keyCode.RIGHT:case I.ui.keyCode.DOWN:case I.ui.keyCode.LEFT:ah.preventDefault();if(!this._keySliding){this._keySliding=true;I(ah.target).addClass("ui-state-active");ai=this._start(ah,ad);if(ai===false){return}}break}ag=this.options.step;if(this.options.values&&this.options.values.length){af=ae=this.values(ad)}else{af=ae=this.value()}switch(ah.keyCode){case I.ui.keyCode.HOME:ae=this._valueMin();break;case I.ui.keyCode.END:ae=this._valueMax();break;case I.ui.keyCode.PAGE_UP:ae=this._trimAlignValue(af+((this._valueMax()-this._valueMin())/this.numPages));break;case I.ui.keyCode.PAGE_DOWN:ae=this._trimAlignValue(af-((this._valueMax()-this._valueMin())/this.numPages));break;case I.ui.keyCode.UP:case I.ui.keyCode.RIGHT:if(af===this._valueMax()){return}ae=this._trimAlignValue(af+ag);break;case I.ui.keyCode.DOWN:case I.ui.keyCode.LEFT:if(af===this._valueMin()){return}ae=this._trimAlignValue(af-ag);break}this._slide(ah,ad,ae)},keyup:function(ae){var ad=I(ae.target).data("ui-slider-handle-index");if(this._keySliding){this._keySliding=false;this._stop(ae,ad);this._change(ae,ad);I(ae.target).removeClass("ui-state-active")}}}});
+
+
+var slider = $.widget( "ui.slider", $.ui.mouse, {
+	version: "1.11.4",
+	widgetEventPrefix: "slide",
+
+	options: {
+		animate: false,
+		distance: 0,
+		max: 100,
+		min: 0,
+		orientation: "horizontal",
+		range: false,
+		step: 1,
+		value: 0,
+		values: null,
+
+		// callbacks
+		change: null,
+		slide: null,
+		start: null,
+		stop: null
+	},
+
+	// number of pages in a slider
+	// (how many times can you page up/down to go through the whole range)
+	numPages: 5,
+
+	_create: function() {
+		this._keySliding = false;
+		this._mouseSliding = false;
+		this._animateOff = true;
+		this._handleIndex = null;
+		this._detectOrientation();
+		this._mouseInit();
+		this._calculateNewMax();
+
+		this.element
+			.addClass( "ui-slider" +
+				" ui-slider-" + this.orientation +
+				" ui-widget" +
+				" ui-widget-content" +
+				" ui-corner-all");
+
+		this._refresh();
+		this._setOption( "disabled", this.options.disabled );
+
+		this._animateOff = false;
+	},
+
+	_refresh: function() {
+		this._createRange();
+		this._createHandles();
+		this._setupEvents();
+		this._refreshValue();
+	},
+
+	_createHandles: function() {
+		var i, handleCount,
+			options = this.options,
+			existingHandles = this.element.find( ".ui-slider-handle" ).addClass( "ui-state-default ui-corner-all" ),
+			handle = "<span class='ui-slider-handle ui-state-default ui-corner-all' tabindex='0'></span>",
+			handles = [];
+
+		handleCount = ( options.values && options.values.length ) || 1;
+
+		if ( existingHandles.length > handleCount ) {
+			existingHandles.slice( handleCount ).remove();
+			existingHandles = existingHandles.slice( 0, handleCount );
+		}
+
+		for ( i = existingHandles.length; i < handleCount; i++ ) {
+			handles.push( handle );
+		}
+
+		this.handles = existingHandles.add( $( handles.join( "" ) ).appendTo( this.element ) );
+
+		this.handle = this.handles.eq( 0 );
+
+		this.handles.each(function( i ) {
+			$( this ).data( "ui-slider-handle-index", i );
+		});
+	},
+
+	_createRange: function() {
+		var options = this.options,
+			classes = "";
+
+		if ( options.range ) {
+			if ( options.range === true ) {
+				if ( !options.values ) {
+					options.values = [ this._valueMin(), this._valueMin() ];
+				} else if ( options.values.length && options.values.length !== 2 ) {
+					options.values = [ options.values[0], options.values[0] ];
+				} else if ( $.isArray( options.values ) ) {
+					options.values = options.values.slice(0);
+				}
+			}
+
+			if ( !this.range || !this.range.length ) {
+				this.range = $( "<div></div>" )
+					.appendTo( this.element );
+
+				classes = "ui-slider-range" +
+				// note: this isn't the most fittingly semantic framework class for this element,
+				// but worked best visually with a variety of themes
+				" ui-widget-header ui-corner-all";
+			} else {
+				this.range.removeClass( "ui-slider-range-min ui-slider-range-max" )
+					// Handle range switching from true to min/max
+					.css({
+						"left": "",
+						"bottom": ""
+					});
+			}
+
+			this.range.addClass( classes +
+				( ( options.range === "min" || options.range === "max" ) ? " ui-slider-range-" + options.range : "" ) );
+		} else {
+			if ( this.range ) {
+				this.range.remove();
+			}
+			this.range = null;
+		}
+	},
+
+	_setupEvents: function() {
+		this._off( this.handles );
+		this._on( this.handles, this._handleEvents );
+		this._hoverable( this.handles );
+		this._focusable( this.handles );
+	},
+
+	_destroy: function() {
+		this.handles.remove();
+		if ( this.range ) {
+			this.range.remove();
+		}
+
+		this.element
+			.removeClass( "ui-slider" +
+				" ui-slider-horizontal" +
+				" ui-slider-vertical" +
+				" ui-widget" +
+				" ui-widget-content" +
+				" ui-corner-all" );
+
+		this._mouseDestroy();
+	},
+
+	_mouseCapture: function( event ) {
+		var position, normValue, distance, closestHandle, index, allowed, offset, mouseOverHandle,
+			that = this,
+			o = this.options;
+
+		if ( o.disabled ) {
+			return false;
+		}
+
+		this.elementSize = {
+			width: this.element.outerWidth(),
+			height: this.element.outerHeight()
+		};
+		this.elementOffset = this.element.offset();
+
+		position = { x: event.pageX, y: event.pageY };
+		normValue = this._normValueFromMouse( position );
+		distance = this._valueMax() - this._valueMin() + 1;
+		this.handles.each(function( i ) {
+			var thisDistance = Math.abs( normValue - that.values(i) );
+			if (( distance > thisDistance ) ||
+				( distance === thisDistance &&
+					(i === that._lastChangedValue || that.values(i) === o.min ))) {
+				distance = thisDistance;
+				closestHandle = $( this );
+				index = i;
+			}
+		});
+
+		allowed = this._start( event, index );
+		if ( allowed === false ) {
+			return false;
+		}
+		this._mouseSliding = true;
+
+		this._handleIndex = index;
+
+		closestHandle
+			.addClass( "ui-state-active" )
+			.focus();
+
+		offset = closestHandle.offset();
+		mouseOverHandle = !$( event.target ).parents().addBack().is( ".ui-slider-handle" );
+		this._clickOffset = mouseOverHandle ? { left: 0, top: 0 } : {
+			left: event.pageX - offset.left - ( closestHandle.width() / 2 ),
+			top: event.pageY - offset.top -
+				( closestHandle.height() / 2 ) -
+				( parseInt( closestHandle.css("borderTopWidth"), 10 ) || 0 ) -
+				( parseInt( closestHandle.css("borderBottomWidth"), 10 ) || 0) +
+				( parseInt( closestHandle.css("marginTop"), 10 ) || 0)
+		};
+
+		if ( !this.handles.hasClass( "ui-state-hover" ) ) {
+			this._slide( event, index, normValue );
+		}
+		this._animateOff = true;
+		return true;
+	},
+
+	_mouseStart: function() {
+		return true;
+	},
+
+	_mouseDrag: function( event ) {
+		var position = { x: event.pageX, y: event.pageY },
+			normValue = this._normValueFromMouse( position );
+
+		this._slide( event, this._handleIndex, normValue );
+
+		return false;
+	},
+
+	_mouseStop: function( event ) {
+		this.handles.removeClass( "ui-state-active" );
+		this._mouseSliding = false;
+
+		this._stop( event, this._handleIndex );
+		this._change( event, this._handleIndex );
+
+		this._handleIndex = null;
+		this._clickOffset = null;
+		this._animateOff = false;
+
+		return false;
+	},
+
+	_detectOrientation: function() {
+		this.orientation = ( this.options.orientation === "vertical" ) ? "vertical" : "horizontal";
+	},
+
+	_normValueFromMouse: function( position ) {
+		var pixelTotal,
+			pixelMouse,
+			percentMouse,
+			valueTotal,
+			valueMouse;
+
+		if ( this.orientation === "horizontal" ) {
+			pixelTotal = this.elementSize.width;
+			pixelMouse = position.x - this.elementOffset.left - ( this._clickOffset ? this._clickOffset.left : 0 );
+		} else {
+			pixelTotal = this.elementSize.height;
+			pixelMouse = position.y - this.elementOffset.top - ( this._clickOffset ? this._clickOffset.top : 0 );
+		}
+
+		percentMouse = ( pixelMouse / pixelTotal );
+		if ( percentMouse > 1 ) {
+			percentMouse = 1;
+		}
+		if ( percentMouse < 0 ) {
+			percentMouse = 0;
+		}
+		if ( this.orientation === "vertical" ) {
+			percentMouse = 1 - percentMouse;
+		}
+
+		valueTotal = this._valueMax() - this._valueMin();
+		valueMouse = this._valueMin() + percentMouse * valueTotal;
+
+		return this._trimAlignValue( valueMouse );
+	},
+
+	_start: function( event, index ) {
+		var uiHash = {
+			handle: this.handles[ index ],
+			value: this.value()
+		};
+		if ( this.options.values && this.options.values.length ) {
+			uiHash.value = this.values( index );
+			uiHash.values = this.values();
+		}
+		return this._trigger( "start", event, uiHash );
+	},
+
+	_slide: function( event, index, newVal ) {
+		var otherVal,
+			newValues,
+			allowed;
+
+		if ( this.options.values && this.options.values.length ) {
+			otherVal = this.values( index ? 0 : 1 );
+
+			if ( ( this.options.values.length === 2 && this.options.range === true ) &&
+					( ( index === 0 && newVal > otherVal) || ( index === 1 && newVal < otherVal ) )
+				) {
+				newVal = otherVal;
+			}
+
+			if ( newVal !== this.values( index ) ) {
+				newValues = this.values();
+				newValues[ index ] = newVal;
+				// A slide can be canceled by returning false from the slide callback
+				allowed = this._trigger( "slide", event, {
+					handle: this.handles[ index ],
+					value: newVal,
+					values: newValues
+				} );
+				otherVal = this.values( index ? 0 : 1 );
+				if ( allowed !== false ) {
+					this.values( index, newVal );
+				}
+			}
+		} else {
+			if ( newVal !== this.value() ) {
+				// A slide can be canceled by returning false from the slide callback
+				allowed = this._trigger( "slide", event, {
+					handle: this.handles[ index ],
+					value: newVal
+				} );
+				if ( allowed !== false ) {
+					this.value( newVal );
+				}
+			}
+		}
+	},
+
+	_stop: function( event, index ) {
+		var uiHash = {
+			handle: this.handles[ index ],
+			value: this.value()
+		};
+		if ( this.options.values && this.options.values.length ) {
+			uiHash.value = this.values( index );
+			uiHash.values = this.values();
+		}
+
+		this._trigger( "stop", event, uiHash );
+	},
+
+	_change: function( event, index ) {
+		if ( !this._keySliding && !this._mouseSliding ) {
+			var uiHash = {
+				handle: this.handles[ index ],
+				value: this.value()
+			};
+			if ( this.options.values && this.options.values.length ) {
+				uiHash.value = this.values( index );
+				uiHash.values = this.values();
+			}
+
+			//store the last changed value index for reference when handles overlap
+			this._lastChangedValue = index;
+
+			this._trigger( "change", event, uiHash );
+		}
+	},
+
+	value: function( newValue ) {
+		if ( arguments.length ) {
+			this.options.value = this._trimAlignValue( newValue );
+			this._refreshValue();
+			this._change( null, 0 );
+			return;
+		}
+
+		return this._value();
+	},
+
+	values: function( index, newValue ) {
+		var vals,
+			newValues,
+			i;
+
+		if ( arguments.length > 1 ) {
+			this.options.values[ index ] = this._trimAlignValue( newValue );
+			this._refreshValue();
+			this._change( null, index );
+			return;
+		}
+
+		if ( arguments.length ) {
+			if ( $.isArray( arguments[ 0 ] ) ) {
+				vals = this.options.values;
+				newValues = arguments[ 0 ];
+				for ( i = 0; i < vals.length; i += 1 ) {
+					vals[ i ] = this._trimAlignValue( newValues[ i ] );
+					this._change( null, i );
+				}
+				this._refreshValue();
+			} else {
+				if ( this.options.values && this.options.values.length ) {
+					return this._values( index );
+				} else {
+					return this.value();
+				}
+			}
+		} else {
+			return this._values();
+		}
+	},
+
+	_setOption: function( key, value ) {
+		var i,
+			valsLength = 0;
+
+		if ( key === "range" && this.options.range === true ) {
+			if ( value === "min" ) {
+				this.options.value = this._values( 0 );
+				this.options.values = null;
+			} else if ( value === "max" ) {
+				this.options.value = this._values( this.options.values.length - 1 );
+				this.options.values = null;
+			}
+		}
+
+		if ( $.isArray( this.options.values ) ) {
+			valsLength = this.options.values.length;
+		}
+
+		if ( key === "disabled" ) {
+			this.element.toggleClass( "ui-state-disabled", !!value );
+		}
+
+		this._super( key, value );
+
+		switch ( key ) {
+			case "orientation":
+				this._detectOrientation();
+				this.element
+					.removeClass( "ui-slider-horizontal ui-slider-vertical" )
+					.addClass( "ui-slider-" + this.orientation );
+				this._refreshValue();
+
+				// Reset positioning from previous orientation
+				this.handles.css( value === "horizontal" ? "bottom" : "left", "" );
+				break;
+			case "value":
+				this._animateOff = true;
+				this._refreshValue();
+				this._change( null, 0 );
+				this._animateOff = false;
+				break;
+			case "values":
+				this._animateOff = true;
+				this._refreshValue();
+				for ( i = 0; i < valsLength; i += 1 ) {
+					this._change( null, i );
+				}
+				this._animateOff = false;
+				break;
+			case "step":
+			case "min":
+			case "max":
+				this._animateOff = true;
+				this._calculateNewMax();
+				this._refreshValue();
+				this._animateOff = false;
+				break;
+			case "range":
+				this._animateOff = true;
+				this._refresh();
+				this._animateOff = false;
+				break;
+		}
+	},
+
+	//internal value getter
+	// _value() returns value trimmed by min and max, aligned by step
+	_value: function() {
+		var val = this.options.value;
+		val = this._trimAlignValue( val );
+
+		return val;
+	},
+
+	//internal values getter
+	// _values() returns array of values trimmed by min and max, aligned by step
+	// _values( index ) returns single value trimmed by min and max, aligned by step
+	_values: function( index ) {
+		var val,
+			vals,
+			i;
+
+		if ( arguments.length ) {
+			val = this.options.values[ index ];
+			val = this._trimAlignValue( val );
+
+			return val;
+		} else if ( this.options.values && this.options.values.length ) {
+			// .slice() creates a copy of the array
+			// this copy gets trimmed by min and max and then returned
+			vals = this.options.values.slice();
+			for ( i = 0; i < vals.length; i += 1) {
+				vals[ i ] = this._trimAlignValue( vals[ i ] );
+			}
+
+			return vals;
+		} else {
+			return [];
+		}
+	},
+
+	// returns the step-aligned value that val is closest to, between (inclusive) min and max
+	_trimAlignValue: function( val ) {
+		if ( val <= this._valueMin() ) {
+			return this._valueMin();
+		}
+		if ( val >= this._valueMax() ) {
+			return this._valueMax();
+		}
+		var step = ( this.options.step > 0 ) ? this.options.step : 1,
+			valModStep = (val - this._valueMin()) % step,
+			alignValue = val - valModStep;
+
+		if ( Math.abs(valModStep) * 2 >= step ) {
+			alignValue += ( valModStep > 0 ) ? step : ( -step );
+		}
+
+		// Since JavaScript has problems with large floats, round
+		// the final value to 5 digits after the decimal point (see #4124)
+		return parseFloat( alignValue.toFixed(5) );
+	},
+
+	_calculateNewMax: function() {
+		var max = this.options.max,
+			min = this._valueMin(),
+			step = this.options.step,
+			aboveMin = Math.floor( ( +( max - min ).toFixed( this._precision() ) ) / step ) * step;
+		max = aboveMin + min;
+		this.max = parseFloat( max.toFixed( this._precision() ) );
+	},
+
+	_precision: function() {
+		var precision = this._precisionOf( this.options.step );
+		if ( this.options.min !== null ) {
+			precision = Math.max( precision, this._precisionOf( this.options.min ) );
+		}
+		return precision;
+	},
+
+	_precisionOf: function( num ) {
+		var str = num.toString(),
+			decimal = str.indexOf( "." );
+		return decimal === -1 ? 0 : str.length - decimal - 1;
+	},
+
+	_valueMin: function() {
+		return this.options.min;
+	},
+
+	_valueMax: function() {
+		return this.max;
+	},
+
+	_refreshValue: function() {
+		var lastValPercent, valPercent, value, valueMin, valueMax,
+			oRange = this.options.range,
+			o = this.options,
+			that = this,
+			animate = ( !this._animateOff ) ? o.animate : false,
+			_set = {};
+
+		if ( this.options.values && this.options.values.length ) {
+			this.handles.each(function( i ) {
+				valPercent = ( that.values(i) - that._valueMin() ) / ( that._valueMax() - that._valueMin() ) * 100;
+				_set[ that.orientation === "horizontal" ? "left" : "bottom" ] = valPercent + "%";
+				$( this ).stop( 1, 1 )[ animate ? "animate" : "css" ]( _set, o.animate );
+				if ( that.options.range === true ) {
+					if ( that.orientation === "horizontal" ) {
+						if ( i === 0 ) {
+							that.range.stop( 1, 1 )[ animate ? "animate" : "css" ]( { left: valPercent + "%" }, o.animate );
+						}
+						if ( i === 1 ) {
+							that.range[ animate ? "animate" : "css" ]( { width: ( valPercent - lastValPercent ) + "%" }, { queue: false, duration: o.animate } );
+						}
+					} else {
+						if ( i === 0 ) {
+							that.range.stop( 1, 1 )[ animate ? "animate" : "css" ]( { bottom: ( valPercent ) + "%" }, o.animate );
+						}
+						if ( i === 1 ) {
+							that.range[ animate ? "animate" : "css" ]( { height: ( valPercent - lastValPercent ) + "%" }, { queue: false, duration: o.animate } );
+						}
+					}
+				}
+				lastValPercent = valPercent;
+			});
+		} else {
+			value = this.value();
+			valueMin = this._valueMin();
+			valueMax = this._valueMax();
+			valPercent = ( valueMax !== valueMin ) ?
+					( value - valueMin ) / ( valueMax - valueMin ) * 100 :
+					0;
+			_set[ this.orientation === "horizontal" ? "left" : "bottom" ] = valPercent + "%";
+			this.handle.stop( 1, 1 )[ animate ? "animate" : "css" ]( _set, o.animate );
+
+			if ( oRange === "min" && this.orientation === "horizontal" ) {
+				this.range.stop( 1, 1 )[ animate ? "animate" : "css" ]( { width: valPercent + "%" }, o.animate );
+			}
+			if ( oRange === "max" && this.orientation === "horizontal" ) {
+				this.range[ animate ? "animate" : "css" ]( { width: ( 100 - valPercent ) + "%" }, { queue: false, duration: o.animate } );
+			}
+			if ( oRange === "min" && this.orientation === "vertical" ) {
+				this.range.stop( 1, 1 )[ animate ? "animate" : "css" ]( { height: valPercent + "%" }, o.animate );
+			}
+			if ( oRange === "max" && this.orientation === "vertical" ) {
+				this.range[ animate ? "animate" : "css" ]( { height: ( 100 - valPercent ) + "%" }, { queue: false, duration: o.animate } );
+			}
+		}
+	},
+
+	_handleEvents: {
+		keydown: function( event ) {
+			var allowed, curVal, newVal, step,
+				index = $( event.target ).data( "ui-slider-handle-index" );
+
+			switch ( event.keyCode ) {
+				case $.ui.keyCode.HOME:
+				case $.ui.keyCode.END:
+				case $.ui.keyCode.PAGE_UP:
+				case $.ui.keyCode.PAGE_DOWN:
+				case $.ui.keyCode.UP:
+				case $.ui.keyCode.RIGHT:
+				case $.ui.keyCode.DOWN:
+				case $.ui.keyCode.LEFT:
+					event.preventDefault();
+					if ( !this._keySliding ) {
+						this._keySliding = true;
+						$( event.target ).addClass( "ui-state-active" );
+						allowed = this._start( event, index );
+						if ( allowed === false ) {
+							return;
+						}
+					}
+					break;
+			}
+
+			step = this.options.step;
+			if ( this.options.values && this.options.values.length ) {
+				curVal = newVal = this.values( index );
+			} else {
+				curVal = newVal = this.value();
+			}
+
+			switch ( event.keyCode ) {
+				case $.ui.keyCode.HOME:
+					newVal = this._valueMin();
+					break;
+				case $.ui.keyCode.END:
+					newVal = this._valueMax();
+					break;
+				case $.ui.keyCode.PAGE_UP:
+					newVal = this._trimAlignValue(
+						curVal + ( ( this._valueMax() - this._valueMin() ) / this.numPages )
+					);
+					break;
+				case $.ui.keyCode.PAGE_DOWN:
+					newVal = this._trimAlignValue(
+						curVal - ( (this._valueMax() - this._valueMin()) / this.numPages ) );
+					break;
+				case $.ui.keyCode.UP:
+				case $.ui.keyCode.RIGHT:
+					if ( curVal === this._valueMax() ) {
+						return;
+					}
+					newVal = this._trimAlignValue( curVal + step );
+					break;
+				case $.ui.keyCode.DOWN:
+				case $.ui.keyCode.LEFT:
+					if ( curVal === this._valueMin() ) {
+						return;
+					}
+					newVal = this._trimAlignValue( curVal - step );
+					break;
+			}
+
+			this._slide( event, index, newVal );
+		},
+		keyup: function( event ) {
+			var index = $( event.target ).data( "ui-slider-handle-index" );
+
+			if ( this._keySliding ) {
+				this._keySliding = false;
+				this._stop( event, index );
+				this._change( event, index );
+				$( event.target ).removeClass( "ui-state-active" );
+			}
+		}
+	}
+});
+
+
 /*!
  * jQuery UI Spinner 1.11.4
  * http://jqueryui.com
@@ -200,7 +11524,495 @@ var g=I.widget("ui.slider",I.ui.mouse,{version:"1.11.4",widgetEventPrefix:"slide
  *
  * http://api.jqueryui.com/spinner/
  */
-function u(ad){return function(){var ae=this.element.val();ad.apply(this,arguments);this._refresh();if(ae!==this.element.val()){this._trigger("change")}}}var K=I.widget("ui.spinner",{version:"1.11.4",defaultElement:"<input>",widgetEventPrefix:"spin",options:{culture:null,icons:{down:"ui-icon-triangle-1-s",up:"ui-icon-triangle-1-n"},incremental:true,max:null,min:null,numberFormat:null,page:10,step:1,change:null,spin:null,start:null,stop:null},_create:function(){this._setOption("max",this.options.max);this._setOption("min",this.options.min);this._setOption("step",this.options.step);if(this.value()!==""){this._value(this.element.val(),true)}this._draw();this._on(this._events);this._refresh();this._on(this.window,{beforeunload:function(){this.element.removeAttr("autocomplete")}})},_getCreateOptions:function(){var ad={},ae=this.element;I.each(["min","max","step"],function(af,ag){var ah=ae.attr(ag);if(ah!==undefined&&ah.length){ad[ag]=ah}});return ad},_events:{keydown:function(ad){if(this._start(ad)&&this._keydown(ad)){ad.preventDefault()}},keyup:"_stop",focus:function(){this.previous=this.element.val()},blur:function(ad){if(this.cancelBlur){delete this.cancelBlur;return}this._stop();this._refresh();if(this.previous!==this.element.val()){this._trigger("change",ad)}},mousewheel:function(ad,ae){if(!ae){return}if(!this.spinning&&!this._start(ad)){return false}this._spin((ae>0?1:-1)*this.options.step,ad);clearTimeout(this.mousewheelTimer);this.mousewheelTimer=this._delay(function(){if(this.spinning){this._stop(ad)}},100);ad.preventDefault()},"mousedown .ui-spinner-button":function(ae){var ad;ad=this.element[0]===this.document[0].activeElement?this.previous:this.element.val();function af(){var ag=this.element[0]===this.document[0].activeElement;if(!ag){this.element.focus();this.previous=ad;this._delay(function(){this.previous=ad})}}ae.preventDefault();af.call(this);this.cancelBlur=true;this._delay(function(){delete this.cancelBlur;af.call(this)});if(this._start(ae)===false){return}this._repeat(null,I(ae.currentTarget).hasClass("ui-spinner-up")?1:-1,ae)},"mouseup .ui-spinner-button":"_stop","mouseenter .ui-spinner-button":function(ad){if(!I(ad.currentTarget).hasClass("ui-state-active")){return}if(this._start(ad)===false){return false}this._repeat(null,I(ad.currentTarget).hasClass("ui-spinner-up")?1:-1,ad)},"mouseleave .ui-spinner-button":"_stop"},_draw:function(){var ad=this.uiSpinner=this.element.addClass("ui-spinner-input").attr("autocomplete","off").wrap(this._uiSpinnerHtml()).parent().append(this._buttonHtml());this.element.attr("role","spinbutton");this.buttons=ad.find(".ui-spinner-button").attr("tabIndex",-1).button().removeClass("ui-corner-all");if(this.buttons.height()>Math.ceil(ad.height()*0.5)&&ad.height()>0){ad.height(ad.height())}if(this.options.disabled){this.disable()}},_keydown:function(ae){var ad=this.options,af=I.ui.keyCode;switch(ae.keyCode){case af.UP:this._repeat(null,1,ae);return true;case af.DOWN:this._repeat(null,-1,ae);return true;case af.PAGE_UP:this._repeat(null,ad.page,ae);return true;case af.PAGE_DOWN:this._repeat(null,-ad.page,ae);return true}return false},_uiSpinnerHtml:function(){return"<span class='ui-spinner ui-widget ui-widget-content ui-corner-all'></span>"},_buttonHtml:function(){return"<a class='ui-spinner-button ui-spinner-up ui-corner-tr'><span class='ui-icon "+this.options.icons.up+"'>&#9650;</span></a><a class='ui-spinner-button ui-spinner-down ui-corner-br'><span class='ui-icon "+this.options.icons.down+"'>&#9660;</span></a>"},_start:function(ad){if(!this.spinning&&this._trigger("start",ad)===false){return false}if(!this.counter){this.counter=1}this.spinning=true;return true},_repeat:function(ae,ad,af){ae=ae||500;clearTimeout(this.timer);this.timer=this._delay(function(){this._repeat(40,ad,af)},ae);this._spin(ad*this.options.step,af)},_spin:function(ae,ad){var af=this.value()||0;if(!this.counter){this.counter=1}af=this._adjustValue(af+ae*this._increment(this.counter));if(!this.spinning||this._trigger("spin",ad,{value:af})!==false){this._value(af);this.counter++}},_increment:function(ad){var ae=this.options.incremental;if(ae){return I.isFunction(ae)?ae(ad):Math.floor(ad*ad*ad/50000-ad*ad/500+17*ad/200+1)}return 1},_precision:function(){var ad=this._precisionOf(this.options.step);if(this.options.min!==null){ad=Math.max(ad,this._precisionOf(this.options.min))}return ad},_precisionOf:function(ae){var af=ae.toString(),ad=af.indexOf(".");return ad===-1?0:af.length-ad-1},_adjustValue:function(af){var ae,ag,ad=this.options;ae=ad.min!==null?ad.min:0;ag=af-ae;ag=Math.round(ag/ad.step)*ad.step;af=ae+ag;af=parseFloat(af.toFixed(this._precision()));if(ad.max!==null&&af>ad.max){return ad.max}if(ad.min!==null&&af<ad.min){return ad.min}return af},_stop:function(ad){if(!this.spinning){return}clearTimeout(this.timer);clearTimeout(this.mousewheelTimer);this.counter=0;this.spinning=false;this._trigger("stop",ad)},_setOption:function(ad,ae){if(ad==="culture"||ad==="numberFormat"){var af=this._parse(this.element.val());this.options[ad]=ae;this.element.val(this._format(af));return}if(ad==="max"||ad==="min"||ad==="step"){if(typeof ae==="string"){ae=this._parse(ae)}}if(ad==="icons"){this.buttons.first().find(".ui-icon").removeClass(this.options.icons.up).addClass(ae.up);this.buttons.last().find(".ui-icon").removeClass(this.options.icons.down).addClass(ae.down)}this._super(ad,ae);if(ad==="disabled"){this.widget().toggleClass("ui-state-disabled",!!ae);this.element.prop("disabled",!!ae);this.buttons.button(ae?"disable":"enable")}},_setOptions:u(function(ad){this._super(ad)}),_parse:function(ad){if(typeof ad==="string"&&ad!==""){ad=window.Globalize&&this.options.numberFormat?Globalize.parseFloat(ad,10,this.options.culture):+ad}return ad===""||isNaN(ad)?null:ad},_format:function(ad){if(ad===""){return""}return window.Globalize&&this.options.numberFormat?Globalize.format(ad,this.options.numberFormat,this.options.culture):ad},_refresh:function(){this.element.attr({"aria-valuemin":this.options.min,"aria-valuemax":this.options.max,"aria-valuenow":this._parse(this.element.val())})},isValid:function(){var ad=this.value();if(ad===null){return false}return ad===this._adjustValue(ad)},_value:function(af,ad){var ae;if(af!==""){ae=this._parse(af);if(ae!==null){if(!ad){ae=this._adjustValue(ae)}af=this._format(ae)}}this.element.val(af);this._refresh()},_destroy:function(){this.element.removeClass("ui-spinner-input").prop("disabled",false).removeAttr("autocomplete").removeAttr("role").removeAttr("aria-valuemin").removeAttr("aria-valuemax").removeAttr("aria-valuenow");this.uiSpinner.replaceWith(this.element)},stepUp:u(function(ad){this._stepUp(ad)}),_stepUp:function(ad){if(this._start()){this._spin((ad||1)*this.options.step);this._stop()}},stepDown:u(function(ad){this._stepDown(ad)}),_stepDown:function(ad){if(this._start()){this._spin((ad||1)*-this.options.step);this._stop()}},pageUp:u(function(ad){this._stepUp((ad||1)*this.options.page)}),pageDown:u(function(ad){this._stepDown((ad||1)*this.options.page)}),value:function(ad){if(!arguments.length){return this._parse(this.element.val())}u(this._value).call(this,ad)},widget:function(){return this.uiSpinner}});
+
+
+function spinner_modifier( fn ) {
+	return function() {
+		var previous = this.element.val();
+		fn.apply( this, arguments );
+		this._refresh();
+		if ( previous !== this.element.val() ) {
+			this._trigger( "change" );
+		}
+	};
+}
+
+var spinner = $.widget( "ui.spinner", {
+	version: "1.11.4",
+	defaultElement: "<input>",
+	widgetEventPrefix: "spin",
+	options: {
+		culture: null,
+		icons: {
+			down: "ui-icon-triangle-1-s",
+			up: "ui-icon-triangle-1-n"
+		},
+		incremental: true,
+		max: null,
+		min: null,
+		numberFormat: null,
+		page: 10,
+		step: 1,
+
+		change: null,
+		spin: null,
+		start: null,
+		stop: null
+	},
+
+	_create: function() {
+		// handle string values that need to be parsed
+		this._setOption( "max", this.options.max );
+		this._setOption( "min", this.options.min );
+		this._setOption( "step", this.options.step );
+
+		// Only format if there is a value, prevents the field from being marked
+		// as invalid in Firefox, see #9573.
+		if ( this.value() !== "" ) {
+			// Format the value, but don't constrain.
+			this._value( this.element.val(), true );
+		}
+
+		this._draw();
+		this._on( this._events );
+		this._refresh();
+
+		// turning off autocomplete prevents the browser from remembering the
+		// value when navigating through history, so we re-enable autocomplete
+		// if the page is unloaded before the widget is destroyed. #7790
+		this._on( this.window, {
+			beforeunload: function() {
+				this.element.removeAttr( "autocomplete" );
+			}
+		});
+	},
+
+	_getCreateOptions: function() {
+		var options = {},
+			element = this.element;
+
+		$.each( [ "min", "max", "step" ], function( i, option ) {
+			var value = element.attr( option );
+			if ( value !== undefined && value.length ) {
+				options[ option ] = value;
+			}
+		});
+
+		return options;
+	},
+
+	_events: {
+		keydown: function( event ) {
+			if ( this._start( event ) && this._keydown( event ) ) {
+				event.preventDefault();
+			}
+		},
+		keyup: "_stop",
+		focus: function() {
+			this.previous = this.element.val();
+		},
+		blur: function( event ) {
+			if ( this.cancelBlur ) {
+				delete this.cancelBlur;
+				return;
+			}
+
+			this._stop();
+			this._refresh();
+			if ( this.previous !== this.element.val() ) {
+				this._trigger( "change", event );
+			}
+		},
+		mousewheel: function( event, delta ) {
+			if ( !delta ) {
+				return;
+			}
+			if ( !this.spinning && !this._start( event ) ) {
+				return false;
+			}
+
+			this._spin( (delta > 0 ? 1 : -1) * this.options.step, event );
+			clearTimeout( this.mousewheelTimer );
+			this.mousewheelTimer = this._delay(function() {
+				if ( this.spinning ) {
+					this._stop( event );
+				}
+			}, 100 );
+			event.preventDefault();
+		},
+		"mousedown .ui-spinner-button": function( event ) {
+			var previous;
+
+			// We never want the buttons to have focus; whenever the user is
+			// interacting with the spinner, the focus should be on the input.
+			// If the input is focused then this.previous is properly set from
+			// when the input first received focus. If the input is not focused
+			// then we need to set this.previous based on the value before spinning.
+			previous = this.element[0] === this.document[0].activeElement ?
+				this.previous : this.element.val();
+			function checkFocus() {
+				var isActive = this.element[0] === this.document[0].activeElement;
+				if ( !isActive ) {
+					this.element.focus();
+					this.previous = previous;
+					// support: IE
+					// IE sets focus asynchronously, so we need to check if focus
+					// moved off of the input because the user clicked on the button.
+					this._delay(function() {
+						this.previous = previous;
+					});
+				}
+			}
+
+			// ensure focus is on (or stays on) the text field
+			event.preventDefault();
+			checkFocus.call( this );
+
+			// support: IE
+			// IE doesn't prevent moving focus even with event.preventDefault()
+			// so we set a flag to know when we should ignore the blur event
+			// and check (again) if focus moved off of the input.
+			this.cancelBlur = true;
+			this._delay(function() {
+				delete this.cancelBlur;
+				checkFocus.call( this );
+			});
+
+			if ( this._start( event ) === false ) {
+				return;
+			}
+
+			this._repeat( null, $( event.currentTarget ).hasClass( "ui-spinner-up" ) ? 1 : -1, event );
+		},
+		"mouseup .ui-spinner-button": "_stop",
+		"mouseenter .ui-spinner-button": function( event ) {
+			// button will add ui-state-active if mouse was down while mouseleave and kept down
+			if ( !$( event.currentTarget ).hasClass( "ui-state-active" ) ) {
+				return;
+			}
+
+			if ( this._start( event ) === false ) {
+				return false;
+			}
+			this._repeat( null, $( event.currentTarget ).hasClass( "ui-spinner-up" ) ? 1 : -1, event );
+		},
+		// TODO: do we really want to consider this a stop?
+		// shouldn't we just stop the repeater and wait until mouseup before
+		// we trigger the stop event?
+		"mouseleave .ui-spinner-button": "_stop"
+	},
+
+	_draw: function() {
+		var uiSpinner = this.uiSpinner = this.element
+			.addClass( "ui-spinner-input" )
+			.attr( "autocomplete", "off" )
+			.wrap( this._uiSpinnerHtml() )
+			.parent()
+				// add buttons
+				.append( this._buttonHtml() );
+
+		this.element.attr( "role", "spinbutton" );
+
+		// button bindings
+		this.buttons = uiSpinner.find( ".ui-spinner-button" )
+			.attr( "tabIndex", -1 )
+			.button()
+			.removeClass( "ui-corner-all" );
+
+		// IE 6 doesn't understand height: 50% for the buttons
+		// unless the wrapper has an explicit height
+		if ( this.buttons.height() > Math.ceil( uiSpinner.height() * 0.5 ) &&
+				uiSpinner.height() > 0 ) {
+			uiSpinner.height( uiSpinner.height() );
+		}
+
+		// disable spinner if element was already disabled
+		if ( this.options.disabled ) {
+			this.disable();
+		}
+	},
+
+	_keydown: function( event ) {
+		var options = this.options,
+			keyCode = $.ui.keyCode;
+
+		switch ( event.keyCode ) {
+		case keyCode.UP:
+			this._repeat( null, 1, event );
+			return true;
+		case keyCode.DOWN:
+			this._repeat( null, -1, event );
+			return true;
+		case keyCode.PAGE_UP:
+			this._repeat( null, options.page, event );
+			return true;
+		case keyCode.PAGE_DOWN:
+			this._repeat( null, -options.page, event );
+			return true;
+		}
+
+		return false;
+	},
+
+	_uiSpinnerHtml: function() {
+		return "<span class='ui-spinner ui-widget ui-widget-content ui-corner-all'></span>";
+	},
+
+	_buttonHtml: function() {
+		return "" +
+			"<a class='ui-spinner-button ui-spinner-up ui-corner-tr'>" +
+				"<span class='ui-icon " + this.options.icons.up + "'>&#9650;</span>" +
+			"</a>" +
+			"<a class='ui-spinner-button ui-spinner-down ui-corner-br'>" +
+				"<span class='ui-icon " + this.options.icons.down + "'>&#9660;</span>" +
+			"</a>";
+	},
+
+	_start: function( event ) {
+		if ( !this.spinning && this._trigger( "start", event ) === false ) {
+			return false;
+		}
+
+		if ( !this.counter ) {
+			this.counter = 1;
+		}
+		this.spinning = true;
+		return true;
+	},
+
+	_repeat: function( i, steps, event ) {
+		i = i || 500;
+
+		clearTimeout( this.timer );
+		this.timer = this._delay(function() {
+			this._repeat( 40, steps, event );
+		}, i );
+
+		this._spin( steps * this.options.step, event );
+	},
+
+	_spin: function( step, event ) {
+		var value = this.value() || 0;
+
+		if ( !this.counter ) {
+			this.counter = 1;
+		}
+
+		value = this._adjustValue( value + step * this._increment( this.counter ) );
+
+		if ( !this.spinning || this._trigger( "spin", event, { value: value } ) !== false) {
+			this._value( value );
+			this.counter++;
+		}
+	},
+
+	_increment: function( i ) {
+		var incremental = this.options.incremental;
+
+		if ( incremental ) {
+			return $.isFunction( incremental ) ?
+				incremental( i ) :
+				Math.floor( i * i * i / 50000 - i * i / 500 + 17 * i / 200 + 1 );
+		}
+
+		return 1;
+	},
+
+	_precision: function() {
+		var precision = this._precisionOf( this.options.step );
+		if ( this.options.min !== null ) {
+			precision = Math.max( precision, this._precisionOf( this.options.min ) );
+		}
+		return precision;
+	},
+
+	_precisionOf: function( num ) {
+		var str = num.toString(),
+			decimal = str.indexOf( "." );
+		return decimal === -1 ? 0 : str.length - decimal - 1;
+	},
+
+	_adjustValue: function( value ) {
+		var base, aboveMin,
+			options = this.options;
+
+		// make sure we're at a valid step
+		// - find out where we are relative to the base (min or 0)
+		base = options.min !== null ? options.min : 0;
+		aboveMin = value - base;
+		// - round to the nearest step
+		aboveMin = Math.round(aboveMin / options.step) * options.step;
+		// - rounding is based on 0, so adjust back to our base
+		value = base + aboveMin;
+
+		// fix precision from bad JS floating point math
+		value = parseFloat( value.toFixed( this._precision() ) );
+
+		// clamp the value
+		if ( options.max !== null && value > options.max) {
+			return options.max;
+		}
+		if ( options.min !== null && value < options.min ) {
+			return options.min;
+		}
+
+		return value;
+	},
+
+	_stop: function( event ) {
+		if ( !this.spinning ) {
+			return;
+		}
+
+		clearTimeout( this.timer );
+		clearTimeout( this.mousewheelTimer );
+		this.counter = 0;
+		this.spinning = false;
+		this._trigger( "stop", event );
+	},
+
+	_setOption: function( key, value ) {
+		if ( key === "culture" || key === "numberFormat" ) {
+			var prevValue = this._parse( this.element.val() );
+			this.options[ key ] = value;
+			this.element.val( this._format( prevValue ) );
+			return;
+		}
+
+		if ( key === "max" || key === "min" || key === "step" ) {
+			if ( typeof value === "string" ) {
+				value = this._parse( value );
+			}
+		}
+		if ( key === "icons" ) {
+			this.buttons.first().find( ".ui-icon" )
+				.removeClass( this.options.icons.up )
+				.addClass( value.up );
+			this.buttons.last().find( ".ui-icon" )
+				.removeClass( this.options.icons.down )
+				.addClass( value.down );
+		}
+
+		this._super( key, value );
+
+		if ( key === "disabled" ) {
+			this.widget().toggleClass( "ui-state-disabled", !!value );
+			this.element.prop( "disabled", !!value );
+			this.buttons.button( value ? "disable" : "enable" );
+		}
+	},
+
+	_setOptions: spinner_modifier(function( options ) {
+		this._super( options );
+	}),
+
+	_parse: function( val ) {
+		if ( typeof val === "string" && val !== "" ) {
+			val = window.Globalize && this.options.numberFormat ?
+				Globalize.parseFloat( val, 10, this.options.culture ) : +val;
+		}
+		return val === "" || isNaN( val ) ? null : val;
+	},
+
+	_format: function( value ) {
+		if ( value === "" ) {
+			return "";
+		}
+		return window.Globalize && this.options.numberFormat ?
+			Globalize.format( value, this.options.numberFormat, this.options.culture ) :
+			value;
+	},
+
+	_refresh: function() {
+		this.element.attr({
+			"aria-valuemin": this.options.min,
+			"aria-valuemax": this.options.max,
+			// TODO: what should we do with values that can't be parsed?
+			"aria-valuenow": this._parse( this.element.val() )
+		});
+	},
+
+	isValid: function() {
+		var value = this.value();
+
+		// null is invalid
+		if ( value === null ) {
+			return false;
+		}
+
+		// if value gets adjusted, it's invalid
+		return value === this._adjustValue( value );
+	},
+
+	// update the value without triggering change
+	_value: function( value, allowAny ) {
+		var parsed;
+		if ( value !== "" ) {
+			parsed = this._parse( value );
+			if ( parsed !== null ) {
+				if ( !allowAny ) {
+					parsed = this._adjustValue( parsed );
+				}
+				value = this._format( parsed );
+			}
+		}
+		this.element.val( value );
+		this._refresh();
+	},
+
+	_destroy: function() {
+		this.element
+			.removeClass( "ui-spinner-input" )
+			.prop( "disabled", false )
+			.removeAttr( "autocomplete" )
+			.removeAttr( "role" )
+			.removeAttr( "aria-valuemin" )
+			.removeAttr( "aria-valuemax" )
+			.removeAttr( "aria-valuenow" );
+		this.uiSpinner.replaceWith( this.element );
+	},
+
+	stepUp: spinner_modifier(function( steps ) {
+		this._stepUp( steps );
+	}),
+	_stepUp: function( steps ) {
+		if ( this._start() ) {
+			this._spin( (steps || 1) * this.options.step );
+			this._stop();
+		}
+	},
+
+	stepDown: spinner_modifier(function( steps ) {
+		this._stepDown( steps );
+	}),
+	_stepDown: function( steps ) {
+		if ( this._start() ) {
+			this._spin( (steps || 1) * -this.options.step );
+			this._stop();
+		}
+	},
+
+	pageUp: spinner_modifier(function( pages ) {
+		this._stepUp( (pages || 1) * this.options.page );
+	}),
+
+	pageDown: spinner_modifier(function( pages ) {
+		this._stepDown( (pages || 1) * this.options.page );
+	}),
+
+	value: function( newVal ) {
+		if ( !arguments.length ) {
+			return this._parse( this.element.val() );
+		}
+		spinner_modifier( this._value ).call( this, newVal );
+	},
+
+	widget: function() {
+		return this.uiSpinner;
+	}
+});
+
+
 /*!
  * jQuery UI Tabs 1.11.4
  * http://jqueryui.com
@@ -213,7 +12025,864 @@ function u(ad){return function(){var ae=this.element.val();ad.apply(this,argumen
  * 
  * zhump:用shref代替href,避免左下角出现a链接提示 
  */
-var k=I.widget("ui.tabs",{version:"1.11.4",delay:300,options:{active:null,collapsible:false,event:"click",heightStyle:"content",hide:null,show:null,activate:null,beforeActivate:null,beforeLoad:null,load:null},_isLocal:(function(){var ad=/#.*$/;return function(af){var ah,ag;af=af.cloneNode(false);af.href=af.getAttribute("shref");ah=af.href.replace(ad,"");ag=location.href.replace(ad,"");try{ah=decodeURIComponent(ah)}catch(ae){}try{ag=decodeURIComponent(ag)}catch(ae){}return af.hash.length>1&&ah===ag}})(),_create:function(){var ae=this,ad=this.options;this.running=false;this.element.addClass("ui-tabs ui-widget ui-widget-content ui-corner-all").toggleClass("ui-tabs-collapsible",ad.collapsible);this._processTabs();ad.active=this._initialActive();if(I.isArray(ad.disabled)){ad.disabled=I.unique(ad.disabled.concat(I.map(this.tabs.filter(".ui-state-disabled"),function(af){return ae.tabs.index(af)}))).sort()}if(this.options.active!==false&&this.anchors.length){this.active=this._findActive(ad.active)}else{this.active=I()}this._refresh();if(this.active.length){this.load(ad.active)}},_initialActive:function(){var ae=this.options.active,ad=this.options.collapsible,af=location.hash.substring(1);if(ae===null){if(af){this.tabs.each(function(ag,ah){if(I(ah).attr("aria-controls")===af){ae=ag;return false}})}if(ae===null){ae=this.tabs.index(this.tabs.filter(".ui-tabs-active"))}if(ae===null||ae===-1){ae=this.tabs.length?0:false}}if(ae!==false){ae=this.tabs.index(this.tabs.eq(ae));if(ae===-1){ae=ad?false:0}}if(!ad&&ae===false&&this.anchors.length){ae=0}return ae},_getCreateEventData:function(){return{tab:this.active,panel:!this.active.length?I():this._getPanelForTab(this.active)}},_tabKeydown:function(af){var ae=I(this.document[0].activeElement).closest("li"),ad=this.tabs.index(ae),ag=true;if(this._handlePageNav(af)){return}switch(af.keyCode){case I.ui.keyCode.RIGHT:case I.ui.keyCode.DOWN:ad++;break;case I.ui.keyCode.UP:case I.ui.keyCode.LEFT:ag=false;ad--;break;case I.ui.keyCode.END:ad=this.anchors.length-1;break;case I.ui.keyCode.HOME:ad=0;break;case I.ui.keyCode.SPACE:af.preventDefault();clearTimeout(this.activating);this._activate(ad);return;case I.ui.keyCode.ENTER:af.preventDefault();clearTimeout(this.activating);this._activate(ad===this.options.active?false:ad);return;default:return}af.preventDefault();clearTimeout(this.activating);ad=this._focusNextTab(ad,ag);if(!af.ctrlKey&&!af.metaKey){ae.attr("aria-selected","false");this.tabs.eq(ad).attr("aria-selected","true");this.activating=this._delay(function(){this.option("active",ad)},this.delay)}},_panelKeydown:function(ad){if(this._handlePageNav(ad)){return}if(ad.ctrlKey&&ad.keyCode===I.ui.keyCode.UP){ad.preventDefault();this.active.focus()}},_handlePageNav:function(ad){if(ad.altKey&&ad.keyCode===I.ui.keyCode.PAGE_UP){this._activate(this._focusNextTab(this.options.active-1,false));return true}if(ad.altKey&&ad.keyCode===I.ui.keyCode.PAGE_DOWN){this._activate(this._focusNextTab(this.options.active+1,true));return true}},_findNextTab:function(ae,af){var ad=this.tabs.length-1;function ag(){if(ae>ad){ae=0}if(ae<0){ae=ad}return ae}while(I.inArray(ag(),this.options.disabled)!==-1){ae=af?ae+1:ae-1}return ae},_focusNextTab:function(ad,ae){ad=this._findNextTab(ad,ae);this.tabs.eq(ad).focus();return ad},_setOption:function(ad,ae){if(ad==="active"){this._activate(ae);return}if(ad==="disabled"){this._setupDisabled(ae);return}this._super(ad,ae);if(ad==="collapsible"){this.element.toggleClass("ui-tabs-collapsible",ae);if(!ae&&this.options.active===false){this._activate(0)}}if(ad==="event"){this._setupEvents(ae)}if(ad==="heightStyle"){this._setupHeightStyle(ae)}},_sanitizeSelector:function(ad){return ad?ad.replace(/[!"$%&'()*+,.\/:;<=>?@\[\]\^`{|}~]/g,"\\$&"):""},refresh:function(){var ae=this.options,ad=this.tablist.children(":has(a[shref])");ae.disabled=I.map(ad.filter(".ui-state-disabled"),function(af){return ad.index(af)});this._processTabs();if(ae.active===false||!this.anchors.length){ae.active=false;this.active=I()}else{if(this.active.length&&!I.contains(this.tablist[0],this.active[0])){if(this.tabs.length===ae.disabled.length){ae.active=false;this.active=I()}else{this._activate(this._findNextTab(Math.max(0,ae.active-1),false))}}else{ae.active=this.tabs.index(this.active)}}this._refresh()},_refresh:function(){this._setupDisabled(this.options.disabled);this._setupEvents(this.options.event);this._setupHeightStyle(this.options.heightStyle);this.tabs.not(this.active).attr({"aria-selected":"false","aria-expanded":"false",tabIndex:-1});this.panels.not(this._getPanelForTab(this.active)).hide().attr({"aria-hidden":"true"});if(!this.active.length){this.tabs.eq(0).attr("tabIndex",0)}else{this.active.addClass("ui-tabs-active ui-state-active").attr({"aria-selected":"true","aria-expanded":"true",tabIndex:0});this._getPanelForTab(this.active).show().attr({"aria-hidden":"false"})}},_processTabs:function(){var af=this,ag=this.tabs,ae=this.anchors,ad=this.panels;this.tablist=this._getList().addClass("ui-tabs-nav ui-helper-reset ui-helper-clearfix ui-widget-header ui-corner-all").attr("role","tablist").delegate("> li","mousedown"+this.eventNamespace,function(ah){if(I(this).is(".ui-state-disabled")){ah.preventDefault()}}).delegate(".ui-tabs-anchor","focus"+this.eventNamespace,function(){if(I(this).closest("li").is(".ui-state-disabled")){this.blur()}});this.tabs=this.tablist.find("> li:has(a[shref])").addClass("ui-state-default ui-corner-top").attr({role:"tab",tabIndex:-1});this.anchors=this.tabs.map(function(){return I("a",this)[0]}).addClass("ui-tabs-anchor").attr({role:"presentation",tabIndex:-1});this.panels=I();this.anchors.each(function(am,ak){var ah,ai,al,aj=I(ak).uniqueId().attr("id"),an=I(ak).closest("li"),ao=an.attr("aria-controls");if(af._isLocal(ak)){ah=ak.getAttribute("shref");al=ah.substring(1);ai=af.element.find(af._sanitizeSelector(ah))}else{al=an.attr("aria-controls")||I({}).uniqueId()[0].id;ah="#"+al;ai=af.element.find(ah);if(!ai.length){ai=af._createPanel(al);ai.insertAfter(af.panels[am-1]||af.tablist)}ai.attr("aria-live","polite")}if(ai.length){af.panels=af.panels.add(ai)}if(ao){an.data("ui-tabs-aria-controls",ao)}an.attr({"aria-controls":al,"aria-labelledby":aj});ai.attr("aria-labelledby",aj)});this.panels.addClass("ui-tabs-panel ui-widget-content ui-corner-bottom").attr("role","tabpanel");if(ag){this._off(ag.not(this.tabs));this._off(ae.not(this.anchors));this._off(ad.not(this.panels))}},_getList:function(){return this.tablist||this.element.find("ol,ul").eq(0)},_createPanel:function(ad){return I("<div>").attr("id",ad).addClass("ui-tabs-panel ui-widget-content ui-corner-bottom").data("ui-tabs-destroy",true)},_setupDisabled:function(af){if(I.isArray(af)){if(!af.length){af=false}else{if(af.length===this.anchors.length){af=true}}}for(var ae=0,ad;(ad=this.tabs[ae]);ae++){if(af===true||I.inArray(ae,af)!==-1){I(ad).addClass("ui-state-disabled").attr("aria-disabled","true")}else{I(ad).removeClass("ui-state-disabled").removeAttr("aria-disabled")}}this.options.disabled=af},_setupEvents:function(ae){var ad={};if(ae){I.each(ae.split(" "),function(ag,af){ad[af]="_eventHandler"})}this._off(this.anchors.add(this.tabs).add(this.panels));this._on(true,this.anchors,{click:function(af){af.preventDefault()}});this._on(this.anchors,ad);this._on(this.tabs,{keydown:"_tabKeydown"});this._on(this.panels,{keydown:"_panelKeydown"});this._focusable(this.tabs);this._hoverable(this.tabs)},_setupHeightStyle:function(ad){var af,ae=this.element.parent();if(ad==="fill"){af=ae.height();af-=this.element.outerHeight()-this.element.height();this.element.siblings(":visible").each(function(){var ah=I(this),ag=ah.css("position");if(ag==="absolute"||ag==="fixed"){return}af-=ah.outerHeight(true)});this.element.children().not(this.panels).each(function(){af-=I(this).outerHeight(true)});this.panels.each(function(){I(this).height(Math.max(0,af-I(this).innerHeight()+I(this).height()))}).css("overflow","auto")}else{if(ad==="auto"){af=0;this.panels.each(function(){af=Math.max(af,I(this).height("").height())}).height(af)}}},_eventHandler:function(ad){var am=this.options,ah=this.active,ai=I(ad.currentTarget),ag=ai.closest("li"),ak=ag[0]===ah[0],ae=ak&&am.collapsible,af=ae?I():this._getPanelForTab(ag),aj=!ah.length?I():this._getPanelForTab(ah),al={oldTab:ah,oldPanel:aj,newTab:ae?I():ag,newPanel:af};ad.preventDefault();if(ag.hasClass("ui-state-disabled")||ag.hasClass("ui-tabs-loading")||this.running||(ak&&!am.collapsible)||(this._trigger("beforeActivate",ad,al)===false)){return}am.active=ae?false:this.tabs.index(ag);this.active=ak?I():ag;if(this.xhr){this.xhr.abort()}if(!aj.length&&!af.length){I.error("jQuery UI Tabs: Mismatching fragment identifier.")}if(af.length){this.load(this.tabs.index(ag),ad)}this._toggle(ad,al)},_toggle:function(aj,ai){var ah=this,ad=ai.newPanel,ag=ai.oldPanel;this.running=true;function af(){ah.running=false;ah._trigger("activate",aj,ai)}function ae(){ai.newTab.closest("li").addClass("ui-tabs-active ui-state-active");if(ad.length&&ah.options.show){ah._show(ad,ah.options.show,af)}else{ad.show();af()}}if(ag.length&&this.options.hide){this._hide(ag,this.options.hide,function(){ai.oldTab.closest("li").removeClass("ui-tabs-active ui-state-active");ae()})}else{ai.oldTab.closest("li").removeClass("ui-tabs-active ui-state-active");ag.hide();ae()}ag.attr("aria-hidden","true");ai.oldTab.attr({"aria-selected":"false","aria-expanded":"false"});if(ad.length&&ag.length){ai.oldTab.attr("tabIndex",-1)}else{if(ad.length){this.tabs.filter(function(){return I(this).attr("tabIndex")===0}).attr("tabIndex",-1)}}ad.attr("aria-hidden","false");ai.newTab.attr({"aria-selected":"true","aria-expanded":"true",tabIndex:0})},_activate:function(ae){var ad,af=this._findActive(ae);if(af[0]===this.active[0]){return}if(!af.length){af=this.active}ad=af.find(".ui-tabs-anchor")[0];this._eventHandler({target:ad,currentTarget:ad,preventDefault:I.noop})},_findActive:function(ad){return ad===false?I():this.tabs.eq(ad)},_getIndex:function(ad){if(typeof ad==="string"){ad=this.anchors.index(this.anchors.filter("[shref$='"+ad+"']"))}return ad},_destroy:function(){if(this.xhr){this.xhr.abort()}this.element.removeClass("ui-tabs ui-widget ui-widget-content ui-corner-all ui-tabs-collapsible");this.tablist.removeClass("ui-tabs-nav ui-helper-reset ui-helper-clearfix ui-widget-header ui-corner-all").removeAttr("role");this.anchors.removeClass("ui-tabs-anchor").removeAttr("role").removeAttr("tabIndex").removeUniqueId();this.tablist.unbind(this.eventNamespace);this.tabs.add(this.panels).each(function(){if(I.data(this,"ui-tabs-destroy")){I(this).remove()}else{I(this).removeClass("ui-state-default ui-state-active ui-state-disabled ui-corner-top ui-corner-bottom ui-widget-content ui-tabs-active ui-tabs-panel").removeAttr("tabIndex").removeAttr("aria-live").removeAttr("aria-busy").removeAttr("aria-selected").removeAttr("aria-labelledby").removeAttr("aria-hidden").removeAttr("aria-expanded").removeAttr("role")}});this.tabs.each(function(){var ad=I(this),ae=ad.data("ui-tabs-aria-controls");if(ae){ad.attr("aria-controls",ae).removeData("ui-tabs-aria-controls")}else{ad.removeAttr("aria-controls")}});this.panels.show();if(this.options.heightStyle!=="content"){this.panels.css("height","")}},enable:function(ad){var ae=this.options.disabled;if(ae===false){return}if(ad===undefined){ae=false}else{ad=this._getIndex(ad);if(I.isArray(ae)){ae=I.map(ae,function(af){return af!==ad?af:null})}else{ae=I.map(this.tabs,function(af,ag){return ag!==ad?ag:null})}}this._setupDisabled(ae)},disable:function(ad){var ae=this.options.disabled;if(ae===true){return}if(ad===undefined){ae=true}else{ad=this._getIndex(ad);if(I.inArray(ad,ae)!==-1){return}if(I.isArray(ae)){ae=I.merge([ad],ae).sort()}else{ae=[ad]}}this._setupDisabled(ae)},load:function(ag,ak){ag=this._getIndex(ag);var aj=this,ah=this.tabs.eq(ag),af=ah.find(".ui-tabs-anchor"),ae=this._getPanelForTab(ah),ai={tab:ah,panel:ae},ad=function(am,al){if(al==="abort"){aj.panels.stop(false,true)}ah.removeClass("ui-tabs-loading");ae.removeAttr("aria-busy");if(am===aj.xhr){delete aj.xhr}};if(this._isLocal(af[0])){return}this.xhr=I.ajax(this._ajaxSettings(af,ak,ai));if(this.xhr&&this.xhr.statusText!=="canceled"){ah.addClass("ui-tabs-loading");ae.attr("aria-busy","true");this.xhr.done(function(am,al,an){setTimeout(function(){ae.html(am);aj._trigger("load",ak,ai);ad(an,al)},1)}).fail(function(am,al){setTimeout(function(){ad(am,al)},1)})}},_ajaxSettings:function(ad,ag,af){var ae=this;return{url:ad.attr("shref"),beforeSend:function(ai,ah){return ae._trigger("beforeLoad",ag,I.extend({jqXHR:ai,ajaxSettings:ah},af))}}},_getPanelForTab:function(ad){var ae=I(ad).attr("aria-controls");return this.element.find(this._sanitizeSelector("#"+ae))}});
+
+
+var tabs = $.widget( "ui.tabs", {
+	version: "1.11.4",
+	delay: 300,
+	options: {
+		active: null,
+		collapsible: false,
+		event: "click",
+		heightStyle: "content",
+		hide: null,
+		show: null,
+
+		// callbacks
+		activate: null,
+		beforeActivate: null,
+		beforeLoad: null,
+		load: null
+	},
+
+	_isLocal: (function() {
+		var rhash = /#.*$/;
+
+		return function( anchor ) {
+			var anchorUrl, locationUrl;
+			// support: IE7
+			// IE7 doesn't normalize the href property when set via script (#9317)
+			anchor = anchor.cloneNode( false );
+			anchor.href = anchor.getAttribute('shref');
+			anchorUrl = anchor.href.replace( rhash, "" );
+			locationUrl = location.href.replace( rhash, "" );
+			// decoding may throw an error if the URL isn't UTF-8 (#9518)
+			try {
+				anchorUrl = decodeURIComponent( anchorUrl );
+			} catch ( error ) {}
+			try {
+				locationUrl = decodeURIComponent( locationUrl );
+			} catch ( error ) {}
+			return anchor.hash.length > 1 && anchorUrl === locationUrl;
+		};
+	})(),
+
+	_create: function() {
+		var that = this,
+			options = this.options;
+
+		this.running = false;
+
+		this.element
+			.addClass( "ui-tabs ui-widget ui-widget-content ui-corner-all" )
+			.toggleClass( "ui-tabs-collapsible", options.collapsible );
+
+		this._processTabs();
+		options.active = this._initialActive();
+
+		// Take disabling tabs via class attribute from HTML
+		// into account and update option properly.
+		if ( $.isArray( options.disabled ) ) {
+			options.disabled = $.unique( options.disabled.concat(
+				$.map( this.tabs.filter( ".ui-state-disabled" ), function( li ) {
+					return that.tabs.index( li );
+				})
+			) ).sort();
+		}
+
+		// check for length avoids error when initializing empty list
+		if ( this.options.active !== false && this.anchors.length ) {
+			this.active = this._findActive( options.active );
+		} else {
+			this.active = $();
+		}
+
+		this._refresh();
+
+		if ( this.active.length ) {
+			this.load( options.active );
+		}
+	},
+
+	_initialActive: function() {
+		var active = this.options.active,
+			collapsible = this.options.collapsible,
+			locationHash = location.hash.substring( 1 );
+		if ( active === null ) {
+			// check the fragment identifier in the URL
+			if ( locationHash ) {
+				this.tabs.each(function( i, tab ) {
+					if ( $( tab ).attr( "aria-controls" ) === locationHash ) {
+						active = i;
+						return false;
+					}
+				});
+			}
+
+			// check for a tab marked active via a class
+			if ( active === null ) {
+				active = this.tabs.index( this.tabs.filter( ".ui-tabs-active" ) );
+			}
+
+			// no active tab, set to false
+			if ( active === null || active === -1 ) {
+				active = this.tabs.length ? 0 : false;
+			}
+		}
+
+		// handle numbers: negative, out of range
+		if ( active !== false ) {
+			active = this.tabs.index( this.tabs.eq( active ) );
+			if ( active === -1 ) {
+				active = collapsible ? false : 0;
+			}
+		}
+
+		// don't allow collapsible: false and active: false
+		if ( !collapsible && active === false && this.anchors.length ) {
+			active = 0;
+		}
+
+		return active;
+	},
+
+	_getCreateEventData: function() {
+		return {
+			tab: this.active,
+			panel: !this.active.length ? $() : this._getPanelForTab( this.active )
+		};
+	},
+
+	_tabKeydown: function( event ) {
+		var focusedTab = $( this.document[0].activeElement ).closest( "li" ),
+			selectedIndex = this.tabs.index( focusedTab ),
+			goingForward = true;
+
+		if ( this._handlePageNav( event ) ) {
+			return;
+		}
+
+		switch ( event.keyCode ) {
+			case $.ui.keyCode.RIGHT:
+			case $.ui.keyCode.DOWN:
+				selectedIndex++;
+				break;
+			case $.ui.keyCode.UP:
+			case $.ui.keyCode.LEFT:
+				goingForward = false;
+				selectedIndex--;
+				break;
+			case $.ui.keyCode.END:
+				selectedIndex = this.anchors.length - 1;
+				break;
+			case $.ui.keyCode.HOME:
+				selectedIndex = 0;
+				break;
+			case $.ui.keyCode.SPACE:
+				// Activate only, no collapsing
+				event.preventDefault();
+				clearTimeout( this.activating );
+				this._activate( selectedIndex );
+				return;
+			case $.ui.keyCode.ENTER:
+				// Toggle (cancel delayed activation, allow collapsing)
+				event.preventDefault();
+				clearTimeout( this.activating );
+				// Determine if we should collapse or activate
+				this._activate( selectedIndex === this.options.active ? false : selectedIndex );
+				return;
+			default:
+				return;
+		}
+
+		// Focus the appropriate tab, based on which key was pressed
+		event.preventDefault();
+		clearTimeout( this.activating );
+		selectedIndex = this._focusNextTab( selectedIndex, goingForward );
+
+		// Navigating with control/command key will prevent automatic activation
+		if ( !event.ctrlKey && !event.metaKey ) {
+
+			// Update aria-selected immediately so that AT think the tab is already selected.
+			// Otherwise AT may confuse the user by stating that they need to activate the tab,
+			// but the tab will already be activated by the time the announcement finishes.
+			focusedTab.attr( "aria-selected", "false" );
+			this.tabs.eq( selectedIndex ).attr( "aria-selected", "true" );
+
+			this.activating = this._delay(function() {
+				this.option( "active", selectedIndex );
+			}, this.delay );
+		}
+	},
+
+	_panelKeydown: function( event ) {
+		if ( this._handlePageNav( event ) ) {
+			return;
+		}
+
+		// Ctrl+up moves focus to the current tab
+		if ( event.ctrlKey && event.keyCode === $.ui.keyCode.UP ) {
+			event.preventDefault();
+			this.active.focus();
+		}
+	},
+
+	// Alt+page up/down moves focus to the previous/next tab (and activates)
+	_handlePageNav: function( event ) {
+		if ( event.altKey && event.keyCode === $.ui.keyCode.PAGE_UP ) {
+			this._activate( this._focusNextTab( this.options.active - 1, false ) );
+			return true;
+		}
+		if ( event.altKey && event.keyCode === $.ui.keyCode.PAGE_DOWN ) {
+			this._activate( this._focusNextTab( this.options.active + 1, true ) );
+			return true;
+		}
+	},
+
+	_findNextTab: function( index, goingForward ) {
+		var lastTabIndex = this.tabs.length - 1;
+
+		function constrain() {
+			if ( index > lastTabIndex ) {
+				index = 0;
+			}
+			if ( index < 0 ) {
+				index = lastTabIndex;
+			}
+			return index;
+		}
+
+		while ( $.inArray( constrain(), this.options.disabled ) !== -1 ) {
+			index = goingForward ? index + 1 : index - 1;
+		}
+
+		return index;
+	},
+
+	_focusNextTab: function( index, goingForward ) {
+		index = this._findNextTab( index, goingForward );
+		this.tabs.eq( index ).focus();
+		return index;
+	},
+
+	_setOption: function( key, value ) {
+		if ( key === "active" ) {
+			// _activate() will handle invalid values and update this.options
+			this._activate( value );
+			return;
+		}
+
+		if ( key === "disabled" ) {
+			// don't use the widget factory's disabled handling
+			this._setupDisabled( value );
+			return;
+		}
+
+		this._super( key, value);
+
+		if ( key === "collapsible" ) {
+			this.element.toggleClass( "ui-tabs-collapsible", value );
+			// Setting collapsible: false while collapsed; open first panel
+			if ( !value && this.options.active === false ) {
+				this._activate( 0 );
+			}
+		}
+
+		if ( key === "event" ) {
+			this._setupEvents( value );
+		}
+
+		if ( key === "heightStyle" ) {
+			this._setupHeightStyle( value );
+		}
+	},
+
+	_sanitizeSelector: function( hash ) {
+		return hash ? hash.replace( /[!"$%&'()*+,.\/:;<=>?@\[\]\^`{|}~]/g, "\\$&" ) : "";
+	},
+
+	refresh: function() {
+		var options = this.options,
+			lis = this.tablist.children( ":has(a[shref])" );
+
+		// get disabled tabs from class attribute from HTML
+		// this will get converted to a boolean if needed in _refresh()
+		options.disabled = $.map( lis.filter( ".ui-state-disabled" ), function( tab ) {
+			return lis.index( tab );
+		});
+
+		this._processTabs();
+
+		// was collapsed or no tabs
+		if ( options.active === false || !this.anchors.length ) {
+			options.active = false;
+			this.active = $();
+		// was active, but active tab is gone
+		} else if ( this.active.length && !$.contains( this.tablist[ 0 ], this.active[ 0 ] ) ) {
+			// all remaining tabs are disabled
+			if ( this.tabs.length === options.disabled.length ) {
+				options.active = false;
+				this.active = $();
+			// activate previous tab
+			} else {
+				this._activate( this._findNextTab( Math.max( 0, options.active - 1 ), false ) );
+			}
+		// was active, active tab still exists
+		} else {
+			// make sure active index is correct
+			options.active = this.tabs.index( this.active );
+		}
+
+		this._refresh();
+	},
+
+	_refresh: function() {
+		this._setupDisabled( this.options.disabled );
+		this._setupEvents( this.options.event );
+		this._setupHeightStyle( this.options.heightStyle );
+
+		this.tabs.not( this.active ).attr({
+			"aria-selected": "false",
+			"aria-expanded": "false",
+			tabIndex: -1
+		});
+		this.panels.not( this._getPanelForTab( this.active ) )
+			.hide()
+			.attr({
+				"aria-hidden": "true"
+			});
+
+		// Make sure one tab is in the tab order
+		if ( !this.active.length ) {
+			this.tabs.eq( 0 ).attr( "tabIndex", 0 );
+		} else {
+			this.active
+				.addClass( "ui-tabs-active ui-state-active" )
+				.attr({
+					"aria-selected": "true",
+					"aria-expanded": "true",
+					tabIndex: 0
+				});
+			this._getPanelForTab( this.active )
+				.show()
+				.attr({
+					"aria-hidden": "false"
+				});
+		}
+	},
+
+	_processTabs: function() {
+		var that = this,
+			prevTabs = this.tabs,
+			prevAnchors = this.anchors,
+			prevPanels = this.panels;
+		
+		this.tablist = this._getList()
+			.addClass( "ui-tabs-nav ui-helper-reset ui-helper-clearfix ui-widget-header ui-corner-all" )
+			.attr( "role", "tablist" )
+
+			// Prevent users from focusing disabled tabs via click
+			.delegate( "> li", "mousedown" + this.eventNamespace, function( event ) {
+				if ( $( this ).is( ".ui-state-disabled" ) ) {
+					event.preventDefault();
+				}
+			})
+
+			// support: IE <9
+			// Preventing the default action in mousedown doesn't prevent IE
+			// from focusing the element, so if the anchor gets focused, blur.
+			// We don't have to worry about focusing the previously focused
+			// element since clicking on a non-focusable element should focus
+			// the body anyway.
+			.delegate( ".ui-tabs-anchor", "focus" + this.eventNamespace, function() {
+				if ( $( this ).closest( "li" ).is( ".ui-state-disabled" ) ) {
+					this.blur();
+				}
+			});
+
+		this.tabs = this.tablist.find( "> li:has(a[shref])" )
+			.addClass( "ui-state-default ui-corner-top" )
+			.attr({
+				role: "tab",
+				tabIndex: -1
+			});
+
+		this.anchors = this.tabs.map(function() {
+				return $( "a", this )[ 0 ];
+			})
+			.addClass( "ui-tabs-anchor" )
+			.attr({
+				role: "presentation",
+				tabIndex: -1
+			});
+		this.panels = $();
+
+		this.anchors.each(function( i, anchor ) {
+			var selector, panel, panelId,
+				anchorId = $( anchor ).uniqueId().attr( "id" ),
+				tab = $( anchor ).closest( "li" ),
+				originalAriaControls = tab.attr( "aria-controls" );
+			
+			// inline tab
+			if ( that._isLocal( anchor ) ) {
+				selector = anchor.getAttribute('shref');
+				panelId = selector.substring( 1 );
+				panel = that.element.find( that._sanitizeSelector( selector ) );
+			// remote tab
+			} else {
+				// If the tab doesn't already have aria-controls,
+				// generate an id by using a throw-away element
+				panelId = tab.attr( "aria-controls" ) || $( {} ).uniqueId()[ 0 ].id;
+				
+				selector = "#" + panelId;
+				panel = that.element.find( selector );
+				if ( !panel.length ) {
+					panel = that._createPanel( panelId );
+					panel.insertAfter( that.panels[ i - 1 ] || that.tablist );
+				}
+				panel.attr( "aria-live", "polite" );
+				
+			}
+			if ( panel.length) {
+				that.panels = that.panels.add( panel );
+			}
+			if ( originalAriaControls ) {
+				tab.data( "ui-tabs-aria-controls", originalAriaControls );
+			}
+			tab.attr({
+				"aria-controls": panelId,
+				"aria-labelledby": anchorId
+			});
+			panel.attr( "aria-labelledby", anchorId );
+		});
+
+		this.panels
+			.addClass( "ui-tabs-panel ui-widget-content ui-corner-bottom" )
+			.attr( "role", "tabpanel" );
+
+		// Avoid memory leaks (#10056)
+		if ( prevTabs ) {
+			this._off( prevTabs.not( this.tabs ) );
+			this._off( prevAnchors.not( this.anchors ) );
+			this._off( prevPanels.not( this.panels ) );
+		}
+	},
+
+	// allow overriding how to find the list for rare usage scenarios (#7715)
+	_getList: function() {
+		return this.tablist || this.element.find( "ol,ul" ).eq( 0 );
+	},
+
+	_createPanel: function( id ) {
+		return $( "<div>" )
+			.attr( "id", id )
+			.addClass( "ui-tabs-panel ui-widget-content ui-corner-bottom" )
+			.data( "ui-tabs-destroy", true );
+	},
+
+	_setupDisabled: function( disabled ) {
+		if ( $.isArray( disabled ) ) {
+			if ( !disabled.length ) {
+				disabled = false;
+			} else if ( disabled.length === this.anchors.length ) {
+				disabled = true;
+			}
+		}
+
+		// disable tabs
+		for ( var i = 0, li; ( li = this.tabs[ i ] ); i++ ) {
+			if ( disabled === true || $.inArray( i, disabled ) !== -1 ) {
+				$( li )
+					.addClass( "ui-state-disabled" )
+					.attr( "aria-disabled", "true" );
+			} else {
+				$( li )
+					.removeClass( "ui-state-disabled" )
+					.removeAttr( "aria-disabled" );
+			}
+		}
+
+		this.options.disabled = disabled;
+	},
+
+	_setupEvents: function( event ) {
+		var events = {};
+		if ( event ) {
+			$.each( event.split(" "), function( index, eventName ) {
+				events[ eventName ] = "_eventHandler";
+			});
+		}
+
+		this._off( this.anchors.add( this.tabs ).add( this.panels ) );
+		// Always prevent the default action, even when disabled
+		this._on( true, this.anchors, {
+			click: function( event ) {
+				event.preventDefault();
+			}
+		});
+		this._on( this.anchors, events );
+		this._on( this.tabs, { keydown: "_tabKeydown" } );
+		this._on( this.panels, { keydown: "_panelKeydown" } );
+
+		this._focusable( this.tabs );
+		this._hoverable( this.tabs );
+	},
+
+	_setupHeightStyle: function( heightStyle ) {
+		var maxHeight,
+			parent = this.element.parent();
+
+		if ( heightStyle === "fill" ) {
+			maxHeight = parent.height();
+			maxHeight -= this.element.outerHeight() - this.element.height();
+
+			this.element.siblings( ":visible" ).each(function() {
+				var elem = $( this ),
+					position = elem.css( "position" );
+
+				if ( position === "absolute" || position === "fixed" ) {
+					return;
+				}
+				maxHeight -= elem.outerHeight( true );
+			});
+
+			this.element.children().not( this.panels ).each(function() {
+				maxHeight -= $( this ).outerHeight( true );
+			});
+
+			this.panels.each(function() {
+				$( this ).height( Math.max( 0, maxHeight -
+					$( this ).innerHeight() + $( this ).height() ) );
+			})
+			.css( "overflow", "auto" );
+		} else if ( heightStyle === "auto" ) {
+			maxHeight = 0;
+			this.panels.each(function() {
+				maxHeight = Math.max( maxHeight, $( this ).height( "" ).height() );
+			}).height( maxHeight );
+		}
+	},
+
+	_eventHandler: function( event ) {
+		var options = this.options,
+			active = this.active,
+			anchor = $( event.currentTarget ),
+			tab = anchor.closest( "li" ),
+			clickedIsActive = tab[ 0 ] === active[ 0 ],
+			collapsing = clickedIsActive && options.collapsible,
+			toShow = collapsing ? $() : this._getPanelForTab( tab ),
+			toHide = !active.length ? $() : this._getPanelForTab( active ),
+			eventData = {
+				oldTab: active,
+				oldPanel: toHide,
+				newTab: collapsing ? $() : tab,
+				newPanel: toShow
+			};
+
+		event.preventDefault();
+
+		if ( tab.hasClass( "ui-state-disabled" ) ||
+				// tab is already loading
+				tab.hasClass( "ui-tabs-loading" ) ||
+				// can't switch durning an animation
+				this.running ||
+				// click on active header, but not collapsible
+				( clickedIsActive && !options.collapsible ) ||
+				// allow canceling activation
+				( this._trigger( "beforeActivate", event, eventData ) === false ) ) {
+			return;
+		}
+
+		options.active = collapsing ? false : this.tabs.index( tab );
+
+		this.active = clickedIsActive ? $() : tab;
+		if ( this.xhr ) {
+			this.xhr.abort();
+		}
+
+		if ( !toHide.length && !toShow.length ) {
+			$.error( "jQuery UI Tabs: Mismatching fragment identifier." );
+		}
+
+		if ( toShow.length ) {
+			this.load( this.tabs.index( tab ), event );
+		}
+		this._toggle( event, eventData );
+	},
+
+	// handles show/hide for selecting tabs
+	_toggle: function( event, eventData ) {
+		var that = this,
+			toShow = eventData.newPanel,
+			toHide = eventData.oldPanel;
+
+		this.running = true;
+
+		function complete() {
+			that.running = false;
+			that._trigger( "activate", event, eventData );
+		}
+
+		function show() {
+			eventData.newTab.closest( "li" ).addClass( "ui-tabs-active ui-state-active" );
+
+			if ( toShow.length && that.options.show ) {
+				that._show( toShow, that.options.show, complete );
+			} else {
+				toShow.show();
+				complete();
+			}
+		}
+
+		// start out by hiding, then showing, then completing
+		if ( toHide.length && this.options.hide ) {
+			this._hide( toHide, this.options.hide, function() {
+				eventData.oldTab.closest( "li" ).removeClass( "ui-tabs-active ui-state-active" );
+				show();
+			});
+		} else {
+			eventData.oldTab.closest( "li" ).removeClass( "ui-tabs-active ui-state-active" );
+			toHide.hide();
+			show();
+		}
+
+		toHide.attr( "aria-hidden", "true" );
+		eventData.oldTab.attr({
+			"aria-selected": "false",
+			"aria-expanded": "false"
+		});
+		// If we're switching tabs, remove the old tab from the tab order.
+		// If we're opening from collapsed state, remove the previous tab from the tab order.
+		// If we're collapsing, then keep the collapsing tab in the tab order.
+		if ( toShow.length && toHide.length ) {
+			eventData.oldTab.attr( "tabIndex", -1 );
+		} else if ( toShow.length ) {
+			this.tabs.filter(function() {
+				return $( this ).attr( "tabIndex" ) === 0;
+			})
+			.attr( "tabIndex", -1 );
+		}
+
+		toShow.attr( "aria-hidden", "false" );
+		eventData.newTab.attr({
+			"aria-selected": "true",
+			"aria-expanded": "true",
+			tabIndex: 0
+		});
+	},
+
+	_activate: function( index ) {
+		var anchor,
+			active = this._findActive( index );
+
+		// trying to activate the already active panel
+		if ( active[ 0 ] === this.active[ 0 ] ) {
+			return;
+		}
+
+		// trying to collapse, simulate a click on the current active header
+		if ( !active.length ) {
+			active = this.active;
+		}
+
+		anchor = active.find( ".ui-tabs-anchor" )[ 0 ];
+		this._eventHandler({
+			target: anchor,
+			currentTarget: anchor,
+			preventDefault: $.noop
+		});
+	},
+
+	_findActive: function( index ) {
+		return index === false ? $() : this.tabs.eq( index );
+	},
+
+	_getIndex: function( index ) {
+		// meta-function to give users option to provide a shref string instead of a numerical index.
+		if ( typeof index === "string" ) {
+			index = this.anchors.index( this.anchors.filter( "[shref$='" + index + "']" ) );
+		}
+
+		return index;
+	},
+
+	_destroy: function() {
+		if ( this.xhr ) {
+			this.xhr.abort();
+		}
+
+		this.element.removeClass( "ui-tabs ui-widget ui-widget-content ui-corner-all ui-tabs-collapsible" );
+
+		this.tablist
+			.removeClass( "ui-tabs-nav ui-helper-reset ui-helper-clearfix ui-widget-header ui-corner-all" )
+			.removeAttr( "role" );
+
+		this.anchors
+			.removeClass( "ui-tabs-anchor" )
+			.removeAttr( "role" )
+			.removeAttr( "tabIndex" )
+			.removeUniqueId();
+
+		this.tablist.unbind( this.eventNamespace );
+
+		this.tabs.add( this.panels ).each(function() {
+			if ( $.data( this, "ui-tabs-destroy" ) ) {
+				$( this ).remove();
+			} else {
+				$( this )
+					.removeClass( "ui-state-default ui-state-active ui-state-disabled " +
+						"ui-corner-top ui-corner-bottom ui-widget-content ui-tabs-active ui-tabs-panel" )
+					.removeAttr( "tabIndex" )
+					.removeAttr( "aria-live" )
+					.removeAttr( "aria-busy" )
+					.removeAttr( "aria-selected" )
+					.removeAttr( "aria-labelledby" )
+					.removeAttr( "aria-hidden" )
+					.removeAttr( "aria-expanded" )
+					.removeAttr( "role" );
+			}
+		});
+
+		this.tabs.each(function() {
+			var li = $( this ),
+				prev = li.data( "ui-tabs-aria-controls" );
+			if ( prev ) {
+				li
+					.attr( "aria-controls", prev )
+					.removeData( "ui-tabs-aria-controls" );
+			} else {
+				li.removeAttr( "aria-controls" );
+			}
+		});
+
+		this.panels.show();
+
+		if ( this.options.heightStyle !== "content" ) {
+			this.panels.css( "height", "" );
+		}
+	},
+
+	enable: function( index ) {
+		var disabled = this.options.disabled;
+		if ( disabled === false ) {
+			return;
+		}
+
+		if ( index === undefined ) {
+			disabled = false;
+		} else {
+			index = this._getIndex( index );
+			if ( $.isArray( disabled ) ) {
+				disabled = $.map( disabled, function( num ) {
+					return num !== index ? num : null;
+				});
+			} else {
+				disabled = $.map( this.tabs, function( li, num ) {
+					return num !== index ? num : null;
+				});
+			}
+		}
+		this._setupDisabled( disabled );
+	},
+
+	disable: function( index ) {
+		var disabled = this.options.disabled;
+		if ( disabled === true ) {
+			return;
+		}
+
+		if ( index === undefined ) {
+			disabled = true;
+		} else {
+			index = this._getIndex( index );
+			if ( $.inArray( index, disabled ) !== -1 ) {
+				return;
+			}
+			if ( $.isArray( disabled ) ) {
+				disabled = $.merge( [ index ], disabled ).sort();
+			} else {
+				disabled = [ index ];
+			}
+		}
+		this._setupDisabled( disabled );
+	},
+
+	load: function( index, event ) {
+		index = this._getIndex( index );
+		var that = this,
+			tab = this.tabs.eq( index ),
+			anchor = tab.find( ".ui-tabs-anchor" ),
+			panel = this._getPanelForTab( tab ),
+			eventData = {
+				tab: tab,
+				panel: panel
+			},
+			complete = function( jqXHR, status ) {
+				if ( status === "abort" ) {
+					that.panels.stop( false, true );
+				}
+
+				tab.removeClass( "ui-tabs-loading" );
+				panel.removeAttr( "aria-busy" );
+
+				if ( jqXHR === that.xhr ) {
+					delete that.xhr;
+				}
+			};
+
+		// not remote
+		if ( this._isLocal( anchor[ 0 ] ) ) {
+			return;
+		}
+
+		this.xhr = $.ajax( this._ajaxSettings( anchor, event, eventData ) );
+
+		// support: jQuery <1.8
+		// jQuery <1.8 returns false if the request is canceled in beforeSend,
+		// but as of 1.8, $.ajax() always returns a jqXHR object.
+		if ( this.xhr && this.xhr.statusText !== "canceled" ) {
+			tab.addClass( "ui-tabs-loading" );
+			panel.attr( "aria-busy", "true" );
+
+			this.xhr
+				.done(function( response, status, jqXHR ) {
+					// support: jQuery <1.8
+					// http://bugs.jquery.com/ticket/11778
+					setTimeout(function() {
+						panel.html( response );
+						that._trigger( "load", event, eventData );
+
+						complete( jqXHR, status );
+					}, 1 );
+				})
+				.fail(function( jqXHR, status ) {
+					// support: jQuery <1.8
+					// http://bugs.jquery.com/ticket/11778
+					setTimeout(function() {
+						complete( jqXHR, status );
+					}, 1 );
+				});
+		}
+	},
+
+	_ajaxSettings: function( anchor, event, eventData ) {
+		var that = this;
+		return {
+			url: anchor.attr( "shref" ),
+			beforeSend: function( jqXHR, settings ) {
+				return that._trigger( "beforeLoad", event,
+					$.extend( { jqXHR: jqXHR, ajaxSettings: settings }, eventData ) );
+			}
+		};
+	},
+
+	_getPanelForTab: function( tab ) {
+		var id = $( tab ).attr( "aria-controls" );
+		return this.element.find( this._sanitizeSelector( "#" + id ) );
+	}
+});
+
+
 /*!
  * jQuery UI Tooltip 1.11.4
  * http://jqueryui.com
@@ -224,7 +12893,454 @@ var k=I.widget("ui.tabs",{version:"1.11.4",delay:300,options:{active:null,collap
  *
  * http://api.jqueryui.com/tooltip/
  */
-var L=I.widget("ui.tooltip",{version:"1.11.4",options:{content:function(){var ad=I(this).attr("title")||"";return I("<a>").text(ad).html()},hide:true,items:"[title]:not([disabled])",position:{my:"left top+15",at:"left bottom",collision:"flipfit flip"},show:true,tooltipClass:null,track:false,close:null,open:null},_addDescribedBy:function(ae,af){var ad=(ae.attr("aria-describedby")||"").split(/\s+/);ad.push(af);ae.data("ui-tooltip-id",af).attr("aria-describedby",I.trim(ad.join(" ")))},_removeDescribedBy:function(af){var ag=af.data("ui-tooltip-id"),ae=(af.attr("aria-describedby")||"").split(/\s+/),ad=I.inArray(ag,ae);if(ad!==-1){ae.splice(ad,1)}af.removeData("ui-tooltip-id");ae=I.trim(ae.join(" "));if(ae){af.attr("aria-describedby",ae)}else{af.removeAttr("aria-describedby")}},_create:function(){this._on({mouseover:"open",focusin:"open"});this.tooltips={};this.parents={};if(this.options.disabled){this._disable()}this.liveRegion=I("<div>").attr({role:"log","aria-live":"assertive","aria-relevant":"additions",aaa:1}).addClass("ui-helper-hidden-accessible").appendTo(this.document[0].body)},_setOption:function(ad,af){var ae=this;if(ad==="disabled"){this[af?"_disable":"_enable"]();this.options[ad]=af;return}this._super(ad,af);if(ad==="content"){I.each(this.tooltips,function(ah,ag){ae._updateContent(ag.element)})}},_disable:function(){var ad=this;I.each(this.tooltips,function(ag,af){var ae=I.Event("blur");ae.target=ae.currentTarget=af.element[0];ad.close(ae,true)});this.element.find(this.options.items).addBack().each(function(){var ae=I(this);if(ae.is("[title]")){ae.data("ui-tooltip-title",ae.attr("title")).removeAttr("title")}})},_enable:function(){this.element.find(this.options.items).addBack().each(function(){var ad=I(this);if(ad.data("ui-tooltip-title")){ad.attr("title",ad.data("ui-tooltip-title"))}})},open:function(ae){var ad=this,af=I(ae?ae.target:this.element).closest(this.options.items);if(!af.length||af.data("ui-tooltip-id")){return}if(af.attr("title")){af.data("ui-tooltip-title",af.attr("title"))}af.data("ui-tooltip-open",true);if(ae&&ae.type==="mouseover"){af.parents().each(function(){var ah=I(this),ag;if(ah.data("ui-tooltip-open")){ag=I.Event("blur");ag.target=ag.currentTarget=this;ad.close(ag,true)}if(ah.attr("title")){ah.uniqueId();ad.parents[this.id]={element:this,title:ah.attr("title")};ah.attr("title","")}})}this._registerCloseHandlers(ae,af);this._updateContent(af,ae)},_updateContent:function(ai,ah){var ag,ad=this.options.content,af=this,ae=ah?ah.type:null;if(typeof ad==="string"){return this._open(ah,ai,ad)}ag=ad.call(ai[0],function(aj){af._delay(function(){if(!ai.data("ui-tooltip-open")){return}if(ah){ah.type=ae}this._open(ah,ai,aj)})});if(ag){this._open(ah,ai,ag)}},_open:function(ae,ah,ai){var ad,al,ak,af,aj=I.extend({},this.options.position);if(!ai){return}ad=this._find(ah);if(ad){ad.tooltip.find(".ui-tooltip-content").html(ai);return}if(ah.is("[title]")){if(ae&&ae.type==="mouseover"){ah.attr("title","")}else{ah.removeAttr("title")}}ad=this._tooltip(ah);al=ad.tooltip;this._addDescribedBy(ah,al.attr("id"));al.find(".ui-tooltip-content").html(ai);this.liveRegion.children().hide();if(ai.clone){af=ai.clone();af.removeAttr("id").find("[id]").removeAttr("id")}else{af=ai}I("<div>").html(af).appendTo(this.liveRegion);function ag(am){aj.of=am;if(al.is(":hidden")){return}al.position(aj)}if(this.options.track&&ae&&/^mouse/.test(ae.type)){this._on(this.document,{mousemove:ag});ag(ae)}else{al.position(I.extend({of:ah},this.options.position))}al.hide();this._show(al,this.options.show);if(this.options.show&&this.options.show.delay){ak=this.delayedShow=setInterval(function(){if(al.is(":visible")){ag(aj.of);clearInterval(ak)}},I.fx.interval)}this._trigger("open",ae,{tooltip:al})},_registerCloseHandlers:function(ae,af){var ad={keyup:function(ag){if(ag.keyCode===I.ui.keyCode.ESCAPE){var ah=I.Event(ag);ah.currentTarget=af[0];this.close(ah,true)}}};if(af[0]!==this.element[0]){ad.remove=function(){this._removeTooltip(this._find(af).tooltip)}}if(!ae||ae.type==="mouseover"){ad.mouseleave="close"}if(!ae||ae.type==="focusin"){ad.focusout="close"}this._on(true,af,ad)},close:function(ae){var ag,ad=this,ah=I(ae?ae.currentTarget:this.element),af=this._find(ah);if(!af){ah.removeData("ui-tooltip-open");return}ag=af.tooltip;if(af.closing){return}clearInterval(this.delayedShow);if(ah.data("ui-tooltip-title")&&!ah.attr("title")){ah.attr("title",ah.data("ui-tooltip-title"))}this._removeDescribedBy(ah);af.hiding=true;ag.stop(true);this._hide(ag,this.options.hide,function(){ad._removeTooltip(I(this))});ah.removeData("ui-tooltip-open");this._off(ah,"mouseleave focusout keyup");if(ah[0]!==this.element[0]){this._off(ah,"remove")}this._off(this.document,"mousemove");if(ae&&ae.type==="mouseleave"){I.each(this.parents,function(aj,ai){I(ai.element).attr("title",ai.title);delete ad.parents[aj]})}af.closing=true;this._trigger("close",ae,{tooltip:ag});if(!af.hiding){af.closing=false}},_tooltip:function(ad){var ae=I("<div>").attr("role","tooltip").addClass("ui-tooltip ui-widget ui-corner-all ui-widget-content "+(this.options.tooltipClass||"")),af=ae.uniqueId().attr("id");I("<div>").addClass("ui-tooltip-content").appendTo(ae);ae.appendTo(this.document[0].body);return this.tooltips[af]={element:ad,tooltip:ae}},_find:function(ad){var ae=ad.data("ui-tooltip-id");return ae?this.tooltips[ae]:null},_removeTooltip:function(ad){ad.remove();delete this.tooltips[ad.attr("id")]},_destroy:function(){var ad=this;I.each(this.tooltips,function(ah,ag){var af=I.Event("blur"),ae=ag.element;af.target=af.currentTarget=ae[0];ad.close(af,true);I("#"+ah).remove();if(ae.data("ui-tooltip-title")){if(!ae.attr("title")){ae.attr("title",ae.data("ui-tooltip-title"))}ae.removeData("ui-tooltip-title")}});this.liveRegion.remove()}});
+
+
+var tooltip = $.widget( "ui.tooltip", {
+	version: "1.11.4",
+	options: {
+		content: function() {
+			// support: IE<9, Opera in jQuery <1.7
+			// .text() can't accept undefined, so coerce to a string
+			var title = $( this ).attr( "title" ) || "";
+			// Escape title, since we're going from an attribute to raw HTML
+			return $( "<a>" ).text( title ).html();
+		},
+		hide: true,
+		// Disabled elements have inconsistent behavior across browsers (#8661)
+		items: "[title]:not([disabled])",
+		position: {
+			my: "left top+15",
+			at: "left bottom",
+			collision: "flipfit flip"
+		},
+		show: true,
+		tooltipClass: null,
+		track: false,
+
+		// callbacks
+		close: null,
+		open: null
+	},
+
+	_addDescribedBy: function( elem, id ) {
+		var describedby = (elem.attr( "aria-describedby" ) || "").split( /\s+/ );
+		describedby.push( id );
+		elem
+			.data( "ui-tooltip-id", id )
+			.attr( "aria-describedby", $.trim( describedby.join( " " ) ) );
+	},
+
+	_removeDescribedBy: function( elem ) {
+		var id = elem.data( "ui-tooltip-id" ),
+			describedby = (elem.attr( "aria-describedby" ) || "").split( /\s+/ ),
+			index = $.inArray( id, describedby );
+
+		if ( index !== -1 ) {
+			describedby.splice( index, 1 );
+		}
+
+		elem.removeData( "ui-tooltip-id" );
+		describedby = $.trim( describedby.join( " " ) );
+		if ( describedby ) {
+			elem.attr( "aria-describedby", describedby );
+		} else {
+			elem.removeAttr( "aria-describedby" );
+		}
+	},
+
+	_create: function() {
+		this._on({
+			mouseover: "open",
+			focusin: "open"
+		});
+		// IDs of generated tooltips, needed for destroy
+		this.tooltips = {};
+
+		// IDs of parent tooltips where we removed the title attribute
+		this.parents = {};
+
+		if ( this.options.disabled ) {
+			this._disable();
+		}
+
+		// Append the aria-live region so tooltips announce correctly
+		this.liveRegion = $( "<div>" )
+			.attr({
+				role: "log",
+				"aria-live": "assertive",
+				"aria-relevant": "additions",
+				"aaa":1
+			})
+			.addClass( "ui-helper-hidden-accessible" )
+			.appendTo( this.document[ 0 ].body );
+	},
+
+	_setOption: function( key, value ) {
+		var that = this;
+
+		if ( key === "disabled" ) {
+			this[ value ? "_disable" : "_enable" ]();
+			this.options[ key ] = value;
+			// disable element style changes
+			return;
+		}
+
+		this._super( key, value );
+
+		if ( key === "content" ) {
+			$.each( this.tooltips, function( id, tooltipData ) {
+				that._updateContent( tooltipData.element );
+			});
+		}
+	},
+
+	_disable: function() {
+		var that = this;
+
+		// close open tooltips
+		$.each( this.tooltips, function( id, tooltipData ) {
+			var event = $.Event( "blur" );
+			event.target = event.currentTarget = tooltipData.element[ 0 ];
+			that.close( event, true );
+		});
+
+		// remove title attributes to prevent native tooltips
+		this.element.find( this.options.items ).addBack().each(function() {
+			var element = $( this );
+			if ( element.is( "[title]" ) ) {
+				element
+					.data( "ui-tooltip-title", element.attr( "title" ) )
+					.removeAttr( "title" );
+			}
+		});
+	},
+
+	_enable: function() {
+		// restore title attributes
+		this.element.find( this.options.items ).addBack().each(function() {
+			var element = $( this );
+			if ( element.data( "ui-tooltip-title" ) ) {
+				element.attr( "title", element.data( "ui-tooltip-title" ) );
+			}
+		});
+	},
+
+	open: function( event ) {
+		var that = this,
+			target = $( event ? event.target : this.element )
+				// we need closest here due to mouseover bubbling,
+				// but always pointing at the same event target
+				.closest( this.options.items );
+
+		// No element to show a tooltip for or the tooltip is already open
+		if ( !target.length || target.data( "ui-tooltip-id" ) ) {
+			return;
+		}
+
+		if ( target.attr( "title" ) ) {
+			target.data( "ui-tooltip-title", target.attr( "title" ) );
+		}
+
+		target.data( "ui-tooltip-open", true );
+
+		// kill parent tooltips, custom or native, for hover
+		if ( event && event.type === "mouseover" ) {
+			target.parents().each(function() {
+				var parent = $( this ),
+					blurEvent;
+				if ( parent.data( "ui-tooltip-open" ) ) {
+					blurEvent = $.Event( "blur" );
+					blurEvent.target = blurEvent.currentTarget = this;
+					that.close( blurEvent, true );
+				}
+				if ( parent.attr( "title" ) ) {
+					parent.uniqueId();
+					that.parents[ this.id ] = {
+						element: this,
+						title: parent.attr( "title" )
+					};
+					parent.attr( "title", "" );
+				}
+			});
+		}
+
+		this._registerCloseHandlers( event, target );
+		this._updateContent( target, event );
+	},
+
+	_updateContent: function( target, event ) {
+		var content,
+			contentOption = this.options.content,
+			that = this,
+			eventType = event ? event.type : null;
+
+		if ( typeof contentOption === "string" ) {
+			return this._open( event, target, contentOption );
+		}
+
+		content = contentOption.call( target[0], function( response ) {
+
+			// IE may instantly serve a cached response for ajax requests
+			// delay this call to _open so the other call to _open runs first
+			that._delay(function() {
+
+				// Ignore async response if tooltip was closed already
+				if ( !target.data( "ui-tooltip-open" ) ) {
+					return;
+				}
+
+				// jQuery creates a special event for focusin when it doesn't
+				// exist natively. To improve performance, the native event
+				// object is reused and the type is changed. Therefore, we can't
+				// rely on the type being correct after the event finished
+				// bubbling, so we set it back to the previous value. (#8740)
+				if ( event ) {
+					event.type = eventType;
+				}
+				this._open( event, target, response );
+			});
+		});
+		if ( content ) {
+			this._open( event, target, content );
+		}
+	},
+
+	_open: function( event, target, content ) {
+		var tooltipData, tooltip, delayedShow, a11yContent,
+			positionOption = $.extend( {}, this.options.position );
+
+		if ( !content ) {
+			return;
+		}
+
+		// Content can be updated multiple times. If the tooltip already
+		// exists, then just update the content and bail.
+		tooltipData = this._find( target );
+		if ( tooltipData ) {
+			tooltipData.tooltip.find( ".ui-tooltip-content" ).html( content );
+			return;
+		}
+
+		// if we have a title, clear it to prevent the native tooltip
+		// we have to check first to avoid defining a title if none exists
+		// (we don't want to cause an element to start matching [title])
+		//
+		// We use removeAttr only for key events, to allow IE to export the correct
+		// accessible attributes. For mouse events, set to empty string to avoid
+		// native tooltip showing up (happens only when removing inside mouseover).
+		if ( target.is( "[title]" ) ) {
+			if ( event && event.type === "mouseover" ) {
+				target.attr( "title", "" );
+			} else {
+				target.removeAttr( "title" );
+			}
+		}
+
+		tooltipData = this._tooltip( target );
+		tooltip = tooltipData.tooltip;
+		this._addDescribedBy( target, tooltip.attr( "id" ) );
+		tooltip.find( ".ui-tooltip-content" ).html( content );
+
+		// Support: Voiceover on OS X, JAWS on IE <= 9
+		// JAWS announces deletions even when aria-relevant="additions"
+		// Voiceover will sometimes re-read the entire log region's contents from the beginning
+		this.liveRegion.children().hide();
+		if ( content.clone ) {
+			a11yContent = content.clone();
+			a11yContent.removeAttr( "id" ).find( "[id]" ).removeAttr( "id" );
+		} else {
+			a11yContent = content;
+		}
+		$( "<div>" ).html( a11yContent ).appendTo( this.liveRegion );
+
+		function position( event ) {
+			positionOption.of = event;
+			if ( tooltip.is( ":hidden" ) ) {
+				return;
+			}
+			tooltip.position( positionOption );
+		}
+		if ( this.options.track && event && /^mouse/.test( event.type ) ) {
+			this._on( this.document, {
+				mousemove: position
+			});
+			// trigger once to override element-relative positioning
+			position( event );
+		} else {
+			tooltip.position( $.extend({
+				of: target
+			}, this.options.position ) );
+		}
+
+		tooltip.hide();
+
+		this._show( tooltip, this.options.show );
+		// Handle tracking tooltips that are shown with a delay (#8644). As soon
+		// as the tooltip is visible, position the tooltip using the most recent
+		// event.
+		if ( this.options.show && this.options.show.delay ) {
+			delayedShow = this.delayedShow = setInterval(function() {
+				if ( tooltip.is( ":visible" ) ) {
+					position( positionOption.of );
+					clearInterval( delayedShow );
+				}
+			}, $.fx.interval );
+		}
+
+		this._trigger( "open", event, { tooltip: tooltip } );
+	},
+
+	_registerCloseHandlers: function( event, target ) {
+		var events = {
+			keyup: function( event ) {
+				if ( event.keyCode === $.ui.keyCode.ESCAPE ) {
+					var fakeEvent = $.Event(event);
+					fakeEvent.currentTarget = target[0];
+					this.close( fakeEvent, true );
+				}
+			}
+		};
+
+		// Only bind remove handler for delegated targets. Non-delegated
+		// tooltips will handle this in destroy.
+		if ( target[ 0 ] !== this.element[ 0 ] ) {
+			events.remove = function() {
+				this._removeTooltip( this._find( target ).tooltip );
+			};
+		}
+
+		if ( !event || event.type === "mouseover" ) {
+			events.mouseleave = "close";
+		}
+		if ( !event || event.type === "focusin" ) {
+			events.focusout = "close";
+		}
+		this._on( true, target, events );
+	},
+
+	close: function( event ) {
+		var tooltip,
+			that = this,
+			target = $( event ? event.currentTarget : this.element ),
+			tooltipData = this._find( target );
+
+		// The tooltip may already be closed
+		if ( !tooltipData ) {
+
+			// We set ui-tooltip-open immediately upon open (in open()), but only set the
+			// additional data once there's actually content to show (in _open()). So even if the
+			// tooltip doesn't have full data, we always remove ui-tooltip-open in case we're in
+			// the period between open() and _open().
+			target.removeData( "ui-tooltip-open" );
+			return;
+		}
+
+		tooltip = tooltipData.tooltip;
+
+		// disabling closes the tooltip, so we need to track when we're closing
+		// to avoid an infinite loop in case the tooltip becomes disabled on close
+		if ( tooltipData.closing ) {
+			return;
+		}
+
+		// Clear the interval for delayed tracking tooltips
+		clearInterval( this.delayedShow );
+
+		// only set title if we had one before (see comment in _open())
+		// If the title attribute has changed since open(), don't restore
+		if ( target.data( "ui-tooltip-title" ) && !target.attr( "title" ) ) {
+			target.attr( "title", target.data( "ui-tooltip-title" ) );
+		}
+
+		this._removeDescribedBy( target );
+
+		tooltipData.hiding = true;
+		tooltip.stop( true );
+		this._hide( tooltip, this.options.hide, function() {
+			that._removeTooltip( $( this ) );
+		});
+
+		target.removeData( "ui-tooltip-open" );
+		this._off( target, "mouseleave focusout keyup" );
+
+		// Remove 'remove' binding only on delegated targets
+		if ( target[ 0 ] !== this.element[ 0 ] ) {
+			this._off( target, "remove" );
+		}
+		this._off( this.document, "mousemove" );
+
+		if ( event && event.type === "mouseleave" ) {
+			$.each( this.parents, function( id, parent ) {
+				$( parent.element ).attr( "title", parent.title );
+				delete that.parents[ id ];
+			});
+		}
+
+		tooltipData.closing = true;
+		this._trigger( "close", event, { tooltip: tooltip } );
+		if ( !tooltipData.hiding ) {
+			tooltipData.closing = false;
+		}
+	},
+
+	_tooltip: function( element ) {
+		var tooltip = $( "<div>" )
+				.attr( "role", "tooltip" )
+				.addClass( "ui-tooltip ui-widget ui-corner-all ui-widget-content " +
+					( this.options.tooltipClass || "" ) ),
+			id = tooltip.uniqueId().attr( "id" );
+
+		$( "<div>" )
+			.addClass( "ui-tooltip-content" )
+			.appendTo( tooltip );
+
+		tooltip.appendTo( this.document[0].body );
+
+		return this.tooltips[ id ] = {
+			element: element,
+			tooltip: tooltip
+		};
+	},
+
+	_find: function( target ) {
+		var id = target.data( "ui-tooltip-id" );
+		return id ? this.tooltips[ id ] : null;
+	},
+
+	_removeTooltip: function( tooltip ) {
+		tooltip.remove();
+		delete this.tooltips[ tooltip.attr( "id" ) ];
+	},
+
+	_destroy: function() {
+		var that = this;
+
+		// close open tooltips
+		$.each( this.tooltips, function( id, tooltipData ) {
+			// Delegate to close method to handle common cleanup
+			var event = $.Event( "blur" ),
+				element = tooltipData.element;
+			event.target = event.currentTarget = element[ 0 ];
+			that.close( event, true );
+
+			// Remove immediately; destroying an open tooltip doesn't use the
+			// hide animation
+			$( "#" + id ).remove();
+
+			// Restore the title
+			if ( element.data( "ui-tooltip-title" ) ) {
+				// If the title attribute has changed since open(), don't restore
+				if ( !element.attr( "title" ) ) {
+					element.attr( "title", element.data( "ui-tooltip-title" ) );
+				}
+				element.removeData( "ui-tooltip-title" );
+			}
+		});
+		this.liveRegion.remove();
+	}
+});
+
+
 /*!
  * jQuery UI Effects 1.11.4
  * http://jqueryui.com
@@ -235,7 +13351,18 @@ var L=I.widget("ui.tooltip",{version:"1.11.4",options:{content:function(){var ad
  *
  * http://api.jqueryui.com/category/effects-core/
  */
-var j="ui-effects-",s=I;I.effects={effect:{}};
+
+
+var dataSpace = "ui-effects-",
+
+	// Create a local jQuery because jQuery Color relies on it and the
+	// global may not exist with AMD and a custom build (#10199)
+	jQuery = $;
+
+$.effects = {
+	effect: {}
+};
+
 /*!
  * jQuery Color Animations v2.1.2
  * https://github.com/jquery/jquery-color
@@ -246,7 +13373,1265 @@ var j="ui-effects-",s=I;I.effects={effect:{}};
  *
  * Date: Wed Jan 16 08:47:09 2013 -0600
  */
-(function(ar,ag){var an="backgroundColor borderBottomColor borderLeftColor borderRightColor borderTopColor color columnRuleColor outlineColor textDecorationColor textEmphasisColor",ak=/^([\-+])=\s*(\d+\.?\d*)/,aj=[{re:/rgba?\(\s*(\d{1,3})\s*,\s*(\d{1,3})\s*,\s*(\d{1,3})\s*(?:,\s*(\d?(?:\.\d+)?)\s*)?\)/,parse:function(at){return[at[1],at[2],at[3],at[4]]}},{re:/rgba?\(\s*(\d+(?:\.\d+)?)\%\s*,\s*(\d+(?:\.\d+)?)\%\s*,\s*(\d+(?:\.\d+)?)\%\s*(?:,\s*(\d?(?:\.\d+)?)\s*)?\)/,parse:function(at){return[at[1]*2.55,at[2]*2.55,at[3]*2.55,at[4]]}},{re:/#([a-f0-9]{2})([a-f0-9]{2})([a-f0-9]{2})/,parse:function(at){return[parseInt(at[1],16),parseInt(at[2],16),parseInt(at[3],16)]}},{re:/#([a-f0-9])([a-f0-9])([a-f0-9])/,parse:function(at){return[parseInt(at[1]+at[1],16),parseInt(at[2]+at[2],16),parseInt(at[3]+at[3],16)]}},{re:/hsla?\(\s*(\d+(?:\.\d+)?)\s*,\s*(\d+(?:\.\d+)?)\%\s*,\s*(\d+(?:\.\d+)?)\%\s*(?:,\s*(\d?(?:\.\d+)?)\s*)?\)/,space:"hsla",parse:function(at){return[at[1],at[2]/100,at[3]/100,at[4]]}}],ah=ar.Color=function(au,av,at,aw){return new ar.Color.fn.parse(au,av,at,aw)},am={rgba:{props:{red:{idx:0,type:"byte"},green:{idx:1,type:"byte"},blue:{idx:2,type:"byte"}}},hsla:{props:{hue:{idx:0,type:"degrees"},saturation:{idx:1,type:"percent"},lightness:{idx:2,type:"percent"}}}},aq={"byte":{floor:true,max:255},percent:{max:1},degrees:{mod:360,floor:true}},ap=ah.support={},ae=ar("<p>")[0],ad,ao=ar.each;ae.style.cssText="background-color:rgba(1,1,1,.5)";ap.rgba=ae.style.backgroundColor.indexOf("rgba")>-1;ao(am,function(at,au){au.cache="_"+at;au.props.alpha={idx:3,type:"percent",def:1}});function al(au,aw,av){var at=aq[aw.type]||{};if(au==null){return(av||!aw.def)?null:aw.def}au=at.floor?~~au:parseFloat(au);if(isNaN(au)){return aw.def}if(at.mod){return(au+at.mod)%at.mod}return 0>au?0:at.max<au?at.max:au}function ai(at){var av=ah(),au=av._rgba=[];at=at.toLowerCase();ao(aj,function(aA,aB){var ay,az=aB.re.exec(at),ax=az&&aB.parse(az),aw=aB.space||"rgba";if(ax){ay=av[aw](ax);av[am[aw].cache]=ay[am[aw].cache];au=av._rgba=ay._rgba;return false}});if(au.length){if(au.join()==="0,0,0,0"){ar.extend(au,ad.transparent)}return av}return ad[at]}ah.fn=ar.extend(ah.prototype,{parse:function(az,ax,at,ay){if(az===ag){this._rgba=[null,null,null,null];return this}if(az.jquery||az.nodeType){az=ar(az).css(ax);ax=ag}var aw=this,av=ar.type(az),au=this._rgba=[];if(ax!==ag){az=[az,ax,at,ay];av="array"}if(av==="string"){return this.parse(ai(az)||ad._default)}if(av==="array"){ao(am.rgba.props,function(aA,aB){au[aB.idx]=al(az[aB.idx],aB)});return this}if(av==="object"){if(az instanceof ah){ao(am,function(aA,aB){if(az[aB.cache]){aw[aB.cache]=az[aB.cache].slice()}})}else{ao(am,function(aB,aC){var aA=aC.cache;ao(aC.props,function(aD,aE){if(!aw[aA]&&aC.to){if(aD==="alpha"||az[aD]==null){return}aw[aA]=aC.to(aw._rgba)}aw[aA][aE.idx]=al(az[aD],aE,true)});if(aw[aA]&&ar.inArray(null,aw[aA].slice(0,3))<0){aw[aA][3]=1;if(aC.from){aw._rgba=aC.from(aw[aA])}}})}return this}},is:function(av){var at=ah(av),aw=true,au=this;ao(am,function(ax,az){var aA,ay=at[az.cache];if(ay){aA=au[az.cache]||az.to&&az.to(au._rgba)||[];ao(az.props,function(aB,aC){if(ay[aC.idx]!=null){aw=(ay[aC.idx]===aA[aC.idx]);return aw}})}return aw});return aw},_space:function(){var at=[],au=this;ao(am,function(av,aw){if(au[aw.cache]){at.push(av)}});return at.pop()},transition:function(au,aA){var av=ah(au),aw=av._space(),ax=am[aw],ay=this.alpha()===0?ah("transparent"):this,az=ay[ax.cache]||ax.to(ay._rgba),at=az.slice();av=av[ax.cache];ao(ax.props,function(aE,aG){var aD=aG.idx,aC=az[aD],aB=av[aD],aF=aq[aG.type]||{};if(aB===null){return}if(aC===null){at[aD]=aB}else{if(aF.mod){if(aB-aC>aF.mod/2){aC+=aF.mod}else{if(aC-aB>aF.mod/2){aC-=aF.mod}}}at[aD]=al((aB-aC)*aA+aC,aG)}});return this[aw](at)},blend:function(aw){if(this._rgba[3]===1){return this}var av=this._rgba.slice(),au=av.pop(),at=ah(aw)._rgba;return ah(ar.map(av,function(ax,ay){return(1-au)*at[ay]+au*ax}))},toRgbaString:function(){var au="rgba(",at=ar.map(this._rgba,function(av,aw){return av==null?(aw>2?1:0):av});if(at[3]===1){at.pop();au="rgb("}return au+at.join()+")"},toHslaString:function(){var au="hsla(",at=ar.map(this.hsla(),function(av,aw){if(av==null){av=aw>2?1:0}if(aw&&aw<3){av=Math.round(av*100)+"%"}return av});if(at[3]===1){at.pop();au="hsl("}return au+at.join()+")"},toHexString:function(at){var au=this._rgba.slice(),av=au.pop();if(at){au.push(~~(av*255))}return"#"+ar.map(au,function(aw){aw=(aw||0).toString(16);return aw.length===1?"0"+aw:aw}).join("")},toString:function(){return this._rgba[3]===0?"transparent":this.toRgbaString()}});ah.fn.parse.prototype=ah.fn;function af(av,au,at){at=(at+1)%1;if(at*6<1){return av+(au-av)*at*6}if(at*2<1){return au}if(at*3<2){return av+(au-av)*((2/3)-at)*6}return av}am.hsla.to=function(av){if(av[0]==null||av[1]==null||av[2]==null){return[null,null,null,av[3]]}var at=av[0]/255,ay=av[1]/255,az=av[2]/255,aB=av[3],aA=Math.max(at,ay,az),aw=Math.min(at,ay,az),aC=aA-aw,aD=aA+aw,au=aD*0.5,ax,aE;if(aw===aA){ax=0}else{if(at===aA){ax=(60*(ay-az)/aC)+360}else{if(ay===aA){ax=(60*(az-at)/aC)+120}else{ax=(60*(at-ay)/aC)+240}}}if(aC===0){aE=0}else{if(au<=0.5){aE=aC/aD}else{aE=aC/(2-aD)}}return[Math.round(ax)%360,aE,au,aB==null?1:aB]};am.hsla.from=function(ax){if(ax[0]==null||ax[1]==null||ax[2]==null){return[null,null,null,ax[3]]}var aw=ax[0]/360,av=ax[1],au=ax[2],at=ax[3],ay=au<=0.5?au*(1+av):au+av-au*av,az=2*au-ay;return[Math.round(af(az,ay,aw+(1/3))*255),Math.round(af(az,ay,aw)*255),Math.round(af(az,ay,aw-(1/3))*255),at]};ao(am,function(au,aw){var av=aw.props,at=aw.cache,ay=aw.to,ax=aw.from;ah.fn[au]=function(aD){if(ay&&!this[at]){this[at]=ay(this._rgba)}if(aD===ag){return this[at].slice()}var aA,aC=ar.type(aD),az=(aC==="array"||aC==="object")?aD:arguments,aB=this[at].slice();ao(av,function(aE,aG){var aF=az[aC==="object"?aE:aG.idx];if(aF==null){aF=aB[aG.idx]}aB[aG.idx]=al(aF,aG)});if(ax){aA=ah(ax(aB));aA[at]=aB;return aA}else{return ah(aB)}};ao(av,function(az,aA){if(ah.fn[az]){return}ah.fn[az]=function(aE){var aG=ar.type(aE),aD=(az==="alpha"?(this._hsla?"hsla":"rgba"):au),aC=this[aD](),aF=aC[aA.idx],aB;if(aG==="undefined"){return aF}if(aG==="function"){aE=aE.call(this,aF);aG=ar.type(aE)}if(aE==null&&aA.empty){return this}if(aG==="string"){aB=ak.exec(aE);if(aB){aE=aF+parseFloat(aB[2])*(aB[1]==="+"?1:-1)}}aC[aA.idx]=aE;return this[aD](aC)}})});ah.hook=function(au){var at=au.split(" ");ao(at,function(av,aw){ar.cssHooks[aw]={set:function(aA,aB){var ay,az,ax="";if(aB!=="transparent"&&(ar.type(aB)!=="string"||(ay=ai(aB)))){aB=ah(ay||aB);if(!ap.rgba&&aB._rgba[3]!==1){az=aw==="backgroundColor"?aA.parentNode:aA;while((ax===""||ax==="transparent")&&az&&az.style){try{ax=ar.css(az,"backgroundColor");az=az.parentNode}catch(aC){}}aB=aB.blend(ax&&ax!=="transparent"?ax:"_default")}aB=aB.toRgbaString()}try{aA.style[aw]=aB}catch(aC){}}};ar.fx.step[aw]=function(ax){if(!ax.colorInit){ax.start=ah(ax.elem,aw);ax.end=ah(ax.end);ax.colorInit=true}ar.cssHooks[aw].set(ax.elem,ax.start.transition(ax.end,ax.pos))}})};ah.hook(an);ar.cssHooks.borderColor={expand:function(au){var at={};ao(["Top","Right","Bottom","Left"],function(aw,av){at["border"+av+"Color"]=au});return at}};ad=ar.Color.names={aqua:"#00ffff",black:"#000000",blue:"#0000ff",fuchsia:"#ff00ff",gray:"#808080",green:"#008000",lime:"#00ff00",maroon:"#800000",navy:"#000080",olive:"#808000",purple:"#800080",red:"#ff0000",silver:"#c0c0c0",teal:"#008080",white:"#ffffff",yellow:"#ffff00",transparent:[null,null,null,0],_default:"#ffffff"}})(s);(function(){var ae=["add","remove","toggle"],af={border:1,borderBottom:1,borderColor:1,borderLeft:1,borderRight:1,borderTop:1,borderWidth:1,margin:1,padding:1};I.each(["borderLeftStyle","borderRightStyle","borderBottomStyle","borderTopStyle"],function(ah,ai){I.fx.step[ai]=function(aj){if(aj.end!=="none"&&!aj.setAttr||aj.pos===1&&!aj.setAttr){s.style(aj.elem,ai,aj.end);aj.setAttr=true}}});function ag(al){var ai,ah,aj=al.ownerDocument.defaultView?al.ownerDocument.defaultView.getComputedStyle(al,null):al.currentStyle,ak={};if(aj&&aj.length&&aj[0]&&aj[aj[0]]){ah=aj.length;while(ah--){ai=aj[ah];if(typeof aj[ai]==="string"){ak[I.camelCase(ai)]=aj[ai]}}}else{for(ai in aj){if(typeof aj[ai]==="string"){ak[ai]=aj[ai]}}}return ak}function ad(ah,aj){var al={},ai,ak;for(ai in aj){ak=aj[ai];if(ah[ai]!==ak){if(!af[ai]){if(I.fx.step[ai]||!isNaN(parseFloat(ak))){al[ai]=ak}}}}return al}if(!I.fn.addBack){I.fn.addBack=function(ah){return this.add(ah==null?this.prevObject:this.prevObject.filter(ah))}}I.effects.animateClass=function(ah,ai,al,ak){var aj=I.speed(ai,al,ak);return this.queue(function(){var ao=I(this),am=ao.attr("class")||"",an,ap=aj.children?ao.find("*").addBack():ao;ap=ap.map(function(){var aq=I(this);return{el:aq,start:ag(this)}});an=function(){I.each(ae,function(aq,ar){if(ah[ar]){ao[ar+"Class"](ah[ar])}})};an();ap=ap.map(function(){this.end=ag(this.el[0]);this.diff=ad(this.start,this.end);return this});ao.attr("class",am);ap=ap.map(function(){var at=this,aq=I.Deferred(),ar=I.extend({},aj,{queue:false,complete:function(){aq.resolve(at)}});this.el.animate(this.diff,ar);return aq.promise()});I.when.apply(I,ap.get()).done(function(){an();I.each(arguments,function(){var aq=this.el;I.each(this.diff,function(ar){aq.css(ar,"")})});aj.complete.call(ao[0])})})};I.fn.extend({addClass:(function(ah){return function(aj,ai,al,ak){return ai?I.effects.animateClass.call(this,{add:aj},ai,al,ak):ah.apply(this,arguments)}})(I.fn.addClass),removeClass:(function(ah){return function(aj,ai,al,ak){return arguments.length>1?I.effects.animateClass.call(this,{remove:aj},ai,al,ak):ah.apply(this,arguments)}})(I.fn.removeClass),toggleClass:(function(ah){return function(ak,aj,ai,am,al){if(typeof aj==="boolean"||aj===undefined){if(!ai){return ah.apply(this,arguments)}else{return I.effects.animateClass.call(this,(aj?{add:ak}:{remove:ak}),ai,am,al)}}else{return I.effects.animateClass.call(this,{toggle:ak},aj,ai,am)}}})(I.fn.toggleClass),switchClass:function(ah,aj,ai,al,ak){return I.effects.animateClass.call(this,{add:aj,remove:ah},ai,al,ak)}})})();(function(){I.extend(I.effects,{version:"1.11.4",save:function(ag,ah){for(var af=0;af<ah.length;af++){if(ah[af]!==null){ag.data(j+ah[af],ag[0].style[ah[af]])}}},restore:function(ag,ai){var ah,af;for(af=0;af<ai.length;af++){if(ai[af]!==null){ah=ag.data(j+ai[af]);if(ah===undefined){ah=""}ag.css(ai[af],ah)}}},setMode:function(af,ag){if(ag==="toggle"){ag=af.is(":hidden")?"show":"hide"}return ag},getBaseline:function(ag,ah){var ai,af;switch(ag[0]){case"top":ai=0;break;case"middle":ai=0.5;break;case"bottom":ai=1;break;default:ai=ag[0]/ah.height}switch(ag[1]){case"left":af=0;break;case"center":af=0.5;break;case"right":af=1;break;default:af=ag[1]/ah.width}return{x:af,y:ai}},createWrapper:function(ag){if(ag.parent().is(".ui-effects-wrapper")){return ag.parent()}var ah={width:ag.outerWidth(true),height:ag.outerHeight(true),"float":ag.css("float")},ak=I("<div></div>").addClass("ui-effects-wrapper").css({fontSize:"100%",background:"transparent",border:"none",margin:0,padding:0}),af={width:ag.width(),height:ag.height()},aj=document.activeElement;try{aj.id}catch(ai){aj=document.body}ag.wrap(ak);if(ag[0]===aj||I.contains(ag[0],aj)){I(aj).focus()}ak=ag.parent();if(ag.css("position")==="static"){ak.css({position:"relative"});ag.css({position:"relative"})}else{I.extend(ah,{position:ag.css("position"),zIndex:ag.css("z-index")});I.each(["top","left","bottom","right"],function(al,am){ah[am]=ag.css(am);if(isNaN(parseInt(ah[am],10))){ah[am]="auto"}});ag.css({position:"relative",top:0,left:0,right:"auto",bottom:"auto"})}ag.css(af);return ak.css(ah).show()},removeWrapper:function(af){var ag=document.activeElement;if(af.parent().is(".ui-effects-wrapper")){af.parent().replaceWith(af);if(af[0]===ag||I.contains(af[0],ag)){I(ag).focus()}}return af},setTransition:function(ag,ai,af,ah){ah=ah||{};I.each(ai,function(ak,aj){var al=ag.cssUnit(aj);if(al[0]>0){ah[aj]=al[0]*af+al[1]}});return ah}});function ad(ag,af,ah,ai){if(I.isPlainObject(ag)){af=ag;ag=ag.effect}ag={effect:ag};if(af==null){af={}}if(I.isFunction(af)){ai=af;ah=null;af={}}if(typeof af==="number"||I.fx.speeds[af]){ai=ah;ah=af;af={}}if(I.isFunction(ah)){ai=ah;ah=null}if(af){I.extend(ag,af)}ah=ah||af.duration;ag.duration=I.fx.off?0:typeof ah==="number"?ah:ah in I.fx.speeds?I.fx.speeds[ah]:I.fx.speeds._default;ag.complete=ai||af.complete;return ag}function ae(af){if(!af||typeof af==="number"||I.fx.speeds[af]){return true}if(typeof af==="string"&&!I.effects.effect[af]){return true}if(I.isFunction(af)){return true}if(typeof af==="object"&&!af.effect){return true}return false}I.fn.extend({effect:function(){var ah=ad.apply(this,arguments),aj=ah.mode,af=ah.queue,ag=I.effects.effect[ah.effect];if(I.fx.off||!ag){if(aj){return this[aj](ah.duration,ah.complete)}else{return this.each(function(){if(ah.complete){ah.complete.call(this)}})}}function ai(am){var an=I(this),al=ah.complete,ao=ah.mode;function ak(){if(I.isFunction(al)){al.call(an[0])}if(I.isFunction(am)){am()}}if(an.is(":hidden")?ao==="hide":ao==="show"){an[ao]();ak()}else{ag.call(an[0],ah,ak)}}return af===false?this.each(ai):this.queue(af||"fx",ai)},show:(function(af){return function(ah){if(ae(ah)){return af.apply(this,arguments)}else{var ag=ad.apply(this,arguments);ag.mode="show";return this.effect.call(this,ag)}}})(I.fn.show),hide:(function(af){return function(ah){if(ae(ah)){return af.apply(this,arguments)}else{var ag=ad.apply(this,arguments);ag.mode="hide";return this.effect.call(this,ag)}}})(I.fn.hide),toggle:(function(af){return function(ah){if(ae(ah)||typeof ah==="boolean"){return af.apply(this,arguments)}else{var ag=ad.apply(this,arguments);ag.mode="toggle";return this.effect.call(this,ag)}}})(I.fn.toggle),cssUnit:function(af){var ag=this.css(af),ah=[];I.each(["em","px","%","pt"],function(ai,aj){if(ag.indexOf(aj)>0){ah=[parseFloat(ag),aj]}});return ah}})})();(function(){var ad={};I.each(["Quad","Cubic","Quart","Quint","Expo"],function(af,ae){ad[ae]=function(ag){return Math.pow(ag,af+2)}});I.extend(ad,{Sine:function(ae){return 1-Math.cos(ae*Math.PI/2)},Circ:function(ae){return 1-Math.sqrt(1-ae*ae)},Elastic:function(ae){return ae===0||ae===1?ae:-Math.pow(2,8*(ae-1))*Math.sin(((ae-1)*80-7.5)*Math.PI/15)},Back:function(ae){return ae*ae*(3*ae-2)},Bounce:function(ag){var ae,af=4;while(ag<((ae=Math.pow(2,--af))-1)/11){}return 1/Math.pow(4,3-af)-7.5625*Math.pow((ae*3-2)/22-ag,2)}});I.each(ad,function(af,ae){I.easing["easeIn"+af]=ae;I.easing["easeOut"+af]=function(ag){return 1-ae(1-ag)};I.easing["easeInOut"+af]=function(ag){return ag<0.5?ae(ag*2)/2:1-ae(ag*-2+2)/2}})})();var T=I.effects;
+(function( jQuery, undefined ) {
+
+	var stepHooks = "backgroundColor borderBottomColor borderLeftColor borderRightColor borderTopColor color columnRuleColor outlineColor textDecorationColor textEmphasisColor",
+
+	// plusequals test for += 100 -= 100
+	rplusequals = /^([\-+])=\s*(\d+\.?\d*)/,
+	// a set of RE's that can match strings and generate color tuples.
+	stringParsers = [ {
+			re: /rgba?\(\s*(\d{1,3})\s*,\s*(\d{1,3})\s*,\s*(\d{1,3})\s*(?:,\s*(\d?(?:\.\d+)?)\s*)?\)/,
+			parse: function( execResult ) {
+				return [
+					execResult[ 1 ],
+					execResult[ 2 ],
+					execResult[ 3 ],
+					execResult[ 4 ]
+				];
+			}
+		}, {
+			re: /rgba?\(\s*(\d+(?:\.\d+)?)\%\s*,\s*(\d+(?:\.\d+)?)\%\s*,\s*(\d+(?:\.\d+)?)\%\s*(?:,\s*(\d?(?:\.\d+)?)\s*)?\)/,
+			parse: function( execResult ) {
+				return [
+					execResult[ 1 ] * 2.55,
+					execResult[ 2 ] * 2.55,
+					execResult[ 3 ] * 2.55,
+					execResult[ 4 ]
+				];
+			}
+		}, {
+			// this regex ignores A-F because it's compared against an already lowercased string
+			re: /#([a-f0-9]{2})([a-f0-9]{2})([a-f0-9]{2})/,
+			parse: function( execResult ) {
+				return [
+					parseInt( execResult[ 1 ], 16 ),
+					parseInt( execResult[ 2 ], 16 ),
+					parseInt( execResult[ 3 ], 16 )
+				];
+			}
+		}, {
+			// this regex ignores A-F because it's compared against an already lowercased string
+			re: /#([a-f0-9])([a-f0-9])([a-f0-9])/,
+			parse: function( execResult ) {
+				return [
+					parseInt( execResult[ 1 ] + execResult[ 1 ], 16 ),
+					parseInt( execResult[ 2 ] + execResult[ 2 ], 16 ),
+					parseInt( execResult[ 3 ] + execResult[ 3 ], 16 )
+				];
+			}
+		}, {
+			re: /hsla?\(\s*(\d+(?:\.\d+)?)\s*,\s*(\d+(?:\.\d+)?)\%\s*,\s*(\d+(?:\.\d+)?)\%\s*(?:,\s*(\d?(?:\.\d+)?)\s*)?\)/,
+			space: "hsla",
+			parse: function( execResult ) {
+				return [
+					execResult[ 1 ],
+					execResult[ 2 ] / 100,
+					execResult[ 3 ] / 100,
+					execResult[ 4 ]
+				];
+			}
+		} ],
+
+	// jQuery.Color( )
+	color = jQuery.Color = function( color, green, blue, alpha ) {
+		return new jQuery.Color.fn.parse( color, green, blue, alpha );
+	},
+	spaces = {
+		rgba: {
+			props: {
+				red: {
+					idx: 0,
+					type: "byte"
+				},
+				green: {
+					idx: 1,
+					type: "byte"
+				},
+				blue: {
+					idx: 2,
+					type: "byte"
+				}
+			}
+		},
+
+		hsla: {
+			props: {
+				hue: {
+					idx: 0,
+					type: "degrees"
+				},
+				saturation: {
+					idx: 1,
+					type: "percent"
+				},
+				lightness: {
+					idx: 2,
+					type: "percent"
+				}
+			}
+		}
+	},
+	propTypes = {
+		"byte": {
+			floor: true,
+			max: 255
+		},
+		"percent": {
+			max: 1
+		},
+		"degrees": {
+			mod: 360,
+			floor: true
+		}
+	},
+	support = color.support = {},
+
+	// element for support tests
+	supportElem = jQuery( "<p>" )[ 0 ],
+
+	// colors = jQuery.Color.names
+	colors,
+
+	// local aliases of functions called often
+	each = jQuery.each;
+
+// determine rgba support immediately
+supportElem.style.cssText = "background-color:rgba(1,1,1,.5)";
+support.rgba = supportElem.style.backgroundColor.indexOf( "rgba" ) > -1;
+
+// define cache name and alpha properties
+// for rgba and hsla spaces
+each( spaces, function( spaceName, space ) {
+	space.cache = "_" + spaceName;
+	space.props.alpha = {
+		idx: 3,
+		type: "percent",
+		def: 1
+	};
+});
+
+function clamp( value, prop, allowEmpty ) {
+	var type = propTypes[ prop.type ] || {};
+
+	if ( value == null ) {
+		return (allowEmpty || !prop.def) ? null : prop.def;
+	}
+
+	// ~~ is an short way of doing floor for positive numbers
+	value = type.floor ? ~~value : parseFloat( value );
+
+	// IE will pass in empty strings as value for alpha,
+	// which will hit this case
+	if ( isNaN( value ) ) {
+		return prop.def;
+	}
+
+	if ( type.mod ) {
+		// we add mod before modding to make sure that negatives values
+		// get converted properly: -10 -> 350
+		return (value + type.mod) % type.mod;
+	}
+
+	// for now all property types without mod have min and max
+	return 0 > value ? 0 : type.max < value ? type.max : value;
+}
+
+function stringParse( string ) {
+	var inst = color(),
+		rgba = inst._rgba = [];
+
+	string = string.toLowerCase();
+
+	each( stringParsers, function( i, parser ) {
+		var parsed,
+			match = parser.re.exec( string ),
+			values = match && parser.parse( match ),
+			spaceName = parser.space || "rgba";
+
+		if ( values ) {
+			parsed = inst[ spaceName ]( values );
+
+			// if this was an rgba parse the assignment might happen twice
+			// oh well....
+			inst[ spaces[ spaceName ].cache ] = parsed[ spaces[ spaceName ].cache ];
+			rgba = inst._rgba = parsed._rgba;
+
+			// exit each( stringParsers ) here because we matched
+			return false;
+		}
+	});
+
+	// Found a stringParser that handled it
+	if ( rgba.length ) {
+
+		// if this came from a parsed string, force "transparent" when alpha is 0
+		// chrome, (and maybe others) return "transparent" as rgba(0,0,0,0)
+		if ( rgba.join() === "0,0,0,0" ) {
+			jQuery.extend( rgba, colors.transparent );
+		}
+		return inst;
+	}
+
+	// named colors
+	return colors[ string ];
+}
+
+color.fn = jQuery.extend( color.prototype, {
+	parse: function( red, green, blue, alpha ) {
+		if ( red === undefined ) {
+			this._rgba = [ null, null, null, null ];
+			return this;
+		}
+		if ( red.jquery || red.nodeType ) {
+			red = jQuery( red ).css( green );
+			green = undefined;
+		}
+
+		var inst = this,
+			type = jQuery.type( red ),
+			rgba = this._rgba = [];
+
+		// more than 1 argument specified - assume ( red, green, blue, alpha )
+		if ( green !== undefined ) {
+			red = [ red, green, blue, alpha ];
+			type = "array";
+		}
+
+		if ( type === "string" ) {
+			return this.parse( stringParse( red ) || colors._default );
+		}
+
+		if ( type === "array" ) {
+			each( spaces.rgba.props, function( key, prop ) {
+				rgba[ prop.idx ] = clamp( red[ prop.idx ], prop );
+			});
+			return this;
+		}
+
+		if ( type === "object" ) {
+			if ( red instanceof color ) {
+				each( spaces, function( spaceName, space ) {
+					if ( red[ space.cache ] ) {
+						inst[ space.cache ] = red[ space.cache ].slice();
+					}
+				});
+			} else {
+				each( spaces, function( spaceName, space ) {
+					var cache = space.cache;
+					each( space.props, function( key, prop ) {
+
+						// if the cache doesn't exist, and we know how to convert
+						if ( !inst[ cache ] && space.to ) {
+
+							// if the value was null, we don't need to copy it
+							// if the key was alpha, we don't need to copy it either
+							if ( key === "alpha" || red[ key ] == null ) {
+								return;
+							}
+							inst[ cache ] = space.to( inst._rgba );
+						}
+
+						// this is the only case where we allow nulls for ALL properties.
+						// call clamp with alwaysAllowEmpty
+						inst[ cache ][ prop.idx ] = clamp( red[ key ], prop, true );
+					});
+
+					// everything defined but alpha?
+					if ( inst[ cache ] && jQuery.inArray( null, inst[ cache ].slice( 0, 3 ) ) < 0 ) {
+						// use the default of 1
+						inst[ cache ][ 3 ] = 1;
+						if ( space.from ) {
+							inst._rgba = space.from( inst[ cache ] );
+						}
+					}
+				});
+			}
+			return this;
+		}
+	},
+	is: function( compare ) {
+		var is = color( compare ),
+			same = true,
+			inst = this;
+
+		each( spaces, function( _, space ) {
+			var localCache,
+				isCache = is[ space.cache ];
+			if (isCache) {
+				localCache = inst[ space.cache ] || space.to && space.to( inst._rgba ) || [];
+				each( space.props, function( _, prop ) {
+					if ( isCache[ prop.idx ] != null ) {
+						same = ( isCache[ prop.idx ] === localCache[ prop.idx ] );
+						return same;
+					}
+				});
+			}
+			return same;
+		});
+		return same;
+	},
+	_space: function() {
+		var used = [],
+			inst = this;
+		each( spaces, function( spaceName, space ) {
+			if ( inst[ space.cache ] ) {
+				used.push( spaceName );
+			}
+		});
+		return used.pop();
+	},
+	transition: function( other, distance ) {
+		var end = color( other ),
+			spaceName = end._space(),
+			space = spaces[ spaceName ],
+			startColor = this.alpha() === 0 ? color( "transparent" ) : this,
+			start = startColor[ space.cache ] || space.to( startColor._rgba ),
+			result = start.slice();
+
+		end = end[ space.cache ];
+		each( space.props, function( key, prop ) {
+			var index = prop.idx,
+				startValue = start[ index ],
+				endValue = end[ index ],
+				type = propTypes[ prop.type ] || {};
+
+			// if null, don't override start value
+			if ( endValue === null ) {
+				return;
+			}
+			// if null - use end
+			if ( startValue === null ) {
+				result[ index ] = endValue;
+			} else {
+				if ( type.mod ) {
+					if ( endValue - startValue > type.mod / 2 ) {
+						startValue += type.mod;
+					} else if ( startValue - endValue > type.mod / 2 ) {
+						startValue -= type.mod;
+					}
+				}
+				result[ index ] = clamp( ( endValue - startValue ) * distance + startValue, prop );
+			}
+		});
+		return this[ spaceName ]( result );
+	},
+	blend: function( opaque ) {
+		// if we are already opaque - return ourself
+		if ( this._rgba[ 3 ] === 1 ) {
+			return this;
+		}
+
+		var rgb = this._rgba.slice(),
+			a = rgb.pop(),
+			blend = color( opaque )._rgba;
+
+		return color( jQuery.map( rgb, function( v, i ) {
+			return ( 1 - a ) * blend[ i ] + a * v;
+		}));
+	},
+	toRgbaString: function() {
+		var prefix = "rgba(",
+			rgba = jQuery.map( this._rgba, function( v, i ) {
+				return v == null ? ( i > 2 ? 1 : 0 ) : v;
+			});
+
+		if ( rgba[ 3 ] === 1 ) {
+			rgba.pop();
+			prefix = "rgb(";
+		}
+
+		return prefix + rgba.join() + ")";
+	},
+	toHslaString: function() {
+		var prefix = "hsla(",
+			hsla = jQuery.map( this.hsla(), function( v, i ) {
+				if ( v == null ) {
+					v = i > 2 ? 1 : 0;
+				}
+
+				// catch 1 and 2
+				if ( i && i < 3 ) {
+					v = Math.round( v * 100 ) + "%";
+				}
+				return v;
+			});
+
+		if ( hsla[ 3 ] === 1 ) {
+			hsla.pop();
+			prefix = "hsl(";
+		}
+		return prefix + hsla.join() + ")";
+	},
+	toHexString: function( includeAlpha ) {
+		var rgba = this._rgba.slice(),
+			alpha = rgba.pop();
+
+		if ( includeAlpha ) {
+			rgba.push( ~~( alpha * 255 ) );
+		}
+
+		return "#" + jQuery.map( rgba, function( v ) {
+
+			// default to 0 when nulls exist
+			v = ( v || 0 ).toString( 16 );
+			return v.length === 1 ? "0" + v : v;
+		}).join("");
+	},
+	toString: function() {
+		return this._rgba[ 3 ] === 0 ? "transparent" : this.toRgbaString();
+	}
+});
+color.fn.parse.prototype = color.fn;
+
+// hsla conversions adapted from:
+// https://code.google.com/p/maashaack/source/browse/packages/graphics/trunk/src/graphics/colors/HUE2RGB.as?r=5021
+
+function hue2rgb( p, q, h ) {
+	h = ( h + 1 ) % 1;
+	if ( h * 6 < 1 ) {
+		return p + ( q - p ) * h * 6;
+	}
+	if ( h * 2 < 1) {
+		return q;
+	}
+	if ( h * 3 < 2 ) {
+		return p + ( q - p ) * ( ( 2 / 3 ) - h ) * 6;
+	}
+	return p;
+}
+
+spaces.hsla.to = function( rgba ) {
+	if ( rgba[ 0 ] == null || rgba[ 1 ] == null || rgba[ 2 ] == null ) {
+		return [ null, null, null, rgba[ 3 ] ];
+	}
+	var r = rgba[ 0 ] / 255,
+		g = rgba[ 1 ] / 255,
+		b = rgba[ 2 ] / 255,
+		a = rgba[ 3 ],
+		max = Math.max( r, g, b ),
+		min = Math.min( r, g, b ),
+		diff = max - min,
+		add = max + min,
+		l = add * 0.5,
+		h, s;
+
+	if ( min === max ) {
+		h = 0;
+	} else if ( r === max ) {
+		h = ( 60 * ( g - b ) / diff ) + 360;
+	} else if ( g === max ) {
+		h = ( 60 * ( b - r ) / diff ) + 120;
+	} else {
+		h = ( 60 * ( r - g ) / diff ) + 240;
+	}
+
+	// chroma (diff) == 0 means greyscale which, by definition, saturation = 0%
+	// otherwise, saturation is based on the ratio of chroma (diff) to lightness (add)
+	if ( diff === 0 ) {
+		s = 0;
+	} else if ( l <= 0.5 ) {
+		s = diff / add;
+	} else {
+		s = diff / ( 2 - add );
+	}
+	return [ Math.round(h) % 360, s, l, a == null ? 1 : a ];
+};
+
+spaces.hsla.from = function( hsla ) {
+	if ( hsla[ 0 ] == null || hsla[ 1 ] == null || hsla[ 2 ] == null ) {
+		return [ null, null, null, hsla[ 3 ] ];
+	}
+	var h = hsla[ 0 ] / 360,
+		s = hsla[ 1 ],
+		l = hsla[ 2 ],
+		a = hsla[ 3 ],
+		q = l <= 0.5 ? l * ( 1 + s ) : l + s - l * s,
+		p = 2 * l - q;
+
+	return [
+		Math.round( hue2rgb( p, q, h + ( 1 / 3 ) ) * 255 ),
+		Math.round( hue2rgb( p, q, h ) * 255 ),
+		Math.round( hue2rgb( p, q, h - ( 1 / 3 ) ) * 255 ),
+		a
+	];
+};
+
+each( spaces, function( spaceName, space ) {
+	var props = space.props,
+		cache = space.cache,
+		to = space.to,
+		from = space.from;
+
+	// makes rgba() and hsla()
+	color.fn[ spaceName ] = function( value ) {
+
+		// generate a cache for this space if it doesn't exist
+		if ( to && !this[ cache ] ) {
+			this[ cache ] = to( this._rgba );
+		}
+		if ( value === undefined ) {
+			return this[ cache ].slice();
+		}
+
+		var ret,
+			type = jQuery.type( value ),
+			arr = ( type === "array" || type === "object" ) ? value : arguments,
+			local = this[ cache ].slice();
+
+		each( props, function( key, prop ) {
+			var val = arr[ type === "object" ? key : prop.idx ];
+			if ( val == null ) {
+				val = local[ prop.idx ];
+			}
+			local[ prop.idx ] = clamp( val, prop );
+		});
+
+		if ( from ) {
+			ret = color( from( local ) );
+			ret[ cache ] = local;
+			return ret;
+		} else {
+			return color( local );
+		}
+	};
+
+	// makes red() green() blue() alpha() hue() saturation() lightness()
+	each( props, function( key, prop ) {
+		// alpha is included in more than one space
+		if ( color.fn[ key ] ) {
+			return;
+		}
+		color.fn[ key ] = function( value ) {
+			var vtype = jQuery.type( value ),
+				fn = ( key === "alpha" ? ( this._hsla ? "hsla" : "rgba" ) : spaceName ),
+				local = this[ fn ](),
+				cur = local[ prop.idx ],
+				match;
+
+			if ( vtype === "undefined" ) {
+				return cur;
+			}
+
+			if ( vtype === "function" ) {
+				value = value.call( this, cur );
+				vtype = jQuery.type( value );
+			}
+			if ( value == null && prop.empty ) {
+				return this;
+			}
+			if ( vtype === "string" ) {
+				match = rplusequals.exec( value );
+				if ( match ) {
+					value = cur + parseFloat( match[ 2 ] ) * ( match[ 1 ] === "+" ? 1 : -1 );
+				}
+			}
+			local[ prop.idx ] = value;
+			return this[ fn ]( local );
+		};
+	});
+});
+
+// add cssHook and .fx.step function for each named hook.
+// accept a space separated string of properties
+color.hook = function( hook ) {
+	var hooks = hook.split( " " );
+	each( hooks, function( i, hook ) {
+		jQuery.cssHooks[ hook ] = {
+			set: function( elem, value ) {
+				var parsed, curElem,
+					backgroundColor = "";
+
+				if ( value !== "transparent" && ( jQuery.type( value ) !== "string" || ( parsed = stringParse( value ) ) ) ) {
+					value = color( parsed || value );
+					if ( !support.rgba && value._rgba[ 3 ] !== 1 ) {
+						curElem = hook === "backgroundColor" ? elem.parentNode : elem;
+						while (
+							(backgroundColor === "" || backgroundColor === "transparent") &&
+							curElem && curElem.style
+						) {
+							try {
+								backgroundColor = jQuery.css( curElem, "backgroundColor" );
+								curElem = curElem.parentNode;
+							} catch ( e ) {
+							}
+						}
+
+						value = value.blend( backgroundColor && backgroundColor !== "transparent" ?
+							backgroundColor :
+							"_default" );
+					}
+
+					value = value.toRgbaString();
+				}
+				try {
+					elem.style[ hook ] = value;
+				} catch ( e ) {
+					// wrapped to prevent IE from throwing errors on "invalid" values like 'auto' or 'inherit'
+				}
+			}
+		};
+		jQuery.fx.step[ hook ] = function( fx ) {
+			if ( !fx.colorInit ) {
+				fx.start = color( fx.elem, hook );
+				fx.end = color( fx.end );
+				fx.colorInit = true;
+			}
+			jQuery.cssHooks[ hook ].set( fx.elem, fx.start.transition( fx.end, fx.pos ) );
+		};
+	});
+
+};
+
+color.hook( stepHooks );
+
+jQuery.cssHooks.borderColor = {
+	expand: function( value ) {
+		var expanded = {};
+
+		each( [ "Top", "Right", "Bottom", "Left" ], function( i, part ) {
+			expanded[ "border" + part + "Color" ] = value;
+		});
+		return expanded;
+	}
+};
+
+// Basic color names only.
+// Usage of any of the other color names requires adding yourself or including
+// jquery.color.svg-names.js.
+colors = jQuery.Color.names = {
+	// 4.1. Basic color keywords
+	aqua: "#00ffff",
+	black: "#000000",
+	blue: "#0000ff",
+	fuchsia: "#ff00ff",
+	gray: "#808080",
+	green: "#008000",
+	lime: "#00ff00",
+	maroon: "#800000",
+	navy: "#000080",
+	olive: "#808000",
+	purple: "#800080",
+	red: "#ff0000",
+	silver: "#c0c0c0",
+	teal: "#008080",
+	white: "#ffffff",
+	yellow: "#ffff00",
+
+	// 4.2.3. "transparent" color keyword
+	transparent: [ null, null, null, 0 ],
+
+	_default: "#ffffff"
+};
+
+})( jQuery );
+
+/******************************************************************************/
+/****************************** CLASS ANIMATIONS ******************************/
+/******************************************************************************/
+(function() {
+
+var classAnimationActions = [ "add", "remove", "toggle" ],
+	shorthandStyles = {
+		border: 1,
+		borderBottom: 1,
+		borderColor: 1,
+		borderLeft: 1,
+		borderRight: 1,
+		borderTop: 1,
+		borderWidth: 1,
+		margin: 1,
+		padding: 1
+	};
+
+$.each([ "borderLeftStyle", "borderRightStyle", "borderBottomStyle", "borderTopStyle" ], function( _, prop ) {
+	$.fx.step[ prop ] = function( fx ) {
+		if ( fx.end !== "none" && !fx.setAttr || fx.pos === 1 && !fx.setAttr ) {
+			jQuery.style( fx.elem, prop, fx.end );
+			fx.setAttr = true;
+		}
+	};
+});
+
+function getElementStyles( elem ) {
+	var key, len,
+		style = elem.ownerDocument.defaultView ?
+			elem.ownerDocument.defaultView.getComputedStyle( elem, null ) :
+			elem.currentStyle,
+		styles = {};
+
+	if ( style && style.length && style[ 0 ] && style[ style[ 0 ] ] ) {
+		len = style.length;
+		while ( len-- ) {
+			key = style[ len ];
+			if ( typeof style[ key ] === "string" ) {
+				styles[ $.camelCase( key ) ] = style[ key ];
+			}
+		}
+	// support: Opera, IE <9
+	} else {
+		for ( key in style ) {
+			if ( typeof style[ key ] === "string" ) {
+				styles[ key ] = style[ key ];
+			}
+		}
+	}
+
+	return styles;
+}
+
+function styleDifference( oldStyle, newStyle ) {
+	var diff = {},
+		name, value;
+
+	for ( name in newStyle ) {
+		value = newStyle[ name ];
+		if ( oldStyle[ name ] !== value ) {
+			if ( !shorthandStyles[ name ] ) {
+				if ( $.fx.step[ name ] || !isNaN( parseFloat( value ) ) ) {
+					diff[ name ] = value;
+				}
+			}
+		}
+	}
+
+	return diff;
+}
+
+// support: jQuery <1.8
+if ( !$.fn.addBack ) {
+	$.fn.addBack = function( selector ) {
+		return this.add( selector == null ?
+			this.prevObject : this.prevObject.filter( selector )
+		);
+	};
+}
+
+$.effects.animateClass = function( value, duration, easing, callback ) {
+	var o = $.speed( duration, easing, callback );
+
+	return this.queue( function() {
+		var animated = $( this ),
+			baseClass = animated.attr( "class" ) || "",
+			applyClassChange,
+			allAnimations = o.children ? animated.find( "*" ).addBack() : animated;
+
+		// map the animated objects to store the original styles.
+		allAnimations = allAnimations.map(function() {
+			var el = $( this );
+			return {
+				el: el,
+				start: getElementStyles( this )
+			};
+		});
+
+		// apply class change
+		applyClassChange = function() {
+			$.each( classAnimationActions, function(i, action) {
+				if ( value[ action ] ) {
+					animated[ action + "Class" ]( value[ action ] );
+				}
+			});
+		};
+		applyClassChange();
+
+		// map all animated objects again - calculate new styles and diff
+		allAnimations = allAnimations.map(function() {
+			this.end = getElementStyles( this.el[ 0 ] );
+			this.diff = styleDifference( this.start, this.end );
+			return this;
+		});
+
+		// apply original class
+		animated.attr( "class", baseClass );
+
+		// map all animated objects again - this time collecting a promise
+		allAnimations = allAnimations.map(function() {
+			var styleInfo = this,
+				dfd = $.Deferred(),
+				opts = $.extend({}, o, {
+					queue: false,
+					complete: function() {
+						dfd.resolve( styleInfo );
+					}
+				});
+
+			this.el.animate( this.diff, opts );
+			return dfd.promise();
+		});
+
+		// once all animations have completed:
+		$.when.apply( $, allAnimations.get() ).done(function() {
+
+			// set the final class
+			applyClassChange();
+
+			// for each animated element,
+			// clear all css properties that were animated
+			$.each( arguments, function() {
+				var el = this.el;
+				$.each( this.diff, function(key) {
+					el.css( key, "" );
+				});
+			});
+
+			// this is guarnteed to be there if you use jQuery.speed()
+			// it also handles dequeuing the next anim...
+			o.complete.call( animated[ 0 ] );
+		});
+	});
+};
+
+$.fn.extend({
+	addClass: (function( orig ) {
+		return function( classNames, speed, easing, callback ) {
+			return speed ?
+				$.effects.animateClass.call( this,
+					{ add: classNames }, speed, easing, callback ) :
+				orig.apply( this, arguments );
+		};
+	})( $.fn.addClass ),
+
+	removeClass: (function( orig ) {
+		return function( classNames, speed, easing, callback ) {
+			return arguments.length > 1 ?
+				$.effects.animateClass.call( this,
+					{ remove: classNames }, speed, easing, callback ) :
+				orig.apply( this, arguments );
+		};
+	})( $.fn.removeClass ),
+
+	toggleClass: (function( orig ) {
+		return function( classNames, force, speed, easing, callback ) {
+			if ( typeof force === "boolean" || force === undefined ) {
+				if ( !speed ) {
+					// without speed parameter
+					return orig.apply( this, arguments );
+				} else {
+					return $.effects.animateClass.call( this,
+						(force ? { add: classNames } : { remove: classNames }),
+						speed, easing, callback );
+				}
+			} else {
+				// without force parameter
+				return $.effects.animateClass.call( this,
+					{ toggle: classNames }, force, speed, easing );
+			}
+		};
+	})( $.fn.toggleClass ),
+
+	switchClass: function( remove, add, speed, easing, callback) {
+		return $.effects.animateClass.call( this, {
+			add: add,
+			remove: remove
+		}, speed, easing, callback );
+	}
+});
+
+})();
+
+/******************************************************************************/
+/*********************************** EFFECTS **********************************/
+/******************************************************************************/
+
+(function() {
+
+$.extend( $.effects, {
+	version: "1.11.4",
+
+	// Saves a set of properties in a data storage
+	save: function( element, set ) {
+		for ( var i = 0; i < set.length; i++ ) {
+			if ( set[ i ] !== null ) {
+				element.data( dataSpace + set[ i ], element[ 0 ].style[ set[ i ] ] );
+			}
+		}
+	},
+
+	// Restores a set of previously saved properties from a data storage
+	restore: function( element, set ) {
+		var val, i;
+		for ( i = 0; i < set.length; i++ ) {
+			if ( set[ i ] !== null ) {
+				val = element.data( dataSpace + set[ i ] );
+				// support: jQuery 1.6.2
+				// http://bugs.jquery.com/ticket/9917
+				// jQuery 1.6.2 incorrectly returns undefined for any falsy value.
+				// We can't differentiate between "" and 0 here, so we just assume
+				// empty string since it's likely to be a more common value...
+				if ( val === undefined ) {
+					val = "";
+				}
+				element.css( set[ i ], val );
+			}
+		}
+	},
+
+	setMode: function( el, mode ) {
+		if (mode === "toggle") {
+			mode = el.is( ":hidden" ) ? "show" : "hide";
+		}
+		return mode;
+	},
+
+	// Translates a [top,left] array into a baseline value
+	// this should be a little more flexible in the future to handle a string & hash
+	getBaseline: function( origin, original ) {
+		var y, x;
+		switch ( origin[ 0 ] ) {
+			case "top": y = 0; break;
+			case "middle": y = 0.5; break;
+			case "bottom": y = 1; break;
+			default: y = origin[ 0 ] / original.height;
+		}
+		switch ( origin[ 1 ] ) {
+			case "left": x = 0; break;
+			case "center": x = 0.5; break;
+			case "right": x = 1; break;
+			default: x = origin[ 1 ] / original.width;
+		}
+		return {
+			x: x,
+			y: y
+		};
+	},
+
+	// Wraps the element around a wrapper that copies position properties
+	createWrapper: function( element ) {
+
+		// if the element is already wrapped, return it
+		if ( element.parent().is( ".ui-effects-wrapper" )) {
+			return element.parent();
+		}
+
+		// wrap the element
+		var props = {
+				width: element.outerWidth(true),
+				height: element.outerHeight(true),
+				"float": element.css( "float" )
+			},
+			wrapper = $( "<div></div>" )
+				.addClass( "ui-effects-wrapper" )
+				.css({
+					fontSize: "100%",
+					background: "transparent",
+					border: "none",
+					margin: 0,
+					padding: 0
+				}),
+			// Store the size in case width/height are defined in % - Fixes #5245
+			size = {
+				width: element.width(),
+				height: element.height()
+			},
+			active = document.activeElement;
+
+		// support: Firefox
+		// Firefox incorrectly exposes anonymous content
+		// https://bugzilla.mozilla.org/show_bug.cgi?id=561664
+		try {
+			active.id;
+		} catch ( e ) {
+			active = document.body;
+		}
+
+		element.wrap( wrapper );
+
+		// Fixes #7595 - Elements lose focus when wrapped.
+		if ( element[ 0 ] === active || $.contains( element[ 0 ], active ) ) {
+			$( active ).focus();
+		}
+
+		wrapper = element.parent(); //Hotfix for jQuery 1.4 since some change in wrap() seems to actually lose the reference to the wrapped element
+
+		// transfer positioning properties to the wrapper
+		if ( element.css( "position" ) === "static" ) {
+			wrapper.css({ position: "relative" });
+			element.css({ position: "relative" });
+		} else {
+			$.extend( props, {
+				position: element.css( "position" ),
+				zIndex: element.css( "z-index" )
+			});
+			$.each([ "top", "left", "bottom", "right" ], function(i, pos) {
+				props[ pos ] = element.css( pos );
+				if ( isNaN( parseInt( props[ pos ], 10 ) ) ) {
+					props[ pos ] = "auto";
+				}
+			});
+			element.css({
+				position: "relative",
+				top: 0,
+				left: 0,
+				right: "auto",
+				bottom: "auto"
+			});
+		}
+		element.css(size);
+
+		return wrapper.css( props ).show();
+	},
+
+	removeWrapper: function( element ) {
+		var active = document.activeElement;
+
+		if ( element.parent().is( ".ui-effects-wrapper" ) ) {
+			element.parent().replaceWith( element );
+
+			// Fixes #7595 - Elements lose focus when wrapped.
+			if ( element[ 0 ] === active || $.contains( element[ 0 ], active ) ) {
+				$( active ).focus();
+			}
+		}
+
+		return element;
+	},
+
+	setTransition: function( element, list, factor, value ) {
+		value = value || {};
+		$.each( list, function( i, x ) {
+			var unit = element.cssUnit( x );
+			if ( unit[ 0 ] > 0 ) {
+				value[ x ] = unit[ 0 ] * factor + unit[ 1 ];
+			}
+		});
+		return value;
+	}
+});
+
+// return an effect options object for the given parameters:
+function _normalizeArguments( effect, options, speed, callback ) {
+
+	// allow passing all options as the first parameter
+	if ( $.isPlainObject( effect ) ) {
+		options = effect;
+		effect = effect.effect;
+	}
+
+	// convert to an object
+	effect = { effect: effect };
+
+	// catch (effect, null, ...)
+	if ( options == null ) {
+		options = {};
+	}
+
+	// catch (effect, callback)
+	if ( $.isFunction( options ) ) {
+		callback = options;
+		speed = null;
+		options = {};
+	}
+
+	// catch (effect, speed, ?)
+	if ( typeof options === "number" || $.fx.speeds[ options ] ) {
+		callback = speed;
+		speed = options;
+		options = {};
+	}
+
+	// catch (effect, options, callback)
+	if ( $.isFunction( speed ) ) {
+		callback = speed;
+		speed = null;
+	}
+
+	// add options to effect
+	if ( options ) {
+		$.extend( effect, options );
+	}
+
+	speed = speed || options.duration;
+	effect.duration = $.fx.off ? 0 :
+		typeof speed === "number" ? speed :
+		speed in $.fx.speeds ? $.fx.speeds[ speed ] :
+		$.fx.speeds._default;
+
+	effect.complete = callback || options.complete;
+
+	return effect;
+}
+
+function standardAnimationOption( option ) {
+	// Valid standard speeds (nothing, number, named speed)
+	if ( !option || typeof option === "number" || $.fx.speeds[ option ] ) {
+		return true;
+	}
+
+	// Invalid strings - treat as "normal" speed
+	if ( typeof option === "string" && !$.effects.effect[ option ] ) {
+		return true;
+	}
+
+	// Complete callback
+	if ( $.isFunction( option ) ) {
+		return true;
+	}
+
+	// Options hash (but not naming an effect)
+	if ( typeof option === "object" && !option.effect ) {
+		return true;
+	}
+
+	// Didn't match any standard API
+	return false;
+}
+
+$.fn.extend({
+	effect: function( /* effect, options, speed, callback */ ) {
+		var args = _normalizeArguments.apply( this, arguments ),
+			mode = args.mode,
+			queue = args.queue,
+			effectMethod = $.effects.effect[ args.effect ];
+
+		if ( $.fx.off || !effectMethod ) {
+			// delegate to the original method (e.g., .show()) if possible
+			if ( mode ) {
+				return this[ mode ]( args.duration, args.complete );
+			} else {
+				return this.each( function() {
+					if ( args.complete ) {
+						args.complete.call( this );
+					}
+				});
+			}
+		}
+
+		function run( next ) {
+			var elem = $( this ),
+				complete = args.complete,
+				mode = args.mode;
+
+			function done() {
+				if ( $.isFunction( complete ) ) {
+					complete.call( elem[0] );
+				}
+				if ( $.isFunction( next ) ) {
+					next();
+				}
+			}
+
+			// If the element already has the correct final state, delegate to
+			// the core methods so the internal tracking of "olddisplay" works.
+			if ( elem.is( ":hidden" ) ? mode === "hide" : mode === "show" ) {
+				elem[ mode ]();
+				done();
+			} else {
+				effectMethod.call( elem[0], args, done );
+			}
+		}
+
+		return queue === false ? this.each( run ) : this.queue( queue || "fx", run );
+	},
+
+	show: (function( orig ) {
+		return function( option ) {
+			if ( standardAnimationOption( option ) ) {
+				return orig.apply( this, arguments );
+			} else {
+				var args = _normalizeArguments.apply( this, arguments );
+				args.mode = "show";
+				return this.effect.call( this, args );
+			}
+		};
+	})( $.fn.show ),
+
+	hide: (function( orig ) {
+		return function( option ) {
+			if ( standardAnimationOption( option ) ) {
+				return orig.apply( this, arguments );
+			} else {
+				var args = _normalizeArguments.apply( this, arguments );
+				args.mode = "hide";
+				return this.effect.call( this, args );
+			}
+		};
+	})( $.fn.hide ),
+
+	toggle: (function( orig ) {
+		return function( option ) {
+			if ( standardAnimationOption( option ) || typeof option === "boolean" ) {
+				return orig.apply( this, arguments );
+			} else {
+				var args = _normalizeArguments.apply( this, arguments );
+				args.mode = "toggle";
+				return this.effect.call( this, args );
+			}
+		};
+	})( $.fn.toggle ),
+
+	// helper functions
+	cssUnit: function(key) {
+		var style = this.css( key ),
+			val = [];
+
+		$.each( [ "em", "px", "%", "pt" ], function( i, unit ) {
+			if ( style.indexOf( unit ) > 0 ) {
+				val = [ parseFloat( style ), unit ];
+			}
+		});
+		return val;
+	}
+});
+
+})();
+
+/******************************************************************************/
+/*********************************** EASING ***********************************/
+/******************************************************************************/
+
+(function() {
+
+// based on easing equations from Robert Penner (http://www.robertpenner.com/easing)
+
+var baseEasings = {};
+
+$.each( [ "Quad", "Cubic", "Quart", "Quint", "Expo" ], function( i, name ) {
+	baseEasings[ name ] = function( p ) {
+		return Math.pow( p, i + 2 );
+	};
+});
+
+$.extend( baseEasings, {
+	Sine: function( p ) {
+		return 1 - Math.cos( p * Math.PI / 2 );
+	},
+	Circ: function( p ) {
+		return 1 - Math.sqrt( 1 - p * p );
+	},
+	Elastic: function( p ) {
+		return p === 0 || p === 1 ? p :
+			-Math.pow( 2, 8 * (p - 1) ) * Math.sin( ( (p - 1) * 80 - 7.5 ) * Math.PI / 15 );
+	},
+	Back: function( p ) {
+		return p * p * ( 3 * p - 2 );
+	},
+	Bounce: function( p ) {
+		var pow2,
+			bounce = 4;
+
+		while ( p < ( ( pow2 = Math.pow( 2, --bounce ) ) - 1 ) / 11 ) {}
+		return 1 / Math.pow( 4, 3 - bounce ) - 7.5625 * Math.pow( ( pow2 * 3 - 2 ) / 22 - p, 2 );
+	}
+});
+
+$.each( baseEasings, function( name, easeIn ) {
+	$.easing[ "easeIn" + name ] = easeIn;
+	$.easing[ "easeOut" + name ] = function( p ) {
+		return 1 - easeIn( 1 - p );
+	};
+	$.easing[ "easeInOut" + name ] = function( p ) {
+		return p < 0.5 ?
+			easeIn( p * 2 ) / 2 :
+			1 - easeIn( p * -2 + 2 ) / 2;
+	};
+});
+
+})();
+
+var effect = $.effects;
+
+
 /*!
  * jQuery UI Effects Blind 1.11.4
  * http://jqueryui.com
@@ -257,7 +14642,73 @@ var j="ui-effects-",s=I;I.effects={effect:{}};
  *
  * http://api.jqueryui.com/blind-effect/
  */
-var X=I.effects.effect.blind=function(af,al){var ag=I(this),ap=/up|down|vertical/,ao=/up|left|vertical|horizontal/,aq=["position","top","bottom","left","right","height","width"],am=I.effects.setMode(ag,af.mode||"hide"),ar=af.direction||"up",ai=ap.test(ar),ah=ai?"height":"width",an=ai?"top":"left",au=ao.test(ar),ak={},at=am==="show",ae,ad,aj;if(ag.parent().is(".ui-effects-wrapper")){I.effects.save(ag.parent(),aq)}else{I.effects.save(ag,aq)}ag.show();ae=I.effects.createWrapper(ag).css({overflow:"hidden"});ad=ae[ah]();aj=parseFloat(ae.css(an))||0;ak[ah]=at?ad:0;if(!au){ag.css(ai?"bottom":"right",0).css(ai?"top":"left","auto").css({position:"absolute"});ak[an]=at?aj:ad+aj}if(at){ae.css(ah,0);if(!au){ae.css(an,aj+ad)}}ae.animate(ak,{duration:af.duration,easing:af.easing,queue:false,complete:function(){if(am==="hide"){ag.hide()}I.effects.restore(ag,aq);I.effects.removeWrapper(ag);al()}})};
+
+
+var effectBlind = $.effects.effect.blind = function( o, done ) {
+	// Create element
+	var el = $( this ),
+		rvertical = /up|down|vertical/,
+		rpositivemotion = /up|left|vertical|horizontal/,
+		props = [ "position", "top", "bottom", "left", "right", "height", "width" ],
+		mode = $.effects.setMode( el, o.mode || "hide" ),
+		direction = o.direction || "up",
+		vertical = rvertical.test( direction ),
+		ref = vertical ? "height" : "width",
+		ref2 = vertical ? "top" : "left",
+		motion = rpositivemotion.test( direction ),
+		animation = {},
+		show = mode === "show",
+		wrapper, distance, margin;
+
+	// if already wrapped, the wrapper's properties are my property. #6245
+	if ( el.parent().is( ".ui-effects-wrapper" ) ) {
+		$.effects.save( el.parent(), props );
+	} else {
+		$.effects.save( el, props );
+	}
+	el.show();
+	wrapper = $.effects.createWrapper( el ).css({
+		overflow: "hidden"
+	});
+
+	distance = wrapper[ ref ]();
+	margin = parseFloat( wrapper.css( ref2 ) ) || 0;
+
+	animation[ ref ] = show ? distance : 0;
+	if ( !motion ) {
+		el
+			.css( vertical ? "bottom" : "right", 0 )
+			.css( vertical ? "top" : "left", "auto" )
+			.css({ position: "absolute" });
+
+		animation[ ref2 ] = show ? margin : distance + margin;
+	}
+
+	// start at 0 if we are showing
+	if ( show ) {
+		wrapper.css( ref, 0 );
+		if ( !motion ) {
+			wrapper.css( ref2, margin + distance );
+		}
+	}
+
+	// Animate
+	wrapper.animate( animation, {
+		duration: o.duration,
+		easing: o.easing,
+		queue: false,
+		complete: function() {
+			if ( mode === "hide" ) {
+				el.hide();
+			}
+			$.effects.restore( el, props );
+			$.effects.removeWrapper( el );
+			done();
+		}
+	});
+};
+
+
 /*!
  * jQuery UI Effects Bounce 1.11.4
  * http://jqueryui.com
@@ -268,7 +14719,106 @@ var X=I.effects.effect.blind=function(af,al){var ag=I(this),ap=/up|down|vertical
  *
  * http://api.jqueryui.com/bounce-effect/
  */
-var S=I.effects.effect.bounce=function(am,al){var ad=I(this),ae=["position","top","bottom","left","right","height","width"],ak=I.effects.setMode(ad,am.mode||"effect"),aj=ak==="hide",av=ak==="show",aw=am.direction||"up",af=am.distance,ai=am.times||5,ax=ai*2+(av||aj?1:0),au=am.duration/ax,ao=am.easing,ag=(aw==="up"||aw==="down")?"top":"left",an=(aw==="up"||aw==="left"),at,ah,ar,ap=ad.queue(),aq=ap.length;if(av||aj){ae.push("opacity")}I.effects.save(ad,ae);ad.show();I.effects.createWrapper(ad);if(!af){af=ad[ag==="top"?"outerHeight":"outerWidth"]()/3}if(av){ar={opacity:1};ar[ag]=0;ad.css("opacity",0).css(ag,an?-af*2:af*2).animate(ar,au,ao)}if(aj){af=af/Math.pow(2,ai-1)}ar={};ar[ag]=0;for(at=0;at<ai;at++){ah={};ah[ag]=(an?"-=":"+=")+af;ad.animate(ah,au,ao).animate(ar,au,ao);af=aj?af*2:af/2}if(aj){ah={opacity:0};ah[ag]=(an?"-=":"+=")+af;ad.animate(ah,au,ao)}ad.queue(function(){if(aj){ad.hide()}I.effects.restore(ad,ae);I.effects.removeWrapper(ad);al()});if(aq>1){ap.splice.apply(ap,[1,0].concat(ap.splice(aq,ax+1)))}ad.dequeue()};
+
+
+var effectBounce = $.effects.effect.bounce = function( o, done ) {
+	var el = $( this ),
+		props = [ "position", "top", "bottom", "left", "right", "height", "width" ],
+
+		// defaults:
+		mode = $.effects.setMode( el, o.mode || "effect" ),
+		hide = mode === "hide",
+		show = mode === "show",
+		direction = o.direction || "up",
+		distance = o.distance,
+		times = o.times || 5,
+
+		// number of internal animations
+		anims = times * 2 + ( show || hide ? 1 : 0 ),
+		speed = o.duration / anims,
+		easing = o.easing,
+
+		// utility:
+		ref = ( direction === "up" || direction === "down" ) ? "top" : "left",
+		motion = ( direction === "up" || direction === "left" ),
+		i,
+		upAnim,
+		downAnim,
+
+		// we will need to re-assemble the queue to stack our animations in place
+		queue = el.queue(),
+		queuelen = queue.length;
+
+	// Avoid touching opacity to prevent clearType and PNG issues in IE
+	if ( show || hide ) {
+		props.push( "opacity" );
+	}
+
+	$.effects.save( el, props );
+	el.show();
+	$.effects.createWrapper( el ); // Create Wrapper
+
+	// default distance for the BIGGEST bounce is the outer Distance / 3
+	if ( !distance ) {
+		distance = el[ ref === "top" ? "outerHeight" : "outerWidth" ]() / 3;
+	}
+
+	if ( show ) {
+		downAnim = { opacity: 1 };
+		downAnim[ ref ] = 0;
+
+		// if we are showing, force opacity 0 and set the initial position
+		// then do the "first" animation
+		el.css( "opacity", 0 )
+			.css( ref, motion ? -distance * 2 : distance * 2 )
+			.animate( downAnim, speed, easing );
+	}
+
+	// start at the smallest distance if we are hiding
+	if ( hide ) {
+		distance = distance / Math.pow( 2, times - 1 );
+	}
+
+	downAnim = {};
+	downAnim[ ref ] = 0;
+	// Bounces up/down/left/right then back to 0 -- times * 2 animations happen here
+	for ( i = 0; i < times; i++ ) {
+		upAnim = {};
+		upAnim[ ref ] = ( motion ? "-=" : "+=" ) + distance;
+
+		el.animate( upAnim, speed, easing )
+			.animate( downAnim, speed, easing );
+
+		distance = hide ? distance * 2 : distance / 2;
+	}
+
+	// Last Bounce when Hiding
+	if ( hide ) {
+		upAnim = { opacity: 0 };
+		upAnim[ ref ] = ( motion ? "-=" : "+=" ) + distance;
+
+		el.animate( upAnim, speed, easing );
+	}
+
+	el.queue(function() {
+		if ( hide ) {
+			el.hide();
+		}
+		$.effects.restore( el, props );
+		$.effects.removeWrapper( el );
+		done();
+	});
+
+	// inject all the animations we just queued to be first in line (after "inprogress")
+	if ( queuelen > 1) {
+		queue.splice.apply( queue,
+			[ 1, 0 ].concat( queue.splice( queuelen, anims + 1 ) ) );
+	}
+	el.dequeue();
+
+};
+
+
 /*!
  * jQuery UI Effects Clip 1.11.4
  * http://jqueryui.com
@@ -279,7 +14829,60 @@ var S=I.effects.effect.bounce=function(am,al){var ad=I(this),ae=["position","top
  *
  * http://api.jqueryui.com/clip-effect/
  */
-var D=I.effects.effect.clip=function(ag,aj){var ah=I(this),an=["position","top","bottom","left","right","height","width"],am=I.effects.setMode(ah,ag.mode||"hide"),ap=am==="show",ao=ag.direction||"vertical",al=ao==="vertical",aq=al?"height":"width",ak=al?"top":"left",ai={},ae,af,ad;I.effects.save(ah,an);ah.show();ae=I.effects.createWrapper(ah).css({overflow:"hidden"});af=(ah[0].tagName==="IMG")?ae:ah;ad=af[aq]();if(ap){af.css(aq,0);af.css(ak,ad/2)}ai[aq]=ap?ad:0;ai[ak]=ap?0:ad/2;af.animate(ai,{queue:false,duration:ag.duration,easing:ag.easing,complete:function(){if(!ap){ah.hide()}I.effects.restore(ah,an);I.effects.removeWrapper(ah);aj()}})};
+
+
+var effectClip = $.effects.effect.clip = function( o, done ) {
+	// Create element
+	var el = $( this ),
+		props = [ "position", "top", "bottom", "left", "right", "height", "width" ],
+		mode = $.effects.setMode( el, o.mode || "hide" ),
+		show = mode === "show",
+		direction = o.direction || "vertical",
+		vert = direction === "vertical",
+		size = vert ? "height" : "width",
+		position = vert ? "top" : "left",
+		animation = {},
+		wrapper, animate, distance;
+
+	// Save & Show
+	$.effects.save( el, props );
+	el.show();
+
+	// Create Wrapper
+	wrapper = $.effects.createWrapper( el ).css({
+		overflow: "hidden"
+	});
+	animate = ( el[0].tagName === "IMG" ) ? wrapper : el;
+	distance = animate[ size ]();
+
+	// Shift
+	if ( show ) {
+		animate.css( size, 0 );
+		animate.css( position, distance / 2 );
+	}
+
+	// Create Animation Object:
+	animation[ size ] = show ? distance : 0;
+	animation[ position ] = show ? 0 : distance / 2;
+
+	// Animate
+	animate.animate( animation, {
+		queue: false,
+		duration: o.duration,
+		easing: o.easing,
+		complete: function() {
+			if ( !show ) {
+				el.hide();
+			}
+			$.effects.restore( el, props );
+			$.effects.removeWrapper( el );
+			done();
+		}
+	});
+
+};
+
+
 /*!
  * jQuery UI Effects Drop 1.11.4
  * http://jqueryui.com
@@ -290,7 +14893,58 @@ var D=I.effects.effect.clip=function(ag,aj){var ah=I(this),an=["position","top",
  *
  * http://api.jqueryui.com/drop-effect/
  */
-var o=I.effects.effect.drop=function(ae,ai){var af=I(this),ak=["position","top","bottom","left","right","opacity","height","width"],aj=I.effects.setMode(af,ae.mode||"hide"),am=aj==="show",al=ae.direction||"left",ag=(al==="up"||al==="down")?"top":"left",an=(al==="up"||al==="left")?"pos":"neg",ah={opacity:am?1:0},ad;I.effects.save(af,ak);af.show();I.effects.createWrapper(af);ad=ae.distance||af[ag==="top"?"outerHeight":"outerWidth"](true)/2;if(am){af.css("opacity",0).css(ag,an==="pos"?-ad:ad)}ah[ag]=(am?(an==="pos"?"+=":"-="):(an==="pos"?"-=":"+="))+ad;af.animate(ah,{queue:false,duration:ae.duration,easing:ae.easing,complete:function(){if(aj==="hide"){af.hide()}I.effects.restore(af,ak);I.effects.removeWrapper(af);ai()}})};
+
+
+var effectDrop = $.effects.effect.drop = function( o, done ) {
+
+	var el = $( this ),
+		props = [ "position", "top", "bottom", "left", "right", "opacity", "height", "width" ],
+		mode = $.effects.setMode( el, o.mode || "hide" ),
+		show = mode === "show",
+		direction = o.direction || "left",
+		ref = ( direction === "up" || direction === "down" ) ? "top" : "left",
+		motion = ( direction === "up" || direction === "left" ) ? "pos" : "neg",
+		animation = {
+			opacity: show ? 1 : 0
+		},
+		distance;
+
+	// Adjust
+	$.effects.save( el, props );
+	el.show();
+	$.effects.createWrapper( el );
+
+	distance = o.distance || el[ ref === "top" ? "outerHeight" : "outerWidth" ]( true ) / 2;
+
+	if ( show ) {
+		el
+			.css( "opacity", 0 )
+			.css( ref, motion === "pos" ? -distance : distance );
+	}
+
+	// Animation
+	animation[ ref ] = ( show ?
+		( motion === "pos" ? "+=" : "-=" ) :
+		( motion === "pos" ? "-=" : "+=" ) ) +
+		distance;
+
+	// Animate
+	el.animate( animation, {
+		queue: false,
+		duration: o.duration,
+		easing: o.easing,
+		complete: function() {
+			if ( mode === "hide" ) {
+				el.hide();
+			}
+			$.effects.restore( el, props );
+			$.effects.removeWrapper( el );
+			done();
+		}
+	});
+};
+
+
 /*!
  * jQuery UI Effects Explode 1.11.4
  * http://jqueryui.com
@@ -301,7 +14955,90 @@ var o=I.effects.effect.drop=function(ae,ai){var af=I(this),ak=["position","top",
  *
  * http://api.jqueryui.com/explode-effect/
  */
-var Q=I.effects.effect.explode=function(aq,ap){var aj=aq.pieces?Math.round(Math.sqrt(aq.pieces)):3,ae=aj,ad=I(this),al=I.effects.setMode(ad,aq.mode||"hide"),av=al==="show",ah=ad.show().css("visibility","hidden").offset(),ar=Math.ceil(ad.outerWidth()/ae),ao=Math.ceil(ad.outerHeight()/aj),ai=[],au,at,af,an,am,ak;function aw(){ai.push(this);if(ai.length===aj*ae){ag()}}for(au=0;au<aj;au++){an=ah.top+au*ao;ak=au-(aj-1)/2;for(at=0;at<ae;at++){af=ah.left+at*ar;am=at-(ae-1)/2;ad.clone().appendTo("body").wrap("<div></div>").css({position:"absolute",visibility:"visible",left:-at*ar,top:-au*ao}).parent().addClass("ui-effects-explode").css({position:"absolute",overflow:"hidden",width:ar,height:ao,left:af+(av?am*ar:0),top:an+(av?ak*ao:0),opacity:av?0:1}).animate({left:af+(av?0:am*ar),top:an+(av?0:ak*ao),opacity:av?1:0},aq.duration||500,aq.easing,aw)}}function ag(){ad.css({visibility:"visible"});I(ai).remove();if(!av){ad.hide()}ap()}};
+
+
+var effectExplode = $.effects.effect.explode = function( o, done ) {
+
+	var rows = o.pieces ? Math.round( Math.sqrt( o.pieces ) ) : 3,
+		cells = rows,
+		el = $( this ),
+		mode = $.effects.setMode( el, o.mode || "hide" ),
+		show = mode === "show",
+
+		// show and then visibility:hidden the element before calculating offset
+		offset = el.show().css( "visibility", "hidden" ).offset(),
+
+		// width and height of a piece
+		width = Math.ceil( el.outerWidth() / cells ),
+		height = Math.ceil( el.outerHeight() / rows ),
+		pieces = [],
+
+		// loop
+		i, j, left, top, mx, my;
+
+	// children animate complete:
+	function childComplete() {
+		pieces.push( this );
+		if ( pieces.length === rows * cells ) {
+			animComplete();
+		}
+	}
+
+	// clone the element for each row and cell.
+	for ( i = 0; i < rows ; i++ ) { // ===>
+		top = offset.top + i * height;
+		my = i - ( rows - 1 ) / 2 ;
+
+		for ( j = 0; j < cells ; j++ ) { // |||
+			left = offset.left + j * width;
+			mx = j - ( cells - 1 ) / 2 ;
+
+			// Create a clone of the now hidden main element that will be absolute positioned
+			// within a wrapper div off the -left and -top equal to size of our pieces
+			el
+				.clone()
+				.appendTo( "body" )
+				.wrap( "<div></div>" )
+				.css({
+					position: "absolute",
+					visibility: "visible",
+					left: -j * width,
+					top: -i * height
+				})
+
+			// select the wrapper - make it overflow: hidden and absolute positioned based on
+			// where the original was located +left and +top equal to the size of pieces
+				.parent()
+				.addClass( "ui-effects-explode" )
+				.css({
+					position: "absolute",
+					overflow: "hidden",
+					width: width,
+					height: height,
+					left: left + ( show ? mx * width : 0 ),
+					top: top + ( show ? my * height : 0 ),
+					opacity: show ? 0 : 1
+				}).animate({
+					left: left + ( show ? 0 : mx * width ),
+					top: top + ( show ? 0 : my * height ),
+					opacity: show ? 1 : 0
+				}, o.duration || 500, o.easing, childComplete );
+		}
+	}
+
+	function animComplete() {
+		el.css({
+			visibility: "visible"
+		});
+		$( pieces ).remove();
+		if ( !show ) {
+			el.hide();
+		}
+		done();
+	}
+};
+
+
 /*!
  * jQuery UI Effects Fade 1.11.4
  * http://jqueryui.com
@@ -312,7 +15049,23 @@ var Q=I.effects.effect.explode=function(aq,ap){var aj=aq.pieces?Math.round(Math.
  *
  * http://api.jqueryui.com/fade-effect/
  */
-var R=I.effects.effect.fade=function(ag,ad){var ae=I(this),af=I.effects.setMode(ae,ag.mode||"toggle");ae.animate({opacity:af},{queue:false,duration:ag.duration,easing:ag.easing,complete:ad})};
+
+
+var effectFade = $.effects.effect.fade = function( o, done ) {
+	var el = $( this ),
+		mode = $.effects.setMode( el, o.mode || "toggle" );
+
+	el.animate({
+		opacity: mode
+	}, {
+		queue: false,
+		duration: o.duration,
+		easing: o.easing,
+		complete: done
+	});
+};
+
+
 /*!
  * jQuery UI Effects Fold 1.11.4
  * http://jqueryui.com
@@ -323,7 +15076,69 @@ var R=I.effects.effect.fade=function(ag,ad){var ae=I(this),af=I.effects.setMode(
  *
  * http://api.jqueryui.com/fold-effect/
  */
-var F=I.effects.effect.fold=function(af,aj){var ag=I(this),ao=["position","top","bottom","left","right","height","width"],al=I.effects.setMode(ag,af.mode||"hide"),ar=al==="show",am=al==="hide",au=af.size||15,an=/([0-9]+)%/.exec(au),at=!!af.horizFirst,ak=ar!==at,ah=ak?["width","height"]:["height","width"],ai=af.duration/2,ae,ad,aq={},ap={};I.effects.save(ag,ao);ag.show();ae=I.effects.createWrapper(ag).css({overflow:"hidden"});ad=ak?[ae.width(),ae.height()]:[ae.height(),ae.width()];if(an){au=parseInt(an[1],10)/100*ad[am?0:1]}if(ar){ae.css(at?{height:0,width:au}:{height:au,width:0})}aq[ah[0]]=ar?ad[0]:au;ap[ah[1]]=ar?ad[1]:0;ae.animate(aq,ai,af.easing).animate(ap,ai,af.easing,function(){if(am){ag.hide()}I.effects.restore(ag,ao);I.effects.removeWrapper(ag);aj()})};
+
+
+var effectFold = $.effects.effect.fold = function( o, done ) {
+
+	// Create element
+	var el = $( this ),
+		props = [ "position", "top", "bottom", "left", "right", "height", "width" ],
+		mode = $.effects.setMode( el, o.mode || "hide" ),
+		show = mode === "show",
+		hide = mode === "hide",
+		size = o.size || 15,
+		percent = /([0-9]+)%/.exec( size ),
+		horizFirst = !!o.horizFirst,
+		widthFirst = show !== horizFirst,
+		ref = widthFirst ? [ "width", "height" ] : [ "height", "width" ],
+		duration = o.duration / 2,
+		wrapper, distance,
+		animation1 = {},
+		animation2 = {};
+
+	$.effects.save( el, props );
+	el.show();
+
+	// Create Wrapper
+	wrapper = $.effects.createWrapper( el ).css({
+		overflow: "hidden"
+	});
+	distance = widthFirst ?
+		[ wrapper.width(), wrapper.height() ] :
+		[ wrapper.height(), wrapper.width() ];
+
+	if ( percent ) {
+		size = parseInt( percent[ 1 ], 10 ) / 100 * distance[ hide ? 0 : 1 ];
+	}
+	if ( show ) {
+		wrapper.css( horizFirst ? {
+			height: 0,
+			width: size
+		} : {
+			height: size,
+			width: 0
+		});
+	}
+
+	// Animation
+	animation1[ ref[ 0 ] ] = show ? distance[ 0 ] : size;
+	animation2[ ref[ 1 ] ] = show ? distance[ 1 ] : 0;
+
+	// Animate
+	wrapper
+		.animate( animation1, duration, o.easing )
+		.animate( animation2, duration, o.easing, function() {
+			if ( hide ) {
+				el.hide();
+			}
+			$.effects.restore( el, props );
+			$.effects.removeWrapper( el );
+			done();
+		});
+
+};
+
+
 /*!
  * jQuery UI Effects Highlight 1.11.4
  * http://jqueryui.com
@@ -334,7 +15149,43 @@ var F=I.effects.effect.fold=function(af,aj){var ag=I(this),ao=["position","top",
  *
  * http://api.jqueryui.com/highlight-effect/
  */
-var M=I.effects.effect.highlight=function(ai,ad){var af=I(this),ae=["backgroundImage","backgroundColor","opacity"],ah=I.effects.setMode(af,ai.mode||"show"),ag={backgroundColor:af.css("backgroundColor")};if(ah==="hide"){ag.opacity=0}I.effects.save(af,ae);af.show().css({backgroundImage:"none",backgroundColor:ai.color||"#ffff99"}).animate(ag,{queue:false,duration:ai.duration,easing:ai.easing,complete:function(){if(ah==="hide"){af.hide()}I.effects.restore(af,ae);ad()}})};
+
+
+var effectHighlight = $.effects.effect.highlight = function( o, done ) {
+	var elem = $( this ),
+		props = [ "backgroundImage", "backgroundColor", "opacity" ],
+		mode = $.effects.setMode( elem, o.mode || "show" ),
+		animation = {
+			backgroundColor: elem.css( "backgroundColor" )
+		};
+
+	if (mode === "hide") {
+		animation.opacity = 0;
+	}
+
+	$.effects.save( elem, props );
+
+	elem
+		.show()
+		.css({
+			backgroundImage: "none",
+			backgroundColor: o.color || "#ffff99"
+		})
+		.animate( animation, {
+			queue: false,
+			duration: o.duration,
+			easing: o.easing,
+			complete: function() {
+				if ( mode === "hide" ) {
+					elem.hide();
+				}
+				$.effects.restore( elem, props );
+				done();
+			}
+		});
+};
+
+
 /*!
  * jQuery UI Effects Size 1.11.4
  * http://jqueryui.com
@@ -345,7 +15196,216 @@ var M=I.effects.effect.highlight=function(ai,ad){var af=I(this),ae=["backgroundI
  *
  * http://api.jqueryui.com/size-effect/
  */
-var a=I.effects.effect.size=function(am,al){var aq,aj,ak,ad=I(this),ap=["position","top","bottom","left","right","width","height","overflow","opacity"],ao=["position","top","bottom","left","right","overflow","opacity"],an=["width","height","overflow"],ah=["fontSize"],at=["borderTopWidth","borderBottomWidth","paddingTop","paddingBottom"],ae=["borderLeftWidth","borderRightWidth","paddingLeft","paddingRight"],ai=I.effects.setMode(ad,am.mode||"effect"),ar=am.restore||ai!=="effect",aw=am.scale||"both",au=am.origin||["middle","center"],av=ad.css("position"),af=ar?ap:ao,ag={height:0,width:0,outerHeight:0,outerWidth:0};if(ai==="show"){ad.show()}aq={height:ad.height(),width:ad.width(),outerHeight:ad.outerHeight(),outerWidth:ad.outerWidth()};if(am.mode==="toggle"&&ai==="show"){ad.from=am.to||ag;ad.to=am.from||aq}else{ad.from=am.from||(ai==="show"?ag:aq);ad.to=am.to||(ai==="hide"?ag:aq)}ak={from:{y:ad.from.height/aq.height,x:ad.from.width/aq.width},to:{y:ad.to.height/aq.height,x:ad.to.width/aq.width}};if(aw==="box"||aw==="both"){if(ak.from.y!==ak.to.y){af=af.concat(at);ad.from=I.effects.setTransition(ad,at,ak.from.y,ad.from);ad.to=I.effects.setTransition(ad,at,ak.to.y,ad.to)}if(ak.from.x!==ak.to.x){af=af.concat(ae);ad.from=I.effects.setTransition(ad,ae,ak.from.x,ad.from);ad.to=I.effects.setTransition(ad,ae,ak.to.x,ad.to)}}if(aw==="content"||aw==="both"){if(ak.from.y!==ak.to.y){af=af.concat(ah).concat(an);ad.from=I.effects.setTransition(ad,ah,ak.from.y,ad.from);ad.to=I.effects.setTransition(ad,ah,ak.to.y,ad.to)}}I.effects.save(ad,af);ad.show();I.effects.createWrapper(ad);ad.css("overflow","hidden").css(ad.from);if(au){aj=I.effects.getBaseline(au,aq);ad.from.top=(aq.outerHeight-ad.outerHeight())*aj.y;ad.from.left=(aq.outerWidth-ad.outerWidth())*aj.x;ad.to.top=(aq.outerHeight-ad.to.outerHeight)*aj.y;ad.to.left=(aq.outerWidth-ad.to.outerWidth)*aj.x}ad.css(ad.from);if(aw==="content"||aw==="both"){at=at.concat(["marginTop","marginBottom"]).concat(ah);ae=ae.concat(["marginLeft","marginRight"]);an=ap.concat(at).concat(ae);ad.find("*[width]").each(function(){var ay=I(this),ax={height:ay.height(),width:ay.width(),outerHeight:ay.outerHeight(),outerWidth:ay.outerWidth()};if(ar){I.effects.save(ay,an)}ay.from={height:ax.height*ak.from.y,width:ax.width*ak.from.x,outerHeight:ax.outerHeight*ak.from.y,outerWidth:ax.outerWidth*ak.from.x};ay.to={height:ax.height*ak.to.y,width:ax.width*ak.to.x,outerHeight:ax.height*ak.to.y,outerWidth:ax.width*ak.to.x};if(ak.from.y!==ak.to.y){ay.from=I.effects.setTransition(ay,at,ak.from.y,ay.from);ay.to=I.effects.setTransition(ay,at,ak.to.y,ay.to)}if(ak.from.x!==ak.to.x){ay.from=I.effects.setTransition(ay,ae,ak.from.x,ay.from);ay.to=I.effects.setTransition(ay,ae,ak.to.x,ay.to)}ay.css(ay.from);ay.animate(ay.to,am.duration,am.easing,function(){if(ar){I.effects.restore(ay,an)}})})}ad.animate(ad.to,{queue:false,duration:am.duration,easing:am.easing,complete:function(){if(ad.to.opacity===0){ad.css("opacity",ad.from.opacity)}if(ai==="hide"){ad.hide()}I.effects.restore(ad,af);if(!ar){if(av==="static"){ad.css({position:"relative",top:ad.to.top,left:ad.to.left})}else{I.each(["top","left"],function(ax,ay){ad.css(ay,function(aA,aC){var aB=parseInt(aC,10),az=ax?ad.to.left:ad.to.top;if(aC==="auto"){return az+"px"}return aB+az+"px"})})}}I.effects.removeWrapper(ad);al()}})};
+
+
+var effectSize = $.effects.effect.size = function( o, done ) {
+
+	// Create element
+	var original, baseline, factor,
+		el = $( this ),
+		props0 = [ "position", "top", "bottom", "left", "right", "width", "height", "overflow", "opacity" ],
+
+		// Always restore
+		props1 = [ "position", "top", "bottom", "left", "right", "overflow", "opacity" ],
+
+		// Copy for children
+		props2 = [ "width", "height", "overflow" ],
+		cProps = [ "fontSize" ],
+		vProps = [ "borderTopWidth", "borderBottomWidth", "paddingTop", "paddingBottom" ],
+		hProps = [ "borderLeftWidth", "borderRightWidth", "paddingLeft", "paddingRight" ],
+
+		// Set options
+		mode = $.effects.setMode( el, o.mode || "effect" ),
+		restore = o.restore || mode !== "effect",
+		scale = o.scale || "both",
+		origin = o.origin || [ "middle", "center" ],
+		position = el.css( "position" ),
+		props = restore ? props0 : props1,
+		zero = {
+			height: 0,
+			width: 0,
+			outerHeight: 0,
+			outerWidth: 0
+		};
+
+	if ( mode === "show" ) {
+		el.show();
+	}
+	original = {
+		height: el.height(),
+		width: el.width(),
+		outerHeight: el.outerHeight(),
+		outerWidth: el.outerWidth()
+	};
+
+	if ( o.mode === "toggle" && mode === "show" ) {
+		el.from = o.to || zero;
+		el.to = o.from || original;
+	} else {
+		el.from = o.from || ( mode === "show" ? zero : original );
+		el.to = o.to || ( mode === "hide" ? zero : original );
+	}
+
+	// Set scaling factor
+	factor = {
+		from: {
+			y: el.from.height / original.height,
+			x: el.from.width / original.width
+		},
+		to: {
+			y: el.to.height / original.height,
+			x: el.to.width / original.width
+		}
+	};
+
+	// Scale the css box
+	if ( scale === "box" || scale === "both" ) {
+
+		// Vertical props scaling
+		if ( factor.from.y !== factor.to.y ) {
+			props = props.concat( vProps );
+			el.from = $.effects.setTransition( el, vProps, factor.from.y, el.from );
+			el.to = $.effects.setTransition( el, vProps, factor.to.y, el.to );
+		}
+
+		// Horizontal props scaling
+		if ( factor.from.x !== factor.to.x ) {
+			props = props.concat( hProps );
+			el.from = $.effects.setTransition( el, hProps, factor.from.x, el.from );
+			el.to = $.effects.setTransition( el, hProps, factor.to.x, el.to );
+		}
+	}
+
+	// Scale the content
+	if ( scale === "content" || scale === "both" ) {
+
+		// Vertical props scaling
+		if ( factor.from.y !== factor.to.y ) {
+			props = props.concat( cProps ).concat( props2 );
+			el.from = $.effects.setTransition( el, cProps, factor.from.y, el.from );
+			el.to = $.effects.setTransition( el, cProps, factor.to.y, el.to );
+		}
+	}
+
+	$.effects.save( el, props );
+	el.show();
+	$.effects.createWrapper( el );
+	el.css( "overflow", "hidden" ).css( el.from );
+
+	// Adjust
+	if (origin) { // Calculate baseline shifts
+		baseline = $.effects.getBaseline( origin, original );
+		el.from.top = ( original.outerHeight - el.outerHeight() ) * baseline.y;
+		el.from.left = ( original.outerWidth - el.outerWidth() ) * baseline.x;
+		el.to.top = ( original.outerHeight - el.to.outerHeight ) * baseline.y;
+		el.to.left = ( original.outerWidth - el.to.outerWidth ) * baseline.x;
+	}
+	el.css( el.from ); // set top & left
+
+	// Animate
+	if ( scale === "content" || scale === "both" ) { // Scale the children
+
+		// Add margins/font-size
+		vProps = vProps.concat([ "marginTop", "marginBottom" ]).concat(cProps);
+		hProps = hProps.concat([ "marginLeft", "marginRight" ]);
+		props2 = props0.concat(vProps).concat(hProps);
+
+		el.find( "*[width]" ).each( function() {
+			var child = $( this ),
+				c_original = {
+					height: child.height(),
+					width: child.width(),
+					outerHeight: child.outerHeight(),
+					outerWidth: child.outerWidth()
+				};
+			if (restore) {
+				$.effects.save(child, props2);
+			}
+
+			child.from = {
+				height: c_original.height * factor.from.y,
+				width: c_original.width * factor.from.x,
+				outerHeight: c_original.outerHeight * factor.from.y,
+				outerWidth: c_original.outerWidth * factor.from.x
+			};
+			child.to = {
+				height: c_original.height * factor.to.y,
+				width: c_original.width * factor.to.x,
+				outerHeight: c_original.height * factor.to.y,
+				outerWidth: c_original.width * factor.to.x
+			};
+
+			// Vertical props scaling
+			if ( factor.from.y !== factor.to.y ) {
+				child.from = $.effects.setTransition( child, vProps, factor.from.y, child.from );
+				child.to = $.effects.setTransition( child, vProps, factor.to.y, child.to );
+			}
+
+			// Horizontal props scaling
+			if ( factor.from.x !== factor.to.x ) {
+				child.from = $.effects.setTransition( child, hProps, factor.from.x, child.from );
+				child.to = $.effects.setTransition( child, hProps, factor.to.x, child.to );
+			}
+
+			// Animate children
+			child.css( child.from );
+			child.animate( child.to, o.duration, o.easing, function() {
+
+				// Restore children
+				if ( restore ) {
+					$.effects.restore( child, props2 );
+				}
+			});
+		});
+	}
+
+	// Animate
+	el.animate( el.to, {
+		queue: false,
+		duration: o.duration,
+		easing: o.easing,
+		complete: function() {
+			if ( el.to.opacity === 0 ) {
+				el.css( "opacity", el.from.opacity );
+			}
+			if ( mode === "hide" ) {
+				el.hide();
+			}
+			$.effects.restore( el, props );
+			if ( !restore ) {
+
+				// we need to calculate our new positioning based on the scaling
+				if ( position === "static" ) {
+					el.css({
+						position: "relative",
+						top: el.to.top,
+						left: el.to.left
+					});
+				} else {
+					$.each([ "top", "left" ], function( idx, pos ) {
+						el.css( pos, function( _, str ) {
+							var val = parseInt( str, 10 ),
+								toRef = idx ? el.to.left : el.to.top;
+
+							// if original was "auto", recalculate the new value from wrapper
+							if ( str === "auto" ) {
+								return toRef + "px";
+							}
+
+							return val + toRef + "px";
+						});
+					});
+				}
+			}
+
+			$.effects.removeWrapper( el );
+			done();
+		}
+	});
+
+};
+
+
 /*!
  * jQuery UI Effects Scale 1.11.4
  * http://jqueryui.com
@@ -356,7 +15416,71 @@ var a=I.effects.effect.size=function(am,al){var aq,aj,ak,ad=I(this),ap=["positio
  *
  * http://api.jqueryui.com/scale-effect/
  */
-var f=I.effects.effect.scale=function(ad,ag){var ae=I(this),am=I.extend(true,{},ad),ah=I.effects.setMode(ae,ad.mode||"effect"),ai=parseInt(ad.percent,10)||(parseInt(ad.percent,10)===0?0:(ah==="hide"?0:100)),ak=ad.direction||"both",al=ad.origin,af={height:ae.height(),width:ae.width(),outerHeight:ae.outerHeight(),outerWidth:ae.outerWidth()},aj={y:ak!=="horizontal"?(ai/100):1,x:ak!=="vertical"?(ai/100):1};am.effect="size";am.queue=false;am.complete=ag;if(ah!=="effect"){am.origin=al||["middle","center"];am.restore=true}am.from=ad.from||(ah==="show"?{height:0,width:0,outerHeight:0,outerWidth:0}:af);am.to={height:af.height*aj.y,width:af.width*aj.x,outerHeight:af.outerHeight*aj.y,outerWidth:af.outerWidth*aj.x};if(am.fade){if(ah==="show"){am.from.opacity=0;am.to.opacity=1}if(ah==="hide"){am.from.opacity=1;am.to.opacity=0}}ae.effect(am)};
+
+
+var effectScale = $.effects.effect.scale = function( o, done ) {
+
+	// Create element
+	var el = $( this ),
+		options = $.extend( true, {}, o ),
+		mode = $.effects.setMode( el, o.mode || "effect" ),
+		percent = parseInt( o.percent, 10 ) ||
+			( parseInt( o.percent, 10 ) === 0 ? 0 : ( mode === "hide" ? 0 : 100 ) ),
+		direction = o.direction || "both",
+		origin = o.origin,
+		original = {
+			height: el.height(),
+			width: el.width(),
+			outerHeight: el.outerHeight(),
+			outerWidth: el.outerWidth()
+		},
+		factor = {
+			y: direction !== "horizontal" ? (percent / 100) : 1,
+			x: direction !== "vertical" ? (percent / 100) : 1
+		};
+
+	// We are going to pass this effect to the size effect:
+	options.effect = "size";
+	options.queue = false;
+	options.complete = done;
+
+	// Set default origin and restore for show/hide
+	if ( mode !== "effect" ) {
+		options.origin = origin || [ "middle", "center" ];
+		options.restore = true;
+	}
+
+	options.from = o.from || ( mode === "show" ? {
+		height: 0,
+		width: 0,
+		outerHeight: 0,
+		outerWidth: 0
+	} : original );
+	options.to = {
+		height: original.height * factor.y,
+		width: original.width * factor.x,
+		outerHeight: original.outerHeight * factor.y,
+		outerWidth: original.outerWidth * factor.x
+	};
+
+	// Fade option to support puff
+	if ( options.fade ) {
+		if ( mode === "show" ) {
+			options.from.opacity = 0;
+			options.to.opacity = 1;
+		}
+		if ( mode === "hide" ) {
+			options.from.opacity = 1;
+			options.to.opacity = 0;
+		}
+	}
+
+	// Animate
+	el.effect( options );
+
+};
+
+
 /*!
  * jQuery UI Effects Puff 1.11.4
  * http://jqueryui.com
@@ -367,7 +15491,42 @@ var f=I.effects.effect.scale=function(ad,ag){var ae=I(this),am=I.extend(true,{},
  *
  * http://api.jqueryui.com/puff-effect/
  */
-var aa=I.effects.effect.puff=function(ak,ad){var ai=I(this),aj=I.effects.setMode(ai,ak.mode||"hide"),ag=aj==="hide",ah=parseInt(ak.percent,10)||150,af=ah/100,ae={height:ai.height(),width:ai.width(),outerHeight:ai.outerHeight(),outerWidth:ai.outerWidth()};I.extend(ak,{effect:"scale",queue:false,fade:true,mode:aj,complete:ad,percent:ag?ah:100,from:ag?ae:{height:ae.height*af,width:ae.width*af,outerHeight:ae.outerHeight*af,outerWidth:ae.outerWidth*af}});ai.effect(ak)};
+
+
+var effectPuff = $.effects.effect.puff = function( o, done ) {
+	var elem = $( this ),
+		mode = $.effects.setMode( elem, o.mode || "hide" ),
+		hide = mode === "hide",
+		percent = parseInt( o.percent, 10 ) || 150,
+		factor = percent / 100,
+		original = {
+			height: elem.height(),
+			width: elem.width(),
+			outerHeight: elem.outerHeight(),
+			outerWidth: elem.outerWidth()
+		};
+
+	$.extend( o, {
+		effect: "scale",
+		queue: false,
+		fade: true,
+		mode: mode,
+		complete: done,
+		percent: hide ? percent : 100,
+		from: hide ?
+			original :
+			{
+				height: original.height * factor,
+				width: original.width * factor,
+				outerHeight: original.outerHeight * factor,
+				outerWidth: original.outerWidth * factor
+			}
+	});
+
+	elem.effect( o );
+};
+
+
 /*!
  * jQuery UI Effects Pulsate 1.11.4
  * http://jqueryui.com
@@ -378,7 +15537,56 @@ var aa=I.effects.effect.puff=function(ak,ad){var ai=I(this),aj=I.effects.setMode
  *
  * http://api.jqueryui.com/pulsate-effect/
  */
-var H=I.effects.effect.pulsate=function(ad,ah){var af=I(this),ak=I.effects.setMode(af,ad.mode||"show"),ao=ak==="show",al=ak==="hide",ap=(ao||ak==="hide"),am=((ad.times||5)*2)+(ap?1:0),ag=ad.duration/am,an=0,aj=af.queue(),ae=aj.length,ai;if(ao||!af.is(":visible")){af.css("opacity",0).show();an=1}for(ai=1;ai<am;ai++){af.animate({opacity:an},ag,ad.easing);an=1-an}af.animate({opacity:an},ag,ad.easing);af.queue(function(){if(al){af.hide()}ah()});if(ae>1){aj.splice.apply(aj,[1,0].concat(aj.splice(ae,am+1)))}af.dequeue()};
+
+
+var effectPulsate = $.effects.effect.pulsate = function( o, done ) {
+	var elem = $( this ),
+		mode = $.effects.setMode( elem, o.mode || "show" ),
+		show = mode === "show",
+		hide = mode === "hide",
+		showhide = ( show || mode === "hide" ),
+
+		// showing or hiding leaves of the "last" animation
+		anims = ( ( o.times || 5 ) * 2 ) + ( showhide ? 1 : 0 ),
+		duration = o.duration / anims,
+		animateTo = 0,
+		queue = elem.queue(),
+		queuelen = queue.length,
+		i;
+
+	if ( show || !elem.is(":visible")) {
+		elem.css( "opacity", 0 ).show();
+		animateTo = 1;
+	}
+
+	// anims - 1 opacity "toggles"
+	for ( i = 1; i < anims; i++ ) {
+		elem.animate({
+			opacity: animateTo
+		}, duration, o.easing );
+		animateTo = 1 - animateTo;
+	}
+
+	elem.animate({
+		opacity: animateTo
+	}, duration, o.easing);
+
+	elem.queue(function() {
+		if ( hide ) {
+			elem.hide();
+		}
+		done();
+	});
+
+	// We just queued up "anims" animations, we need to put them next in the queue
+	if ( queuelen > 1 ) {
+		queue.splice.apply( queue,
+			[ 1, 0 ].concat( queue.splice( queuelen, anims + 1 ) ) );
+	}
+	elem.dequeue();
+};
+
+
 /*!
  * jQuery UI Effects Shake 1.11.4
  * http://jqueryui.com
@@ -389,7 +15597,67 @@ var H=I.effects.effect.pulsate=function(ad,ah){var af=I(this),ak=I.effects.setMo
  *
  * http://api.jqueryui.com/shake-effect/
  */
-var B=I.effects.effect.shake=function(al,ak){var ad=I(this),ae=["position","top","bottom","left","right","height","width"],aj=I.effects.setMode(ad,al.mode||"effect"),au=al.direction||"left",af=al.distance||20,ai=al.times||3,av=ai*2+1,ap=Math.round(al.duration/av),ah=(au==="up"||au==="down")?"top":"left",ag=(au==="up"||au==="left"),at={},ar={},aq={},ao,am=ad.queue(),an=am.length;I.effects.save(ad,ae);ad.show();I.effects.createWrapper(ad);at[ah]=(ag?"-=":"+=")+af;ar[ah]=(ag?"+=":"-=")+af*2;aq[ah]=(ag?"-=":"+=")+af*2;ad.animate(at,ap,al.easing);for(ao=1;ao<ai;ao++){ad.animate(ar,ap,al.easing).animate(aq,ap,al.easing)}ad.animate(ar,ap,al.easing).animate(at,ap/2,al.easing).queue(function(){if(aj==="hide"){ad.hide()}I.effects.restore(ad,ae);I.effects.removeWrapper(ad);ak()});if(an>1){am.splice.apply(am,[1,0].concat(am.splice(an,av+1)))}ad.dequeue()};
+
+
+var effectShake = $.effects.effect.shake = function( o, done ) {
+
+	var el = $( this ),
+		props = [ "position", "top", "bottom", "left", "right", "height", "width" ],
+		mode = $.effects.setMode( el, o.mode || "effect" ),
+		direction = o.direction || "left",
+		distance = o.distance || 20,
+		times = o.times || 3,
+		anims = times * 2 + 1,
+		speed = Math.round( o.duration / anims ),
+		ref = (direction === "up" || direction === "down") ? "top" : "left",
+		positiveMotion = (direction === "up" || direction === "left"),
+		animation = {},
+		animation1 = {},
+		animation2 = {},
+		i,
+
+		// we will need to re-assemble the queue to stack our animations in place
+		queue = el.queue(),
+		queuelen = queue.length;
+
+	$.effects.save( el, props );
+	el.show();
+	$.effects.createWrapper( el );
+
+	// Animation
+	animation[ ref ] = ( positiveMotion ? "-=" : "+=" ) + distance;
+	animation1[ ref ] = ( positiveMotion ? "+=" : "-=" ) + distance * 2;
+	animation2[ ref ] = ( positiveMotion ? "-=" : "+=" ) + distance * 2;
+
+	// Animate
+	el.animate( animation, speed, o.easing );
+
+	// Shakes
+	for ( i = 1; i < times; i++ ) {
+		el.animate( animation1, speed, o.easing ).animate( animation2, speed, o.easing );
+	}
+	el
+		.animate( animation1, speed, o.easing )
+		.animate( animation, speed / 2, o.easing )
+		.queue(function() {
+			if ( mode === "hide" ) {
+				el.hide();
+			}
+			$.effects.restore( el, props );
+			$.effects.removeWrapper( el );
+			done();
+		});
+
+	// inject all the animations we just queued to be first in line (after "inprogress")
+	if ( queuelen > 1) {
+		queue.splice.apply( queue,
+			[ 1, 0 ].concat( queue.splice( queuelen, anims + 1 ) ) );
+	}
+	el.dequeue();
+
+};
+
+
 /*!
  * jQuery UI Effects Slide 1.11.4
  * http://jqueryui.com
@@ -400,7 +15668,57 @@ var B=I.effects.effect.shake=function(al,ak){var ad=I(this),ae=["position","top"
  *
  * http://api.jqueryui.com/slide-effect/
  */
-var A=I.effects.effect.slide=function(af,aj){var ag=I(this),al=["position","top","bottom","left","right","width","height"],ak=I.effects.setMode(ag,af.mode||"show"),an=ak==="show",am=af.direction||"left",ah=(am==="up"||am==="down")?"top":"left",ae=(am==="up"||am==="left"),ad,ai={};I.effects.save(ag,al);ag.show();ad=af.distance||ag[ah==="top"?"outerHeight":"outerWidth"](true);I.effects.createWrapper(ag).css({overflow:"hidden"});if(an){ag.css(ah,ae?(isNaN(ad)?"-"+ad:-ad):ad)}ai[ah]=(an?(ae?"+=":"-="):(ae?"-=":"+="))+ad;ag.animate(ai,{queue:false,duration:af.duration,easing:af.easing,complete:function(){if(ak==="hide"){ag.hide()}I.effects.restore(ag,al);I.effects.removeWrapper(ag);aj()}})};
+
+
+var effectSlide = $.effects.effect.slide = function( o, done ) {
+
+	// Create element
+	var el = $( this ),
+		props = [ "position", "top", "bottom", "left", "right", "width", "height" ],
+		mode = $.effects.setMode( el, o.mode || "show" ),
+		show = mode === "show",
+		direction = o.direction || "left",
+		ref = (direction === "up" || direction === "down") ? "top" : "left",
+		positiveMotion = (direction === "up" || direction === "left"),
+		distance,
+		animation = {};
+
+	// Adjust
+	$.effects.save( el, props );
+	el.show();
+	distance = o.distance || el[ ref === "top" ? "outerHeight" : "outerWidth" ]( true );
+
+	$.effects.createWrapper( el ).css({
+		overflow: "hidden"
+	});
+
+	if ( show ) {
+		el.css( ref, positiveMotion ? (isNaN(distance) ? "-" + distance : -distance) : distance );
+	}
+
+	// Animation
+	animation[ ref ] = ( show ?
+		( positiveMotion ? "+=" : "-=") :
+		( positiveMotion ? "-=" : "+=")) +
+		distance;
+
+	// Animate
+	el.animate( animation, {
+		queue: false,
+		duration: o.duration,
+		easing: o.easing,
+		complete: function() {
+			if ( mode === "hide" ) {
+				el.hide();
+			}
+			$.effects.restore( el, props );
+			$.effects.removeWrapper( el );
+			done();
+		}
+	});
+};
+
+
 /*!
  * jQuery UI Effects Transfer 1.11.4
  * http://jqueryui.com
@@ -411,4 +15729,39 @@ var A=I.effects.effect.slide=function(af,aj){var ag=I(this),al=["position","top"
  *
  * http://api.jqueryui.com/transfer-effect/
  */
-var m=I.effects.effect.transfer=function(ae,ai){var ag=I(this),al=I(ae.to),ao=al.css("position")==="fixed",ak=I("body"),am=ao?ak.scrollTop():0,an=ao?ak.scrollLeft():0,ad=al.offset(),ah={top:ad.top-am,left:ad.left-an,height:al.innerHeight(),width:al.innerWidth()},aj=ag.offset(),af=I("<div class='ui-effects-transfer'></div>").appendTo(document.body).addClass(ae.className).css({top:aj.top-am,left:aj.left-an,height:ag.innerHeight(),width:ag.innerWidth(),position:ao?"fixed":"absolute"}).animate(ah,ae.duration,ae.easing,function(){af.remove();ai()})}}));
+
+
+var effectTransfer = $.effects.effect.transfer = function( o, done ) {
+	var elem = $( this ),
+		target = $( o.to ),
+		targetFixed = target.css( "position" ) === "fixed",
+		body = $("body"),
+		fixTop = targetFixed ? body.scrollTop() : 0,
+		fixLeft = targetFixed ? body.scrollLeft() : 0,
+		endPosition = target.offset(),
+		animation = {
+			top: endPosition.top - fixTop,
+			left: endPosition.left - fixLeft,
+			height: target.innerHeight(),
+			width: target.innerWidth()
+		},
+		startPosition = elem.offset(),
+		transfer = $( "<div class='ui-effects-transfer'></div>" )
+			.appendTo( document.body )
+			.addClass( o.className )
+			.css({
+				top: startPosition.top - fixTop,
+				left: startPosition.left - fixLeft,
+				height: elem.innerHeight(),
+				width: elem.innerWidth(),
+				position: targetFixed ? "fixed" : "absolute"
+			})
+			.animate( animation, o.duration, o.easing, function() {
+				transfer.remove();
+				done();
+			});
+};
+
+
+
+}));

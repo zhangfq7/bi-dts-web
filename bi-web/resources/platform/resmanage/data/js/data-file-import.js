@@ -1,1 +1,2541 @@
-define(["sabace","upload","proviceOrCitySelect"],function(al,x,R){var aN=null;var aO=null;var a={};var ax={};var O={};var ab=null;var E=null;var aI=null;var C=0;var av="1";var ae=false;var aA=null;var m=null;var v=null;var aM=null;var ar=null;var au=[];var ad=[];var ai=[];var X=[];var d="0";var ak=true;var aq=false;var w=[];var aK=[];jQuery(function(){F();jQuery('[data-toggle="radio"]').iCheck({checkboxClass:"icheckbox_minimal",radioClass:"iradio_minimal"});jQuery(".chosen-select").chosen();aL();jQuery(".step-tab").on("click",N);jQuery("input[name='optionsRadio']").on("ifChecked",am);aP();if(opType=="edit"||opType=="append"){Z()}jQuery("#fileButton").on("click",aC);jQuery("#cancelButton").on("click",s);jQuery("#saveButton").on("click",ap);jQuery("#fieldCanButton").on("click",aw);jQuery("#fieldSaveButton").on("click",y);jQuery("#completeSaveButton").on("click",ag);u(1);jQuery("#generateData").on("click",Q);jQuery("#fileForm").validationEngine({autoHidePrompt:true,autoHideDelay:2000,binded:true,promptPosition:"bottomLeft",showOneMessage:true});jQuery("#fileUploadType .txt").on("click",B);jQuery("#fileUploadType .excel").on("click",aJ);jQuery("#fileUploadType .csv").on("click",aF);jQuery(".funcForm").slideUp();jQuery("#uploadFile").on("click",ay);jQuery("#uploadCancel").on("click",aD);jQuery("#reUploadFile").on("click",aH)});function F(){document.onmousedown=function(aR){var aS=aR.target;if(aS.id=="dimName"||aS.id=="dimNameForOther"){return}if(aS.id=="dimSearch"||aS.id=="dimSearchForOther"){var aQ="1";if(aS.id=="dimSearchForOther"){aQ="2"}at(aQ);return}if(aS.id=="dim"||aS.id=="dimSelect"){jQuery(".data-info-grid th #dimOther").poshytip("hide");jQuery(".data-info-grid th #columnOper").poshytip("hide");return}if(aS.id=="dimOther"||aS.id=="dimOtherSelect"){jQuery(".data-info-grid th #dim").poshytip("hide");jQuery(".data-info-grid th #columnOper").poshytip("hide");return}if(aS.id=="columnOper"){jQuery(".data-info-grid th #dimOther").poshytip("hide");jQuery(".data-info-grid th #dim").poshytip("hide");return}if(aS==undefined||aS.id!="dim"||aS.id!="columnOper"||aS.id!="dimOther"){jQuery(".data-info-grid th #dim").poshytip("hide");jQuery(".data-info-grid th #dimOther").poshytip("hide");jQuery(".data-info-grid th #columnOper").poshytip("hide");return}}}function at(aR){var aQ=null;if(aR=="1"){aQ=jQuery(".tip-yellowsimple #dimName").val()}else{aQ=jQuery(".tip-yellowsimple #dimNameForOther").val()}al.ajax({url:al.handleUrlParam("/platform/resmanage/data/data-search-dim"),data:{dimName:aQ},success:function(aT){var aS=aT.dimList;e(aR,aS,aQ)},error:function(aS){bi.dialog.show({type:bi.dialog.TYPE_DANGER,title:al.getMessage("data.import.title.tips"),message:al.getMessage("data.import.message.queryFilterTypeError")})}})}function Z(){a.dataId=dataId;al.ajax({url:al.handleUrlParam("/platform/resmanage/data/get-file-data"),data:{dataId:a.dataId},loading:{title:al.getMessage("data.import.title.execute"),text:'<span class="f16 bolder gray">'+al.getMessage("data.import.text.fileInfoLoading")+"</span>",spin:true},success:function(aQ){if(aQ.resFlag=="success"){p(aQ)}else{bi.dialog.show({type:bi.dialog.TYPE_DANGER,title:al.getMessage("data.import.title.tips"),message:aQ.msg});return}},error:function(aQ){bi.dialog.show({type:bi.dialog.TYPE_DANGER,title:al.getMessage("data.import.title.tips"),message:aQ.responseText||al.getMessage("data.import.message.queryEditDataError")})}})}function T(aQ){if(!ak){bi.dialog.show({type:bi.dialog.TYPE_DANGER,title:al.getMessage("data.import.title.tips"),message:al.getMessage("data.import.message.reUpload")})}else{if(aQ=="7"){bi.dialog.show({type:bi.dialog.TYPE_INFO,title:al.getMessage("data.import.title.tips"),message:al.getMessage("data.import.message.lastData")})}}}function p(a0){a=a0.fileConfigBean;a.attrData=a0.attrDatas;a.columnData=a0.columnDatas;a.dimData=a0.dimDatas;a.footerData=a0.footerDatas;a.columnNum=a0.columnNum;P(a0.classifyList,false);if(a0.reUpload=="fail"){ak=false}if(a.attrData.length==0){opType="add"}else{T(a.importState);var aQ=a0.attrDatas;var aU=aQ.length;var aR=null;var a1=null;var aX=null;var a3=null;var a2={};for(var aW=0;aW<aU;aW++){aR=aQ[aW].filterType;a1=aQ[aW].fieldName;au.push(aR);ai.push(a1);aX=aQ[aW].attrId;a3=aQ[aW].dimId;a2={attrId:aX,filterType:aR,dimId:a3};w.push(a2)}jQuery("#oneStep").addClass("active-Finished");jQuery("#twoStep").removeClass("active-notFinished");jQuery("#twoStep").addClass("active-Finished");if(opType=="edit"){if(ak){jQuery("#dataInfo").removeClass("hide");jQuery("#fileInfo").addClass("hide");u(2)}}if(!ak){jQuery(".bottom-button-common").addClass("hide")}jQuery("#thirdStep").removeClass("active-notFinished");jQuery("#thirdStep").addClass("active-Finished");jQuery("#fourStep").removeClass("active-notFinished");jQuery("#fourStep").addClass("active-Finished");jQuery(".main-panel").removeClass("hide");f();var aT=a.dataName;E=aT;var aS=a.dataNum;var aZ=a.dataDesc;aI=aZ;jQuery("#dataName").val(aT);jQuery("#dataNum").val(aS);jQuery("#recordNum").val(aS);jQuery("#dataDesc").val(aZ);jQuery("#dataName_finish").html(aT);jQuery("#dataNum_finish").html(aS);jQuery("#recordNum_finish").html(aS);jQuery("#dataDesc_finish").html(aZ);var aV=a.classifyId;a.classifyId=aV;jQuery("#classifySel").val(aV);jQuery("#classifySel").trigger("chosen:updated");var aY=jQuery("#classifySel").find("option:selected").text();if(aY==null||aY==""){aY="无"}a.classifyName=aY;jQuery("#classify_finish").html(aY)}}function B(){jQuery("#filePicker input:file").attr("accept",".txt");jQuery("#filePicker input:file").trigger("click")}function aJ(){jQuery("#filePicker input:file").attr("accept",".xls,.xlsx");jQuery("#filePicker input:file").trigger("click")}function aF(){jQuery("#filePicker input:file").attr("accept",".csv");jQuery("#filePicker input:file").trigger("click")}function aL(){m={background:"rgba(244, 244, 244, 0.51)",lines:11,length:11,width:5,radius:14,color:"#fff",corners:1,rotate:0,direction:1,speed:1,trail:60,shadow:true,hwaccel:false,className:"spinner",zIndex:2000000000,top:"50%",left:"50%"};v=jQuery("<div>",{id:"fileSpin",css:{position:"absolute",bottom:0,right:0,left:0,top:0,background:m.background,"z-index":99999999,display:"none"}});aM=m.width+m.length+m.radius;ar=jQuery("<div>",{id:"fileSpinText",html:'<span class="f16 bolder gray">文件上传完成,正在校验文件,请稍后...</span>',css:{position:"absolute","min-width":"400px",top:"50%",left:"50%",color:"#fff","margin-top":aM+10,"margin-left":"-200px","text-align":"center"}})}function aP(){if(!WebUploader.Uploader.support()){bi.dialog.show({type:bi.dialog.TYPE_DANGER,title:al.getMessage("data.import.title.tips"),message:al.getMessage("data.import.message.updateFlashPlayer")});throw new Error("WebUploader does not support the browser you are using.")}aN=WebUploader.create({pick:{id:"#filePicker",label:al.getMessage("data.import.uploader.label")},dnd:".file-block",accept:{title:"doc",extensions:"txt,xls,csv,xlsx",mimeTypes:["text/plain","application/vnd.ms-excel","text/csv","application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"].join(",")},swf:resPath+"/bace/js/webuploader/swf/Uploader.swf",disableGlobalDnd:true,chunked:false,server:al.handleUrlParam("/platform/resmanage/data/data-file-upload"),auto:false,resize:false,threads:1,fileNumLimit:1,fileSizeLimit:500*1024*1024,fileSingleSizeLimit:500*1024*1024,timeout:0});aN.on("fileQueued",function(aS){jQuery(".file-uploader-text").addClass("hide");jQuery(".file-upload-pic").addClass("hide");jQuery(".import-file").removeClass("hide");jQuery(".import-type-pic").addClass("hide");var aU=aS.name;var aT=aS.ext;var aQ=aS.size;var aR=null;if(aT=="txt"){jQuery("#txtType").removeClass("hide");aR="文本文件"}else{if(aT=="csv"){jQuery("#csvType").removeClass("hide");aR="csv 文件"}else{jQuery("#excelType").removeClass("hide");aR="Excel 文件"}}aQ=Y(aQ);jQuery("#importFileName").html(aU);jQuery("#importFileType").html(aR);jQuery("#importFileSize").html(aQ);jQuery(".file-info-label").removeClass("hide");jQuery(".upload-button").removeClass("hide")});aN.on("error",function(aQ){aO=k(aQ);bi.dialog.show({type:bi.dialog.TYPE_DANGER,title:al.getMessage("data.import.title.tips"),message:aO});return});aN.on("uploadProgress",function(aS,aR){var aQ=jQuery(".progress");var aT=aQ.find(".progress-bar");if(!aT.length){aT=jQuery('<div class="progress-bar progress-bar-info progress-bar-striped active" style="width: 0%;"><div class="fileSucFlag"></div></div>').appendTo(aQ).find(".progress-bar")}aT.css({width:aR*100+"%"});aT.find(".fileSucFlag").text(Math.ceil(aR*100)+"%");if(aT.find(".fileSucFlag").text()=="100%"){if(!jQuery(".file-block #fileSpin").length){jQuery(".file-block").append(v);v.spin(m).show();v.append(ar)}}});aN.on("uploadSuccess",function(aR,aQ){ab=aR.name;ab=ab.substring(0,ab.indexOf("."));aR.statusText="complete";v.spin("close");v.remove();if(aQ.resFlag=="success"){a=aQ.fileConfigBean;jQuery("#fileButton").removeClass("hide")}else{if(aQ.resFlag=="checkFail"){bi.dialog.show({type:bi.dialog.TYPE_DANGER,title:al.getMessage("data.import.title.tips"),message:aQ.msg})}else{bi.dialog.show({type:bi.dialog.TYPE_DANGER,title:al.getMessage("data.import.title.tips"),message:aQ.msg})}}});aN.on("uploadError",function(aQ){v.spin("close");v.remove();bi.dialog.show({type:bi.dialog.TYPE_DANGER,title:al.getMessage("data.import.title.tips"),message:al.getMessage("data.import.message.uploadFileError")})})}function Y(aQ){if(aQ===0){return"0 B"}var aR=1024;sizes=["B","KB","MB","GB","TB","PB","EB","ZB","YB"];i=Math.floor(Math.log(aQ)/Math.log(aR));return(aQ/Math.pow(aR,i)).toFixed(2)+" "+sizes[i]}function aD(){jQuery(".import-file").addClass("hide");jQuery(".file-info-label").addClass("hide");jQuery(".file-info-title").addClass("hide");jQuery(".upload-button").addClass("hide");jQuery(".file-uploader-text").removeClass("hide");jQuery(".file-upload-pic").removeClass("hide");jQuery(".progress").addClass("hide");aN.reset()}function ay(){a.firstLineTitle=jQuery("input[name='optionsRadio']:checked").val();jQuery(".file-info-label").addClass("hide");jQuery(".file-info-title").addClass("hide");jQuery(".progress").removeClass("hide");if(opType=="edit"&&a.firstLineTitle=="1"||opType=="append"&&a.firstLineTitle=="1"){a.changeTitleType=jQuery("input[name='titleRadio']:checked").val()}aN.options.formData={opType:opType,firstLineTitle:a.firstLineTitle,changeTitleType:a.changeTitleType,dataId:dataId};aN.upload();jQuery(".upload-button").addClass("hide");jQuery("#reUploadFile").removeClass("hide")}function aH(){jQuery(".import-file").addClass("hide");jQuery(".file-info-label").addClass("hide");jQuery(".file-info-title").addClass("hide");jQuery(".upload-button").addClass("hide");jQuery(".file-uploader-text").removeClass("hide");jQuery(".file-upload-pic").removeClass("hide");jQuery(".progress").addClass("hide");jQuery("#reUploadFile").addClass("hide");jQuery("#fileButton").addClass("hide");aN.reset()}function k(aT){var aU="";var aS=aN.options.fileSingleSizeLimit;var aR=aN.options.fileNumLimit;var aQ=aN.options.fileSizeLimit;switch(aT){case"F_EXCEED_SIZE":aU=al.getMessage("data.import.uploader.exceedSize")+aS+"M";break;case"Q_EXCEED_NUM_LIMIT":aU=al.getMessage("data.import.uploader.exceedNumLimit")+aR+al.getMessage("data.import.uploader.individual");break;case"Q_EXCEED_SIZE_LIMIT":aU=al.getMessage("data.import.uploader.exceedSizeLimit")+aQ+"M";break;case"Q_TYPE_DENIED":aU=al.getMessage("data.import.uploader.typeDenied");break;case"F_DUPLICATE":aU=al.getMessage("data.import.uploader.duplicate");break;case"success":aU=al.getMessage("data.import.uploader.success");break;default:aU=al.getMessage("data.import.uploader.default");break}return aU}function am(){if(opType=="edit"||opType=="append"){var aQ=jQuery(this).val();if(aQ=="1"){jQuery(".file-info-title").removeClass("hide")}else{jQuery(".file-info-title").addClass("hide")}}}function aC(){ak=true;jQuery(".bottom-button-common").removeClass("hide");var aR=aN.getFiles().length;var aQ=aN.getFiles()[0];if(aR<1){bi.dialog.show({type:bi.dialog.TYPE_DANGER,title:al.getMessage("data.import.title.tips"),message:al.getMessage("data.import.message.selectFile")});return}else{if(aQ.statusText!="complete"){bi.dialog.show({type:bi.dialog.TYPE_DANGER,title:al.getMessage("data.import.title.tips"),message:al.getMessage("data.import.message.uploadFile")});return}}al.ajax({url:al.handleUrlParam("/platform/resmanage/data/data-file-create"),data:{opType:opType,fileConfig:JSON.stringify(a)},loading:{title:al.getMessage("data.import.title.execute"),text:al.getMessage("data.import.text.loading")},success:function(aS){if(aS.resFlag=="success"){q(aS)}else{bi.dialog.show({type:bi.dialog.TYPE_DANGER,title:al.getMessage("data.import.title.tips"),message:aS.msg});return}},error:function(aS){bi.dialog.show({type:bi.dialog.TYPE_DANGER,title:al.getMessage("data.import.title.tips"),message:al.getMessage("data.import.message.getFileInfoError")})}})}function q(aQ){u(2);jQuery("#oneStep").addClass("active-Finished");if(jQuery("#twoStep").hasClass("active-Finished")){jQuery("#twoStep").removeClass("active-Finished")}jQuery("#twoStep").removeClass("active-notFinished");jQuery("#fileInfo").addClass("hide");jQuery("#dataInfo").removeClass("hide");a=aQ.fileConfigBean;a.columnData=aQ.columnDatas;a.attrData=aQ.attrDatas;a.dimData=aQ.dimDatas;a.footerData=aQ.footerDatas;f();if(opType=="add"||opType=="edit"){av="2"}else{if(opType=="append"){av="3"}}}function u(aR){var aQ=25*(aR-1)+4+"%";jQuery("#stepLine").css("margin-left",aQ)}function ah(aS,aQ,aT){var aR="";if(aT==""||(aT!=null&&"数值".indexOf(aT)>-1)){aR+=" <li class ='fixedDim' value='2' title='数值'><div class='num-pic'></div><span>数值</span></li>"}if(aT==""||(aT!=null&&"月份".indexOf(aT)>-1)){aR+=" <li class ='fixedDim' value='4' title='月份'><div class='month-pic'></div>月份</li>"}if(aT==""||(aT!=null&&"日期".indexOf(aT)>-1)){aR+=" <li class ='fixedDim' value='6' title='日期'><div class='date-pic'></div>日期</li>"}if(aT==""||(aT!=null&&"时间".indexOf(aT)>-1)){aR+=" <li class ='fixedDim' value='7' title='时间'><div class='time-pic'></div>时间</li>"}if(aT==""||(aT!=null&&"字符".indexOf(aT)>-1)){aR+=" <li class ='fixedDim' value='9' title='字符'><div class='char-pic'></div>字符</li>"}if(aT==""||(aT!=null&&"省份".indexOf(aT)>-1)){aR+=" <li class ='fixedDim' value='A' title='省份'><div class='province-pic'></div>省份</li>"}if(aT==""||(aT!=null&&"地市".indexOf(aT)>-1)){aR+=" <li class ='fixedDim' value='B' title='地市'><div class='city-pic'></div>地市</li>"}if(aT==""||(aT!=null&&"区县".indexOf(aT)>-1)){aR+=" <li class ='fixedDim' value='C' title='区县'><div class='county-pic'></div>区县</li>"}aR+=" <li class='divider'></li>";return aR}function j(aS,aR,aT){var aQ="";if(aT==""||(aT!=null&&"数值".indexOf(aT)>-1)){aQ+=" <li class ='fixedDim' value='2' title='数值'><div class='num-pic'></div><span>数值</span></li>"}if(aT==""||(aT!=null&&"字符".indexOf(aT)>-1)){aQ+=" <li class ='fixedDim' value='9' title='字符'><div class='char-pic'></div>字符</li>"}aQ+=" <li class='divider'></li>";return aQ}function e(aV,aW,aS){var aT=null;var aZ=null;if(aV=="1"){aT=jQuery(".tip-yellowsimple #dimSelect");aT.empty()}else{if(aV=="2"){aZ=jQuery(".tip-yellowsimple #dimOtherSelect");aZ.empty()}else{aT=jQuery("#dimSelect");aT.empty();aZ=jQuery("#dimOtherSelect");aZ.empty()}}var aY=ah(aV,aW,aS);if(aV=="2"||aV=="3"){var aR=j(aV,aW,aS)}var a0=0;if(aW!=null&&aW!=""){var aQ=null;var aX=null;a0=aW.length;for(var aU=0;aU<a0;aU++){aQ=aW[aU].name;aX=aW[aU].value;aY+=" <li value="+aX+" title="+aQ+"><div class='dim-pic'></div>"+aQ+"</li>";if(aV=="2"||aV=="3"){aR+=" <li value="+aX+" title="+aQ+"><div class='dim-pic'></div>"+aQ+"</li>"}}}if(aV=="1"||aV=="3"){aT.append(aY)}if(aV=="2"||aV=="3"){aZ.append(aR)}if(a0*30>200){jQuery("#dim-select").height(360)}if(aV=="2"||aV=="3"){if((a0-3)*30>200){jQuery("#dim-other-select").height(360)}}}function J(aR,aZ){if(jQuery("#columnOper")){jQuery("#columnOper").empty()}e("3",aZ,"");var a0=[];var aU=aR.length;var aT=$(".data-info-grid").width()-45;if(opType=="append"){aT=jQuery(window).width()*0.94}var aS=200;if(aU*aS<aT){aS=Math.floor(aT/aU)}var aY="<div id='columnOper'></div>";var a1=null;var a2=null;var aQ=null;var aX=null;var aW=null;var a3=null;for(var aV=0;aV<aU;aV++){a1=aR[aV].columnLabel;a2=aR[aV].columnFilterTypeName;aQ=aR[aV].filterType;a3=aR[aV].attrClass;if(typeof(a2)=="undefined"){a2="字符"}if(aQ=="2"){aX="right"}else{aX="left"}if(a3=="0"){aW="<div id='dim'><span title="+a2+" class='dimText'>"+a2+"</span><span class='glyphicon glyphicon-chevron-down dimDown'></span></div>"+a1+aY}else{aW="<div id='dimOther'><span title="+a2+" class='dimText' >"+a2+"</span><span class='glyphicon glyphicon-chevron-down dimDown'></span></div>"+a1+aY}a0.push({label:aW,name:a1,align:aX,hlign:"center",sortable:false,width:aS})}return a0}function f(){if(!jQuery("#dataGrid").is(":empty")){jQuery.jgrid.gridUnload("dataGrid")}O=J(a.attrData,a.dimData);ax={datatype:"local",styleUI:"Bootstrap",regional:"cn",data:a.columnData,colModel:O,rownumbers:true,autowidth:true,shrinkToFit:false,height:"auto",footerrow:true,loadComplete:function(){jQuery("#dataInfo #dimOther").parent().parent().css("background-color","#DAE9E9");if(a.footerData.length<1){jQuery(".data-info-grid .ui-jqgrid-sdiv").hide()}else{jQuery(".data-info-grid .ui-jqgrid-sdiv").show();ae=true;var aU={};var aR=a.footerData.length;var aQ=null;for(var aT=0;aT<aR;aT++){aQ=a.footerData[aT];aU[aQ.name]=aQ.desc}jQuery(this).footerData("set",aU)}var aS=jQuery(this).parents().find(".data-info-grid th");aS.click(function(){a.currentColNum=jQuery(this)[0].cellIndex;var aW=jQuery(this);var aV=jQuery(aW).attr("id");jQuery("th").removeClass("jqgrid-underline");jQuery("th[id="+aV+"]").addClass("jqgrid-underline");K()});aS.find("#dim").on("click",function(){a.currentColNum=jQuery(this).parent().parent()[0].cellIndex;var aV=a.attrData[a.currentColNum-1].filterType;aS.find("#dim").poshytip("hide");jQuery(this).poshytip({className:"tip-yellowsimple",content:jQuery("#dim-select").outerHTML(),showTimeout:1,alignTo:"target",alignX:"bottom",alignY:"bottom",showOn:"none",offsetY:5,offsetX:-128,keepInViewport:false});jQuery(this).poshytip("show");jQuery(".tip-yellowsimple #dim-select li[value='"+aV+"']").prepend("<i class='fa fa-check dimItemsCheck'></i>");jQuery(".tip-yellowsimple #dim-select li[value='"+aV+"']").css("background-color","#2CC2A7");jQuery(".tip-yellowsimple #dim-select").niceScroll();jQuery(".tip-yellowsimple").on("click","#dimSelect li",function(){b(jQuery(this).attr("value"),jQuery(this).text())});al.stopBubble(event)});aS.find("#dimOther").on("click",function(){a.currentColNum=jQuery(this).parent().parent()[0].cellIndex;var aV=a.attrData[a.currentColNum-1].filterType;aS.find("#dimOther").poshytip("hide");jQuery(this).poshytip({className:"tip-yellowsimple",content:jQuery("#dim-other-select").outerHTML(),showTimeout:1,alignTo:"target",alignX:"bottom",alignY:"bottom",showOn:"none",offsetY:5,offsetX:-128,keepInViewport:false});jQuery(this).poshytip("show");jQuery(".tip-yellowsimple #dim-other-select li[value='"+aV+"']").prepend("<i class='fa fa-check dimItemsCheck'></i>");jQuery(".tip-yellowsimple #dim-other-select li[value='"+aV+"']").css("background-color","#2CC2A7");jQuery(".tip-yellowsimple #dim-other-select").niceScroll();jQuery(".tip-yellowsimple").on("click","#dimOtherSelect li",function(){b(jQuery(this).attr("value"),jQuery(this).text())});al.stopBubble(event)});aS.find("#columnOper").on("click",function(){aS.find("#columnOper").poshytip("hide");jQuery(this).poshytip({className:"tip-yellowsimple",content:jQuery("#columnOperMenu").outerHTML(),showTimeout:1,alignTo:"target",alignX:"bottom",alignY:"bottom",showOn:"none",offsetY:6,offsetX:-82,keepInViewport:false});jQuery(this).poshytip("show");a.currentColNum=jQuery(this).parent().parent()[0].cellIndex;jQuery("#columnOperMenu .addLeftColumn").on("click",S);jQuery("#columnOperMenu .addRightColumn").on("click",an);jQuery("#columnOperMenu .delTheColumn").on("click",r);al.stopBubble(event)})}};jQuery("#dataGrid").jqGrid(ax);$(window).resize(function(){G()})}function K(){var aQ=a.attrData[a.currentColNum-1];if(aQ.attrClass=="1"){aA=a.currentColNum;jQuery("#colNameSpan").text(aQ.columnLabel);if(aQ.fieldName!=""){jQuery("#funcTxt").val(aQ.funcLabel)}jQuery(".funcForm").slideDown()}else{aA=null;jQuery("#funcTxt").val("");jQuery(".funcForm").slideUp()}}function ao(aR){var aU=a.attrData;var aV=a.columnNum;var aT=null;var aQ=false;for(var aS=0;aS<aV;aS++){if(aS!=aR){aT=aU[aS];if("A"==aT.filterType||"B"==aT.filterType){aQ=true;break}}}return aQ}function af(aT,aQ,aS){var aR=al.handleUrlParam("/platform/resmanage/data/data-select-city");bi.dialog.show({title:al.getMessage("data.import.title.selectProAndCity"),message:jQuery('<div id="selectProvinceOrCity"></div>').load(aR),spinicon:"glyphicon glyphicon-refresh",cssClass:"data-selectProvinceOrCity",onshown:function(aU){R.init()},buttons:[{label:al.getMessage("data.import.label.sure"),cssClass:"btn-info",action:function(aU){var aV=R.saveSelect();if(aV.flag){a.attrData[aT].superRange=aV.selectValue;aU.close();aE(aT,aQ,aS)}}},{label:al.getMessage("data.import.label.cancel"),cssClass:"btn-default",action:function(aU){aU.close()}}]})}function aB(aQ){var aT=a.attrData;var aU=a.columnNum;var aS=null;for(var aR=0;aR<aU;aR++){if(aR!=aQ){aS=aT[aR];if("C"==aS.filterType){if(typeof(aS.superRange)!="undefined"&&aS.superRange!=""){aS.superRange=""}}}}}function b(aY,aR){C=jQuery(".data-info-grid .ui-jqgrid .ui-jqgrid-bdiv").scrollLeft();var aX=a.currentColNum-1;var aU={};aU.selectValue=aY;aU.selectName=aR;var aQ=a.attrData[aX];aU.columnLabel=aQ.columnLabel;aU.colLength=aQ.colLength;aU.colScale=aQ.colScale;aU.fieldName=aQ.fieldName;aU.dataId=a.dataId;var aV=aQ.originFilterType;var aW=aQ.filterType;var aS=aY;var aT=true;if(aQ.attrClass=="1"){if(typeof(aQ.fieldName)=="undefined"||aQ.fieldName==""){bi.dialog.show({type:bi.dialog.TYPE_DANGER,title:al.getMessage("data.import.title.tips"),message:al.getMessage("data.import.message.no")+" "+aQ.columnLabel+" "+al.getMessage("data.import.message.customChangeFilter")});return}}if(aV=="2"){if(aS=="4"||aS=="6"||aS=="7"){bi.dialog.show({type:bi.dialog.TYPE_DANGER,title:al.getMessage("data.import.title.tips"),message:al.getMessage("data.import.message.cannotChange")+D(aS)+"!"});return}}if(aW!=aS){if(aS=="2"||aS=="4"||aS=="6"||aS=="7"||aS=="9"||aS=="A"||aS=="B"||aS=="C"){if(aS=="C"){aT=ao(aX);if(!aT){af(aX,aU,aQ)}}else{if(aS=="A"||aS=="B"){aB(aX)}}if(aT){aE(aX,aU,aQ)}}else{h(aX,aU,aQ)}}}function aE(aS,aQ,aR){al.ajax({url:al.handleUrlParam("/platform/resmanage/data/change-column-type"),data:{changeData:JSON.stringify(aQ),columnData:JSON.stringify(a.columnData),type:"1"},loading:{title:al.getMessage("data.import.title.execute"),text:al.getMessage("data.import.text.loading")},success:function(aW){if(aW.resFlag=="success"){jQuery.jgrid.gridUnload("dataGrid");a.columnData=aW.columnDatas;aR.filterType=aQ.selectValue;aR.attrType=aW.attrType;aR.colLength=aW.colLength;aR.colScale=aW.colScale;aR.columnType=aW.columnType;aR.columnFilterTypeName=aW.columnFilterTypeName;var aT="<div id='columnOper'></div>";var aX=null;if(aR.attrClass=="0"){aX="<div id='dim'><span title="+aQ.selectName+" class='dimText'>"+aQ.selectName+"</span><span class='glyphicon glyphicon-chevron-down dimDown'></span></div>"+aQ.columnLabel+aT}else{aX="<div id='dimOther'><span title="+aQ.selectName+" class='dimText'>"+aQ.selectName+"</span><span class='glyphicon glyphicon-chevron-down dimDown'></span></div>"+aQ.columnLabel+aT}var aU=ax.colModel;var aV=null;if(aR.filterType=="2"){aV="right"}else{aV="left"}aU[aS].label=aX;aU[aS].align=aV;ax.colModel=aU;ax.data=a.columnData;jQuery("#dataGrid").jqGrid(ax)}else{bi.dialog.show({type:bi.dialog.TYPE_DANGER,title:al.getMessage("data.import.title.tips"),message:al.getMessage("data.import.message.restoreData")})}G();M()},error:function(aT){bi.dialog.show({type:bi.dialog.TYPE_DANGER,title:al.getMessage("data.import.title.tips"),message:aT.responseText||al.getMessage("data.import.message.dataGenerationError")})}})}function D(aR){var aQ="";if(aR=="2"){aQ="数值"}else{if(aR=="4"){aQ="月份"}else{if(aR=="6"){aQ="日期"}else{if(aR=="7"){aQ="时间"}else{if(aR=="9"){aQ="字符"}}}}}return aQ}function h(aS,aQ,aR){aR.filterType=aQ.selectValue;al.ajax({url:al.handleUrlParam("/platform/resmanage/data/dim-change"),data:{changeData:JSON.stringify(aQ),columnData:JSON.stringify(a.columnData)},loading:{title:al.getMessage("data.import.title.execute"),text:al.getMessage("data.import.text.loading")},success:function(aV){if(aV.resFlag=="success"){jQuery.jgrid.gridUnload("dataGrid");a.columnData=aV.columnData;aR.filterType=aQ.selectValue;aR.columnFilterTypeName=aQ.selectName;var aT="<div id='columnOper'></div>";var aW=null;if(aR.attrClass=="0"){aW="<div id='dim'><span title="+aQ.selectName+" class='dimText'>"+aQ.selectName+"</span><span class='glyphicon glyphicon-chevron-down dimDown'></span></div>"+aQ.columnLabel+aT}else{aW="<div id='dimOther'><span title="+aQ.selectName+" class='dimText'>"+aQ.selectName+"</span><span class='glyphicon glyphicon-chevron-down dimDown'></span></div>"+aQ.columnLabel+aT}var aU=ax.colModel;aU[aS].label=aW;aU[aS].align="left";ax.colModel=aU;ax.data=a.columnData;jQuery("#dataGrid").jqGrid(ax)}else{bi.dialog.show({type:bi.dialog.TYPE_DANGER,title:al.getMessage("data.import.title.tips"),message:al.getMessage("data.import.message.restoreData")})}G();M()},error:function(aT){bi.dialog.show({type:bi.dialog.TYPE_DANGER,title:al.getMessage("data.import.title.tips"),message:al.getMessage("data.import.message.dataGenerationError")})}})}function Q(){var aQ=jQuery.trim(jQuery("#funcTxt").val());if(aQ==""){bi.dialog.show({type:bi.dialog.TYPE_DANGER,title:al.getMessage("data.import.title.tips"),message:al.getMessage("data.import.message.inputFunc")});return}if(aA==null){bi.dialog.show({type:bi.dialog.TYPE_DANGER,title:al.getMessage("data.import.title.tips"),message:al.getMessage("data.import.message.selectCustomColumn")});return}a.funcTxt=aQ;aG(aA)}function aG(aQ){C=jQuery(".data-info-grid .ui-jqgrid .ui-jqgrid-bdiv").scrollLeft();al.ajax({url:al.handleUrlParam("/platform/resmanage/data/process-func"),data:{dataId:a.dataId,columnIndex:aQ,funcTxt:a.funcTxt,attrData:JSON.stringify(a.attrData),columnData:JSON.stringify(a.columnData)},loading:{title:al.getMessage("data.import.title.execute"),text:al.getMessage("data.import.text.loading")},success:function(aS){if(aS.resFlag=="success"){jQuery.jgrid.gridUnload("dataGrid");a.columnData=aS.columnDatas;var aR=a.attrData[aA-1];aR.funcLabel=a.funcTxt;aR.fieldName=aS.fileName;aR.attrType=aS.attrType;aR.originAttrType=aS.attrType;aR.columnType=aS.columnType;aR.originColumnType=aS.columnType;aR.filterType=aS.filterType;aR.originFilterType=aS.filterType;aR.colLength=aS.colLength;aR.originColLength=aS.colLength;aR.colScale=aS.colScale;aR.originColScale=aS.colScale;aR.columnFilterTypeName=aS.columnFilterTypeName;O=J(a.attrData,a.dimData);ax.colModel=O;ax.data=a.columnData;jQuery("#dataGrid").jqGrid(ax)}else{jQuery.jgrid.gridUnload("dataGrid");var aR=a.attrData[aA-1];aR.fieldName="";aR.funcLabel="";O=J(a.attrData,a.dimData);ax.colModel=O;ax.data=a.columnData;jQuery("#dataGrid").jqGrid(ax);if(aS.resFlag=="filterFail"){bi.dialog.show({type:bi.dialog.TYPE_DANGER,title:al.getMessage("data.import.title.tips"),message:aS.msg})}else{bi.dialog.show({type:bi.dialog.TYPE_DANGER,title:al.getMessage("data.import.title.tips"),message:al.getMessage("data.import.message.reEnterFunc")})}}G();M()},error:function(aR){bi.dialog.show({type:bi.dialog.TYPE_DANGER,title:al.getMessage("data.import.title.tips"),message:al.getMessage("data.import.message.processFunError")})}})}function n(aT,aX,aQ){C=jQuery(".data-info-grid .ui-jqgrid .ui-jqgrid-bdiv").scrollLeft();var aU=jQuery("#dataGrid").jqGrid("getRowData");var aW=[];var aV=null;for(var aS=0;aS<aU.length;aS++){aV={};for(var aR=0;aR<aX;aR++){if(aR>aT){aV[aQ[aR]]=aU[aS][aQ[aR-1]]}else{aV[aQ[aR]]=aU[aS][aQ[aR]]}}aV[aQ[aT]]="";aW.push(aV)}a.attrData=l(a.attrData,aT);jQuery.jgrid.gridUnload("dataGrid");a.columnData=aW;O=J(a.attrData,a.dimData);ax.colModel=O;ax.data=a.columnData;jQuery("#dataGrid").jqGrid(ax);G();M()}function M(){C=C;jQuery(".data-info-grid .ui-jqgrid .ui-jqgrid-bdiv").scrollLeft(C)}function l(aU,aS){var aW=a.columnNum;var aQ=null;var aT=null;var aV=null;for(var aR=0;aR<aW;aR++){aQ=aU[aR];aT=aQ.attrClass;if(aT=="1"&&aS!=aR){aV=aQ.funcLabel;if(typeof(aV)!="undefined"&&aV!=""){aQ.funcLabel=I(aV,aS,aW)}}}return aU}function I(aV,aR,aZ){var aQ=A(aZ);var aY=null;var aX=null;var a0=null;var aW=-1;var aT=0;var aS=/[A-Z]$/;for(var aU=aR;aU<aZ;aU++){aT=aV.length;aY="$"+aQ[aU];a0="$()"+aQ[aU+1];aW=aV.indexOf(aY);if(aW>-1){if(aW+3<=aT){aX=aV.substr(aW,3);if(aS.test(aX)){if(aV.substr(aW+1,2)==aQ[aU]){aV=aV.replace(new RegExp("\\"+aX,"g"),a0)}}else{aV=aV.replace(new RegExp("\\"+aY,"g"),a0)}}else{if(aW+2==aT){aV=aV.replace(new RegExp("\\"+aY,"g"),a0)}}}}aV=aV.replace(new RegExp("\\$\\(\\)","g"),"$");return aV}function S(){var aV=a.columnNum+1;a.columnNum=aV;var aS=a.currentColNum-1;var aQ=A(aV);var aU={orderId:aS+1,columnLabel:aQ[aS],attrType:"3",filterType:"9",attrClass:"1",isUsed:"1"};var aT={name:aQ[aS],desc:""};for(var aR=0;aR<aV;aR++){if(aR==aS){a.attrData.insert(aR,aU);if(ae){a.footerData.insert(aR,aT)}}else{if(aR>aS){a.attrData[aR].orderId=aR+1;a.attrData[aR].columnLabel=aQ[aR];if(ae){a.footerData[aR].name=aQ[aR]}}}}n(aS,aV,aQ)}function A(aW){var aQ=new Array();var aV="A";var aU=aV.charCodeAt();var aR=0;var aT=0;for(var aS=0;aS<aW;aS++){if(aS<26){aQ.push(String.fromCharCode(aU+aS)+"")}else{aR=Math.floor(aS/26);if((aR-1)>0){aT=aS-26*aR}aQ.push(aQ[aS-25*aR-aT-1]+aQ[aS-26*aR]);aT++}}return aQ}function an(){var aV=a.columnNum+1;a.columnNum=aV;var aS=a.currentColNum;var aQ=A(aV);var aU={orderId:aS+1,columnLabel:aQ[aS],attrType:"3",filterType:"9",attrClass:"1",isUsed:"1"};var aT={name:aQ[aS],desc:""};for(var aR=0;aR<aV;aR++){if(aR==aS){a.attrData.insert(aR,aU);if(ae){a.footerData.insert(aR,aU)}}else{if(aR>aS){a.attrData[aR].orderId=aR+1;a.attrData[aR].columnLabel=aQ[aR];if(ae){a.footerData[aR].name=aQ[aR]}}}}n(aS,aV,aQ)}function r(){if(a.attrData[a.currentColNum-1].attrClass=="0"){bi.dialog.show({type:bi.dialog.TYPE_DANGER,title:al.getMessage("data.import.title.tips"),message:al.getMessage("data.import.message.notDelCustomColumn")});return}var aT="$"+a.attrData[a.currentColNum-1].columnLabel;var aR=null;var aQ=null;var aV=null;var aU=[];for(var aS=0;aS<a.columnNum;aS++){aR=a.attrData[aS];if(aS!=a.currentColNum-1&&aR.attrClass=="1"){aV=aR.funcLabel;aQ=aR.columnLabel;if(typeof(aV)!="undefined"&&aV!=""){if(aV.indexOf(aT)>=0){aU.push(aQ)}}}}if(aU.length>0){bi.dialog.show({type:bi.dialog.TYPE_DANGER,title:al.getMessage("data.import.title.tips"),message:al.getMessage("data.import.message.delColumnConfirm")+aU+al.getMessage("data.import.message.quoteColumn")});return}bi.dialog.confirm({title:al.getMessage("data.import.text.delColumn"),message:al.getMessage("data.import.message.delColumnConfirm"),callback:function(aW){if(aW){var a0=a.columnNum-1;var aZ=a.currentColNum-1;a.columnNum=a0;var aX=A(a0+1);for(var aY=0;aY<a0+1;aY++){if(aY==aZ){a.attrData.splice(aY,1);if(ae){a.footerData.splice(aY,1)}}else{if(aY>aZ){a.attrData[aY-1].orderId=aY;a.attrData[aY-1].columnLabel=aX[aY-1];if(ae){a.footerData[aY-1].name=aX[aY-1]}}}}t(aZ,a0,aX)}}})}function t(aT,aX,aQ){jQuery(".funcForm").slideUp();C=jQuery(".data-info-grid .ui-jqgrid .ui-jqgrid-bdiv").scrollLeft();var aU=jQuery("#dataGrid").jqGrid("getRowData");var aW=[];var aV=null;for(var aS=0;aS<aU.length;aS++){aV={};for(var aR=0;aR<aX;aR++){if(aR>=aT){aV[aQ[aR]]=aU[aS][aQ[aR+1]]}else{aV[aQ[aR]]=aU[aS][aQ[aR]]}}aW.push(aV)}jQuery.jgrid.gridUnload("dataGrid");a.attrData=o(a.attrData,aT);a.columnData=aW;O=J(a.attrData,a.dimData);ax.colModel=O;ax.data=a.columnData;jQuery("#dataGrid").jqGrid(ax);G();M()}function o(aU,aS){var aW=a.columnNum;var aQ=null;var aT=null;var aV=null;for(var aR=0;aR<aW;aR++){aQ=aU[aR];aT=aQ.attrClass;if(aT=="1"&&aS!=aR){aV=aQ.funcLabel;if(typeof(aV)!="undefined"&&aV!=""){aQ.funcLabel=L(aV,aS,aW)}}}return aU}function L(aV,aR,aZ){var aQ=A(aZ+1);var aY=null;var aX=null;var a0=null;var aW=-1;var aT=0;var aS=/[A-Z]$/;for(var aU=aR;aU<aZ+1;aU++){aT=aV.length;aY="$"+aQ[aU];a0="$()"+aQ[aU-1];aW=aV.indexOf(aY);if(aW>-1){if(aW+3<=aT){aX=aV.substr(aW,3);if(aS.test(aX)){if(aV.substr(aW+1,2)==aQ[aU]){aV=aV.replace(new RegExp("\\"+aX,"g"),a0)}}else{aV=aV.replace(new RegExp("\\"+aY,"g"),a0)}}else{if(aW+2==aT){aV=aV.replace(new RegExp("\\"+aY,"g"),a0)}}}}aV=aV.replace(new RegExp("\\$\\(\\)","g"),"$");return aV}function s(){u(1);jQuery("#dataInfo").addClass("hide");jQuery("#fileInfo").removeClass("hide")}function ap(){for(var aQ=0;aQ<a.columnNum;aQ++){if(a.attrData[aQ].attrClass=="1"){if(typeof(a.attrData[aQ].fieldName)=="undefined"||a.attrData[aQ].fieldName==""){bi.dialog.show({type:bi.dialog.TYPE_DANGER,title:al.getMessage("data.import.title.tips"),message:al.getMessage("data.import.message.no")+" "+a.attrData[aQ].columnLabel+" "+al.getMessage("data.import.message.delCustomColumn")});return}}}u(3);jQuery("#oneStep").addClass("active-Finished");jQuery("#twoStep").addClass("active-Finished");if(jQuery("#thirdStep").hasClass("active-Finished")){jQuery("#thirdStep").removeClass("active-Finished")}jQuery("#thirdStep").removeClass("active-notFinished");jQuery("#dataInfo").addClass("hide");jQuery("#fieldInfo").removeClass("hide");if(opType=="add"){jQuery("#dataName").val(ab)}else{jQuery("#dataName").val(E);jQuery("#dataDesc").val(aI)}jQuery("#dataNum").val(a.dataNum);jQuery("#recordNum").val(a.dataNum);c()}function c(){if(!jQuery("#fieldGrid").is(":empty")){jQuery.jgrid.gridUnload("fieldGrid")}al.ajax({dataType:"json",mtype:"post",url:al.handleUrlParam("/platform/resmanage/data/data-common-field"),data:{attrData:JSON.stringify(a.attrData)},success:function(aQ){if(aQ.resFlag=="success"){aj(aQ)}else{bi.dialog.show({type:bi.dialog.TYPE_DANGER,title:al.getMessage("data.import.title.tips"),message:al.getMessage("data.import.message.queryDataFail"),});return}},error:function(aQ){bi.dialog.show({type:bi.dialog.TYPE_DANGER,title:al.getMessage("data.import.title.tips"),message:aQ.responseText||al.getMessage("data.import.message.queryFieldFail")})}})}function P(aS,aX){jQuery("#classifySel").append("");var aW=aS.length;var aR=null;var aV=null;var aQ=null;var aU="<option></option>";aU+='<option value="">无</option>';if(aW>0){for(var aT=0;aT<aW;aT++){aR=aS[aT];aQ=aR.classifyId;aV=aR.classifyName;aU+='<option value="'+aQ+'">'+aV+"</option>"}}jQuery("#classifySel").append(aU);if(aX&&opType=="add"){if(!aq){jQuery("#classifySel").trigger("chosen:updated");aq=true}}}function aj(aR){P(aR.classifyList,true);var aQ=aR.columnData;jQuery("#fieldGrid").jqGrid({datatype:"local",styleUI:"Bootstrap",data:aQ,regional:"cn",autowidth:true,height:"auto",rowNum:100000,colModel:[{label:al.getMessage("data.import.label.columnLabel"),name:"columnLabel",align:"center",hlign:"center",width:50,sortable:false,},{label:al.getMessage("data.import.label.attrName"),name:"attrName",align:"center",hlign:"center",sortable:false,editable:true,edittype:"text"},{label:al.getMessage("data.import.label.groupName"),name:"groupName",align:"center",hlign:"center",sortable:false,editable:true},{label:al.getMessage("data.import.label.attrType"),name:"attrType",align:"center",hlign:"center",sortable:false,formatter:"select",editoptions:{value:al.getMessage("data.import.label.attrTypeFormat")}},{label:al.getMessage("data.import.label.groupName"),name:"groupId",align:"center",hlign:"center",hidden:true},{label:al.getMessage("data.import.label.isUsed")+'：<i class="fa fa-square-o check-box" id="allCheck"></i>)',name:"isUsed",align:"center",hlign:"center",sortable:false,formatter:function(aS,aT,aV){var aU="";if(aS=="1"){aU='<i class="fa fa-check-square-o check-box" id="usedCheck" value="1"></i>'}else{aU='<i class="fa fa-square-o check-box" id="usedCheck" value="0"></i>'}return aU}}],loadComplete:function(){var aT=jQuery(this).parents().find(".field-info-grid th #allCheck");var aV=jQuery(this).parents().find(".field-info-grid td #usedCheck");aT.on("click",function(){var aX=jQuery(this).hasClass("fa-square-o");if(aX){jQuery(this).removeClass("fa-square-o");jQuery(this).addClass("fa-check-square-o");aV.removeClass("fa-square-o");aV.removeClass("fa-check-square-o");aV.addClass("fa-check-square-o");aV.attr("value","1")}else{jQuery(this).removeClass("fa-check-square-o");jQuery(this).addClass("fa-square-o");aV.removeClass("fa-square-o");aV.removeClass("fa-check-square-o");aV.addClass("fa-square-o");aV.attr("value","0")}});aV.on("click",function(){aT.removeClass("fa-check-square-o");aT.addClass("fa-square-o");var aX=jQuery(this).hasClass("fa-square-o");if(aX){jQuery(this).attr("value","1");jQuery(this).removeClass("fa-square-o");jQuery(this).addClass("fa-check-square-o")}else{jQuery(this).attr("value","0");jQuery(this).removeClass("fa-check-square-o");jQuery(this).addClass("fa-square-o")}al.stopBubble(event)});for(var aU=2;aU<=a.columnNum;aU++){$("#fieldGrid").jqGrid("editRow",aU,false);var aS=jQuery(this).find("#"+aU+"_groupName");aS.attr("readOnly",true);ac(aS)}$("#fieldGrid").jqGrid("editRow",1,false);var aW=jQuery(this).find("#1_groupName");aW.attr("readOnly",true);ac(aW)}});g();$(window).resize(function(){g()})}function ac(aQ){jQuery(aQ).treeselect({height:200,chkStyle:"radio",searchAjaxParam:"groupName",width:(jQuery(aQ).width()+25),url:al.handleUrlParam("/platform/resmanage/data/data-query-group")})}function aw(){u(2);jQuery("#fieldInfo").addClass("hide");jQuery("#dataInfo").removeClass("hide")}function az(aT){var aU=0;var aQ=aT.length;var aR=-1;for(var aS=0;aS<aQ;aS++){aR=aT.charCodeAt(aS);if(aR>=0&&aR<=128){aU+=1}else{aU+=3}}return aU}function y(){var aU=$("#fileForm").validationEngine("validate");if(!aU){return false}a.dataName=jQuery.trim(jQuery("#dataName").val());a.dataNum=jQuery("#dataNum").val();a.dataDesc=jQuery.trim(jQuery("#dataDesc").val());var aW=0;var aS=[];for(var aV=1;aV<=a.columnNum;aV++){var aQ=jQuery("#fieldGrid").jqGrid("getRowData",aV);var aX=jQuery(".field-info-grid #fieldGrid #"+aV+" .fa").attr("value");var aY=jQuery.trim(jQuery("#"+aV+"_attrName").val());var aT=null;if(typeof(jQuery("#"+aV+"_groupName").attr("trueValue"))=="undefined"){aT=aQ.groupId}else{aT=jQuery("#"+aV+"_groupName").attr("trueValue")}if(aX=="1"){if(aY==""){bi.dialog.show({type:bi.dialog.TYPE_DANGER,title:al.getMessage("data.import.title.tips"),message:al.getMessage("data.import.message.no")+" "+aQ.columnLabel+" "+al.getMessage("data.import.message.columnEmpty")});return}}if(aY!=""){var aZ=az(aY);if(aZ>90){bi.dialog.show({type:bi.dialog.TYPE_DANGER,title:al.getMessage("data.import.title.tips"),message:al.getMessage("data.import.message.no")+" "+aQ.columnLabel+" "+al.getMessage("data.import.message.columnLength")});return}}if(aX=="0"){aW++}if(aX=="1"){for(var aR in aS){if(aS[aR]==aY){bi.dialog.show({type:bi.dialog.TYPE_DANGER,title:al.getMessage("data.import.title.tips"),message:al.getMessage("data.import.message.no")+" "+aQ.columnLabel+" "+al.getMessage("data.import.message.columnRepet")});return}}}aS.push(aY);a.attrData[aV-1].isUsed=aX;a.attrData[aV-1].attrName=aY;a.attrData[aV-1].groupId=aT}if(aW==a.columnNum){bi.dialog.show({type:bi.dialog.TYPE_DANGER,title:al.getMessage("data.import.title.tips"),message:al.getMessage("data.import.message.selectUsedColumn")});return}a.classifyId=jQuery("#classifySel").val();a.classifyName=jQuery("#classifySel").find("option:selected").text();u(4);jQuery("#oneStep").addClass("active-Finished");jQuery("#twoStep").addClass("active-Finished");jQuery("#thirdStep").addClass("active-Finished");if(jQuery("#fourStep").hasClass("active-Finished")){jQuery("#fourStep").removeClass("active-Finished")}jQuery("#fourStep").removeClass("active-notFinished");jQuery("#fieldInfo").addClass("hide");jQuery("#completeInfo").removeClass("hide");jQuery("#dataName_finish").html(a.dataName);jQuery("#dataNum_finish").html(a.dataNum);jQuery("#recordNum_finish").html(a.dataNum);if(a.classifyName==null||a.classifyName==""){a.classifyName="无"}jQuery("#classify_finish").html(a.classifyName);jQuery("#dataDesc_finish").html(a.dataDesc);z()}function z(){al.ajax({url:al.handleUrlParam("/platform/resmanage/data/query-last-column"),loading:{title:al.getMessage("data.import.title.execute"),text:al.getMessage("data.import.text.configLoading")},data:{dataId:a.dataId,attrData:JSON.stringify(a.attrData),columnData:JSON.stringify(a.columnData)},success:function(aQ){if(aQ.resFlag=="success"){a.columnData=aQ.columnData;U()}else{bi.dialog.show({type:bi.dialog.TYPE_DANGER,title:al.getMessage("data.import.title.tips"),message:al.getMessage("data.import.message.queryDataFail")});return}},error:function(aQ){bi.dialog.show({type:bi.dialog.TYPE_DANGER,title:al.getMessage("data.import.title.tips"),message:aQ.responseText||al.getMessage("data.import.message.queryDataError")})}})}function U(){var aT=a.attrData;var aY=a.columnData;var a1=aT.length;var a0=[];var aS=$(".complete-info-grid").width()-45;var aR=180;if(a1*aR<aS){aR=Math.floor(aS/a1)}var aV=null;var aQ=null;var aZ=null;var aX=null;for(var aU=0;aU<a1;aU++){aV=aT[aU];aX=aV.isUsed;if(aX=="1"){aQ=aV.filterType;if(aQ=="2"){aZ="right"}else{aZ="left"}a0.push({label:aV.attrName,name:aV.columnLabel,align:aZ,hlign:"center",sortable:false,width:aR})}}var aW={datatype:"local",styleUI:"Bootstrap",regional:"cn",data:aY,colModel:a0,rownumbers:true,shrinkToFit:false,autowidth:true,height:"auto"};if(jQuery("#completeGrid").is(":empty")){jQuery("#completeGrid").jqGrid(aW)}else{jQuery.jgrid.gridUnload("completeGrid");jQuery("#completeGrid").jqGrid(aW)}W();$(window).resize(function(){W()})}function ag(){bi.dialog.confirm({title:al.getMessage("data.import.title.saveData"),message:al.getMessage("data.import.message.savaDataConfirm"),callback:function(aQ){if(aQ){H()}}})}function H(){var aT=al.handleUrlParam("/platform/resmanage/data/save-file-info");var a6={dataId:a.dataId,dataName:a.dataName,dataNum:a.dataNum,dataDesc:a.dataDesc,filePath:a.filePath,firstLineTitle:a.firstLineTitle,fileSuffix:a.fileSuffix,attrData:JSON.stringify(a.attrData),modType:av,importStateType:d,classifyId:a.classifyId};if(opType=="edit"||opType=="append"){ad=[];X=[];aK=[];var a0=a.attrData;var aR=a0.length;var aU=null;var aQ=null;var aX=null;var aV=null;var aW={};for(var a3=0;a3<aR;a3++){aU=a0[a3].filterType;aQ=a0[a3].fieldName;ad.push(aU);X.push(aQ);aX=a0[a3].attrId;aV=a0[a3].dimId;aW={attrId:aX,filterType:aU,dimId:aV};aK.push(aW)}if(au.toString()!=ad.toString()||ai.toString()!=X.toString()){a6.importStateType="1"}if(av=="2"||av=="3"){a6.importStateType="1"}aT=al.handleUrlParam("/platform/resmanage/data/save-file-data")}if(a6.importStateType=="1"){var aY=w.length;var a4=aK.length;var aW={};var a5={};var aX=null;var a1=null;var aU=null;var a7=null;var aV=null;var aS=null;var a2=false;for(var a3=0;a3<a4;a3++){aW=aK[a3];aX=aW.attrId;aU=aW.filterType;aV=aW.dimId;if(aX!=null){for(var aZ=0;aZ<aY;aZ++){a5=w[aZ];a1=a5.attrId;a7=a5.filterType;if(aX==a1){if(aU!=a7){a2=true;break}else{if(aU=="1"){if(aV!=aS){a2=true;break}}}}}}}if(a2){a6.importStateType="4"}}al.ajax({url:aT,data:a6,loading:{title:al.getMessage("data.import.title.execute"),text:al.getMessage("data.import.text.loading")},success:function(a8){if(a8.resFlag=="success"){V()}else{bi.dialog.show({type:bi.dialog.TYPE_DANGER,title:al.getMessage("data.import.title.tips"),message:a8.msg});return}},error:function(a8){bi.dialog.show({type:bi.dialog.TYPE_DANGER,title:al.getMessage("data.import.title.tips"),message:a8.responseText||"文件数据配置失败！"})}})}function V(){bi.dialog.show({type:bi.dialog.TYPE_INFO,title:al.getMessage("data.import.title.tips"),message:al.getMessage("data.import.message.savaFileData"),closeByBackdrop:false,closeByKeyboard:false,buttons:[{label:al.getMessage("data.import.label.sure"),cssClass:"btn-info",action:function(aQ){aQ.close();jQuery("#fileButton").addClass("hide");jQuery(".bottom-button-common").addClass("hide");jQuery("#completeSaveButton").addClass("hide")}},{label:al.getMessage("data.import.label.closePage"),cssClass:"btn-default",action:function(){if(jQuery.isFunction(window.opener.reloadDataList)){window.opener.reloadDataList()}window.close()}}]})}function N(){var aQ=jQuery(this).find(".step-title-num");var aR=jQuery(this).attr("id");if(aQ.hasClass("active-Finished")||!aQ.hasClass("active-notFinished")){if(aR=="fileTab"){u(1);jQuery("#"+aa()+"").addClass("hide");jQuery("#fileInfo").removeClass("hide")}else{if(aR=="dataTab"){u(2);jQuery("#"+aa()+"").addClass("hide");jQuery("#dataInfo").removeClass("hide");G()}else{if(aR=="fieldTab"){u(3);jQuery("#"+aa()+"").addClass("hide");jQuery("#fieldInfo").removeClass("hide");if(jQuery("#fieldGrid").is(":empty")){c()}else{g()}}else{if(aR=="completeTab"){if(!ak){return false}u(4);jQuery("#"+aa()+"").addClass("hide");jQuery("#completeInfo").removeClass("hide");if(jQuery("#completeGrid").is(":empty")){z()}else{W()}}}}}}}function G(){jQuery("#dataGrid").setGridWidth($(".data-info-grid").width()-5)}function g(){jQuery("#fieldGrid").setGridWidth($(".field-info-grid").width()-5);jQuery("#fieldGrid").setGridHeight($(".field-info-grid").height()-38)}function W(){jQuery("#completeGrid").setGridWidth($(".complete-info-grid").width()-5)}function aa(){if(jQuery(".file-info").is(":visible")){return"fileInfo"}if(jQuery(".data-info").is(":visible")){return"dataInfo"}if(jQuery(".field-info").is(":visible")){return"fieldInfo"}if(jQuery(".complete-info").is(":visible")){return"completeInfo"}}});
+define(['sabace', 'upload', 'proviceOrCitySelect'], function(sabace, upload, proviceOrCitySelect) {
+
+	// 文件上传组件
+	var uploader = null;
+	// 文件上传错误提示
+	var errTip = null;
+	// 上传文件信息
+	/*
+	 * currentColNum:当前列序号;firstLineTitle:是否为字段标题;columnNames:列名(A、B、C......);columnNum:列数;
+	 * typeArr:类型数组;lengthArr:长度数组;titleArr:标题数组;fieldArr:字段名称数组;filterArr:筛选类型数组;
+	 * tableName:数据库表名;columnTypeArr:字段类型(如：VARCHAR(20),DECIMAL(20,
+	 * 3)等);fileSuffix:文件后缀; valuesStr:文件校验后前10条数据的字符串拼接，供临时表插入语句用;
+	 * dataName:文件名称;dataNum:记录条数;dataDesc:文件描述;
+	 * dataId:数据编码;columnData:jqgrid本地数据 data属性值;attrData:指标信息数据;
+	 */
+	var fileConfigInfo = {};
+	// jqgrid配置
+	var dataOptions = {};
+	// jqgrid模型
+	var commonColModel = {};
+	var fileName = null;
+	var fileDataName = null;
+	var fileDataDesc = null;
+	var scrollPosition = 0;
+	var modType = "1";
+	var footerFlag = false;
+	// 记忆点击列列序号
+	var memoryNum = null;
+	var spinOption = null;
+	var spinDiv = null;
+	var spinHeight = null;
+	var textDiv = null;
+	// 修改时初始指标信息
+	var originalFilter = [];
+	// 修改之后的指标
+	var nowFilter = [];
+	// 修改时初始字段feild
+	var originalField = [];
+	// 修改之后的字段feild
+	var nowField = [];
+	// 修改时是否需要改变导入状态，"0"为不改变，"1"为改变，改成导入状态，说明需要重新执行, "4"为用户切换类型，需要判断数据连接、报表是否已经做过了
+	var importStateType = "0";
+	// 文件过期需要重新上传文件  true为不需要上传，false为需要上传
+	var reUploadFlag = true;
+	// 业务分类是否已经初始化过
+	var classifyFlag = false;
+	// 修改时初始指标信息
+	var originalAttr = [];
+	// 修改之后指标信息
+	var nowAttr = [];
+
+	jQuery(function() {
+		// 监控点击事件
+		initMonitorEvent();
+		// 第一行是否是字段标题选项初始化
+		jQuery('[data-toggle="radio"]').iCheck({
+			checkboxClass: 'icheckbox_minimal',
+			radioClass: 'iradio_minimal'
+		});
+		// 下拉框初始化
+		jQuery('.chosen-select').chosen();
+		// 初始化spin
+		initSpinDiv();
+		// 点击tab时
+		jQuery('.step-tab').on("click", selectShow);
+		// 点击是否为标题时
+		jQuery("input[name='optionsRadio']").on("ifChecked", setEditTiltle);
+		// webuploader初始化
+		initWebuploader();
+		// 为修改时像后台发送请求获取
+		if (opType == "edit" || opType == "append") {
+			initGetEditData();
+		}
+		// 选择文件"确定"
+		jQuery('#fileButton').on("click", fileUpload);
+		// 数据处理"取消"
+		jQuery('#cancelButton').on("click", dataCancel);
+		// 数据处理"确定"
+		jQuery('#saveButton').on("click", dataSave);
+		// 设置字段"取消"
+		jQuery('#fieldCanButton').on("click", fieldCancel);
+		// 设置字段"确定"
+		jQuery('#fieldSaveButton').on("click", fieldSave);
+		// 完成"确定"
+		jQuery('#completeSaveButton').on("click", completeSave);
+		// 设置横线高亮设置
+		setStepLine(1);
+		// 函数生成点击事件
+		jQuery('#generateData').on("click", generateData);
+
+		// 输入项校验
+		jQuery('#fileForm').validationEngine({
+			autoHidePrompt: true,
+			autoHideDelay: 2000,
+			binded: true,
+			promptPosition: 'bottomLeft',
+			showOneMessage: true
+		});
+
+		// txt文件上传
+		jQuery('#fileUploadType .txt').on("click", txtFileUpload);
+		// excel文件上传
+		jQuery('#fileUploadType .excel').on("click", excelFileUpload);
+		// csv文件上传
+		jQuery('#fileUploadType .csv').on("click", csvFileUpload);
+		
+		// 函数框隐藏效果
+		jQuery(".funcForm").slideUp();
+		
+		// 文件上传按钮事件
+		jQuery('#uploadFile').on("click", uploadFile);
+		// 文件上传取消按钮事件
+		jQuery('#uploadCancel').on("click", uploadCancel);
+		// 重新上传按钮事件
+		jQuery('#reUploadFile').on("click", reUploadFile);
+	});
+
+	// 监控点击事件
+	function initMonitorEvent() {
+		// 监控点击事件
+		document.onmousedown = function(event) {
+			var eventTarget = event.target;
+			if(eventTarget.id == "dimName" || eventTarget.id == "dimNameForOther"){
+				return;
+			}
+			// 非自定义维度查询
+			if(eventTarget.id == "dimSearch" || eventTarget.id == "dimSearchForOther"){
+				// "1"为非自定义列  "2"为自定义列
+				var type = "1";
+				if(eventTarget.id == "dimSearchForOther"){
+					type = "2";
+				}
+				// 维度查询
+				dimSearch(type);
+				return;
+			}
+			if (eventTarget.id == "dim" || eventTarget.id == "dimSelect") {
+				jQuery('.data-info-grid th #dimOther').poshytip('hide');
+				jQuery('.data-info-grid th #columnOper').poshytip('hide');
+				return;
+			}
+			if (eventTarget.id == "dimOther" || eventTarget.id == "dimOtherSelect") {
+				jQuery('.data-info-grid th #dim').poshytip('hide');
+				jQuery('.data-info-grid th #columnOper').poshytip('hide');
+				return;
+			}
+			if (eventTarget.id == "columnOper") {
+				jQuery('.data-info-grid th #dimOther').poshytip('hide');
+				jQuery('.data-info-grid th #dim').poshytip('hide');
+				return;
+			}
+			if (eventTarget == undefined || eventTarget.id != "dim" || eventTarget.id != "columnOper" || eventTarget.id != "dimOther") {
+				jQuery('.data-info-grid th #dim').poshytip('hide');
+				jQuery('.data-info-grid th #dimOther').poshytip('hide');
+				jQuery('.data-info-grid th #columnOper').poshytip('hide');
+				return;
+			}
+		}
+	}
+	
+	// 维度查询事件
+	function dimSearch(type){
+		var name = null;
+		if(type == "1"){
+			name = jQuery('.tip-yellowsimple #dimName').val();
+		}else{
+			name = jQuery('.tip-yellowsimple #dimNameForOther').val();
+		}
+		// 请求后台获取
+		sabace.ajax({
+			url: sabace.handleUrlParam("/platform/resmanage/data/data-search-dim"),
+			data: {
+				dimName: name
+			},
+			success: function(req) {
+				var dimList = req.dimList;
+				getSelectLi(type,dimList,name);
+			},
+			error: function(req) {
+				bi.dialog.show({
+					type: bi.dialog.TYPE_DANGER,
+					title: sabace.getMessage('data.import.title.tips'),
+					message: sabace.getMessage('data.import.message.queryFilterTypeError')
+				});
+			}
+		});
+	}
+
+	// 修改时获取修改的数据
+	function initGetEditData() {
+		fileConfigInfo.dataId = dataId;
+		sabace.ajax({
+			url: sabace.handleUrlParam("/platform/resmanage/data/get-file-data"),
+			data: {
+				dataId: fileConfigInfo.dataId
+			},
+			loading: {
+				title: sabace.getMessage('data.import.title.execute'),
+				text: '<span class="f16 bolder gray">' + sabace.getMessage('data.import.text.fileInfoLoading') + '</span>',
+				spin: true
+			},
+			success: function(req) {
+				if (req.resFlag == "success") {
+					// 修改数据返回成功后的处理
+					getEditDataSuccess(req);
+				} else {
+					bi.dialog.show({
+						type: bi.dialog.TYPE_DANGER,
+						title: sabace.getMessage('data.import.title.tips'),
+						message: req.msg
+					});
+					return;
+				}
+			},
+			error: function(req) {
+				bi.dialog.show({
+					type: bi.dialog.TYPE_DANGER,
+					title: sabace.getMessage('data.import.title.tips'),
+					message: req.responseText || sabace.getMessage('data.import.message.queryEditDataError')
+				});
+			}
+		});
+	}
+
+	// 判断导入状态是否成功，如果为失败状态的弹出提示框告知用户展示的数据是上次上传导入的数据
+	function showDataTip(importState){
+		if(!reUploadFlag){
+			bi.dialog.show({
+				type: bi.dialog.TYPE_DANGER,
+				title: sabace.getMessage('data.import.title.tips'),
+				message: sabace.getMessage('data.import.message.reUpload')
+			});
+		}else if(importState == "7"){
+			bi.dialog.show({
+				type: bi.dialog.TYPE_INFO,
+				title: sabace.getMessage('data.import.title.tips'),
+				message: sabace.getMessage('data.import.message.lastData')
+			});
+		}
+	}
+	
+	// 修改数据返回成功后的处理
+	function getEditDataSuccess(req) {
+		fileConfigInfo = req.fileConfigBean;
+		fileConfigInfo.attrData = req.attrDatas;
+		fileConfigInfo.columnData = req.columnDatas;
+		fileConfigInfo.dimData = req.dimDatas;
+		fileConfigInfo.footerData = req.footerDatas;
+		fileConfigInfo.columnNum = req.columnNum;
+		// 设置业务分类
+		initClassify(req.classifyList, false);
+		if(req.reUpload == "fail"){
+			reUploadFlag = false;
+		}
+		// 根据fileConfigInfo.attrData的长度来dataId判断是否有效
+		if (fileConfigInfo.attrData.length == 0) {
+			opType = "add";
+		} else {
+			// 判断导入状态是否成功，如果为失败状态的弹出提示框告知用户展示的数据是上次上传导入的数据
+			showDataTip(fileConfigInfo.importState);
+			var attrData = req.attrDatas;
+			var length = attrData.length;
+			var filterType = null;
+			var field = null;
+			var attrId = null;
+			var dimId = null;
+			var attrObj = {};
+			// 取出指标中的所有的筛选类型
+			for(var i = 0;i < length; i++){
+				filterType = attrData[i].filterType;
+				field = attrData[i].fieldName;
+				originalFilter.push(filterType);
+				originalField.push(field);
+				attrId = attrData[i].attrId;
+				dimId = attrData[i].dimId;
+				attrObj = {
+					attrId: attrId,
+					filterType: filterType,
+					dimId: dimId
+				};
+				originalAttr.push(attrObj);
+			}
+			// 放开所有的页签 展示数据处理
+			jQuery('#oneStep').addClass("active-Finished");
+			jQuery('#twoStep').removeClass("active-notFinished");
+			jQuery('#twoStep').addClass("active-Finished");
+			// 面板内容切换
+			if(opType == "edit"){
+				if(reUploadFlag){
+					jQuery('#dataInfo').removeClass("hide");
+					jQuery('#fileInfo').addClass("hide");
+					setStepLine(2);
+				}
+			}
+			if(!reUploadFlag){
+				jQuery('.bottom-button-common').addClass("hide");
+			}
+			jQuery('#thirdStep').removeClass("active-notFinished");
+			jQuery('#thirdStep').addClass("active-Finished");
+			jQuery('#fourStep').removeClass("active-notFinished");
+			jQuery('#fourStep').addClass("active-Finished");
+			jQuery('.main-panel').removeClass('hide');
+			// 初始化数据处理页签数据
+			initCommonGrid();
+			// 初始化设置字段页签数据
+			var dataName = fileConfigInfo.dataName;
+			fileDataName = dataName;
+			var dataNum = fileConfigInfo.dataNum;
+			var dataDesc = fileConfigInfo.dataDesc;
+			fileDataDesc = dataDesc;
+			jQuery('#dataName').val(dataName);
+			jQuery('#dataNum').val(dataNum);
+			jQuery('#recordNum').val(dataNum);
+			jQuery('#dataDesc').val(dataDesc);
+			// 初始化完成页签数据
+			jQuery('#dataName_finish').html(dataName);
+			jQuery('#dataNum_finish').html(dataNum);
+			jQuery('#recordNum_finish').html(dataNum);
+			jQuery('#dataDesc_finish').html(dataDesc);
+			// 设置业务分类
+			var classifyId = fileConfigInfo.classifyId;
+			fileConfigInfo.classifyId = classifyId;
+			jQuery("#classifySel").val(classifyId);
+			jQuery("#classifySel").trigger("chosen:updated");
+			var classifyName = jQuery("#classifySel").find("option:selected").text();
+			if(classifyName == null || classifyName == ""){
+				classifyName = "无";
+			}
+			fileConfigInfo.classifyName = classifyName;
+			jQuery('#classify_finish').html(classifyName);
+		}
+	}
+
+	// txt文件上传
+	function txtFileUpload() {
+		jQuery("#filePicker input:file").attr('accept','.txt'); 
+		jQuery("#filePicker input:file").trigger('click');
+	}
+
+	// excel文件上传
+	function excelFileUpload() {
+		jQuery("#filePicker input:file").attr('accept','.xls,.xlsx'); 
+		jQuery("#filePicker input:file").trigger('click');
+	}
+
+	// csv文件上传
+	function csvFileUpload() {
+		jQuery("#filePicker input:file").attr('accept','.csv'); 
+		jQuery("#filePicker input:file").trigger('click');
+	}
+
+	// 初始化spin
+	function initSpinDiv(){
+		spinOption = {
+				background : 'rgba(244, 244, 244, 0.51)',//蒙层背景颜色
+				lines: 11, // 花瓣个数   
+				length: 11, // 花瓣长度   
+				width: 5, // 花瓣宽度
+				radius: 14, // 圆大小
+				color: '#fff',//花瓣颜色	
+				corners: 1, // Corner roundness (0..1)   
+				rotate: 0, // 旋转偏移量   
+				direction: 1, // 1: 顺时针, -1: 逆时针   
+				speed: 1, // 转速/秒   
+				trail: 60, // Afterglow percentage   
+				shadow: true, // 是否显示阴影   
+				hwaccel: false, // 是否使用硬件加速   
+				className: 'spinner', // 绑定到spinner上的类名   
+				zIndex: 2e9, // 定位层 (默认 2000000000)   
+				top: '50%', // 相对父元素上定位，单位px   
+				left: '50%' // 相对父元素左定位，单位px  
+		};
+		spinDiv = jQuery("<div>",{
+			"id" :	'fileSpin',		
+			"css":{
+				'position': "absolute",
+				'bottom': 0,
+				'right': 0,
+				'left': 0,
+				'top': 0,
+				'background': spinOption.background,
+				'z-index': 99999999,
+				'display':"none"
+			}
+		});
+		spinHeight = spinOption.width + spinOption.length + spinOption.radius;
+		textDiv = jQuery("<div>",{
+			'id': 'fileSpinText',
+			'html': '<span class="f16 bolder gray">文件上传完成,正在校验文件,请稍后...</span>',
+		    'css' : {
+		    	'position': "absolute",
+		    	'min-width': '400px',
+		    	'top': '50%',
+		    	'left': '50%',
+		    	'color': '#fff',
+		    	'margin-top': spinHeight + 10,
+		    	'margin-left':'-200px',
+		    	'text-align':'center'
+		    }
+		});
+	}
+	
+	// 文件上传控件Webuploader
+	function initWebuploader() {
+		if (!WebUploader.Uploader.support()) {
+			bi.dialog.show({
+				type: bi.dialog.TYPE_DANGER,
+				title: sabace.getMessage('data.import.title.tips'),
+				message: sabace.getMessage('data.import.message.updateFlashPlayer')
+			});
+			throw new Error('WebUploader does not support the browser you are using.');
+		}
+		uploader = WebUploader.create({
+			pick: {
+				id: '#filePicker',
+				label: sabace.getMessage('data.import.uploader.label')
+			},
+			dnd: '.file-block', // 拖拽区域
+			accept: {
+				// 可以上传的文件类型
+				title: 'doc', // 文字描述
+				extensions: 'txt,xls,csv,xlsx', // 文件后缀 多个用逗号分割
+				mimeTypes: [ // 文件类型 多个用逗号分割
+					'text/plain', // txt
+					'application/vnd.ms-excel', // excel2003
+					'text/csv', // csv
+					'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' // excel
+				].join(',')
+			},
+			// swf文件路径
+			swf: resPath + '/bace/js/webuploader/swf/Uploader.swf',
+			disableGlobalDnd: true, // 是否禁掉整个页面的拖拽功能，如果不禁用，图片拖进来的时候会默认被浏览器打开。
+			chunked: false, // 分片上传
+			server: sabace.handleUrlParam('/platform/resmanage/data/data-file-upload'),
+			auto: false, // 只要有东西自动上传，不需要手动点击上传
+			resize: false, // 不压缩image, 默认如果是jpeg，文件上传前会压缩一把再上传！
+			threads: 1, // 上传并发数,允许同时最大上传进程数
+			fileNumLimit: 1, // 可以上传的文件数量
+			fileSizeLimit: 500 * 1024 * 1024, // 总文件大小 500 M
+			fileSingleSizeLimit: 500 * 1024 * 1024, // 单个文件大小 500 M
+			timeout: 0  // 超时时间, 解决文件数据量大校验时不设置超时时间
+		});
+
+		// 当有文件被添加进队列的时候
+		uploader.on('fileQueued', function(file) {
+			jQuery('.file-uploader-text').addClass("hide");
+			jQuery('.file-upload-pic').addClass("hide");
+			// 展示上传文件信息
+			jQuery('.import-file').removeClass("hide");
+			// 将所有的图标隐藏
+			jQuery('.import-type-pic').addClass("hide");
+			// 文件名称
+			var fileName = file.name;
+			// 文件格式
+			var fileSuffix = file.ext;
+			// 文件大小(字节)
+			var fileSize = file.size;
+			// 文件类型展示
+			var importFileType = null;
+			if(fileSuffix == "txt") {
+				jQuery('#txtType').removeClass("hide");
+				importFileType = "文本文件";
+			}else if(fileSuffix == "csv") {
+				jQuery('#csvType').removeClass("hide");
+				importFileType = "csv 文件";
+			}else {
+				jQuery('#excelType').removeClass("hide");
+				importFileType = "Excel 文件";
+			}
+			// 文件大小转换
+			fileSize = bytesToSize(fileSize);
+			jQuery('#importFileName').html(fileName);
+			jQuery('#importFileType').html(importFileType);
+			jQuery('#importFileSize').html(fileSize);
+			
+			// 第一行是否为字段标题
+			jQuery('.file-info-label').removeClass("hide");
+			// 上传和取消按钮
+			jQuery('.upload-button').removeClass("hide");
+		});
+
+		// 文件错误提示
+		uploader.on('error', function(code) {
+			errTip = showErrTip(code);
+			bi.dialog.show({
+				type: bi.dialog.TYPE_DANGER,
+				title: sabace.getMessage('data.import.title.tips'),
+				message: errTip
+			});
+			return;
+		})
+
+		// 文件上传过程中创建进度条实时显示
+		uploader.on('uploadProgress', function(file, percentage) {
+			var fileProgress = jQuery('.progress');
+			var filePercent = fileProgress.find('.progress-bar');
+			// 避免重复创建
+			if (!filePercent.length) {
+				filePercent = jQuery('<div class="progress-bar progress-bar-info progress-bar-striped active" style="width: 0%;">' +
+					'<div class="fileSucFlag"></div>' +
+					'</div>').appendTo(fileProgress).find('.progress-bar');
+			}
+			filePercent.css({
+				"width": percentage * 100 + "%"
+			})
+			filePercent.find('.fileSucFlag').text(Math.ceil(percentage * 100) + '%');
+			if(filePercent.find('.fileSucFlag').text() == "100%"){
+				if(!jQuery('.file-block #fileSpin').length){
+					jQuery('.file-block').append(spinDiv);
+					spinDiv.spin(spinOption).show();
+					spinDiv.append(textDiv);
+				}
+			}
+		});
+
+		// 文件上传成功
+		uploader.on('uploadSuccess', function(file,response) {
+			fileName = file.name;
+			fileName = fileName.substring(0, fileName.indexOf("."));
+			file.statusText = "complete";
+			spinDiv.spin('close');
+			spinDiv.remove();
+			// 文件上传并校验成功
+			if(response.resFlag == "success"){
+				fileConfigInfo = response.fileConfigBean;
+				// 展示下一步按钮
+				jQuery('#fileButton').removeClass("hide");
+			} else if(response.resFlag == "checkFail") {
+				bi.dialog.show({
+					type: bi.dialog.TYPE_DANGER,
+					title: sabace.getMessage('data.import.title.tips'),
+					message: response.msg
+				});
+			} else {
+				bi.dialog.show({
+					type: bi.dialog.TYPE_DANGER,
+					title: sabace.getMessage('data.import.title.tips'),
+					message: response.msg
+				});
+			}
+		});
+		
+		// 文件上传出错
+		uploader.on('uploadError', function(file) {
+			spinDiv.spin('close');
+			spinDiv.remove();
+			bi.dialog.show({
+				type: bi.dialog.TYPE_DANGER,
+				title: sabace.getMessage('data.import.title.tips'),
+				message: sabace.getMessage('data.import.message.uploadFileError')
+			});
+		});
+	}
+	
+	// 文件大小转换
+	function bytesToSize(bytes) {  
+       if (bytes === 0) return '0 B';  
+        var k = 1024;  
+        sizes = ['B','KB', 'MB', 'GB', 'TB', 'PB', 'EB', 'ZB', 'YB'];  
+        i = Math.floor(Math.log(bytes) / Math.log(k));  
+	    return (bytes / Math.pow(k, i)).toFixed(2) + ' ' + sizes[i];   
+	}  
+	
+	// 文件取消按钮事件
+	function uploadCancel(){
+		// 隐藏文件信息
+		jQuery('.import-file').addClass("hide");
+		// 隐藏是否第一行为标题
+		jQuery('.file-info-label').addClass("hide");
+		jQuery('.file-info-title').addClass("hide");
+		// 隐藏上传取消按钮
+		jQuery('.upload-button').addClass("hide");
+		jQuery('.file-uploader-text').removeClass("hide");
+		jQuery('.file-upload-pic').removeClass("hide");
+		// 进度条隐藏
+		jQuery('.progress').addClass("hide");
+		uploader.reset();
+	}
+
+	// 文件上传按钮事件
+	function uploadFile(){
+		// 获取第一行是否为字段标题
+		fileConfigInfo.firstLineTitle = jQuery("input[name='optionsRadio']:checked").val();
+		// 隐藏是否第一行为标题
+		jQuery('.file-info-label').addClass("hide");
+		jQuery('.file-info-title').addClass("hide");
+		// 展示进度条
+		jQuery('.progress').removeClass("hide");
+		if(opType == "edit" && fileConfigInfo.firstLineTitle == "1" || opType == "append" && fileConfigInfo.firstLineTitle == "1"){
+			fileConfigInfo.changeTitleType = jQuery("input[name='titleRadio']:checked").val();
+		}
+		uploader.options.formData = {
+				opType: opType,
+				firstLineTitle: fileConfigInfo.firstLineTitle, 
+				changeTitleType: fileConfigInfo.changeTitleType,
+				dataId: dataId
+		};
+		uploader.upload();
+		// 隐藏按钮
+		jQuery('.upload-button').addClass("hide");
+		// 展示重新上传按钮
+		jQuery('#reUploadFile').removeClass("hide");
+	}
+	
+	// 重新上传文件
+	function reUploadFile(){
+		// 隐藏文件信息
+		jQuery('.import-file').addClass("hide");
+		// 隐藏是否第一行为标题
+		jQuery('.file-info-label').addClass("hide");
+		jQuery('.file-info-title').addClass("hide");
+		// 隐藏上传取消按钮
+		jQuery('.upload-button').addClass("hide");
+		jQuery('.file-uploader-text').removeClass("hide");
+		jQuery('.file-upload-pic').removeClass("hide");
+		// 进度条隐藏
+		jQuery('.progress').addClass("hide");
+		// 隐藏重新上传
+		jQuery('#reUploadFile').addClass("hide");
+		// 隐藏下一步按钮
+		jQuery('#fileButton').addClass("hide");
+		uploader.reset();
+	}
+	
+	// 错误提示
+	function showErrTip(code) {
+		var text = "";
+		var singleSizeLimit = uploader.options.fileSingleSizeLimit;
+		var fileNumLimit = uploader.options.fileNumLimit;
+		var fileSizeLimit = uploader.options.fileSizeLimit;
+		switch (code) {
+			case 'F_EXCEED_SIZE':
+				text = sabace.getMessage('data.import.uploader.exceedSize') + singleSizeLimit + 'M';
+				break;
+			case 'Q_EXCEED_NUM_LIMIT':
+				text = sabace.getMessage('data.import.uploader.exceedNumLimit') + fileNumLimit + sabace.getMessage('data.import.uploader.individual');
+				break;
+			case 'Q_EXCEED_SIZE_LIMIT':
+				text = sabace.getMessage('data.import.uploader.exceedSizeLimit') + fileSizeLimit + 'M';
+				break;
+			case 'Q_TYPE_DENIED':
+				text = sabace.getMessage('data.import.uploader.typeDenied');
+				break;
+			case 'F_DUPLICATE':
+				text = sabace.getMessage('data.import.uploader.duplicate');
+				break;
+			case 'success':
+				text = sabace.getMessage('data.import.uploader.success');
+				break;
+			default:
+				text = sabace.getMessage('data.import.uploader.default');
+				break;
+		}
+		return text;
+	}
+	
+	// 修改时判断是否以当前修改的文件的第一行为标题
+	function setEditTiltle(){
+		if(opType == "edit" || opType == "append"){
+			var titleType = jQuery(this).val();
+			if(titleType == "1"){
+				jQuery('.file-info-title').removeClass("hide");
+			}else{
+				jQuery('.file-info-title').addClass("hide");
+			}
+		}
+	}
+
+	// 文件选择"确定"事件
+	function fileUpload() {
+		// 如果需要重新上传的这时代表已经上传成功
+		reUploadFlag = true;
+		jQuery('.bottom-button-common').removeClass("hide");
+		var fileLength = uploader.getFiles().length;
+		var file = uploader.getFiles()[0];
+		// 判断是否有上传的文件
+		if (fileLength < 1) {
+			bi.dialog.show({
+				type: bi.dialog.TYPE_DANGER,
+				title: sabace.getMessage('data.import.title.tips'),
+				message: sabace.getMessage('data.import.message.selectFile')
+			});
+			return;
+		} else {
+			// 判断文件是否上传成功
+			if (file.statusText != "complete") {
+				bi.dialog.show({
+					type: bi.dialog.TYPE_DANGER,
+					title: sabace.getMessage('data.import.title.tips'),
+					message: sabace.getMessage('data.import.message.uploadFile')
+				});
+				return;
+			}
+		}
+		// 向后台发送请求获取数据库信息
+		sabace.ajax({
+			url: sabace.handleUrlParam("/platform/resmanage/data/data-file-create"),
+			data: {
+				opType: opType,
+				fileConfig: JSON.stringify(fileConfigInfo)
+			},
+			loading: {
+				title: sabace.getMessage('data.import.title.execute'),
+				text: sabace.getMessage('data.import.text.loading')
+			},
+			success: function(req) {
+				if (req.resFlag == "success") {
+					// 文件处理返回成功后的处理
+					checkFileSuccess(req);
+				} else {
+					bi.dialog.show({
+						type: bi.dialog.TYPE_DANGER,
+						title: sabace.getMessage('data.import.title.tips'),
+						message: req.msg
+					});
+					return;
+				}
+			},
+			error: function(req) {
+				bi.dialog.show({
+					type: bi.dialog.TYPE_DANGER,
+					title: sabace.getMessage('data.import.title.tips'),
+					message: sabace.getMessage('data.import.message.getFileInfoError')
+				});
+			}
+		});
+	}
+
+	// 文件处理返回成功后的处理
+	function checkFileSuccess(req) {
+		// 横线高亮设置
+		setStepLine(2);
+		// 按钮样式切换
+		jQuery('#oneStep').addClass("active-Finished");
+		if (jQuery('#twoStep').hasClass("active-Finished")) {
+			jQuery('#twoStep').removeClass("active-Finished");
+		}
+		jQuery('#twoStep').removeClass("active-notFinished");
+		// 面板内容切换
+		jQuery('#fileInfo').addClass("hide");
+		jQuery('#dataInfo').removeClass("hide");
+		fileConfigInfo = req.fileConfigBean;
+		fileConfigInfo.columnData = req.columnDatas;
+		fileConfigInfo.attrData = req.attrDatas;
+		fileConfigInfo.dimData = req.dimDatas;
+		fileConfigInfo.footerData = req.footerDatas;
+		// 数据处理时初始化jqGrid
+		initCommonGrid();
+		// 修改文件了
+		if(opType == "add" || opType == "edit"){
+			modType = "2";
+		}else if(opType == "append"){
+			modType = "3";
+		}
+	}
+
+	// 横线高亮设置
+	function setStepLine(step) {
+		var marWidth = 25 * (step - 1) + 4 + "%";
+		jQuery('#stepLine').css("margin-left", marWidth);
+	}
+	
+	// 获取非自定义的筛选类型
+	function getFilterLi(type,dimData,dimName){
+		var selectLi = "";
+		if(dimName == "" || (dimName != null && '数值'.indexOf(dimName) > -1)){
+			selectLi +=	" <li class ='fixedDim' value='2' title='数值'><div class='num-pic'></div><span>数值</span></li>";
+		}
+		if(dimName == "" || (dimName != null && '月份'.indexOf(dimName) > -1)){
+			selectLi += " <li class ='fixedDim' value='4' title='月份'><div class='month-pic'></div>月份</li>";
+		}
+	 	if(dimName == "" || (dimName != null && '日期'.indexOf(dimName) > -1)){
+	 		selectLi += " <li class ='fixedDim' value='6' title='日期'><div class='date-pic'></div>日期</li>";
+	 	}
+		if(dimName == "" || (dimName != null && '时间'.indexOf(dimName) > -1)){
+			selectLi += " <li class ='fixedDim' value='7' title='时间'><div class='time-pic'></div>时间</li>";
+		}
+		if(dimName == "" || (dimName != null && '字符'.indexOf(dimName) > -1)){
+			selectLi += " <li class ='fixedDim' value='9' title='字符'><div class='char-pic'></div>字符</li>";
+		}
+		if(dimName == "" || (dimName != null && '省份'.indexOf(dimName) > -1)){
+			selectLi += " <li class ='fixedDim' value='A' title='省份'><div class='province-pic'></div>省份</li>";
+		}
+		if(dimName == "" || (dimName != null && '地市'.indexOf(dimName) > -1)){
+			selectLi += " <li class ='fixedDim' value='B' title='地市'><div class='city-pic'></div>地市</li>";
+		}
+		if(dimName == "" || (dimName != null && '区县'.indexOf(dimName) > -1)){
+			selectLi += " <li class ='fixedDim' value='C' title='区县'><div class='county-pic'></div>区县</li>";
+		}
+		selectLi += " <li class='divider'></li>";
+		return selectLi;
+	}
+	
+	// 获取自定义的筛选类型
+	function getFilterOtherLi(type,dimData,dimName){
+		var selectOtherLi =  "";
+		if(dimName == "" || (dimName != null && '数值'.indexOf(dimName) > -1)){
+			selectOtherLi += " <li class ='fixedDim' value='2' title='数值'><div class='num-pic'></div><span>数值</span></li>";
+		}
+		if(dimName == "" || (dimName != null && '字符'.indexOf(dimName) > -1)){
+			selectOtherLi += " <li class ='fixedDim' value='9' title='字符'><div class='char-pic'></div>字符</li>";
+		}
+		selectOtherLi += " <li class='divider'></li>";
+		return selectOtherLi;
+	}
+	
+	// 拼装筛选类型 1:拼装非自定义列的筛选类型;2:拼装自定义列的筛选类型;3:拼装所有
+	function getSelectLi(type,dimData,dimName){
+		var object = null;
+		var otherObject = null;
+		if(type == "1"){
+			object = jQuery('.tip-yellowsimple #dimSelect');
+			object.empty();
+		}else if(type == "2"){
+			otherObject = jQuery('.tip-yellowsimple #dimOtherSelect');
+			otherObject.empty();
+		}else{
+			object = jQuery('#dimSelect');
+			object.empty();
+			otherObject = jQuery('#dimOtherSelect');
+			otherObject.empty();
+		}
+		var selectLi = getFilterLi(type,dimData,dimName);
+		if(type == "2" || type == "3"){
+			var selectOtherLi = getFilterOtherLi(type,dimData,dimName);
+		}
+		var dimLength = 0;
+		// 拼装维度
+		if (dimData != null && dimData != "") {
+			var name = null;
+			var value = null;
+			dimLength = dimData.length;
+			for (var i = 0; i < dimLength; i++) {
+				name = dimData[i].name;
+				value = dimData[i].value;
+				selectLi += " <li value=" + value + " title=" + name + "><div class='dim-pic'></div>" + name + "</li>";
+				if(type == "2" || type == "3"){
+					selectOtherLi += " <li value=" + value + " title=" + name + "><div class='dim-pic'></div>" + name + "</li>";
+				}
+			}
+		}
+		if(type == "1" || type == "3"){
+			object.append(selectLi);
+		}
+		if(type == "2" || type == "3"){
+			otherObject.append(selectOtherLi);
+		}
+		if (dimLength * 30 > 200) {
+			// 筛选类型滚动条
+			jQuery("#dim-select").height(360);
+		}
+		if(type == "2" || type == "3"){
+			if((dimLength-3) * 30 > 200){
+				// 筛选类型滚动条
+				jQuery("#dim-other-select").height(360);
+			}
+		}
+	 }
+
+	// 生成colModel
+	function createColModel(attrData, dimData) {
+		if (jQuery('#columnOper')) {
+			jQuery('#columnOper').empty();
+		}
+		// 拼装筛选类型
+		getSelectLi("3",dimData,"");
+		var colModel = [];
+		var attrDataLength = attrData.length;
+		var jqWidth = $(".data-info-grid").width() - 45;
+		if(opType == "append"){
+			jqWidth = jQuery(window).width() * 0.94;
+		}
+		var width = 200;
+		if (attrDataLength * width < jqWidth) {
+			width = Math.floor(jqWidth / attrDataLength);
+		}
+		var operHtml = "<div id='columnOper'></div>";
+		var columnLabel = null;
+		var columnFilterTypeName = null;
+		var filterType = null;
+		var align = null;
+		var _selectHtml = null;
+		var attrClass = null;
+		for (var i = 0; i < attrDataLength; i++) {
+			columnLabel = attrData[i].columnLabel;
+			columnFilterTypeName = attrData[i].columnFilterTypeName;
+			filterType = attrData[i].filterType;
+			attrClass = attrData[i].attrClass;
+			if (typeof(columnFilterTypeName) == "undefined") {
+				columnFilterTypeName = "字符";
+			}
+			if (filterType == "2") {
+				align = 'right';
+			}else{
+				align = 'left';
+			}
+			if(attrClass == "0"){
+				_selectHtml = "<div id='dim'><span title=" + columnFilterTypeName + " class='dimText'>" + columnFilterTypeName + "</span><span class='glyphicon glyphicon-chevron-down dimDown'></span></div>" + columnLabel + operHtml;
+			}else{
+				_selectHtml = "<div id='dimOther'><span title=" + columnFilterTypeName + " class='dimText' >" + columnFilterTypeName + "</span><span class='glyphicon glyphicon-chevron-down dimDown'></span></div>" + columnLabel + operHtml;
+			}
+			colModel.push({
+				label: _selectHtml,
+				name: columnLabel,
+				align: align,
+				hlign: 'center',
+				sortable: false,
+				width: width
+			})
+		}
+		return colModel;
+	}
+
+	// 初始化数据处理grid
+	function initCommonGrid() {
+		if (!jQuery('#dataGrid').is(':empty')) {
+			jQuery.jgrid.gridUnload('dataGrid');
+		}
+		commonColModel = createColModel(fileConfigInfo.attrData, fileConfigInfo.dimData);
+		dataOptions = {
+			datatype: "local",
+			styleUI: 'Bootstrap',
+			regional: 'cn',
+			data: fileConfigInfo.columnData,
+			colModel: commonColModel,
+			rownumbers: true,
+			autowidth: true,
+			shrinkToFit: false,
+			height: 'auto',
+			footerrow:true,
+			loadComplete: function() {
+				// 设置自定义列颜色
+				jQuery("#dataInfo #dimOther").parent().parent().css("background-color", "#DAE9E9");
+				// 底部数据展示
+				if(fileConfigInfo.footerData.length < 1){
+					jQuery(".data-info-grid .ui-jqgrid-sdiv").hide();
+				}else{
+					jQuery(".data-info-grid .ui-jqgrid-sdiv").show();
+					footerFlag = true;
+					var data = {};
+					var colNum = fileConfigInfo.footerData.length;
+					var footerData = null;
+					for(var i = 0; i < colNum; i++){
+						footerData = fileConfigInfo.footerData[i];
+						data[footerData.name] = footerData.desc;
+					}
+					jQuery(this).footerData("set", data);
+				}
+				var columnTh = jQuery(this).parents().find(".data-info-grid th");
+				columnTh.click(function() {
+					fileConfigInfo.currentColNum = jQuery(this)[0].cellIndex;
+					var obj = jQuery(this);
+					var th_id = jQuery(obj).attr("id");
+					jQuery("th").removeClass('jqgrid-underline');
+					jQuery("th[id=" + th_id + "]").addClass('jqgrid-underline');
+					// 判断当前列是否是自定义列，是则打开函数框
+					openFuncForm();
+				});
+				columnTh.find("#dim").on("click", function() {
+					fileConfigInfo.currentColNum = jQuery(this).parent().parent()[0].cellIndex;
+					var filterType = fileConfigInfo.attrData[fileConfigInfo.currentColNum-1].filterType;
+					columnTh.find("#dim").poshytip('hide');
+					// 下拉框绑定事件
+					jQuery(this).poshytip({
+						className: 'tip-yellowsimple',
+						content: jQuery("#dim-select").outerHTML(),
+						showTimeout: 1,
+						alignTo: 'target',
+						alignX: 'bottom',
+						alignY: 'bottom',
+						showOn: 'none',
+						offsetY: 5,
+						offsetX: -128,
+						keepInViewport: false
+					});
+					jQuery(this).poshytip('show');
+					// 对已选择的做标示
+					jQuery(".tip-yellowsimple #dim-select li[value='" + filterType + "']").prepend("<i class='fa fa-check dimItemsCheck'></i>");
+					jQuery(".tip-yellowsimple #dim-select li[value='" + filterType + "']").css("background-color",'#2CC2A7');
+					jQuery(".tip-yellowsimple #dim-select").niceScroll();
+					jQuery(".tip-yellowsimple").on("click","#dimSelect li",function(){
+						changeFilter(jQuery(this).attr("value"), jQuery(this).text());
+					});
+					sabace.stopBubble(event);
+				});
+				columnTh.find("#dimOther").on("click", function() {
+					fileConfigInfo.currentColNum = jQuery(this).parent().parent()[0].cellIndex;
+					var filterType = fileConfigInfo.attrData[fileConfigInfo.currentColNum-1].filterType;
+					columnTh.find("#dimOther").poshytip('hide');
+					// 下拉框绑定事件
+					jQuery(this).poshytip({
+						className: 'tip-yellowsimple',
+						content: jQuery("#dim-other-select").outerHTML(),
+						showTimeout: 1,
+						alignTo: 'target',
+						alignX: 'bottom',
+						alignY: 'bottom',
+						showOn: 'none',
+						offsetY: 5,
+						offsetX: -128,
+						keepInViewport: false
+					});
+					jQuery(this).poshytip('show');
+					// 对已选择的做标示
+					jQuery(".tip-yellowsimple #dim-other-select li[value='" + filterType + "']").prepend("<i class='fa fa-check dimItemsCheck'></i>");
+					jQuery(".tip-yellowsimple #dim-other-select li[value='" + filterType + "']").css("background-color",'#2CC2A7');
+					jQuery(".tip-yellowsimple #dim-other-select").niceScroll();
+					jQuery(".tip-yellowsimple").on("click","#dimOtherSelect li",function(){
+						changeFilter(jQuery(this).attr("value"), jQuery(this).text());
+					});
+					sabace.stopBubble(event);
+				});
+				columnTh.find("#columnOper").on("click", function() {
+					columnTh.find("#columnOper").poshytip('hide');
+					// 设置图标绑定事件
+					jQuery(this).poshytip({
+						className: 'tip-yellowsimple',
+						content: jQuery("#columnOperMenu").outerHTML(),
+						showTimeout: 1,
+						alignTo: 'target',
+						alignX: 'bottom',
+						alignY: 'bottom',
+						showOn: 'none',
+						offsetY: 6,
+						offsetX: -82,
+						keepInViewport: false
+					});
+					jQuery(this).poshytip('show');
+					fileConfigInfo.currentColNum = jQuery(this).parent().parent()[0].cellIndex;
+					jQuery("#columnOperMenu .addLeftColumn").on("click", addLeftColumn);
+					jQuery("#columnOperMenu .addRightColumn").on("click", addRightColumn);
+					jQuery("#columnOperMenu .delTheColumn").on("click", delColumn);
+					sabace.stopBubble(event);
+				});
+			}
+		}
+		jQuery("#dataGrid").jqGrid(dataOptions);
+		
+		$(window).resize(function() {
+			resizeDataGrid();
+		});
+	}
+
+	// 显示函数框
+	function openFuncForm() {
+		var curAttrData = fileConfigInfo.attrData[fileConfigInfo.currentColNum - 1];
+		if (curAttrData.attrClass == "1") {
+			memoryNum = fileConfigInfo.currentColNum;
+			jQuery('#colNameSpan').text(curAttrData.columnLabel);
+			if (curAttrData.fieldName != "") {
+				jQuery('#funcTxt').val(curAttrData.funcLabel);
+			}
+			jQuery(".funcForm").slideDown();
+		}else{
+			memoryNum = null;
+			jQuery('#funcTxt').val("");
+			jQuery(".funcForm").slideUp();
+		}
+	}
+
+	// 判断是否已经配置了省或市的字段
+	function judgeProvinceOrCity(index){
+		var attrData = fileConfigInfo.attrData;
+		var columnNum = fileConfigInfo.columnNum;
+		var data = null;
+		var flag = false;
+		for(var i = 0;i < columnNum; i++){
+			if(i != index){
+				data = attrData[i];
+				if("A" == data.filterType || "B" == data.filterType){
+					flag = true;
+					break;
+				}
+			}
+		}
+		return flag;
+	}
+	
+	// 省市选择
+	function selectProvinceOrCity(index,changeData,curAttrData){
+		var url = sabace.handleUrlParam("/platform/resmanage/data/data-select-city");
+		bi.dialog.show({
+			title: sabace.getMessage('data.import.title.selectProAndCity'),
+			message: jQuery('<div id="selectProvinceOrCity"></div>').load(url),
+			spinicon:'glyphicon glyphicon-refresh',
+			cssClass: 'data-selectProvinceOrCity',
+			onshown:function(dialog){
+				proviceOrCitySelect.init();
+			},
+			buttons:[{
+		   		label:sabace.getMessage('data.import.label.sure'),
+		   		cssClass: 'btn-info',
+		   		action: function(dialog){
+		   			var selectObject = proviceOrCitySelect.saveSelect();
+		   			if(selectObject.flag){
+		   				fileConfigInfo.attrData[index].superRange = selectObject.selectValue;
+			   			dialog.close();
+			   			filterChange(index,changeData,curAttrData);
+		   			}
+				}
+			},{
+				label: sabace.getMessage('data.import.label.cancel'),
+				cssClass: 'btn-default',
+				action: function(dialog) {
+					dialog.close();
+				}
+			}
+		   ]
+		});
+	}
+	
+	// 遍历所有的指标信息，查找是否有配置了区县的指定，有则去除指定省市
+	function queryHasCountySet(index){
+		var attrData = fileConfigInfo.attrData;
+		var columnNum = fileConfigInfo.columnNum;
+		var data = null;
+		for(var i = 0;i < columnNum; i++){
+			if(i != index){
+				data = attrData[i];
+				if("C" == data.filterType){
+					if(typeof(data.superRange) != "undefined" && data.superRange != ""){
+						data.superRange = "";
+					}
+				}
+			}
+		}
+	}
+	
+	// 筛选类型切换
+	function changeFilter(selectValue, selectName) {
+		scrollPosition = jQuery(".data-info-grid .ui-jqgrid .ui-jqgrid-bdiv").scrollLeft();
+		var changePosition = fileConfigInfo.currentColNum - 1;
+		var changeData = {};
+		// 获取是选中的列的下拉框列表
+		changeData.selectValue = selectValue;
+		changeData.selectName = selectName;
+		var curAttrData = fileConfigInfo.attrData[changePosition];
+		// 记住原来的值供转换失败时重新查询
+		changeData.columnLabel = curAttrData.columnLabel;
+		changeData.colLength = curAttrData.colLength;
+		changeData.colScale = curAttrData.colScale;
+		changeData.fieldName = curAttrData.fieldName;
+		changeData.dataId = fileConfigInfo.dataId;
+		var originType = curAttrData.originFilterType;
+		var oldType = curAttrData.filterType;
+		var newType = selectValue;
+		var flag = true; 
+		
+		if (curAttrData.attrClass == "1") {
+			if (typeof(curAttrData.fieldName) == "undefined" || curAttrData.fieldName == "") {
+				bi.dialog.show({
+					type: bi.dialog.TYPE_DANGER,
+					title: sabace.getMessage('data.import.title.tips'),
+					message: sabace.getMessage('data.import.message.no') + " " + curAttrData.columnLabel + " " + sabace.getMessage('data.import.message.customChangeFilter')
+				});
+				return;
+			}
+		}
+		
+		// 原来是数值类型，要换成时间。转换不了：文件校验时优先校验的是月份、日期、时间
+		if (originType == "2")
+		{
+			if (newType == "4" || newType == "6" || newType == "7")
+			{
+				bi.dialog.show({
+					type: bi.dialog.TYPE_DANGER,
+					title: sabace.getMessage('data.import.title.tips'),
+					message: sabace.getMessage('data.import.message.cannotChange') +　getTypeName(newType) + "!"
+				});
+				return;
+			}
+		}
+
+		// 类型不同时
+		if (oldType != newType) {
+			// 维度不需要往后台校验
+			if (newType == "2" || newType == "4" || newType == "6" || newType == "7" || newType == "9" || newType == "A" || newType == "B" || newType == "C") {
+				// 如果选择的是区县，需要判断其是否选择了省或市字段，没有则弹出页面选择省或市
+				if(newType == "C"){
+					// 遍历所有的指标信息，查找是否配置了省或市
+					flag = judgeProvinceOrCity(changePosition);
+					if(!flag){
+						selectProvinceOrCity(changePosition,changeData,curAttrData);
+					}
+				}else if(newType == "A" || newType == "B"){
+					// 遍历所有的指标信息，查找是否有配置了区县的指定，有则去除指定省市
+					queryHasCountySet(changePosition);
+				}
+				if(flag){
+					filterChange(changePosition,changeData,curAttrData);
+				}
+			} else {
+				// 维度切换查询
+				dimChange(changePosition,changeData,curAttrData);
+			}
+		}
+	}
+	
+	// 向后台发送请求切换筛选类型
+	function filterChange(changePosition,changeData,curAttrData){
+		sabace.ajax({
+			url: sabace.handleUrlParam("/platform/resmanage/data/change-column-type"),
+			data: {
+				changeData: JSON.stringify(changeData),
+				columnData: JSON.stringify(fileConfigInfo.columnData),
+				type: "1"
+			},
+			loading: {
+				title: sabace.getMessage('data.import.title.execute'),
+				text: sabace.getMessage('data.import.text.loading')
+			},
+			success: function(req) {
+				if (req.resFlag == "success") {
+					jQuery.jgrid.gridUnload('dataGrid');
+					fileConfigInfo.columnData = req.columnDatas;
+					// 修改attrData
+					curAttrData.filterType = changeData.selectValue;
+					curAttrData.attrType = req.attrType;
+					curAttrData.colLength = req.colLength;
+					curAttrData.colScale = req.colScale;
+					curAttrData.columnType = req.columnType;
+					curAttrData.columnFilterTypeName = req.columnFilterTypeName;
+					var operHtml = "<div id='columnOper'></div>";
+					var _selectHtml = null;
+					if(curAttrData.attrClass == "0"){
+						_selectHtml = "<div id='dim'><span title=" + changeData.selectName + " class='dimText'>" + changeData.selectName + "</span><span class='glyphicon glyphicon-chevron-down dimDown'></span></div>" + changeData.columnLabel + operHtml;
+					}else{
+						_selectHtml = "<div id='dimOther'><span title=" + changeData.selectName + " class='dimText'>" + changeData.selectName+ "</span><span class='glyphicon glyphicon-chevron-down dimDown'></span></div>" + changeData.columnLabel + operHtml;
+					}
+					var colModel = dataOptions.colModel;
+					var _align = null;
+					if (curAttrData.filterType == '2') {
+						_align = 'right';
+					}else{
+						_align = 'left';
+					}
+					colModel[changePosition].label = _selectHtml;
+					colModel[changePosition].align = _align;
+					dataOptions.colModel = colModel;
+					dataOptions.data = fileConfigInfo.columnData;
+					jQuery('#dataGrid').jqGrid(dataOptions);
+				} else {
+					bi.dialog.show({
+						type: bi.dialog.TYPE_DANGER,
+						title: sabace.getMessage('data.import.title.tips'),
+						message: sabace.getMessage('data.import.message.restoreData')
+					});
+				}
+				resizeDataGrid();
+				setScrollPosition();
+			},
+			error: function(req) {
+				bi.dialog.show({
+					type: bi.dialog.TYPE_DANGER,
+					title: sabace.getMessage('data.import.title.tips'),
+					message: req.responseText || sabace.getMessage('data.import.message.dataGenerationError')
+				});
+			}
+		});
+	}
+	
+	// 根据筛选类型获取名称
+	function getTypeName(value){
+		var name = "";
+		if(value == "2"){
+			name = "数值";
+		}else if(value == "4"){
+			name = "月份";
+		}else if(value == "6"){
+			name = "日期";
+		}else if(value == "7"){
+			name = "时间";
+		}else if(value == "9"){
+			name = "字符";
+		}
+		return name;
+	}
+	
+	// 维度切换查询
+	function dimChange(changePosition,changeData,curAttrData){
+		curAttrData.filterType = changeData.selectValue;
+		// 像后台发送请求查询维度并转换
+		sabace.ajax({
+			url: sabace.handleUrlParam("/platform/resmanage/data/dim-change"),
+			data: {
+				changeData: JSON.stringify(changeData),
+				columnData: JSON.stringify(fileConfigInfo.columnData)
+			},
+			loading: {
+				title: sabace.getMessage('data.import.title.execute'),
+				text: sabace.getMessage('data.import.text.loading')
+			},
+			success: function(req) {
+				if (req.resFlag == "success") {
+					jQuery.jgrid.gridUnload('dataGrid');
+					// 修改attrData
+					fileConfigInfo.columnData = req.columnData;
+					curAttrData.filterType = changeData.selectValue;
+					curAttrData.columnFilterTypeName = changeData.selectName;
+					var operHtml = "<div id='columnOper'></div>";
+					var _selectHtml = null;
+					if(curAttrData.attrClass == "0"){
+						_selectHtml = "<div id='dim'><span title=" + changeData.selectName + " class='dimText'>" + changeData.selectName + "</span><span class='glyphicon glyphicon-chevron-down dimDown'></span></div>" + changeData.columnLabel + operHtml;
+					}else{
+						_selectHtml = "<div id='dimOther'><span title=" + changeData.selectName + " class='dimText'>" + changeData.selectName + "</span><span class='glyphicon glyphicon-chevron-down dimDown'></span></div>" + changeData.columnLabel + operHtml;
+					}
+					var colModel = dataOptions.colModel;
+					colModel[changePosition].label = _selectHtml;
+					colModel[changePosition].align = 'left';
+					dataOptions.colModel = colModel;
+					dataOptions.data = fileConfigInfo.columnData;
+					jQuery('#dataGrid').jqGrid(dataOptions);
+				} else {
+					bi.dialog.show({
+						type: bi.dialog.TYPE_DANGER,
+						title: sabace.getMessage('data.import.title.tips'),
+						message: sabace.getMessage('data.import.message.restoreData')
+					});
+				}
+				resizeDataGrid();
+				setScrollPosition();
+			},
+			error: function(req) {
+				bi.dialog.show({
+					type: bi.dialog.TYPE_DANGER,
+					title: sabace.getMessage('data.import.title.tips'),
+					message: sabace.getMessage('data.import.message.dataGenerationError')
+				});
+			}
+		})
+	}
+
+	// 函数生成
+	function generateData() {
+		var funcTxt = jQuery.trim(jQuery('#funcTxt').val());
+		if (funcTxt == "") {
+			bi.dialog.show({
+				type: bi.dialog.TYPE_DANGER,
+				title: sabace.getMessage('data.import.title.tips'),
+				message: sabace.getMessage('data.import.message.inputFunc')
+			});
+			return;
+		}
+		
+		// 判断是否选择列
+		if (memoryNum == null) {
+			bi.dialog.show({
+				type: bi.dialog.TYPE_DANGER,
+				title: sabace.getMessage('data.import.title.tips'),
+				message: sabace.getMessage('data.import.message.selectCustomColumn')
+			});
+			return;
+		}
+
+		fileConfigInfo.funcTxt = funcTxt;
+		reloadData(memoryNum);
+	}
+	
+	// 函数处理后刷新数据
+	function reloadData(columnIndex) {
+		scrollPosition = jQuery(".data-info-grid .ui-jqgrid .ui-jqgrid-bdiv").scrollLeft();
+		// 向后台发送请求处理用户输入函数
+		sabace.ajax({
+			url: sabace.handleUrlParam("/platform/resmanage/data/process-func"),
+			data: {
+				dataId: fileConfigInfo.dataId,
+				columnIndex: columnIndex,
+				funcTxt: fileConfigInfo.funcTxt,
+				attrData: JSON.stringify(fileConfigInfo.attrData),
+				columnData: JSON.stringify(fileConfigInfo.columnData)
+			},
+			loading: {
+				title: sabace.getMessage('data.import.title.execute'),
+				text: sabace.getMessage('data.import.text.loading')
+			},
+			success: function(req) {
+				if (req.resFlag == "success") {
+					jQuery.jgrid.gridUnload('dataGrid');
+					fileConfigInfo.columnData = req.columnDatas;
+					var curData = fileConfigInfo.attrData[memoryNum - 1];
+					curData.funcLabel = fileConfigInfo.funcTxt;
+					curData.fieldName = req.fileName;
+					curData.attrType = req.attrType;
+					curData.originAttrType = req.attrType;
+					curData.columnType = req.columnType;
+					curData.originColumnType = req.columnType;
+					curData.filterType = req.filterType;
+					curData.originFilterType = req.filterType;
+					curData.colLength = req.colLength;
+					curData.originColLength = req.colLength;
+					curData.colScale = req.colScale;
+					curData.originColScale = req.colScale;
+					curData.columnFilterTypeName = req.columnFilterTypeName;
+					commonColModel = createColModel(fileConfigInfo.attrData, fileConfigInfo.dimData);
+					dataOptions.colModel = commonColModel;
+					dataOptions.data = fileConfigInfo.columnData;
+					jQuery('#dataGrid').jqGrid(dataOptions);
+				} else {
+					jQuery.jgrid.gridUnload('dataGrid');
+					var curData = fileConfigInfo.attrData[memoryNum - 1];
+					curData.fieldName = "";
+					curData.funcLabel = "";
+					commonColModel = createColModel(fileConfigInfo.attrData, fileConfigInfo.dimData);
+					dataOptions.colModel = commonColModel;
+					dataOptions.data = fileConfigInfo.columnData;
+					jQuery('#dataGrid').jqGrid(dataOptions);
+					if(req.resFlag == "filterFail"){
+						bi.dialog.show({
+							type: bi.dialog.TYPE_DANGER,
+							title: sabace.getMessage('data.import.title.tips'),
+							message: req.msg
+						});
+					}else{
+						bi.dialog.show({
+							type: bi.dialog.TYPE_DANGER,
+							title: sabace.getMessage('data.import.title.tips'),
+							message: sabace.getMessage('data.import.message.reEnterFunc')
+						});
+					}
+				}
+				resizeDataGrid();
+				setScrollPosition();
+			},
+			error: function(req) {
+				bi.dialog.show({
+					type: bi.dialog.TYPE_DANGER,
+					title: sabace.getMessage('data.import.title.tips'),
+					message: sabace.getMessage('data.import.message.processFunError')
+				});
+			}
+		});
+	}
+
+	// 添加列时刷新数据
+	function refreshData(curIndex, columnNum, nameArr) {
+		scrollPosition = jQuery(".data-info-grid .ui-jqgrid .ui-jqgrid-bdiv").scrollLeft();
+		var columnData = jQuery('#dataGrid').jqGrid("getRowData");
+		var tempData = [];
+		var data = null;
+		for (var i = 0; i < columnData.length; i++) {
+			data = {};
+			for (var j = 0; j < columnNum; j++) {
+				if (j > curIndex) {
+					data[nameArr[j]] = columnData[i][nameArr[j - 1]];
+				} else {
+					data[nameArr[j]] = columnData[i][nameArr[j]];
+				}
+			}
+			data[nameArr[curIndex]] = "";
+			tempData.push(data);
+		}
+		fileConfigInfo.attrData = updateFuncLabel(fileConfigInfo.attrData,curIndex);
+		jQuery.jgrid.gridUnload('dataGrid');
+		fileConfigInfo.columnData = tempData;
+		commonColModel = createColModel(fileConfigInfo.attrData, fileConfigInfo.dimData);
+		dataOptions.colModel = commonColModel;
+		dataOptions.data = fileConfigInfo.columnData;
+		jQuery('#dataGrid').jqGrid(dataOptions);
+		resizeDataGrid();
+		setScrollPosition();
+	}
+
+	// 设置滚动条位置
+	function setScrollPosition(){
+		scrollPosition = scrollPosition;
+		jQuery(".data-info-grid .ui-jqgrid .ui-jqgrid-bdiv").scrollLeft(scrollPosition);
+	}
+	
+	// 添加列时同步修改所有的自定义列的FuncLabel
+	function updateFuncLabel(attrData,curIndex){
+		var columnNum = fileConfigInfo.columnNum;
+		var curAttrData = null;
+		var attrClass = null;
+		var funcLabel = null;
+		for(var i = 0; i< columnNum; i++){
+			curAttrData = attrData[i];
+			attrClass = curAttrData.attrClass;
+			if(attrClass == "1" && curIndex != i){
+				funcLabel = curAttrData.funcLabel;
+				if(typeof(funcLabel) != "undefined" && funcLabel != ""){
+					curAttrData.funcLabel = getFuncLabel(funcLabel,curIndex,columnNum);
+				}
+			}
+		}
+		return attrData;
+	}
+	
+	// 根据funcLabel实时更新所有的自定义的函数表达式
+	function getFuncLabel(funcLabel,curIndex,columnNum){
+		var nameArr = getAllColumnName(columnNum);
+		var colName = null;
+		var longColName = null;
+		var newColName = null;
+		var hasIndex = -1;
+		var length = 0;
+		var reg= /[A-Z]$/;
+		// 从当前变换的列开始，查找当前函数公式中是否包含大于该列的列名，有则替换
+		for(var i = curIndex; i < columnNum; i++){
+			length = funcLabel.length;
+			colName = "$" + nameArr[i];
+			newColName = "$()" + nameArr[i+1];
+			hasIndex = funcLabel.indexOf(colName);
+			if(hasIndex > -1){
+				// 说明存在该列，再次判断该位置再加上一位的判断，因为列数多的时候存在AA、AB这种列
+				// 如果存在位置取3位的长度不能超过总长度
+				if(hasIndex + 3 <= length){
+					longColName = funcLabel.substr(hasIndex,3);
+					// 判断这三位是否以大写字母结尾,输入函数中是否存在AA、AB这种
+					if(reg.test(longColName)){
+						// 是以大写字母结果,则判断后两位大写字母是否与当前列名相同，相同则替换
+						if(funcLabel.substr(hasIndex + 1,2) == nameArr[i]){
+							funcLabel = funcLabel.replace(new RegExp("\\" + longColName,"g"),newColName);
+						}
+					}else{
+						// 不是以大写字母结尾，则不存在更长列，则将已存在的引用列替换成funcLabel
+						funcLabel = funcLabel.replace(new RegExp("\\" + colName,"g"),newColName);
+					}
+				}else if(hasIndex + 2 == length){
+					// 已经到最后了，直接替换
+					funcLabel = funcLabel.replace(new RegExp("\\" + colName,"g"),newColName);
+				}
+			}
+		}
+		funcLabel = funcLabel.replace(new RegExp('\\$\\(\\)',"g"),'$');
+		return funcLabel;
+	}
+	
+	// 添加左边列
+	function addLeftColumn() {
+		var columnNum = fileConfigInfo.columnNum + 1;
+		fileConfigInfo.columnNum = columnNum;
+		var curIndex = fileConfigInfo.currentColNum - 1;
+		// 获取所有的列名
+		var nameArr = getAllColumnName(columnNum);
+		var newCols = {
+				orderId: curIndex + 1,
+				columnLabel: nameArr[curIndex],
+				attrType: "3",
+				filterType: "9",
+				attrClass: "1",
+				isUsed: "1"
+			};
+		var newData = {
+				name: nameArr[curIndex],
+				desc: ""
+			};
+			// 根据需要插入列的次序调整原来指标数组中的的orderId,columnLabel
+		for (var i = 0; i < columnNum; i++) {
+			if (i == curIndex) {
+				// 加入新列
+				fileConfigInfo.attrData.insert(i, newCols);
+				// 处理底部数据
+				if(footerFlag){
+					fileConfigInfo.footerData.insert(i, newData);
+				}
+			} else if (i > curIndex) {
+				fileConfigInfo.attrData[i].orderId = i + 1;
+				fileConfigInfo.attrData[i].columnLabel = nameArr[i];
+				// 处理底部数据
+				if(footerFlag){
+					fileConfigInfo.footerData[i].name = nameArr[i];
+				}
+			}
+		}
+		refreshData(curIndex, columnNum, nameArr);
+	}
+
+	// 根据列数获取所有的列名
+	function getAllColumnName(columnNum) {
+		var nameArr = new Array();
+		var str = "A";
+		var code = str.charCodeAt();
+		var num = 0;
+		var count = 0;
+		// 先遍历出26个字母
+		for (var i = 0; i < columnNum; i++) {
+			if (i < 26) {
+				nameArr.push(String.fromCharCode(code + i) + "");
+			} else {
+				num = Math.floor(i / 26);
+				if ((num - 1) > 0) {
+					count = i - 26 * num;
+				}
+				nameArr.push(nameArr[i - 25 * num - count - 1] + nameArr[i - 26 * num]);
+				count++;
+			}
+		}
+		return nameArr;
+	}
+
+	// 添加右边列
+	function addRightColumn() {
+		var columnNum = fileConfigInfo.columnNum + 1;
+		fileConfigInfo.columnNum = columnNum;
+		var curIndex = fileConfigInfo.currentColNum;
+		// 获取所有的列名
+		var nameArr = getAllColumnName(columnNum);
+		var newCols = {
+				orderId: curIndex + 1,
+				columnLabel: nameArr[curIndex],
+				attrType: "3",
+				filterType: "9",
+				attrClass: "1",
+				isUsed: "1"
+			}
+		var newData = {
+				name: nameArr[curIndex],
+				desc: ""
+			};
+			// 根据需要插入列的次序调整原来指标数组中的的orderId,columnLabel
+		for (var i = 0; i < columnNum; i++) {
+			if (i == curIndex) {
+				// 加入新列
+				fileConfigInfo.attrData.insert(i, newCols);
+				// 底部数据处理
+				if(footerFlag){
+					fileConfigInfo.footerData.insert(i, newCols);
+				}
+			} else if (i > curIndex) {
+				fileConfigInfo.attrData[i].orderId = i + 1;
+				fileConfigInfo.attrData[i].columnLabel = nameArr[i];
+				// 底部数据处理
+				if(footerFlag){
+					fileConfigInfo.footerData[i].name = nameArr[i];
+				}
+			}
+		}
+		refreshData(curIndex, columnNum, nameArr);
+	}
+
+	// 删除列
+	function delColumn() {
+		// 首先判断是否是自定义
+		if (fileConfigInfo.attrData[fileConfigInfo.currentColNum - 1].attrClass == "0") {
+			bi.dialog.show({
+				type: bi.dialog.TYPE_DANGER,
+				title: sabace.getMessage('data.import.title.tips'),
+				message: sabace.getMessage('data.import.message.notDelCustomColumn')
+			});
+			return;
+		}
+		
+		// 判断是否有其他自定义引用该列，如有，提示用户先删除其他关联列
+		var columnLabel = "$" + fileConfigInfo.attrData[fileConfigInfo.currentColNum - 1].columnLabel;
+		var curAttrData = null;
+		var labelName = null;
+		var curfuncLabel = null;
+		var quoteArr = [];
+		for(var i = 0; i< fileConfigInfo.columnNum; i++ ){
+			curAttrData =  fileConfigInfo.attrData[i];
+			if(i != fileConfigInfo.currentColNum - 1 && curAttrData.attrClass == "1"){
+				curfuncLabel = curAttrData.funcLabel;
+				labelName = curAttrData.columnLabel;
+				if(typeof(curfuncLabel) != "undefined" && curfuncLabel != ""){
+					if(curfuncLabel.indexOf(columnLabel) >= 0){
+						quoteArr.push(labelName);
+					}
+				}
+			}
+		}
+		
+		if(quoteArr.length > 0){
+			bi.dialog.show({
+				type: bi.dialog.TYPE_DANGER,
+				title: sabace.getMessage('data.import.title.tips'),
+				message: sabace.getMessage('data.import.message.delColumnConfirm') + quoteArr + sabace.getMessage('data.import.message.quoteColumn')
+			});
+			return;
+		}
+		
+		bi.dialog.confirm({
+			title: sabace.getMessage('data.import.text.delColumn'),
+			message: sabace.getMessage('data.import.message.delColumnConfirm'),
+			callback: function(result) {
+				if (result) {
+					var columnNum = fileConfigInfo.columnNum - 1;
+					var curIndex = fileConfigInfo.currentColNum - 1;
+					fileConfigInfo.columnNum = columnNum;
+					// 获取所有的列名
+					var nameArr = getAllColumnName(columnNum + 1);
+					// 根据需要删除列的次序调整原来指标数组中的的orderId,columnLabel
+					for (var i = 0; i < columnNum + 1; i++) {
+						if (i == curIndex) {
+							// 删除列
+							fileConfigInfo.attrData.splice(i, 1);
+							// 底部数据处理
+							if(footerFlag){
+								fileConfigInfo.footerData.splice(i, 1);
+							}
+						} else if (i > curIndex) {
+							fileConfigInfo.attrData[i - 1].orderId = i;
+							fileConfigInfo.attrData[i - 1].columnLabel = nameArr[i - 1];
+							// 底部数据处理
+							if(footerFlag){
+								fileConfigInfo.footerData[i - 1].name = nameArr[i - 1];
+							}
+						}
+					}
+					reloadDeleteData(curIndex, columnNum, nameArr);
+				}
+			}
+		});
+	}
+	
+	// 删除列时刷新数据
+	function reloadDeleteData(curIndex, columnNum, nameArr) {
+		jQuery(".funcForm").slideUp();
+		scrollPosition = jQuery(".data-info-grid .ui-jqgrid .ui-jqgrid-bdiv").scrollLeft();
+		var columnData = jQuery('#dataGrid').jqGrid("getRowData");
+		var tempData = [];
+		var data = null;
+		for (var i = 0; i < columnData.length; i++) {
+			data = {};
+			for (var j = 0; j < columnNum; j++) {
+				if (j >= curIndex) {
+					data[nameArr[j]] = columnData[i][nameArr[j + 1]];
+				} else {
+					data[nameArr[j]] = columnData[i][nameArr[j]];
+				}
+			}
+			tempData.push(data);
+		}
+		jQuery.jgrid.gridUnload('dataGrid');
+		fileConfigInfo.attrData = updateDelFuncLabel(fileConfigInfo.attrData,curIndex);
+		fileConfigInfo.columnData = tempData;
+		commonColModel = createColModel(fileConfigInfo.attrData, fileConfigInfo.dimData);
+		dataOptions.colModel = commonColModel;
+		dataOptions.data = fileConfigInfo.columnData;
+		jQuery('#dataGrid').jqGrid(dataOptions);
+		resizeDataGrid();
+		setScrollPosition();
+	}
+	
+	// 删除列时同步修改所有的自定义列的FuncLabel
+	function updateDelFuncLabel(attrData,curIndex){
+		var columnNum = fileConfigInfo.columnNum;
+		var curAttrData = null;
+		var attrClass = null;
+		var funcLabel = null;
+		for(var i = 0; i< columnNum; i++){
+			curAttrData = attrData[i];
+			attrClass = curAttrData.attrClass;
+			if(attrClass == "1" && curIndex != i){
+				funcLabel = curAttrData.funcLabel;
+				if(typeof(funcLabel) != "undefined" && funcLabel != ""){
+					curAttrData.funcLabel = getDelFuncLabel(funcLabel,curIndex,columnNum);
+				}
+			}
+		}
+		return attrData;
+	}
+	
+	// 根据funcLabel实时更新所有的自定义的函数表达式
+	function getDelFuncLabel(funcLabel,curIndex,columnNum){
+		var nameArr = getAllColumnName(columnNum + 1);
+		var colName = null;
+		var longColName = null;
+		var newColName = null;
+		var hasIndex = -1;
+		var length = 0;
+		var reg= /[A-Z]$/;
+		// 从当前变换的列开始，查找当前函数公式中是否包含大于该列的列名，有则替换
+		for(var i = curIndex; i < columnNum + 1; i++){
+			length = funcLabel.length;
+			colName = "$" + nameArr[i];
+			newColName = "$()" + nameArr[i-1];
+			hasIndex = funcLabel.indexOf(colName);
+			if(hasIndex > -1){
+				// 说明存在该列，再次判断该位置再加上一位的判断，因为列数多的时候存在AA、AB这种列
+				// 如果存在位置取3位的长度不能超过总长度
+				if(hasIndex + 3 <= length){
+					longColName = funcLabel.substr(hasIndex,3);
+					// 判断这三位是否以大写字母结尾,输入函数中是否存在AA、AB这种
+					if(reg.test(longColName)){
+						// 是以大写字母结果,则判断后两位大写字母是否与当前列名相同，相同则替换
+						if(funcLabel.substr(hasIndex + 1,2) == nameArr[i]){
+							funcLabel = funcLabel.replace(new RegExp("\\" + longColName,"g"),newColName);
+						}
+					}else{
+						// 不是以大写字母结尾，则不存在更长列，则将已存在的引用列替换成funcLabel
+						funcLabel = funcLabel.replace(new RegExp("\\" + colName,"g"),newColName);
+					}
+				}else if(hasIndex + 2 == length){
+					// 已经到最后了，直接替换
+					funcLabel = funcLabel.replace(new RegExp("\\" + colName,"g"),newColName);
+				}
+			}
+		}
+		funcLabel = funcLabel.replace(new RegExp('\\$\\(\\)',"g"),'$');
+		return funcLabel;
+	}
+
+	// 数据处理"取消"
+	function dataCancel() {
+		// 横线高亮设置
+		setStepLine(1);
+		// 面板内容切换
+		jQuery('#dataInfo').addClass("hide");
+		jQuery('#fileInfo').removeClass("hide");
+	}
+
+	// 数据处理"确定"
+	function dataSave() {
+		// 判断是否有自定义列但没有生成函数的
+		for (var i = 0; i < fileConfigInfo.columnNum; i++) {
+			if (fileConfigInfo.attrData[i].attrClass == "1") {
+				if (typeof(fileConfigInfo.attrData[i].fieldName) == "undefined" || fileConfigInfo.attrData[i].fieldName == "") {
+					bi.dialog.show({
+						type: bi.dialog.TYPE_DANGER,
+						title: sabace.getMessage('data.import.title.tips'),
+						message: sabace.getMessage('data.import.message.no') + " " + fileConfigInfo.attrData[i].columnLabel + " " + sabace.getMessage('data.import.message.delCustomColumn')
+					});
+					return;
+				}
+			}
+		}
+
+		// 横线高亮设置
+		setStepLine(3);
+		// 按钮样式切换
+		jQuery('#oneStep').addClass("active-Finished");
+		jQuery('#twoStep').addClass("active-Finished");
+		if (jQuery('#thirdStep').hasClass("active-Finished")) {
+			jQuery('#thirdStep').removeClass("active-Finished");
+		}
+		jQuery('#thirdStep').removeClass("active-notFinished");
+		// 面板内容切换
+		jQuery('#dataInfo').addClass("hide");
+		jQuery('#fieldInfo').removeClass("hide");
+		// 初始化文件记录和符合条件记录 将数据处理时的文件记录、符合文件记录传递到设置字段页面中
+		if (opType == "add") {
+			jQuery('#dataName').val(fileName);
+		} else {
+			jQuery('#dataName').val(fileDataName);
+			jQuery('#dataDesc').val(fileDataDesc);
+		}
+		jQuery('#dataNum').val(fileConfigInfo.dataNum);
+		jQuery('#recordNum').val(fileConfigInfo.dataNum);
+		// 初始化字段Grid
+		initFieldGrid();
+	}
+
+	// 字段grid初始化
+	function initFieldGrid() {
+		if (!jQuery('#fieldGrid').is(':empty')) {
+			jQuery.jgrid.gridUnload('fieldGrid');
+		}
+		sabace.ajax({
+			dataType: "json",
+			mtype: 'post',
+			url: sabace.handleUrlParam("/platform/resmanage/data/data-common-field"),
+			data: {
+				attrData: JSON.stringify(fileConfigInfo.attrData)
+			},
+			success: function(req) {
+				if (req.resFlag == "success") {
+					// 请求field字段信息成功后加载jqgrid
+					getFieldSuccess(req);
+				} else {
+					bi.dialog.show({
+						type: bi.dialog.TYPE_DANGER,
+						title: sabace.getMessage('data.import.title.tips'),
+						message: sabace.getMessage('data.import.message.queryDataFail'),
+					});
+					return;
+				}
+			},
+			error: function(req) {
+				bi.dialog.show({
+					type: bi.dialog.TYPE_DANGER,
+					title: sabace.getMessage('data.import.title.tips'),
+					message: req.responseText || sabace.getMessage('data.import.message.queryFieldFail')
+				});
+			}
+		})
+	}
+	
+	/**
+	 * 初始化下拉框
+	 * @param req
+	 */
+	function initClassify(classifyList, triggerFlag) {
+		jQuery('#classifySel').append("");
+		var classifyLength = classifyList.length;
+		var classifyObj = null;
+		var classifyName = null;
+		var classifyId = null;
+		var html = '<option></option>';
+		html += '<option value="">无</option>';
+		if(classifyLength > 0){
+			for(var i=0; i < classifyLength; i++){
+				classifyObj = classifyList[i];
+				classifyId = classifyObj.classifyId;
+				classifyName = classifyObj.classifyName;
+				html += '<option value="' + classifyId + '">' + classifyName + '</option>';
+			}
+		}
+		jQuery('#classifySel').append(html);
+		if(triggerFlag && opType == "add"){
+			if(!classifyFlag) {
+				jQuery("#classifySel").trigger("chosen:updated");
+				classifyFlag = true;
+			}
+		}
+	}
+
+	// 请求field字段信息成功后加载jqgrid
+	function getFieldSuccess(req) {
+		// 初始化业务分类下拉框
+		initClassify(req.classifyList, true);
+		var columnData = req.columnData;
+		jQuery('#fieldGrid').jqGrid({
+			datatype: "local",
+			styleUI: 'Bootstrap',
+			data: columnData,
+			regional: 'cn',
+			autowidth: true,
+			height: 'auto',
+			rowNum: 100000,
+			colModel: [{
+				label: sabace.getMessage('data.import.label.columnLabel'),
+				name: 'columnLabel',
+				align: 'center',
+				hlign: 'center',
+				width: 50,
+				sortable: false,
+			}, {
+				label: sabace.getMessage('data.import.label.attrName'),
+				name: 'attrName',
+				align: 'center',
+				hlign: 'center',
+				sortable: false,
+				editable: true,
+				edittype: 'text'
+			}, {
+				label: sabace.getMessage('data.import.label.groupName'),
+				name: 'groupName',
+				align: 'center',
+				hlign: 'center',
+				sortable: false,
+				editable: true
+			}, {
+				label: sabace.getMessage('data.import.label.attrType'),
+				name: 'attrType',
+				align: 'center',
+				hlign: 'center',
+				sortable: false,
+				formatter: "select",
+				editoptions: {
+					value: sabace.getMessage('data.import.label.attrTypeFormat')
+				}
+			}, {
+				label: sabace.getMessage('data.import.label.groupName'),
+				name: 'groupId',
+				align: 'center',
+				hlign: 'center',
+				hidden: true
+			}, {
+				label: sabace.getMessage('data.import.label.isUsed') + '：<i class="fa fa-square-o check-box" id="allCheck"></i>)',
+				name: 'isUsed',
+				align: 'center',
+				hlign: 'center',
+				sortable: false,
+				formatter: function(cellvalue, options, rowObject) {
+					var html = "";
+					if (cellvalue == "1") {
+						html = '<i class="fa fa-check-square-o check-box" id="usedCheck" value="1"></i>';
+					} else {
+						html = '<i class="fa fa-square-o check-box" id="usedCheck" value="0"></i>';
+					}
+					return html;
+				}
+			}],
+			loadComplete: function() {
+				// 全选checkbox
+				var allCheckObject = jQuery(this).parents().find(".field-info-grid th #allCheck");
+				// 单选checkbox
+				var checkObject = jQuery(this).parents().find(".field-info-grid td #usedCheck");
+				// 全选
+				allCheckObject.on("click", function() {
+					var isChecked = jQuery(this).hasClass("fa-square-o");
+					if (isChecked) {
+						jQuery(this).removeClass("fa-square-o");
+						jQuery(this).addClass("fa-check-square-o");
+						// 该列全选
+						checkObject.removeClass("fa-square-o");
+						checkObject.removeClass("fa-check-square-o");
+						checkObject.addClass("fa-check-square-o");
+						checkObject.attr("value", "1");
+					} else {
+						jQuery(this).removeClass("fa-check-square-o");
+						jQuery(this).addClass("fa-square-o");
+						// 该列取消全选
+						checkObject.removeClass("fa-square-o");
+						checkObject.removeClass("fa-check-square-o");
+						checkObject.addClass("fa-square-o");
+						checkObject.attr("value", "0");
+					}
+				});
+				// 单选
+				checkObject.on("click", function() {
+					allCheckObject.removeClass("fa-check-square-o");
+					allCheckObject.addClass("fa-square-o");
+					var isChecked = jQuery(this).hasClass("fa-square-o");
+					if (isChecked) {
+						jQuery(this).attr("value", "1");
+						jQuery(this).removeClass("fa-square-o");
+						jQuery(this).addClass("fa-check-square-o");
+					} else {
+						jQuery(this).attr("value", "0");
+						jQuery(this).removeClass("fa-check-square-o");
+						jQuery(this).addClass("fa-square-o");
+					}
+					sabace.stopBubble(event);
+				});
+				// 设置编辑状态
+				for (var i = 2; i <= fileConfigInfo.columnNum; i++) {
+					$('#fieldGrid').jqGrid('editRow', i, false);
+					// 当点击属性组的时候
+					var selobj = jQuery(this).find('#' + i + '_groupName');
+					selobj.attr("readOnly", true);
+					groupSelect(selobj);
+				}
+				// 编辑始终显示在第一行
+				$('#fieldGrid').jqGrid('editRow', 1, false);
+				var selFirstobj = jQuery(this).find('#1_groupName');
+				selFirstobj.attr("readOnly", true);
+				groupSelect(selFirstobj);
+			}
+		});
+
+		resizeFieldGrid();
+		$(window).resize(function() {
+			resizeFieldGrid();
+		});
+	}
+
+	// 点击属性组时选择
+	function groupSelect(obj) {
+		// 初始化树选择
+		jQuery(obj).treeselect({
+			height: 200,
+			chkStyle: "radio",
+			searchAjaxParam: "groupName",
+			width: (jQuery(obj).width() + 25),
+			url: sabace.handleUrlParam("/platform/resmanage/data/data-query-group")
+		});
+	}
+
+	// 设置字段取消
+	function fieldCancel() {
+		// 横线高亮设置
+		setStepLine(2);
+		// 面板内容切换
+		jQuery('#fieldInfo').addClass("hide");
+		jQuery('#dataInfo').removeClass("hide");
+	}
+
+	// 获取字段真实长度，一个中文字符占3位
+	function getLength(value) {
+		// 判断长度
+		var realLength = 0;
+		var len = value.length;
+		var charCode = -1;
+		for (var i = 0; i < len; i++) {
+			charCode = value.charCodeAt(i);
+			if (charCode >= 0 && charCode <= 128) realLength += 1;
+			else realLength += 3;
+		}
+		return realLength;
+	}
+
+	// 设置字段确定
+	function fieldSave() {
+		var isPass = $('#fileForm').validationEngine('validate');
+		if (!isPass) {
+			return false;
+		}
+		// 对设置字段中的信息取出发送后台处理进正式表
+		// 获取文件名称、符合条件记录、文件描述；从fieldgrid中获取用户设置的字段信息
+		fileConfigInfo.dataName = jQuery.trim(jQuery('#dataName').val());
+		fileConfigInfo.dataNum = jQuery('#dataNum').val();
+		fileConfigInfo.dataDesc = jQuery.trim(jQuery('#dataDesc').val());
+		var count = 0;
+		// 存放名称
+		var nameList = [];
+		for (var i = 1; i <= fileConfigInfo.columnNum; i++) {
+			var rowData = jQuery('#fieldGrid').jqGrid('getRowData', i);
+			var usedVlaue = jQuery(".field-info-grid #fieldGrid #" + i + " .fa").attr("value");
+			var attrName = jQuery.trim(jQuery("#" + i + "_attrName").val());
+			var groupId = null;
+			// 获取指标分组
+			if (typeof(jQuery("#" + i + "_groupName").attr("trueValue")) == "undefined") {
+				groupId = rowData.groupId;
+			} else {
+				groupId = jQuery("#" + i + "_groupName").attr("trueValue");
+			}
+			// 校验使用的字段中文名称不能为空
+			if (usedVlaue == "1") {
+				if (attrName == "") {
+					bi.dialog.show({
+						type: bi.dialog.TYPE_DANGER,
+						title: sabace.getMessage('data.import.title.tips'),
+						message: sabace.getMessage('data.import.message.no') + " " + rowData.columnLabel + " " + sabace.getMessage('data.import.message.columnEmpty')
+					});
+					return;
+				}
+			}
+			// 校验所有的字段的长度
+			if (attrName != "") {
+				var realLength = getLength(attrName);
+				if (realLength > 90) {
+					bi.dialog.show({
+						type: bi.dialog.TYPE_DANGER,
+						title: sabace.getMessage('data.import.title.tips'),
+						message: sabace.getMessage('data.import.message.no') + " " + rowData.columnLabel + " " + sabace.getMessage('data.import.message.columnLength')
+					});
+					return;
+				}
+			}
+			if (usedVlaue == "0") {
+				count++;
+			}
+			// 校验使用的指标名称是否重复
+			if(usedVlaue == "1"){
+				// 校验中文字段是否重复
+				for (var j in nameList) {
+					if (nameList[j] == attrName) {
+						bi.dialog.show({
+							type: bi.dialog.TYPE_DANGER,
+							title: sabace.getMessage('data.import.title.tips'),
+							message: sabace.getMessage('data.import.message.no') + " " + rowData.columnLabel + " " + sabace.getMessage('data.import.message.columnRepet')
+						});
+						return;
+					}
+				}
+			}
+			nameList.push(attrName);
+			// 添加attrData中的attrUse
+			fileConfigInfo.attrData[i - 1].isUsed = usedVlaue;
+			// 替换attrData中的attrTitle
+			fileConfigInfo.attrData[i - 1].attrName = attrName;
+			// 添加attrData中的attrGroup
+			fileConfigInfo.attrData[i - 1].groupId = groupId;
+		}
+
+		if (count == fileConfigInfo.columnNum) {
+			bi.dialog.show({
+				type: bi.dialog.TYPE_DANGER,
+				title: sabace.getMessage('data.import.title.tips'),
+				message: sabace.getMessage('data.import.message.selectUsedColumn')
+			});
+			return;
+		}
+
+		// 获取业务分类
+		fileConfigInfo.classifyId = jQuery('#classifySel').val();
+		fileConfigInfo.classifyName = jQuery("#classifySel").find("option:selected").text();
+		
+		// 横线高亮设置
+		setStepLine(4);
+		// 按钮样式切换
+		jQuery('#oneStep').addClass("active-Finished");
+		jQuery('#twoStep').addClass("active-Finished");
+		jQuery('#thirdStep').addClass("active-Finished");
+		if (jQuery('#fourStep').hasClass("active-Finished")) {
+			jQuery('#fourStep').removeClass("active-Finished");
+		}
+		jQuery('#fourStep').removeClass("active-notFinished");
+		// 面板内容切换
+		jQuery('#fieldInfo').addClass("hide");
+		jQuery('#completeInfo').removeClass("hide");
+		// 初始化上方内容
+		jQuery('#dataName_finish').html(fileConfigInfo.dataName);
+		jQuery('#dataNum_finish').html(fileConfigInfo.dataNum);
+		jQuery('#recordNum_finish').html(fileConfigInfo.dataNum);
+		if(fileConfigInfo.classifyName == null || fileConfigInfo.classifyName == ""){
+			fileConfigInfo.classifyName = "无";
+		}
+		jQuery('#classify_finish').html(fileConfigInfo.classifyName);
+		jQuery('#dataDesc_finish').html(fileConfigInfo.dataDesc);
+		// 初始化完成Grid
+		initCompleteGrid();
+	}
+
+	// 初始化完成grid
+	function initCompleteGrid() {
+		sabace.ajax({
+			url: sabace.handleUrlParam("/platform/resmanage/data/query-last-column"),
+			loading: {
+				title: sabace.getMessage('data.import.title.execute'),
+				text: sabace.getMessage('data.import.text.configLoading')
+			},
+			data: {
+				dataId: fileConfigInfo.dataId,
+				attrData: JSON.stringify(fileConfigInfo.attrData),
+				columnData: JSON.stringify(fileConfigInfo.columnData)
+			},
+			success: function(req) {
+				if (req.resFlag == "success") {
+					fileConfigInfo.columnData = req.columnData;
+					getCompleteDataSuccess();
+				} else {
+					bi.dialog.show({
+						type: bi.dialog.TYPE_DANGER,
+						title: sabace.getMessage('data.import.title.tips'),
+						message: sabace.getMessage('data.import.message.queryDataFail')
+					});
+					return;
+				}
+			},
+			error: function(req) {
+				bi.dialog.show({
+					type: bi.dialog.TYPE_DANGER,
+					title: sabace.getMessage('data.import.title.tips'),
+					message: req.responseText || sabace.getMessage('data.import.message.queryDataError')
+				});
+			}
+		})
+	}
+	
+	// 数据预览请求成功
+	function getCompleteDataSuccess(){
+		var colModelList = fileConfigInfo.attrData;
+		var columnData = fileConfigInfo.columnData;
+		var columnNum = colModelList.length;
+		var colModel = [];
+
+		var jqWidth = $(".complete-info-grid").width() - 45;
+		var width = 180;
+		if (columnNum * width < jqWidth) {
+			width = Math.floor(jqWidth / columnNum);
+		}
+		var data = null;
+		var filterType = null;
+		var _align = null;
+		var isUsed = null;
+		for (var i = 0; i < columnNum; i++) {
+			data = colModelList[i];
+			isUsed = data.isUsed;
+			if(isUsed == "1"){
+				filterType = data.filterType;
+				if (filterType == "2") {
+					_align = 'right';
+				}else{
+					_align = 'left';
+				}
+				colModel.push({
+					label: data.attrName,
+					name: data.columnLabel,
+					align: _align,
+					hlign: 'center',
+					sortable: false,
+					width: width
+				})
+			}
+		}
+		var dataOption = {
+			datatype: "local",
+			styleUI: 'Bootstrap',
+			regional: 'cn',
+			data: columnData,
+			colModel: colModel,
+			rownumbers: true,
+			shrinkToFit: false,
+			autowidth: true,
+			height: 'auto'
+		};
+		if (jQuery('#completeGrid').is(':empty')) {
+			jQuery('#completeGrid').jqGrid(dataOption);
+		} else {
+			jQuery.jgrid.gridUnload('completeGrid');
+			jQuery('#completeGrid').jqGrid(dataOption);
+		}
+
+		resizeCompleteGrid();
+		$(window).resize(function() {
+			resizeCompleteGrid();
+		});
+	}
+
+	// 完成"确定"
+	function completeSave() {
+		bi.dialog.confirm({
+			title: sabace.getMessage('data.import.title.saveData'),
+			message: sabace.getMessage('data.import.message.savaDataConfirm'),
+			callback: function(result) {
+				if (result) {
+					dataConfirmSave();
+				}
+			}
+		});
+	}
+
+	// 数据确认保存
+	function dataConfirmSave() {
+		var url = sabace.handleUrlParam("/platform/resmanage/data/save-file-info");
+		var fileData = {
+			dataId: fileConfigInfo.dataId,
+			dataName: fileConfigInfo.dataName,
+			dataNum: fileConfigInfo.dataNum,
+			dataDesc: fileConfigInfo.dataDesc,
+			filePath: fileConfigInfo.filePath,
+			firstLineTitle: fileConfigInfo.firstLineTitle,
+			fileSuffix: fileConfigInfo.fileSuffix,
+			attrData: JSON.stringify(fileConfigInfo.attrData),
+			modType: modType,
+			importStateType: importStateType,
+			classifyId: fileConfigInfo.classifyId
+		};
+		if (opType == "edit" || opType == "append") {
+			nowFilter = [];
+			nowField = [];
+			nowAttr = [];
+			var attrData = fileConfigInfo.attrData;
+			var length = attrData.length;
+			var filterType = null;
+			var field = null;
+			var attrId = null;
+			var dimId = null;
+			var attrObj = {};
+			// 取出指标中的所有的筛选类型
+			for(var i = 0;i < length; i++){
+				filterType = attrData[i].filterType;
+				field =  attrData[i].fieldName;
+				nowFilter.push(filterType);
+				nowField.push(field);
+				attrId = attrData[i].attrId;
+				dimId = attrData[i].dimId;
+				attrObj = {
+					attrId: attrId,
+					filterType: filterType,
+					dimId: dimId
+				};
+				nowAttr.push(attrObj);
+			}
+			// 比较两个数组是否相等，相等说明指标信息没有做更改，不需要后台执行，不需要改变import_state,不相等说明需要改变导入状态
+			if(originalFilter.toString() != nowFilter.toString() || originalField.toString() != nowField.toString()){
+				fileData.importStateType = "1";
+			}
+			// 为追加是需要改变导入状态
+			if(modType == "2" || modType == "3"){
+				fileData.importStateType = "1";
+			}
+			url = sabace.handleUrlParam("/platform/resmanage/data/save-file-data");
+		}
+		// 当fileData.importStateType为“1”时说明用户改变了指标（1、新增指标 2、删除指标 3、切换类型）
+		if(fileData.importStateType == "1"){
+			var originalLen = originalAttr.length;
+			var nowLen = nowAttr.length;
+			// 遍历nowAttr判断用户是否改变了某个指标的类型，根据nowAttr中的attrId到originalAttr中比对
+			// nowAttr中可能存在新增的，新增的指标的attrId为空，不需要比对
+			// 只要寻找到一个就结束遍历
+			var attrObj = {};
+			var oAttrObj = {};
+			var attrId = null;
+			var oAttrId = null;
+			var filterType = null;
+			var oFilterType = null;
+			var dimId = null;
+			var oDimId = null;
+			var flag = false;
+			for(var i = 0; i < nowLen; i++ ){
+				attrObj = nowAttr[i];
+				attrId = attrObj.attrId;
+				filterType = attrObj.filterType;
+				dimId = attrObj.dimId
+				if(attrId != null)
+				{
+					for(var j=0 ; j< originalLen; j++){
+						oAttrObj = originalAttr[j];
+						oAttrId = oAttrObj.attrId;
+						oFilterType = oAttrObj.filterType;
+						// 寻找到attrId相等的
+						if(attrId == oAttrId)
+						{
+							// 判断是filterType是否相等
+							if(filterType != oFilterType)
+							{
+								flag = true;
+								break;
+							} else {
+								// 相等时，如果是维度，判断dimId是否相等
+								if(filterType == "1"){
+									if(dimId != oDimId){
+										flag = true;
+										break;
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+		
+			if(flag) {
+				fileData.importStateType = "4";
+			}
+		}
+		// 发送请求到后台保存文件信息、指标信息
+		sabace.ajax({
+			url: url,
+			data: fileData,
+			loading: {
+				title: sabace.getMessage('data.import.title.execute'),
+				text: sabace.getMessage('data.import.text.loading')
+			},
+			success: function(req) {
+				if (req.resFlag == "success") {
+					// 文件配置信息保存成功后
+					saveFileInfoSuccess();
+				} else {
+					bi.dialog.show({
+						type: bi.dialog.TYPE_DANGER,
+						title: sabace.getMessage('data.import.title.tips'),
+						message: req.msg
+					});
+					return;
+				}
+			},
+			error: function(req) {
+				bi.dialog.show({
+					type: bi.dialog.TYPE_DANGER,
+					title: sabace.getMessage('data.import.title.tips'),
+					message: req.responseText || "文件数据配置失败！"
+				});
+			}
+		});
+	}
+
+	// 文件配置信息保存成功后的处理
+	function saveFileInfoSuccess() {
+		bi.dialog.show({
+			type: bi.dialog.TYPE_INFO,
+			title: sabace.getMessage('data.import.title.tips'),
+			message: sabace.getMessage('data.import.message.savaFileData'),
+			closeByBackdrop: false,
+			closeByKeyboard: false,
+			buttons: [{
+				label: sabace.getMessage('data.import.label.sure'),
+				cssClass: 'btn-info',
+				action: function(dialog) {
+					dialog.close();
+					// 隐藏所有的按钮,用户可以tab页查看数据
+					jQuery('#fileButton').addClass("hide");
+					jQuery('.bottom-button-common').addClass("hide");
+					jQuery('#completeSaveButton').addClass("hide");
+				}
+			}, {
+				label: sabace.getMessage('data.import.label.closePage'),
+				cssClass: 'btn-default',
+				action: function() {
+					if(jQuery.isFunction(window.opener.reloadDataList)){
+						window.opener.reloadDataList();
+					}
+					window.close();
+				}
+			}]
+		});
+	}
+
+	// tab点击选择
+	function selectShow() {
+		var object = jQuery(this).find(".step-title-num");
+		var objId = jQuery(this).attr("id");
+		// 判断当前是都是已经完成的Tab
+		if (object.hasClass("active-Finished") || !object.hasClass("active-notFinished")) {
+			if (objId == "fileTab") {
+				// 横线高亮设置
+				setStepLine(1);
+				// 当前隐藏
+				jQuery('#' + getCurrentDisplayDiv() + '').addClass("hide");
+				jQuery('#fileInfo').removeClass("hide");
+			} else if (objId == "dataTab") {
+				// 横线高亮设置
+				setStepLine(2);
+				// 当前隐藏
+				jQuery('#' + getCurrentDisplayDiv() + '').addClass("hide");
+				jQuery('#dataInfo').removeClass("hide");
+				resizeDataGrid();
+			} else if (objId == "fieldTab") {
+				// 横线高亮设置
+				setStepLine(3);
+				// 当前隐藏
+				jQuery('#' + getCurrentDisplayDiv() + '').addClass("hide");
+				jQuery('#fieldInfo').removeClass("hide");
+				if (jQuery('#fieldGrid').is(':empty')) {
+					initFieldGrid();
+				} else {
+					resizeFieldGrid();
+				}
+			} else if (objId == "completeTab") {
+				if(!reUploadFlag){
+					return false;
+				}
+				// 横线高亮设置
+				setStepLine(4);
+				// 当前隐藏
+				jQuery('#' + getCurrentDisplayDiv() + '').addClass("hide");
+				jQuery('#completeInfo').removeClass("hide");
+				if (jQuery('#completeGrid').is(':empty')) {
+					initCompleteGrid();
+				} else {
+					resizeCompleteGrid();
+				}
+			}
+		}
+	}
+
+	// 设置预览数据表格的宽度
+	function resizeDataGrid() {
+		jQuery("#dataGrid").setGridWidth($(".data-info-grid").width() - 5);
+	}
+
+	// 设置字段表格的宽度
+	function resizeFieldGrid() {
+		jQuery("#fieldGrid").setGridWidth($(".field-info-grid").width() - 5);
+		jQuery("#fieldGrid").setGridHeight($(".field-info-grid").height() - 38);
+	}
+
+	// 设置完成界面表格的宽度
+	function resizeCompleteGrid() {
+		jQuery("#completeGrid").setGridWidth($(".complete-info-grid").width() - 5);
+	}
+
+	// 获取当前显示面板
+	function getCurrentDisplayDiv() {
+		if (jQuery(".file-info").is(":visible")) {
+			return "fileInfo";
+		}
+		if (jQuery(".data-info").is(":visible")) {
+			return "dataInfo";
+		}
+		if (jQuery(".field-info").is(":visible")) {
+			return "fieldInfo";
+		}
+		if (jQuery(".complete-info").is(":visible")) {
+			return "completeInfo";
+		}
+	}
+});

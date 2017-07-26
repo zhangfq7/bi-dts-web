@@ -1,1 +1,294 @@
-(function(b,a){b.widget("switchbutton.switchbutton",{options:{classes:"",duration:50,dragThreshold:5,autoResize:true,labels:true,checkedLabel:"ON",uncheckedLabel:"OFF",disabledClass:"ui-switchbutton-disabled ui-state-disabled",template:'<div class="ui-switchbutton ui-switchbutton-default ${classes} {{if !labels}}ui-switchbutton-no-labels{{/if}}" tabindex=0><label class="ui-switchbutton-disabled"><span>{{if labels}}${uncheckedLabel}{{/if}}</span></label><label class="ui-switchbutton-enabled"><span>{{if labels}}${checkedLabel}{{/if}}</span></label><div class="ui-switchbutton-handle"></div></div>'},_create:function(){if(!this.element.is(":checkbox")){return}this._wrapCheckboxInContainer();this._attachEvents();this._globalEvents();this._disableTextSelection();if(this.element.prop("checked")){this.$container.toggleClass("ui-state-active",this.element.prop("checked"))}if(this.options.autoResize){this._autoResize()}this._initialPosition()},_wrapCheckboxInContainer:function(){this.$container=b.tmpl(this.options.template,this.options);this.element.after(this.$container);this.element.remove();this.$container.append(this.element);this.$disabledLabel=this.$container.children(".ui-switchbutton-disabled");this.$disabledSpan=this.$disabledLabel.children("span");this.$enabledLabel=this.$container.children(".ui-switchbutton-enabled");this.$enabledSpan=this.$enabledLabel.children("span");this.$handle=this.$container.children(".ui-switchbutton-handle")},_attachEvents:function(){var c=this;this.$container.bind("keydown",function(e){if(e.ctrlKey||e.altKey||e.metaKey||e.shiftKey){return}if(e.keyCode==32||e.keyCode==37||e.keyCode==39){e.preventDefault()}if(c.element.prop("disabled")){return}var d=c.element.prop("checked");if(e.keyCode==32||(e.keyCode==37&&d)||(e.keyCode==39&&!d)){var f=jQuery.Event("willChange");c.element.trigger(f);if(f.isDefaultPrevented()){return}d=!d;c.element.prop("checked",d);c.$container.toggleClass("ui-state-active",d);c.element.change();c.element.trigger("didChange")}}).bind("mousedown touchstart",function(e){e.preventDefault();if(c.element.prop("disabled")){return}b(this).focus();var d=e.pageX||e.originalEvent.changedTouches[0].pageX;b[a].currentlyClicking=c.$handle;b[a].dragStartPosition=d;b[a].handleLeftOffset=parseInt(c.$handle.css("left"),10)||0;b[a].dragStartedOn=c.element}).bind("iPhoneDrag",function(e,d){e.preventDefault();if(c.element.prop("disabled")){return}if(c.element!=b[a].dragStartedOn){return}var f=(d+b[a].handleLeftOffset-b[a].dragStartPosition)/c.rightSide;if(f<0){f=0}if(f>1){f=1}c.$handle.css({left:f*c.rightSide});c.$enabledLabel.css({width:f*c.rightSide});c.$disabledSpan.css({"margin-right":-f*c.rightSide});c.$enabledSpan.css({"margin-left":-(1-f)*c.rightSide})}).bind("iPhoneDragEnd",function(f,d){if(c.element.prop("disabled")){return}var h=jQuery.Event("willChange");c.element.trigger(h);if(h.isDefaultPrevented()){e=c.element.prop("checked")}else{var e;if(b[a].dragging){var g=(d-b[a].dragStartPosition)/c.rightSide;e=(g<0)?Math.abs(g)<0.5:g>=0.5}else{e=!c.element.prop("checked")}}b[a].currentlyClicking=null;b[a].dragging=null;c.element.prop("checked",e);c.$container.toggleClass("ui-state-active",e);c.element.change();c.element.trigger("didChange")});this.element.change(function(){c.refresh();var d=c.element.prop("checked")?c.rightSide:0;c.$handle.animate({left:d},c.options.duration);c.$enabledLabel.animate({width:d},c.options.duration);c.$disabledSpan.animate({"margin-right":-d},c.options.duration);c.$enabledSpan.animate({"margin-left":d-c.rightSide},c.options.duration)})},_globalEvents:function(){if(b[a].initComplete){return}var c=this.options;b(document).bind("mousemove touchmove",function(e){if(!b[a].currentlyClicking){return}e.preventDefault();var d=e.pageX||e.originalEvent.changedTouches[0].pageX;if(!b[a].dragging&&(Math.abs(b[a].dragStartPosition-d)>c.dragThreshold)){b[a].dragging=true}b(e.target).trigger("iPhoneDrag",[d])}).bind("mouseup touchend",function(e){if(!b[a].currentlyClicking){return}e.preventDefault();var d=e.pageX||e.originalEvent.changedTouches[0].pageX;b(b[a].currentlyClicking).trigger("iPhoneDragEnd",[d])})},_disableTextSelection:function(){b([this.$handle,this.$disabledLabel,this.$enabledLabel,this.$container]).attr("unselectable","on")},_autoResize:function(){var c=this.$container.find(":checkbox").width()/2;var d=c||this.$enabledLabel.width(),e=c||this.$disabledLabel.width(),g=this.$disabledSpan.innerWidth()-this.$disabledSpan.width();handleMargins=this.$handle.outerWidth()-this.$handle.innerWidth();var f=handleWidth=(d>e)?d:e;this.$handle.css({width:handleWidth-12});handleWidth=this.$handle.width();f+=handleWidth+6;spanWidth=f-handleWidth-g-handleMargins;this.$container.css({width:f});this.$container.find("span").width(spanWidth)},_initialPosition:function(){this.$disabledLabel.css({width:this.$container.width()-5});this.rightSide=this.$container.width()-this.$handle.outerWidth();if(this.element.prop("checked")){this.$handle.css({left:this.rightSide});this.$enabledLabel.css({width:this.rightSide});this.$disabledSpan.css({"margin-right":-this.rightSide})}else{this.$enabledLabel.css({width:0});this.$enabledSpan.css({"margin-left":-this.rightSide})}this.refresh()},enable:function(){this.element.prop("disabled",false);this.refresh();return this._setOption("disabled",false)},disable:function(){this.element.prop("disabled",true);this.refresh();return this._setOption("disabled",true)},widget:function(){return this.$container},refresh:function(){if(this.element.prop("disabled")){this.$container.addClass(this.options.disabledClass);return false}else{this.$container.removeClass(this.options.disabledClass)}}})})(jQuery,"switchbutton");
+/*
+ * jQuery switchbutton
+ *
+ * Based on work by tdreyno on iphone-style-checkboxes for events management
+ * (https://github.com/tdreyno/iphone-style-checkboxes)
+ * 
+ * Copyright 2011, L.STEVENIN
+ * Released under the MIT license.
+ *
+ * Depends:
+ *	jquery.ui.widget.js (jQuery UI Widget Factory - http://wiki.jqueryui.com/w/page/12138135/Widget%20factory)
+ * 	jquery.tmpl.js (jQuery Templates - http://api.jquery.com/category/plugins/templates/)
+ */
+(function($, switchbutton){
+	
+	$.widget('switchbutton.switchbutton', {
+		
+		options: {
+			classes: '',
+			duration: 50,
+			dragThreshold: 5,
+			autoResize: true,
+			labels: true,
+			checkedLabel: 'ON',
+			uncheckedLabel: 'OFF',
+			disabledClass: 'ui-switchbutton-disabled ui-state-disabled',
+			template:	'<div class="ui-switchbutton ui-switchbutton-default ${classes} {{if !labels}}ui-switchbutton-no-labels{{/if}}" tabindex=0>' +
+							'<label class="ui-switchbutton-disabled">' +
+								'<span>{{if labels}}${uncheckedLabel}{{/if}}</span>' +
+							'</label>' +
+							'<label class="ui-switchbutton-enabled">' +
+								'<span>{{if labels}}${checkedLabel}{{/if}}</span>' +
+							'</label>' +
+							'<div class="ui-switchbutton-handle"></div>' +
+						'</div>'
+		},
+		
+		_create: function() {
+			if(!this.element.is(':checkbox')) {
+				return;
+			}
+			
+			this._wrapCheckboxInContainer();
+			this._attachEvents();
+			this._globalEvents();
+			this._disableTextSelection();
+			
+			if(this.element.prop('checked')) {
+				this.$container.toggleClass('ui-state-active', this.element.prop('checked'));
+			}
+			
+			if(this.options.autoResize) {
+				this._autoResize();
+			}
+				
+			this._initialPosition();
+		},
+		
+		_wrapCheckboxInContainer: function() {
+			this.$container = $.tmpl(this.options.template, this.options);
+			this.element.after(this.$container);
+			this.element.remove();
+			this.$container.append(this.element);
+
+			this.$disabledLabel = this.$container.children('.ui-switchbutton-disabled');
+			this.$disabledSpan  = this.$disabledLabel.children('span');
+			this.$enabledLabel  = this.$container.children('.ui-switchbutton-enabled');
+			this.$enabledSpan   = this.$enabledLabel.children('span');
+			this.$handle  = this.$container.children('.ui-switchbutton-handle');
+		},
+		
+		_attachEvents: function() {
+			var obj = this;
+
+			this.$container
+			
+				// Listen for keyboard events such as <space>, <left> and <right>
+				.bind('keydown', function(event){
+					
+					//Ignore if a key combo was used
+					if(event.ctrlKey || event.altKey || event.metaKey || event.shiftKey){
+						return;
+					}
+					
+					//Catch <space>, <left>, and <right>
+					if(event.keyCode == 32 || event.keyCode == 37 || event.keyCode == 39) event.preventDefault();
+					
+					//Ignore if the element is disabled
+					if(obj.element.prop('disabled')) {
+						return;
+					}
+					
+					//Determine if we're supposed to toggle
+					var checked = obj.element.prop('checked')
+					if(event.keyCode == 32 || (event.keyCode == 37 && checked) || (event.keyCode == 39 && !checked)) { 
+
+						//Perform the toggle
+						var willChangeEvent = jQuery.Event('willChange');
+						obj.element.trigger(willChangeEvent);
+						if(willChangeEvent.isDefaultPrevented()) return;
+						
+						checked = !checked;
+	
+						obj.element.prop('checked', checked);
+						obj.$container.toggleClass('ui-state-active', checked);
+						obj.element.change();
+						obj.element.trigger('didChange');
+						
+					}
+										
+				})
+			
+				// A mousedown anywhere in the control will start tracking for dragging
+				.bind('mousedown touchstart', function(event) {
+					event.preventDefault();
+
+					if(obj.element.prop('disabled')) { return; }
+					
+					$(this).focus();
+
+					var x = event.pageX || event.originalEvent.changedTouches[0].pageX;
+					$[switchbutton].currentlyClicking	= obj.$handle;
+					$[switchbutton].dragStartPosition	= x;
+					$[switchbutton].handleLeftOffset	= parseInt(obj.$handle.css('left'), 10) || 0;
+					$[switchbutton].dragStartedOn		= obj.element;
+				})
+
+				// Utilize event bubbling to handle drag on any element beneath the container
+				.bind('iPhoneDrag', function(event, x) {
+					event.preventDefault();
+
+					if(obj.element.prop('disabled')) { return; }
+					if(obj.element != $[switchbutton].dragStartedOn) { return; }
+
+					var p = (x + $[switchbutton].handleLeftOffset - $[switchbutton].dragStartPosition) / obj.rightSide;
+					if(p < 0) { p = 0; }
+					if(p > 1) { p = 1; }
+					obj.$handle.css({ 'left': p * obj.rightSide });
+					obj.$enabledLabel.css({ 'width': p * obj.rightSide });
+					obj.$disabledSpan.css({ 'margin-right': -p * obj.rightSide });
+					obj.$enabledSpan.css({ 'margin-left': -(1 - p) * obj.rightSide });
+				})
+
+				// Utilize event bubbling to handle drag end on any element beneath the container
+				.bind('iPhoneDragEnd', function(event, x) {
+					if(obj.element.prop('disabled')) { return; }
+
+					var willChangeEvent = jQuery.Event('willChange');
+					obj.element.trigger(willChangeEvent);
+					if(willChangeEvent.isDefaultPrevented()) {
+						checked = obj.element.prop('checked');
+					}
+					else {
+						var checked;
+						if($[switchbutton].dragging) {
+							var p = (x - $[switchbutton].dragStartPosition) / obj.rightSide;
+							checked = (p < 0) ? Math.abs(p) < 0.5 : p >= 0.5;
+						}
+						else {
+							checked = !obj.element.prop('checked');
+						}
+					}
+
+					$[switchbutton].currentlyClicking = null;
+					$[switchbutton].dragging = null;
+
+					obj.element.prop('checked', checked);
+					obj.$container.toggleClass('ui-state-active', checked);
+					obj.element.change();
+					obj.element.trigger('didChange');
+				});
+
+			// Animate when we get a change event
+			this.element.change(function() {
+				
+				obj.refresh();
+				
+				var new_left = obj.element.prop('checked') ? obj.rightSide : 0;
+				
+				obj.$handle.animate({ 'left': new_left }, obj.options.duration);
+				obj.$enabledLabel.animate({ 'width': new_left }, obj.options.duration);
+				obj.$disabledSpan.animate({ 'margin-right': -new_left }, obj.options.duration);
+				obj.$enabledSpan.animate({ 'margin-left': new_left - obj.rightSide }, obj.options.duration);
+			});
+		},
+		
+		_globalEvents: function() {
+			if($[switchbutton].initComplete) {
+				return;
+			}
+
+			var opt = this.options;
+
+			$(document)
+				// As the mouse moves on the page, animate if we are in a drag state
+				.bind('mousemove touchmove', function(event) {
+					if(!$[switchbutton].currentlyClicking) { return; }
+					event.preventDefault();
+
+					var x = event.pageX || event.originalEvent.changedTouches[0].pageX;
+					if(!$[switchbutton].dragging && (Math.abs($[switchbutton].dragStartPosition - x) > opt.dragThreshold)) { 
+						$[switchbutton].dragging = true; 
+					}
+
+					$(event.target).trigger('iPhoneDrag', [x]);
+				})
+				
+				// When the mouse comes up, leave drag state
+				.bind('mouseup touchend', function(event) {
+					if(!$[switchbutton].currentlyClicking) { return; }
+					event.preventDefault();
+					
+					var x = event.pageX || event.originalEvent.changedTouches[0].pageX;
+					$($[switchbutton].currentlyClicking).trigger('iPhoneDragEnd', [x]);
+				});
+		},
+		
+		_disableTextSelection: function() {
+			// Elements containing text should be unselectable
+			$([this.$handle, this.$disabledLabel, this.$enabledLabel, this.$container]).attr('unselectable', 'on');
+		},
+			
+		_autoResize: function() {
+			var tempWidth = this.$container.find(':checkbox').width()/2;
+//			var	onLabelWidth	= this.$enabledLabel.width()||tempWidth,
+//				offLabelWidth	= this.$disabledLabel.width()||tempWidth,
+//				spanPadding		= this.$disabledSpan.innerWidth() - this.$disabledSpan.width()
+//				handleMargins	= this.$handle.outerWidth() - this.$handle.innerWidth();
+//			
+
+		var	onLabelWidth	=     tempWidth||this.$enabledLabel.width(),
+				offLabelWidth	= tempWidth||this.$disabledLabel.width(),
+				spanPadding		= this.$disabledSpan.innerWidth() - this.$disabledSpan.width()
+				handleMargins	= this.$handle.outerWidth() - this.$handle.innerWidth();
+			
+			var containerWidth = handleWidth = (onLabelWidth > offLabelWidth) ? onLabelWidth : offLabelWidth;
+			
+			this.$handle.css({ 'width': handleWidth-12 });
+			handleWidth = this.$handle.width();
+			
+			containerWidth += handleWidth + 6;
+			spanWidth = containerWidth - handleWidth - spanPadding - handleMargins;
+			
+			this.$container.css({ 'width': containerWidth });
+			this.$container.find('span').width(spanWidth);
+		},
+		
+		_initialPosition: function() {
+			this.$disabledLabel.css({ width: this.$container.width() - 5 });
+
+			this.rightSide = this.$container.width() - this.$handle.outerWidth();
+			
+			if(this.element.prop('checked')) {
+				this.$handle.css({ 'left': this.rightSide });
+				this.$enabledLabel.css({ 'width': this.rightSide });
+				this.$disabledSpan.css({ 'margin-right': -this.rightSide });
+			}
+			else {
+				this.$enabledLabel.css({ 'width': 0 });
+				this.$enabledSpan.css({ 'margin-left': -this.rightSide });
+			}
+			
+			this.refresh();
+		},
+		
+		enable: function() {
+			this.element.prop('disabled', false);
+			this.refresh();
+			return this._setOption('disabled', false);
+		},
+		
+		disable: function() {
+			this.element.prop('disabled', true);
+			this.refresh();
+			return this._setOption('disabled', true);
+		},
+		
+		widget: function() {
+			return this.$container;
+		},
+		
+		refresh: function() {
+			if(this.element.prop('disabled')) {
+				this.$container.addClass(this.options.disabledClass);
+				return false;
+			}
+			else {
+				this.$container.removeClass(this.options.disabledClass);
+			}
+		}
+		
+	});
+	
+})(jQuery, 'switchbutton');

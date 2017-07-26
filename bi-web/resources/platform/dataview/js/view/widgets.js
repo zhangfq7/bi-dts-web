@@ -1,1 +1,1032 @@
-define(["bace","view/box","view/layout","view/widgets/filter","view/widgets/property","view/widgets/urlPathPanel","view/widgets/plugins/table/table","view/widgets/plugins/echarts/echarts","view/widgets/plugins/text/text","view/widgets/plugins/indicator/indicator","view/widgets/plugins/echarts/tpl","view/widgets/plugins/default","view/component/DataInfoUtil","view/eventBinder"],function(c,j,n,d,l,m,g,b,f,e,k,o,h){var i={currentPlugin:""};i.module={};var a={lines:13,length:7,width:4,radius:10,corners:1,rotate:0,color:"#fff",speed:1,trail:60,shadow:false,hwaccel:false,className:"spinner",zIndex:2000000000};i.control={init:function(){log("初始化图表区域");i.view.init();d.init();j.Widgets.updateGridGraph=i.view.updateGridGraph;j.Widgets.showLoading=i.view.showLoading;j.Widgets.hideLoading=i.view.hideLoading;j.Widgets.showTip=i.view.showTip;j.Widgets.hideTip=i.view.hideTip;j.Widgets.start=i.control.start;j.Widgets.getThumbSingleURL=i.view.getThumbSingleURL;j.Widgets.getThumbURL=i.view.getThumbURL;j.Widgets.openUrlPanel=i.view.openUrlPanel},getPluginByType:function(p){if(["pie","bar","barMix","line","radar","funnel","gauge","map","treemap","scatter","heatmap","heatmap1","effectScatter"].indexOf(p)>-1){return j.Widgets.plugins.echarts}else{return j.Widgets.plugins[p]}},start:function(r){if(r=="collect"){var E=[];var t=i.view.getFirstLeft()-10;var q=i.view.getLastRight()-t;jQuery("#tableChartPanel .container").each(function(){var O=$(this);var M=O.data("option");var P=O.data("menuData");M.mapType=M.mapType||"";if($(".chart.text",this)[0]){var L=$(".text-editor.edui-body-container",this).html();M.config.build.textStr=L;$(".edui-toolbar",this).css("display","none")}if(M){var N=i.view.getLastTop();var Q={option:M,layout:{top:O.css("top"),left:O.css("left"),width:O.css("width"),height:O.css("height"),_left:(O.css("left").replace("px","")-t)/q*100+"%",_width:(M.chartType=="text")?O.css("width"):O.css("width").replace("px","")/q*100+"%","border-width":O.css("border-width"),"border-color":O.css("border-color"),background:O.css("background"),"box-shadow":O.css("box-shadow"),"border-radius":O.css("border-radius")}};if(P){Q.menuData=P}E.push(Q)}});var G=d.dataStart("collect");var I={widgets:E,filters:G,openDownload:jQuery("#openDownload").prop("checked"),tplId:j.main.tplId||"",};if(jQuery("#openSendEmail")[0]){I.openSendEmail=jQuery("#openSendEmail").prop("checked")}if(jQuery("#openWaterflag")[0]){I.openWaterflag=!jQuery("#openWaterflag").prop("checked")}if(discovery=="1"){I.filters=[];I.widgets[0].option.config.build.dataParams.filterJsonStr=""}return I}else{if(r=="render"){var I=arguments[1];var z=I.widgets;var v=I.filters;var D=I.openSendEmail;var H=I.openDownload;var y=!I.openWaterflag;var p=$.toJSON(v);d.dataStart(v);for(var C=0,A=z.length;C<A;C++){var s=z[C];var w=s.option;var F=s.layout;var x=s.chartId;var u=s.menuData;var B=i.view.packageContainer($("#tableChartPanel"),{top:F.top,left:F.left},w.chartType,w.el);B.css({width:F.width,height:F.height,"border-width":F["border-width"],"border-color":F["border-color"],background:F.background,"box-shadow":F["box-shadow"],"border-radius":F["border-radius"]}).data("option",w);if(u){B.data("__menuData",u)}(function(L){setTimeout(function(){i.control.getPluginByType(L.chartType).apply(L,true,true)},0)})(w)}setTimeout(function(){i.view.installWidgetsDraggableAndResize();i.view.updateGridGraph($("#tableChartPanel"));if(v){jQuery("#openFilter").prop("checked",true).change()}if(D){jQuery("#openSendEmail").prop("checked",true).change()}if(H){jQuery("#openDownload").prop("checked",true).change()}jQuery("#openWaterflag").prop("checked",y).change()},10)}else{if(r=="renderTpl"){var J=arguments[1];for(var C=0,A=J.length;C<A;C++){var K=J[C];var F=K.layout;var I=K.config;var B=i.view.packageContainer($("#tableChartPanel"),{top:F.top,left:F.left},I.chartType);B.css({width:F.width,height:F.height,});k.rendTpl(B,I);setTimeout(function(){i.view.installWidgetsDraggableAndResize();i.view.updateGridGraph($("#tableChartPanel"))},10)}}}}if(!!sessionStorage.imgSrc){$(".container").css({"background-image":"url("+sessionStorage.imgSrc+")","background-size":"100% 100%","background-repeat":"no-repeat"})}}};i.view={init:function(){i.view.initDroppable();for(var p in i.view.bindEvent){i.view.bindEvent[p]()}},initDroppable:function(){jQuery("#tableChartPanel").droppable({drop:function(p,x){var r=x.helper;var v=$(this);if(!r.hasClass("hp-container")){i.view.updateGridGraph();return}var s=i.view.autoPositionGrid(p,v);var u=r.attr("chartType");r.remove();var t=i.view.packageContainer(v,s,u);var y=o[u];if(_.keys(y).length>0){k.rendTpl(t,y)}i.view.checkContainerOverlap(t);var q=t.siblings("div[id!='gridBg']");if(q.hasClass("container-error")){var w=i.view.getLastBottom(t);t.animate({top:w},500,function(){i.view.updateGridGraph()});setTimeout(function(){q.removeClass("container-error")},500);v.animate({scrollTop:w-21},500)}i.view.updateGridGraph();i.view.installWidgetsDraggableAndResize()}})},packageContainer:function(y,w,x,u){var p=u||"container_"+(new Date()).getTime();var z=x.split("-")[0];var v=x.split("-")[1]||"";var r=x.split("-")[2]||"";y.append($("<div></div>",{id:p,chartType:x,"class":A(z),css:{position:"absolute",left:w.left,top:w.top},html:q(z),}));function A(C){switch(C){case"text":return"container allow editor-container";break;case"indicator":return"container allow indicator-container";break;default:return"container allow"}}function q(C){switch(C){case"text":return'<div class="tools"></div><div class="chart '+C+'"><i class="iconfont icon-'+C+' exp"></i></div>';break;case"indicator":return'<div class="tools"></div><div class="dimAttrSettingPanel" style="display:none"></div><div class="chart"><i class="iconfont icon-'+C+' exp"></i></div>';break;default:return'<div class="tools"></div><div class="breadcrumbs"></div><div class="chainInfo"></div><div class="dimAttrSettingPanel" style="display:none"></div><div class="chart"><i class="iconfont icon-'+C+' exp"></i></div>'}}var B=$("#"+p);i.currentPlugin=i.control.getPluginByType(z);if(!i.currentPlugin){log("没有找到 "+z+" 对应的组件,请检查是否注册组件！")}else{i.currentPlugin.init();var t=B.attr("charttype");if("table-detail"==t){t=0}else{if("table-pivot"==t){t=1}else{t=0}}$(".tools",B).append(i.currentPlugin.contanier.getTools("main",t));B.find(".tools .chart-icon").poshytip({className:"tip-twitter",showTimeout:100,alignTo:"target",offsetY:-28,offsetX:12,alignX:"left"});var s=$(i.currentPlugin.contanier.settingPanel);$(".dimAttrSettingPanel",B).append(s);if(z=="indicator"){B.css({width:"259px",height:"179px"})}c.autoScroll($("#"+p+" .panel"),{cursorcolor:"#5489A9"})}setTimeout(function(){i.view.resizeTempCharts(B)},100);B.data("option",{el:p,isInit:false,chartType:z,chartChild:v,mapType:r||"",config:{plugins:i.currentPlugin.type,build:{},designPanel:{},dataPanel:{}}});return B},installWidgetsDraggableAndResize:function(){jQuery("div.container").draggable({containment:"parent",handle:".move",scroll:true,scrollSensitivity:20,delay:1,scrollSpeed:20,grid:[20,20],drag:function(p,q){i.view.checkContainerOverlap($(this))},start:function(p,q){q.helper.addClass("ui-start-active-zindex");$(this).find(".tools .chart-icon").poshytip("disable")},stop:function(q,r){var u=$(this),p=u.siblings("div[id!='gridBg']");if(p.hasClass("container-error")){u.animate(r.originalPosition,300);p.removeClass("container-error")}r.helper.removeClass("ui-start-active-zindex");var t=Math.round(parseInt(u.css("left").replace("px",""))/20)*20-10;var s=Math.round(parseInt(u.css("top").replace("px",""))/20)*20-10;u.css({left:t,top:s});u.find(".tools .chart-icon").poshytip("enable")}}).resizable({grid:[20,20],autoHide:true,containment:"parent",minWidth:319,minHeight:239,handles:"all",start:function(q,r){var s=jQuery(r.helper);var p=s.data("option");var t=p.isInit;if(t){i.control.getPluginByType(p.chartType).contanier.resize.start(p.el)}r.helper.addClass("ui-start-active-zindex").removeClass("allow")},resize:function(q,r){var s=jQuery(r.helper);var p=s.data("option");var t=p.isInit;if(t){i.view.resizeContainer(p)}else{i.view.resizeTempCharts(s)}i.view.checkContainerOverlap($(this));if(p.chartType=="indicator"){$(this).resizable({minWidth:259,minHeight:139,})}},stop:function(r,s){var t=$(this),q=t.siblings("div[id!='gridBg']");var u=jQuery(s.helper);var p=u.data("option");var v=p.isInit;if(q.hasClass("container-error")){t.animate(s.originalSize,50,function(){t.animate(s.originalPosition,50);if(v){i.view.resizeContainer(p)}else{i.view.resizeTempCharts(u)}});q.removeClass("container-error")}if(v){i.control.getPluginByType(p.chartType).contanier.resize.stop(p.el)}u.removeClass("ui-start-active-zindex").addClass("allow");i.view.updateGridGraph()}});if($("div.container").find("div.chart").hasClass("text")){$("div.chart.text").parent().resizable({minWidth:420,minHeight:75})}},autoPositionGrid:function(p,s){var r=p.pageX+s.scrollLeft()-s.offset().left-76;var q=p.pageY+s.scrollTop()-s.offset().top-76;r=r<10?10:r;q=q<10?10:q;return{left:Math.round(r/20)*20-10,top:Math.round(q/20)*20-10}},updateGridGraph:function(){var u=jQuery("#tableChartPanel");var q=u.get(0).scrollWidth;var r=u.get(0).scrollHeight;var t=u.data("scrollWidth")||u.width();var p=u.data("scrollHeight")||u.height();var s=u.find("#gridBg");if(q>t){q=q+20;s.width(q);u.data("scrollWidth",q)}if(r>p){r=r+20;s.height(r);u.data("scrollHeight",r)}},resizeTempCharts:function(u){var r=u.find(".iconfont.exp"),t=u.width(),p=u.height(),s=r.width(),q=r.height();r.css({transform:"scale("+Math.min((p/200),(t/200))+")",top:function(){return(p-q)/2},left:function(){return(t-s)/2}})},resizeContainer:function(p){i.control.getPluginByType(p.chartType).contanier.resize.reisze(p.el)},checkContainerOverlap:function(t){var q=t.siblings("div[id!='gridBg']");var p=t.position();var s=p.left,v=p.top,r=s+t.width(),u=v+t.height();q.each(function(){var w=$(this);var B=w.position();var y=B.left,A=B.top,x=y+w.width(),z=A+w.height();if(((s>y&&s<x)||(r>y&&r<x))&&((v>A&&v<z)||(u>A&&u<z))||(((y>s&&y<r)||(x>s&&x<r))&&((A>v&&A<u)||(z>v&&z<u)))){w.addClass("container-error")}else{w.removeClass("container-error")}})},getLastBottom:function(q){var p=0;jQuery("#tableChartPanel .container").not("#"+q.attr("id")).each(function(){var r=$(this).position().top+$(this).parent().scrollTop()+$(this).height()+20;if(p<r){p=r}});return Math.round(p/20)*20+10},getLastTop:function(r){var p=[];var q=r?jQuery("#tableChartPanel .container").not("#"+r.attr("id")):jQuery("#tableChartPanel .container");q.each(function(){var s=$(this).position().top+$(this).parent().scrollTop()+20;p.push(s)});return Math.min.apply(null,p)},getFirstLeft:function(){var p=[];var q=jQuery("#tableChartPanel .container");q.each(function(){p.push($(this).position().left+$(this).parent().scrollLeft())});return Math.min.apply({},p)},getLastRight:function(r){var q=0;var p=r?jQuery("#tableChartPanel .container").not("#"+r.attr("id")):jQuery("#tableChartPanel .container");p.each(function(){var s=$(this).position().left+$(this).parent().scrollLeft()+$(this).width()+20;if(q<s){q=s}});return Math.round(q/20)*20+10},bindEvent:{togglePanel:function(){jQuery("#layout_body_title_panel .closeAttr").on("click",function(){myLayout.toggle("west");jQuery(this).find("div:eq(0)").toggleClass("fa-caret-left").toggleClass("fa-caret-right")});jQuery("#layout_body_title_panel .fullScreen").on("click",function(){var p=jQuery(this).find("div:eq(0)");if(p.hasClass("fa-caret-down")){n.toggleAllPanel("open")}else{n.toggleAllPanel("close")}p.toggleClass("fa-caret-down").toggleClass("fa-caret-up")});$("#tableChartPanel").bind("scroll",function(){});jQuery("#layout_body_title_panel  .closeFilter").on("click",function(){myLayout.center.children.layout1.center.children.layout1.toggle("north");jQuery(this).find("div:eq(0)").toggleClass("fa-caret-up").toggleClass("fa-caret-down")});jQuery("#layout_body_title_panel #setGlobalFilter").on("click",function(){d.setGlobalFilter("add")})},contanierTools:function(){jQuery("#tableChartPanel").on("click",".container .chart,.container .panel.datagrid",function(){var p=jQuery(this);var q=p.parents(".container");var r=q.find(".dimAttrSettingPanel");if(r.is(":visible")){r.hide("slide")}});jQuery("#gridBg").click(function(){l.close()});jQuery("#tableChartPanel").on("click",".chart-icon.setting",function(){var p=jQuery(this).parents(".container").data("option");l.toggle(p)});jQuery("#tableChartPanel").on("click",".chart-icon.openSelfDimAttr",function(){var q=jQuery(this).parents(".container");var p=q.data("option").chartType;var r=i.control.getPluginByType(p).contanier.renderSettingPanel(q);if(r.is(":hidden")){r.show("slide")}else{r.hide("slide")}});jQuery("#tableChartPanel").on("click",".chart-icon.removeSelfChart",function(){var p=$(this);var q=p.parents(".container");i.view.showTip({_id:"delPanel",titleShow:"false",msg:"确定删除？",button:'<div class="btn delChartTrue">确定</div><div class="btn delChartCanel">取消</div>'},q);$("#delPanel .delChartCanel").click(function(){i.view.hideTip("delPanel")});$("#delPanel .delChartTrue").click(function(){var u=jQuery(this);var v=u.parents(".container");var w=v.attr("id");var t=v.data("option").chartType;var r=v.data("option").config.build.dataParams;var s=r&&r.dataId;i.control.getPluginByType(t).destory(w);s&&d.reomveGlobalFilter(s);v.hide("fade",500,function(){jQuery(this).remove()});if(j.Property.isMyProperty&&j.Property.isMyProperty(w)){l.close(true)}})});jQuery("#tableChartPanel").on("click",".chart-icon.viewdata",function(){var s=jQuery(this);var t=s.parents(".container");var p=t.data("option").config.build.dataParams;var q=p&&p.dataId;var r=p&&p.dataType;q=q||j.main.dataId;r=r||j.main.dataType;if(!q){return}h.show(q)});jQuery("#tableChartPanel").on("click",".chart-icon.tabledownload",function(){var q=jQuery(this).parents(".container").data("option");if(!q.isInit){return}var p=c.handleUrlParam("/platform/dataview/down-table-data");p=p+"?"+$.param(q.config.build.dataParams);c.downloadbyfloor(p)});jQuery("#tableChartPanel").on("click",".chart-icon.xy2yx",function(){var q=jQuery(this).parents(".container").data("option");if(q.isInit){var p=JSON.parse(q.config.build.dataParams.dimAttrJsonStr);var r=p.rowsData;p.rowsData=p.colsData;p.colsData=r;r=null;q.config.build.dataParams.dimAttrJsonStr=JSON.stringify(p);i.control.getPluginByType(q.chartType).apply(q,true);$(this).toggleClass("checked")}});jQuery("#tableChartPanel").on("click",".breadcrumbs>a",function(){var r=jQuery(this).parent(".breadcrumbs").find("a").index(this);var p=jQuery(this).parents(".container");var q=p.find(".chart")[0];jQuery(q).EBuilder("undrill",r)});jQuery("#tableChartPanel").on("click",".chainInfo .j_unchainChart",function(){var p=jQuery(this).parents(".container");if(p.find(".chart:visible").length){var q=p.find(".chart")[0];jQuery(q).EBuilder("unchainChart")}else{j.Widgets.plugins.table.unchainChart(p)}})}},redirecPage:function(r,t){var s="";for(var q in t){s+="<input name='"+q+"' value='"+t[q]+"'/>"}var p=jQuery("<form></form>",{method:"post",action:r,target:"_blank",html:s});jQuery("body").append(p);p.submit();jQuery(p).remove()},showLoading:function(q){if(typeof(Spinner2)!=="undefined"){var p=jQuery("<div></div>",{"class":"bi-confirm loadingBg"});q.spin(a);q.append(p)}q.data("isLoading",true)},hideLoading:function(q){var p=q.find(".loadingBg");if(p.length==0){return}if(typeof(Spinner2)!=="undefined"){q.spin("close");p.remove()}q.data("isLoading",false)},showTip:function(r,q){r.titleShow=r.titleShow||true;var p='<div id="${_id}" failType="${failType}" class="bi-confirm ${className}">	<div class="confrim-text" style="letter-spacing: 1px;text-align:center">  {{if titleShow==true}} <span style="font-size: 26px;">提示 </span>{{/if}}{{html msg}}	</div>	<div class="btn-group">{{html button}}	</div></div>';$.tmpl(p,r).appendTo(q)},hideTip:function(p){jQuery("#"+p).remove()},getThumbSingleURL:function(p){return $(".chart",p).EBuilder("getInstanceByDom").getDataURL({backgroundColor:p.css("backgroundColor")})},getThumbURL:function(q){jQuery("#gridBg,#tableChartPanel").removeClass("grid-bg");var w=jQuery("#tableChartPanel");w.animate({scrollTop:0},0);jQuery("#thumb_canvas").remove();var t=[];var x=[];var u=[];var s=[];jQuery("#tableChartPanel .container").each(function(){var z=$(this);t.push(z.position().top);x.push(z.position().top+z.parent().scrollTop()+z.height()+20);u.push(z.position().left+z.parent().scrollLeft());s.push(z.position().left+z.parent().scrollLeft()+z.width())});var r=Math.min.apply({},t)-20;r=r<0?0:r;var v=Math.max.apply({},x)+20;var p=Math.min.apply({},u)-20;var y=Math.max.apply({},s)+20;html2canvas(document.getElementById("tableChartPanel"),{onrendered:function(B){var D=0;var A=0;var z=y+400;var E=v+400;var I=z;var C=E;var H=-p;var G=-r;var F=new Image();F.src=B.toDataURL("image/png");F.onload=function(){var L=y-p;var J=v-r;var N=document.createElement("canvas");N.setAttribute("id","thumb_canvas");N.style.display="none";N.width=L;N.height=J;document.body.appendChild(N);var M=document.getElementById("thumb_canvas");var K=M.getContext("2d");K.drawImage(F,D,A,z,E,H,G,I,C);document.body.appendChild(M);log("图形生成完毕");jQuery("#gridBg,#tableChartPanel").addClass("grid-bg");q.resolve(M.toDataURL("image/png"))}},width:y+500,height:v+500});return q},openUrlPanel:function(p){m.init();if(p==="close"){$("#layout_body_url_panel").css("display","none")}else{if(p==="open"){$("#layout_body_url_panel").css("display","block");$("#setUrlPath").click(m.show)}}}};return i.control});
+define(['bace', 'view/box', 'view/layout', 'view/widgets/filter', 'view/widgets/property', 'view/widgets/urlPathPanel','view/widgets/plugins/table/table', 'view/widgets/plugins/echarts/echarts','view/widgets/plugins/text/text','view/widgets/plugins/indicator/indicator','view/widgets/plugins/echarts/tpl','view/widgets/plugins/default','view/component/DataInfoUtil','view/eventBinder'],
+	function(Bace, Box, Layout, Filter, Property, UrlPathPanel, TablePlugin, EChartsPlugin,TextPlugin,IndicatorPlugin,Tpl,Deftpl,DataInfoUtil) {
+		var Widgets = {
+			//当前图形的类型的组件对象
+			currentPlugin: ''
+		};
+		Widgets.module = {
+
+		};
+		var loadingOption = {
+			  lines: 13, // The number of lines to draw
+			  length: 7, // The length of each line
+			  width: 4, // The line thickness
+			  radius: 10, // The radius of the inner circle
+			  corners: 1, // Corner roundness (0..1)
+			  rotate: 0, // The rotation offset
+			  color: '#fff', // #rgb or #rrggbb
+			  speed: 1, // Rounds per second
+			  trail: 60, // Afterglow percentage
+			  shadow: false, // Whether to render a shadow
+			  hwaccel: false, // Whether to use hardware acceleration
+			  className: 'spinner', // The CSS class to assign to the spinner
+			  zIndex: 2e9 // The z-index (defaults to 2000000000)
+		};
+		Widgets.control = {
+			init: function() {
+				log('初始化图表区域')
+				Widgets.view.init();
+				Filter.init();
+				//打开筛选面板
+				//Layout.toggleFilterPanel('open');
+				//更新画布尺寸
+				Box.Widgets.updateGridGraph = Widgets.view.updateGridGraph;
+				Box.Widgets.showLoading = Widgets.view.showLoading;
+				Box.Widgets.hideLoading = Widgets.view.hideLoading;
+				//挂载显示提示框方法
+				Box.Widgets.showTip = Widgets.view.showTip;
+				//挂载隐藏提示框方法
+				Box.Widgets.hideTip = Widgets.view.hideTip;
+				Box.Widgets.start = Widgets.control.start;
+
+				//挂载生成单图缩略图方法
+				Box.Widgets.getThumbSingleURL = Widgets.view.getThumbSingleURL;
+				//挂载获得全图缩略图方法
+				Box.Widgets.getThumbURL = Widgets.view.getThumbURL;
+				//挂载作图区域的url导航条 gaoya 20160910
+				Box.Widgets.openUrlPanel = Widgets.view.openUrlPanel;
+			},
+			getPluginByType:function(type){
+				if (['pie', 'bar', 'barMix', 'line', 'radar', 'funnel', 'gauge', 'map','treemap', 'scatter','heatmap','heatmap1','effectScatter'].indexOf(type) > -1) {
+					return Box.Widgets.plugins["echarts"];
+				} else {
+					return  Box.Widgets.plugins[type];
+				}
+			},
+			start:function(type){
+				//收集页面控件的布局参数
+				if(type == 'collect'){
+					var _contaniers = [];
+					var firstLeft = Widgets.view.getFirstLeft()-10;
+					var totalWidth = Widgets.view.getLastRight()-firstLeft;
+
+					jQuery("#tableChartPanel .container").each(function(){
+						var $this = $(this);
+                        var option = $this.data("option");
+                        var menudata = $this.data("menuData");
+                        //mapType 不能为undefined 否则后台保存的json有问题,修复一下 shaojs 201612131505
+                        option.mapType = option.mapType || "";
+
+                        if($(".chart.text",this)[0]){
+                            var textStr=$(".text-editor.edui-body-container",this).html();
+                            option.config.build.textStr = textStr;
+							$(".edui-toolbar",this).css("display","none");
+                        }
+						//log(option);
+						if(option){
+							var firstTop = Widgets.view.getLastTop();
+                            var __container = {
+                                option:option,
+                                layout:{
+                                    "top":$this.css("top"),
+                                        "left":$this.css("left"),
+                                        "width":$this.css("width"),
+                                        "height":$this.css("height"),
+                                        "_left":($this.css("left").replace('px','')-firstLeft)/totalWidth *100+ "%",
+                                        "_width":(/*option.chartType=="indicator"||*/option.chartType=="text")?$this.css("width"):$this.css("width").replace('px','')/totalWidth *100+ "%",
+                                        "border-width":$this.css("border-width"),
+                                        "border-color":$this.css("border-color"),
+                                        "background":$this.css("background"),
+                                        "box-shadow":$this.css("box-shadow"),
+                                        "border-radius":$this.css("border-radius")
+                                }
+                            };
+                            if(menudata){
+                                __container.menuData = menudata;
+                            }
+							_contaniers.push(__container);
+						}
+					});
+
+					var _filters = Filter.dataStart("collect");
+					// add by wangle 20160810 start
+					var config = {
+						widgets:_contaniers,
+						filters:_filters,
+						//opers:jQuery("#openOpera").prop('checked'),
+						openDownload:jQuery("#openDownload").prop('checked'),
+						tplId:Box.main.tplId||"",
+					};
+					if(jQuery("#openSendEmail")[0]){
+						config.openSendEmail=jQuery("#openSendEmail").prop('checked');
+					}
+					// add by wangle 20160810 end
+
+					//收集模板水印开关 shaojs 20160817
+					if(jQuery("#openWaterflag")[0]){
+						config.openWaterflag= !jQuery("#openWaterflag").prop('checked');
+					}
+
+					//探索图表保存的时候不需要保存筛选条件
+					if(discovery == '1'){
+						config.filters=[];
+                        config.widgets[0].option.config.build.dataParams.filterJsonStr="";
+					}
+					return config;
+				}else if(type == 'render'){
+					var config = arguments[1];
+					var widgets = config.widgets;
+					var filters = config.filters;
+					//var opers = config.opers;
+					// add by wangle 20160810 start
+					var openSendEmail = config.openSendEmail;
+					var openDownload = config.openDownload;
+					// add by wangle 20160810 end
+					// 水印开关
+					var openWaterflag = !config.openWaterflag;
+
+					//初始化查询条件 shaojs 20160817
+					var filterJsonStr = $.toJSON(filters);
+
+					Filter.dataStart(filters);
+
+					/*//初始化操作面板
+					if(opers){
+						jQuery("#openOpera").prop('checked',true).change();
+					}*/
+					for(var i = 0,n= widgets.length;i<n;i++){
+						var widget = widgets[i];
+						var option = widget.option;
+						var layout = widget.layout;
+
+						var chartId = widget.chartId;
+
+                        //表格菜单数据挂载 addby shaojs 20161208
+                        var menuData = widget.menuData;
+
+						var $contanier = Widgets.view.packageContainer($("#tableChartPanel"), {
+							top:layout["top"],
+							left:layout["left"]
+						}, option.chartType,option.el);
+
+						$contanier.css({
+							"width":layout["width"],
+							"height":layout["height"],
+							"border-width":layout["border-width"],
+							"border-color":layout["border-color"],
+							"background":layout["background"],
+							"box-shadow":layout["box-shadow"],
+							"border-radius":layout["border-radius"]
+						}).data('option', option);
+
+                        //表格菜单数据挂载 addby shaojs 20161208
+                        if(menuData){
+                            $contanier.data("__menuData",menuData);
+                        }
+
+						(function(option){
+							//不同组件调用不同apply方法
+							setTimeout(function(){
+								Widgets.control.getPluginByType(option.chartType).apply(option,true,true);
+							},0)
+						})(option);
+
+					}
+					setTimeout(function(){
+						//为容器添加拖动和改变大小的特效
+						Widgets.view.installWidgetsDraggableAndResize();
+						Widgets.view.updateGridGraph($("#tableChartPanel"));
+						//初始化查询面板
+						if(filters){
+							jQuery("#openFilter").prop('checked',true).change();
+						}
+						//add by wangle  20160810 start
+						//初始化邮件推送面板
+						if(openSendEmail){
+							jQuery("#openSendEmail").prop('checked',true).change();
+						}
+						//初始化下载面板
+						if(openDownload){
+							jQuery("#openDownload").prop('checked',true).change();
+						}
+						// add by wangle 20160810 end
+						// 初始化水印开关 shaojs 20160817
+						jQuery("#openWaterflag").prop('checked',openWaterflag).change();
+
+					},10)
+
+				}else if(type == 'renderTpl'){
+					var tplJSONArray = arguments[1];
+					for(var i = 0,n= tplJSONArray.length;i<n;i++){
+						var tpl = tplJSONArray[i];
+						var layout = tpl.layout;
+						var config = tpl.config;
+						var $contanier = Widgets.view.packageContainer($("#tableChartPanel"), {
+							top:layout["top"],
+							left:layout["left"]
+						}, config.chartType);
+
+						$contanier.css({
+							"width":layout["width"],
+							"height":layout["height"],
+						});
+						Tpl.rendTpl($contanier,config);
+						setTimeout(function(){
+							//为容器添加拖动和改变大小的特效
+							Widgets.view.installWidgetsDraggableAndResize();
+							Widgets.view.updateGridGraph($("#tableChartPanel"));
+						},10)
+					}
+				}
+				if(!!sessionStorage.imgSrc){
+					$(".container").css({"background-image":"url("+sessionStorage.imgSrc+")","background-size":"100% 100%","background-repeat":"no-repeat"})
+				}
+			}
+
+		};
+
+		Widgets.view = {
+			init: function() {
+
+				//给网格区域增加承接从头部拖下事件
+				Widgets.view.initDroppable();
+
+				//筛选区域初始话
+				//Filter.init();
+
+				//初始化所有绑定事件
+				for (var event in Widgets.view.bindEvent) {
+					Widgets.view.bindEvent[event]();
+				}
+			},
+			initDroppable: function() {
+				//为拖拽区域增加容器放置功能
+				jQuery("#tableChartPanel").droppable({
+					//拖拽容器放下时，触发的事件
+					drop: function(event, ui) {
+
+						var helper = ui.helper;
+						//$this表示拖拽区域
+						var $this = $(this);
+
+						//如果不是从头部拖拽下来，则中断逻辑(头部拖拽的helper有hp-container这个class)
+						if (!helper.hasClass("hp-container")) {
+
+							//需要将网格补齐
+							Widgets.view.updateGridGraph();
+							return;
+						}
+						//放下容器时，容器自动对齐
+						var _position = Widgets.view.autoPositionGrid(event, $this);
+						var chartType = helper.attr("chartType");
+						helper.remove();
+
+						/*
+						 * param1：$this 当前容器父对象
+						 * param2：_position 当前图形容器将要生成的坐标信息
+						 * param3：chartType 当前容器图形类型
+						 * param4: contanierId 如果不传，会自动生成
+						 *
+						 * 自动生成容器
+						 *
+						 * return 当前容器jQuery对象
+						 */
+						var $oneself = Widgets.view.packageContainer($this, _position, chartType);
+
+						var defTpl = Deftpl[chartType];
+						if(_.keys(defTpl).length > 0){
+                            Tpl.rendTpl($oneself,defTpl);
+                        }
+
+						//检测当前容器是否和已存在的容器发生重叠
+						Widgets.view.checkContainerOverlap($oneself);
+
+						//如果发生重叠
+						var $siblings = $oneself.siblings("div[id!='gridBg']");
+						if ($siblings.hasClass("container-error")) {
+							//获得最后一个元素的top，排除自己
+							var lastTop = Widgets.view.getLastBottom($oneself);
+							//置底
+							$oneself.animate({
+								top: lastTop
+							}, 500, function() {
+								Widgets.view.updateGridGraph();
+							});
+							//去除错误标识
+							setTimeout(function() {
+									$siblings.removeClass("container-error");
+								}, 500);
+								//滚动条自动置底
+							$this.animate({
+								scrollTop: lastTop - 21
+							}, 500);
+						}
+
+						//调整画布大小
+						Widgets.view.updateGridGraph();
+
+						//为容器添加拖动和改变大小的特效
+						Widgets.view.installWidgetsDraggableAndResize();
+					}
+				});
+			},
+			//包装容器
+			packageContainer: function($this, _position, chartType, contanierId) {
+				var id = contanierId || 'container_' + (new Date()).getTime();
+				var chartClassType = chartType.split('-')[0];
+				var chartChild = chartType.split('-')[1]||'';
+				var mapType = chartType.split('-')[2]||'';
+				$this.append($('<div></div>', {
+					'id': id,
+					'chartType': chartType,
+					'class':contianerClass(chartClassType),
+					'css': {
+						position: 'absolute',
+						left: _position.left,
+						top: _position.top
+					},
+					'html':containerTools(chartClassType),
+				}));
+
+				//文本、指标卡组件容器class变更 gaoya 20161117
+				function contianerClass(chartClassType){
+					switch(chartClassType){
+						case "text":
+							return "container allow editor-container";
+							break;
+						case "indicator":
+							return "container allow indicator-container";
+							break;
+						default:
+							return "container allow";
+					}
+				};
+
+				function containerTools(chartClassType) {//更改文本、指标卡对应工具栏等  gaoya 20161117
+					switch(chartClassType){
+						case "text":
+							return '<div class="tools"></div><div class="chart '+chartClassType+'"><i class="iconfont icon-' + chartClassType + ' exp"></i></div>';
+							break;
+						case "indicator":
+							return '<div class="tools"></div><div class="dimAttrSettingPanel" style="display:none"></div><div class="chart"><i class="iconfont icon-' + chartClassType + ' exp"></i></div>';
+							break;
+						default:
+							return '<div class="tools"></div><div class="breadcrumbs"></div><div class="chainInfo"></div><div class="dimAttrSettingPanel" style="display:none"></div><div class="chart"><i class="iconfont icon-' + chartClassType + ' exp"></i></div>';
+					};
+				}
+
+				var $container = $("#" + id);
+
+				//开始装载目前支持的组件
+				//1.echart图形
+				//2.表格
+				//3.KPI文本
+				//4.第三方插件(进度条、水滴图等)
+				//Box.Widgets.plugins
+
+				//寻找对应图形的plugin组件
+				Widgets.currentPlugin = Widgets.control.getPluginByType(chartClassType);
+				if (!Widgets.currentPlugin) {
+					log('没有找到 ' + chartClassType + ' 对应的组件,请检查是否注册组件！');
+				} else {
+					//组件初始话事件
+					Widgets.currentPlugin.init();
+					//装载对应组件的工具栏
+                    var tableType = $container.attr("charttype");
+                    if("table-detail" == tableType){
+                        tableType = 0;
+                    }else if("table-pivot" == tableType){
+                        tableType = 1;
+                    }else{
+                        tableType = 0;  //默认值
+                    }
+					$(".tools", $container).append(Widgets.currentPlugin.contanier.getTools("main",tableType));
+					//悬浮提示
+					$container.find('.tools .chart-icon').poshytip({
+						className: 'tip-twitter',
+						showTimeout: 100,
+						alignTo: 'target',
+						offsetY: -28,
+						offsetX: 12,
+						alignX: 'left'
+					});
+
+					var $dimAttrSettingPanel = $(Widgets.currentPlugin.contanier.settingPanel);
+					$(".dimAttrSettingPanel", $container).append($dimAttrSettingPanel);
+
+					//更改指标卡组件大小 gaoya 20161117
+					if(chartClassType=="indicator"){
+						$container.css({"width":"259px","height":"179px"});
+					}
+
+					Bace.autoScroll($("#" + id + " .panel"), {
+						'cursorcolor': '#5489A9'
+					});
+				}
+				//示例图自适应
+				setTimeout(function() {
+					Widgets.view.resizeTempCharts($container);
+				}, 100)
+
+				//初始化 容器配置信息
+				$container.data("option", {
+					//当前容器的id
+					el: id,
+					//容器是否初始化(在调用组件各自的apply方法成功时会设置isInit为true)
+					isInit: false,
+					//容器类型
+					chartType: chartClassType,
+					//小分类
+					chartChild:chartChild,
+					//地图类型
+					mapType:mapType || "",
+					config: {
+						plugins: Widgets.currentPlugin.type,
+						build: {},
+						designPanel:{},
+						dataPanel: {}
+					}
+				});
+
+				return $container;
+			},
+			//装载容器拖动和调整大小事件
+			installWidgetsDraggableAndResize: function() {
+				jQuery("div.container").draggable({
+					containment: "parent",
+					handle: '.move',
+					scroll: true,
+					scrollSensitivity: 20,
+					delay: 1,
+					scrollSpeed: 20,
+					grid: [20, 20],
+					drag: function(event, ui) {
+
+						//位置发生改变时，检测是否容器是否发生重叠
+						Widgets.view.checkContainerOverlap($(this));
+					},
+					start: function(event, ui) {
+						//开始拖动的时候将这个元素的z-index设置最高，防止拖拽的时候被覆盖
+						ui.helper.addClass("ui-start-active-zindex");
+						$(this).find('.tools .chart-icon').poshytip('disable');
+
+					},
+					stop: function(event, ui) {
+						//检测容器中是否有不合法的元素，有则还原位置
+						var $this = $(this),
+							$siblings = $this.siblings("div[id!='gridBg']");
+						if ($siblings.hasClass("container-error")) {
+							$this.animate(ui.originalPosition, 300);
+							$siblings.removeClass("container-error");
+						}
+						//还原z-index
+						ui.helper.removeClass("ui-start-active-zindex");
+
+						//容错机制
+						var left = Math.round(parseInt($this.css("left").replace('px', '')) / 20) * 20 - 10;
+						var top = Math.round(parseInt($this.css("top").replace('px', '')) / 20) * 20 - 10;
+						$this.css({
+							left: left,
+							top: top
+						});
+						$this.find('.tools .chart-icon').poshytip('enable');
+					}
+				}).resizable({
+					/*start: function(event, ui) {
+						//每个组件的自适应大小方法不同，掉各组件的方法
+						var chartType = $(this).attr("chartType");
+						var option = $(this).data("option");
+						if (option.isInit) {
+							//表格拖拽的时候，需要将表格隐藏
+						}
+						ui.helper.addClass("ui-start-active-zindex").removeClass("allow");
+					},*/
+					grid: [20, 20],
+					//delay:200,
+					autoHide: true,
+					containment: "parent",
+					minWidth: 319,
+					minHeight: 239,
+					handles: 'all',
+					start:function(event, ui){
+						var $helper = jQuery(ui.helper);
+						var option = $helper.data('option');
+						var isInit = option.isInit;
+						if (isInit) {
+							Widgets.control.getPluginByType(option.chartType).contanier.resize.start(option.el);
+						}
+						ui.helper.addClass("ui-start-active-zindex").removeClass("allow");
+					},
+					resize: function(event, ui) {
+						var $helper = jQuery(ui.helper);
+						var option = $helper.data('option');
+						var isInit = option.isInit;
+						if (isInit) {
+							//防止浏览器卡死
+							//开始执行组件变大变小事件
+							Widgets.view.resizeContainer(option);
+						} else {
+							Widgets.view.resizeTempCharts($helper);
+						}
+						//大小发生改变时，检测是否容器是否发生重叠
+						Widgets.view.checkContainerOverlap($(this));
+						//检测是否超过边界，容错机制
+						//.....
+
+						//指标卡组件拖拽样式重定义 gaoya 20161116
+						if(option.chartType=="indicator"){
+							$(this).resizable({
+								minWidth:259,
+								minHeight:139,
+								/*maxWidth:319,
+								maxHeight:239*/
+							});
+						};
+					},
+					//helper: "ui-resizable-helper",
+					stop: function(event, ui) {
+						//检测容器中是否有不合法的元素，有则还原大小(非法元素指和其他元素重叠的元素)
+						var $this = $(this),
+							$siblings = $this.siblings("div[id!='gridBg']");
+						var $helper = jQuery(ui.helper);
+						var option = $helper.data('option');
+						var isInit = option.isInit;
+						if ($siblings.hasClass("container-error")) {
+							$this.animate(ui.originalSize, 50, function() {
+								$this.animate(ui.originalPosition, 50);
+								if (isInit) {
+									//组件的自适应方法
+									Widgets.view.resizeContainer(option);
+								} else {
+									Widgets.view.resizeTempCharts($helper);
+								}
+							});
+							$siblings.removeClass("container-error");
+						}
+						if (isInit) {
+							Widgets.control.getPluginByType(option.chartType).contanier.resize.stop(option.el);
+						}
+						//还原z-index
+						$helper.removeClass("ui-start-active-zindex").addClass("allow");
+						Widgets.view.updateGridGraph();
+					}
+				});
+                //文本组件拖拽样式重定义
+                if($("div.container").find("div.chart").hasClass("text")){
+                    $("div.chart.text").parent().resizable({
+                        minWidth: 420,
+                        minHeight: 75
+                    })
+                };
+
+			},
+			//放下容器时，获得容器自动对齐的坐标
+			autoPositionGrid: function(event, $this) {
+				var left = event.pageX + $this.scrollLeft() - $this.offset().left - 76; //(76,76)鼠标的相对于容器的坐标
+				var top = event.pageY + $this.scrollTop() - $this.offset().top - 76;
+				left = left < 10 ? 10 : left;
+				top = top < 10 ? 10 : top;
+				return {
+					left: Math.round(left / 20) * 20 - 10,
+					top: Math.round(top / 20) * 20 - 10
+				}
+			},
+			//判断scrollWidth，scrollHeight是否发生变化，如果发生变化，则更改画布大小
+			updateGridGraph: function() {
+				var $this = jQuery("#tableChartPanel");
+				var scrollWidth = $this.get(0).scrollWidth;
+				var scrollHeight = $this.get(0).scrollHeight;
+				var original_scrollWidth = $this.data("scrollWidth") || $this.width();
+				var original_scrollHeight = $this.data("scrollHeight") || $this.height();
+
+				//log("scrollWidth:" + scrollWidth);
+				//log("scrollHeight:" + scrollHeight);
+				//log("original_scrollWidth:" + original_scrollWidth);
+				//log("original_scrollHeight:" + original_scrollHeight);
+				//画布
+				var $GridGraphBg = $this.find("#gridBg");
+				if (scrollWidth > original_scrollWidth) {
+					scrollWidth = scrollWidth + 20;
+					$GridGraphBg.width(scrollWidth);
+					$this.data("scrollWidth", scrollWidth)
+				}
+				if (scrollHeight > original_scrollHeight) {
+					scrollHeight = scrollHeight + 20;
+					$GridGraphBg.height(scrollHeight);
+					$this.data("scrollHeight", scrollHeight);
+				}
+			},
+			//自适应示例图
+			resizeTempCharts: function($helper) {
+				var _tempPanel = $helper.find(".iconfont.exp"),
+					width = $helper.width(),
+					height = $helper.height(),
+					svgWidth = _tempPanel.width(),
+					svgHeight = _tempPanel.height();
+				_tempPanel.css({
+					"transform": "scale(" + Math.min((height / 200), (width / 200)) + ")",
+					"top": function() {
+						return (height - svgHeight) / 2
+					},
+					"left": function() {
+						return (width - svgWidth) / 2
+					}
+				})
+			},
+			//自适应容器的插件
+			//调用各自的自适应方法
+			resizeContainer: function(option) {
+				Widgets.control.getPluginByType(option.chartType).contanier.resize.reisze(option.el);
+			},
+			//检测容器是否相交
+			checkContainerOverlap: function($this) {
+				//获得所有兄弟节点
+				var $siblings = $this.siblings("div[id!='gridBg']");
+				//获得当前拖动元素的4个点
+				var _position = $this.position();
+				var _x1 = _position.left,
+					_y1 = _position.top,
+					_x2 = _x1 + $this.width(),
+					_y2 = _y1 + $this.height();
+
+				$siblings.each(function() {
+					var brother = $(this);
+					var brother_position = brother.position();
+					var x1 = brother_position.left,
+						y1 = brother_position.top,
+						x2 = x1 + brother.width(),
+						y2 = y1 + brother.height();
+					//检测容器是否相交
+					if (((_x1 > x1 && _x1 < x2) || (_x2 > x1 && _x2 < x2)) && ((_y1 > y1 && _y1 < y2) || (_y2 > y1 && _y2 < y2)) ||
+						(((x1 > _x1 && x1 < _x2) || (x2 > _x1 && x2 < _x2)) && ((y1 > _y1 && y1 < _y2) || (y2 > _y1 && y2 < _y2)))
+					) {
+						brother.addClass("container-error");
+					} else {
+						brother.removeClass("container-error");
+					}
+				});
+			},
+			getLastBottom: function($oneself) {
+				var top = 0;
+				jQuery("#tableChartPanel .container").not("#" + $oneself.attr("id")).each(function() {
+					var _top = $(this).position().top + $(this).parent().scrollTop() + $(this).height() + 20;
+					if (top < _top) {
+						top = _top;
+					}
+				});
+				return Math.round(top / 20) * 20 + 10;
+			},
+			getLastTop: function($oneself) {
+				var topArray = [];
+				var $compare = $oneself ? jQuery("#tableChartPanel .container").not("#" + $oneself.attr("id")) : jQuery("#tableChartPanel .container");
+				$compare.each(function() {
+					var _top = $(this).position().top + $(this).parent().scrollTop() + 20;
+					topArray.push(_top)
+				});
+				return Math.min.apply(null, topArray);
+			},
+			getFirstLeft: function() {
+				var leftArray = [];
+				var $compare = jQuery("#tableChartPanel .container");
+				$compare.each(function() {
+					leftArray.push($(this).position().left + $(this).parent().scrollLeft())
+				});
+				return Math.min.apply({}, leftArray);
+			},
+			getLastRight: function($oneself) {
+				var right = 0;
+				var $compare = $oneself ? jQuery("#tableChartPanel .container").not("#" + $oneself.attr("id")) : jQuery("#tableChartPanel .container");
+				$compare.each(function() {
+					var _right = $(this).position().left + $(this).parent().scrollLeft() + $(this).width() + 20;
+					if (right < _right) {
+						right = _right;
+					}
+				});
+				return Math.round(right / 20) * 20 + 10;
+			},
+			bindEvent: {
+
+				togglePanel: function() {
+
+					//绑定关闭指标面板
+					jQuery("#layout_body_title_panel .closeAttr").on('click', function() {
+						myLayout.toggle('west');
+						jQuery(this).find("div:eq(0)").toggleClass('fa-caret-left').toggleClass('fa-caret-right');
+					});
+
+					//绑定全屏按钮
+					jQuery("#layout_body_title_panel .fullScreen").on('click', function() {
+						var $this = jQuery(this).find("div:eq(0)");
+						if ($this.hasClass('fa-caret-down')) {
+							Layout.toggleAllPanel('open');
+						} else {
+							Layout.toggleAllPanel('close');
+						}
+						$this.toggleClass('fa-caret-down').toggleClass('fa-caret-up');
+					});
+
+					//未完成，当容器所在画布区域滚动条到底，就自动增加画布高度
+					$('#tableChartPanel').bind('scroll', function() {
+
+					});
+
+					//绑定关闭/打开筛选区域
+					jQuery("#layout_body_title_panel  .closeFilter").on('click', function() {
+						myLayout.center.children.layout1.center.children.layout1.toggle('north');
+						jQuery(this).find("div:eq(0)").toggleClass('fa-caret-up').toggleClass('fa-caret-down');
+					});
+
+					//绑定全局筛选条件设置
+					jQuery("#layout_body_title_panel #setGlobalFilter").on('click', function() {
+						Filter.setGlobalFilter("add");
+					});
+
+				},
+				contanierTools: function() {
+
+					//关闭指标维度小面板
+					//datagrid覆盖了.chart
+					jQuery("#tableChartPanel").on('click', '.container .chart,.container .panel.datagrid', function() {
+						var $this = jQuery(this);
+						var $container = $this.parents('.container');
+						var $dimAttrSettingPanel = $container.find(".dimAttrSettingPanel");
+						//快捷关闭指标维度小面板
+						if ($dimAttrSettingPanel.is(":visible")) {
+							$dimAttrSettingPanel.hide('slide');
+						}
+					});
+
+					//点击画布，自动关闭属性框
+					jQuery("#gridBg").click(function() {
+						Property.close();
+					});
+
+					//点击容器内属性按钮，弹出属性框
+					jQuery("#tableChartPanel").on('click', '.chart-icon.setting', function() {
+						var option = jQuery(this).parents('.container').data('option');
+						Property.toggle(option);
+					});
+
+					//打开本身的指标维度小面板
+					jQuery("#tableChartPanel").on('click', '.chart-icon.openSelfDimAttr', function() {
+						var $container = jQuery(this).parents('.container');
+						var chartType = $container.data("option").chartType;
+						//开始渲染小面板
+						var $dimAttrSettingPanel = Widgets.control.getPluginByType(chartType).contanier.renderSettingPanel($container);
+						if ($dimAttrSettingPanel.is(':hidden')) {
+							$dimAttrSettingPanel.show('slide');
+						} else {
+							$dimAttrSettingPanel.hide('slide');
+						}
+					});
+
+					//删除容器按钮
+					jQuery("#tableChartPanel").on('click', '.chart-icon.removeSelfChart', function() {
+						var $this = $(this);
+						var $container = $this.parents('.container');
+						Widgets.view.showTip({
+							_id:"delPanel",
+							titleShow:"false",
+							msg: '确定删除？',
+							button: '<div class="btn delChartTrue">确定</div><div class="btn delChartCanel">取消</div>'
+						},$container);
+
+						$("#delPanel .delChartCanel").click(function(){
+							Widgets.view.hideTip("delPanel");
+						});
+						$("#delPanel .delChartTrue").click(function(){
+							var $this = jQuery(this);
+							var $container = $this.parents('.container');
+							var id = $container.attr("id");
+							var chartType = $container.data("option").chartType;
+                            var dataParams = $container.data("option").config.build.dataParams;
+							//dataParams为undefined的时候,dataId也是undefined
+                            var dataId = dataParams && dataParams.dataId;
+							Widgets.control.getPluginByType(chartType).destory(id);
+							// 删除数据源时同步删除过滤条件(dataId不为undefined的时候才删除)
+                            dataId && Filter.reomveGlobalFilter(dataId);
+
+							$container.hide("fade", 500, function() {
+								jQuery(this).remove();
+							});
+							//如果当前打开的面板是删除容器的，将之关闭
+							if(Box.Property.isMyProperty && Box.Property.isMyProperty(id)){
+								Property.close(true);
+							}
+						})
+					});
+
+                    /**
+                     * author: zhull
+                     * mby:shaojs 20161009
+                     * desc:查看数据源按鈕功能,优先查看容器挂载的数据源,如果没有则查看当前全局数据源,如果都没有,则不动作
+                    */
+					jQuery("#tableChartPanel").on('click', '.chart-icon.viewdata', function() {
+                        var $this = jQuery(this);
+                        var $container = $this.parents('.container');
+                        var dataParams = $container.data("option").config.build.dataParams;
+                        //dataParams为undefined的时候,dataId也是undefined
+                        var dataId = dataParams && dataParams.dataId;
+                        var type = dataParams && dataParams.dataType;
+                        //如果没有挂载到container上,则预览全局的工作表
+                        dataId = dataId ||Box.main.dataId;
+                        type = type || Box.main.dataType;
+                        //如果没有数据源可以预览,则不动作
+                        if(!dataId) return;
+                        //采用统一的数据源查看接口
+                        DataInfoUtil.show(dataId);
+
+                        //采用了统一的数据源查看方式,下面的就不要了
+
+                        /*var url = Bace.handleUrlParam("/platform/resmanage/data/data-common-view");
+						var params = {
+							dataId: dataId,
+							type: type
+						};
+						if(type == "1"){
+							url = Bace.handleUrlParam("/platform/resmanage/datalink/data-link-show");
+							 params = {
+								dataLinkId: dataId
+							};
+						}
+						//页面跳转
+						Widgets.view.redirecPage(url,params);*/
+					});
+
+                    //TODO 表格下载 shaojs 20161114
+                    jQuery("#tableChartPanel").on('click', '.chart-icon.tabledownload', function() {
+                        var option = jQuery(this).parents('.container').data("option");
+                        //console.log(option);
+                        if(!option.isInit) return;
+                        var url = Bace.handleUrlParam("/platform/dataview/down-table-data");
+                        url = url+"?" + $.param(option.config.build.dataParams);
+                        Bace.downloadbyfloor(url);
+                    });
+
+                    //表格行列互换 shaojs 20161114
+                    jQuery("#tableChartPanel").on('click', '.chart-icon.xy2yx', function() {
+                        var option = jQuery(this).parents('.container').data("option");
+                        //初始化后的表格才可以执行互换
+                        if(option.isInit){
+                            var dimAttr = JSON.parse(option.config.build.dataParams.dimAttrJsonStr);
+                            var exchangeTemp = dimAttr.rowsData;
+                            dimAttr.rowsData = dimAttr.colsData;
+                            dimAttr.colsData = exchangeTemp;
+                            exchangeTemp = null;
+                            option.config.build.dataParams.dimAttrJsonStr = JSON.stringify(dimAttr);
+                            Widgets.control.getPluginByType(option.chartType).apply(option,true);
+                            $(this).toggleClass("checked");
+                        }
+                    });
+
+					//分层下钻返回
+					jQuery("#tableChartPanel").on('click', '.breadcrumbs>a', function() {
+						var level = jQuery(this).parent(".breadcrumbs").find("a").index(this);
+						var container = jQuery(this).parents('.container');
+						var chartDiv = container.find(".chart")[0];
+						jQuery(chartDiv).EBuilder("undrill",level);
+					});
+                    //图表关联返回
+                    jQuery("#tableChartPanel").on('click', '.chainInfo .j_unchainChart', function() {
+                        var container = jQuery(this).parents('.container');
+                        if(container.find(".chart:visible").length){
+                            var chartDiv = container.find(".chart")[0];
+                            jQuery(chartDiv).EBuilder("unchainChart");
+                        }else{
+                            Box.Widgets.plugins.table.unchainChart(container);
+                        }
+                    });
+				}
+			},
+			// 页面跳转方法
+			redirecPage:function(url,params){
+				var html = "";
+				// 遍历参数
+				for(var name in params){
+					html += "<input name='" + name + "' value='" + params[name] + "'/>";
+				}
+				var formTemp = jQuery("<form></form>",{
+					"method":"post",
+					"action": url,
+					"target": "_blank",
+					"html": html
+				});
+				jQuery('body').append(formTemp);
+				formTemp.submit();
+				jQuery(formTemp).remove();
+			},
+			showLoading:function($container){
+				if(typeof(Spinner2)!=='undefined'){
+					var $load = jQuery('<div></div>',{
+						"class":"bi-confirm loadingBg"
+					});
+					$container.spin(loadingOption);
+					$container.append($load);
+				}
+				$container.data("isLoading",true);
+			},
+			hideLoading:function($container){
+				var $bg = $container.find(".loadingBg");
+				if($bg.length == 0)return;
+				if(typeof(Spinner2)!=='undefined'){
+					$container.spin('close');
+					$bg.remove();
+				}
+				$container.data("isLoading",false);
+			},
+			showTip:function(tipData,$container){
+				tipData.titleShow = tipData.titleShow||true;
+				var confirm = '<div id="${_id}" failType="${failType}" class="bi-confirm ${className}">' + '	<div class="confrim-text" style="letter-spacing: 1px;text-align:center">' + '  {{if titleShow==true}} <span style="font-size: 26px;">提示 </span>{{/if}}{{html msg}}' + '	</div>' + '	<div class="btn-group">{{html button}}' + '	</div>' + '</div>';
+				$.tmpl(confirm, tipData).appendTo($container);
+			},
+			hideTip:function(id){
+				jQuery("#"+id).remove();
+			},
+			//获得单图缩略图
+			//目前只支持ECharts,后续扩展到每个组件中
+			getThumbSingleURL:function($el){
+				return $(".chart",$el).EBuilder('getInstanceByDom').getDataURL({
+					backgroundColor:$el.css("backgroundColor")
+				})
+			},
+			//获得全图缩略图
+			//$.Deferred(Box.Widgets.getThumbURL).done(function(data){
+			//	window.open(data);
+			//})
+			getThumbURL:function(dtd){
+				jQuery("#gridBg,#tableChartPanel").removeClass("grid-bg");
+				//布局面板
+				var $tableChartPanel = jQuery("#tableChartPanel");
+				$tableChartPanel.animate({
+					scrollTop: 0
+				}, 0);
+				jQuery("#thumb_canvas").remove();
+				var firstTopArray = [];
+				var lastBottomArray = [];
+				var firstLeftArray = [];
+				var lastRightArray = [];
+
+				jQuery("#tableChartPanel .container").each(function() {
+					var $this = $(this);
+					firstTopArray.push($this.position().top);
+					lastBottomArray.push($this.position().top + $this.parent().scrollTop() + $this.height() + 20);
+					firstLeftArray.push($this.position().left + $this.parent().scrollLeft());
+					lastRightArray.push($this.position().left + $this.parent().scrollLeft() + $this.width() );
+				});
+
+				//从画板中获得第一个图形的纵向起始位置=》firstTop
+				var firstTop = Math.min.apply({},firstTopArray) - 20  ;
+				firstTop = firstTop<0?0:firstTop;
+				//从画板中获得最后一个图形的纵向结束位置=》lastBottom
+				var lastBottom = Math.max.apply({},lastBottomArray) + 20;
+
+				//从画板中获得第一个图形的横向起始位置=》firstTop
+				var firstLeft = Math.min.apply({},firstLeftArray)-20;
+
+				//从画板中获得最后一个图形的横向结束位置=》lastBottom
+				var lastRight = Math.max.apply({},lastRightArray)+20;
+
+				html2canvas(document.getElementById("tableChartPanel"), {
+					onrendered: function(canvas) {
+						 var sourceX = 0;
+						 var sourceY =  0;
+						 var sourceWidth = lastRight + 400;
+						 var sourceHeight = lastBottom + 400;
+						 var destWidth = sourceWidth;
+						 var destHeight = sourceHeight;
+						 var destX =-firstLeft;
+						 var destY = -firstTop;
+
+						 var image = new Image();
+							 image.src = canvas.toDataURL("image/png");
+
+							image.onload = function(){
+								//log(image.src)
+								var width = lastRight-firstLeft;
+								var height = lastBottom-firstTop;
+
+								var newCnvs= document.createElement('canvas');
+									newCnvs.setAttribute("id","thumb_canvas");
+									newCnvs.style.display = "none"
+									newCnvs.width=width;
+									newCnvs.height=height;
+									document.body.appendChild(newCnvs);
+
+								var canvas2 = document.getElementById('thumb_canvas');
+								var context = canvas2.getContext('2d');
+								context.drawImage(image, sourceX, sourceY, sourceWidth, sourceHeight, destX, destY, destWidth, destHeight);
+								document.body.appendChild(canvas2);
+								log("图形生成完毕");
+								jQuery("#gridBg,#tableChartPanel").addClass("grid-bg");
+								dtd.resolve(canvas2.toDataURL("image/png"));
+							}
+					},
+					width:lastRight + 500,
+					height:lastBottom + 500
+				});
+				return dtd;
+			},
+			//加载页面页面底部的url导航条 gaoya 20160914
+			openUrlPanel:function(method){
+				UrlPathPanel.init();
+				if(method==="close"){
+					$("#layout_body_url_panel").css("display","none");
+				}else if(method==="open"){
+					$("#layout_body_url_panel").css("display","block");
+					$("#setUrlPath").click(UrlPathPanel.show);
+				}
+
+			}
+		};
+		return Widgets.control;
+	});

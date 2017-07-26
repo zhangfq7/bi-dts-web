@@ -1,1 +1,318 @@
-(function(e,f,g){var b=Math.PI*2,a=Math.PI/2;function d(o){var n=/^#?([a-f\d])([a-f\d])([a-f\d])$/i;o=o.replace(n,function(q,t,s,p){return t+t+s+s+p+p});var m=/^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(o);return m?[parseInt(m[1],16),parseInt(m[2],16),parseInt(m[3],16)]:null}function l(n,p,m,o){return Math.round(m+((o-m)*n/p))}function c(s,n,u,m,t){var o=t.indexOf("#")!=-1?d(t):t.match(/\d+/g),r=m.indexOf("#")!=-1?d(m):m.match(/\d+/g),q=u-n,p=s-n;if(!o||!r){return null}return"rgb("+l(p,q,r[0],o[0])+","+l(p,q,r[1],o[1])+","+l(p,q,r[2],o[2])+")"}function h(){var m=arguments,r=m[0];for(var o=1,p=m.length;o<p;o++){var q=m[o];for(var n in q){if(q.hasOwnProperty(n)){r[n]=q[n]}}}return r}function i(m){return function(q){if(!m){return q.toString()}q=q||0;var o=q.toString().split("").reverse(),p=m.split("").reverse(),r=0,n=0;for(var s=p.length;r<s;r++){if(!o.length){break}if(p[r]=="#"){n=r;p[r]=o.shift()}}p.splice(n+1,p.lastIndexOf("#")-n,o.reverse().join(""));return p.reverse().join("")}}function k(m,o){o=o||{};o=h({},j.defaults,o);this.indOption=o;if(typeof m=="string"){m=g.querySelector(m)}if(m.length){m=m[0]}this.container=m;var n=g.createElement("canvas");m.appendChild(n);this.canElm=n;this.ctx=n.getContext("2d");this.current_value=o.initValue||o.minValue||0}k.prototype={constructor:j,init:function(){var q=this.indOption,o=this.canElm,n=this.ctx,p=(q.radius+q.barWidth)*2,m=p/2;this.formatter=typeof q.format=="function"?q.format:i(q.format);this.maxLength=q.percentage?4:this.formatter(q.maxValue).length;o.width=p;o.height=p;n.strokeStyle=q.barBgColor;n.lineWidth=q.barWidth;n.beginPath();n.arc(m,m,q.radius,0,2*Math.PI);n.stroke();this.imgData=n.getImageData(0,0,p,p);this.value(this.current_value);return this},value:function(G){if(G===undefined||isNaN(G)){return this.current_value}G=parseInt(G);var v=this.ctx,F=this.indOption,B=F.barColor,x=(F.radius+F.barWidth)*2,z=F.minValue,p=F.maxValue,E=x/2;G=G<z?z:G>p?p:G;var o=Math.round(((G-z)*100/(p-z))*100)/100,C=F.percentage?o+"%":this.formatter(G);this.current_value=G;v.putImageData(this.imgData,0,0);if(typeof B=="object"){var u=Object.keys(B);for(var y=1,q=u.length;y<q;y++){var A=u[y-1],w=u[y],n=B[A],r=B[w],t=G==A?n:G==w?r:G>A&&G<w?F.interpolate?c(G,A,w,n,r):r:false;if(t!=false){B=t;break}}}v.strokeStyle=B;if(F.roundCorner){v.lineCap="round"}v.beginPath();v.arc(E,E,F.radius,-(a),((b)*o/100)-a,false);v.stroke();if(F.displayNumber){var D=v.font.split(" "),s=F.fontWeight,m=F.fontSize||(x/(this.maxLength-(Math.floor(this.maxLength*1.4/4)-1)));D=F.fontFamily||D[D.length-1];v.fillStyle=F.fontColor||B;v.font=s+" "+m+"px "+D;v.textAlign="center";v.textBaseline="middle";v.fillText(C,E,E)}return this},animate:function(r){var q=this.indOption,m=this.current_value||q.minValue,p=this,o=Math.ceil((q.maxValue-q.minValue)/(q.frameNum||(q.percentage?100:500))),n=r<m;if(this.intvFunc){clearInterval(this.intvFunc)}this.intvFunc=setInterval(function(){if((!n&&m>=r)||(n&&m<=r)){if(p.current_value==m){clearInterval(p.intvFunc);return}else{m=r}}p.value(m);if(m!=r){m=m+(n?-o:o)}},q.frameTime);return this},option:function(m,n){if(n===undefined){return this.option[m]}if(["radius","barWidth","barBgColor","format","maxValue","percentage"].indexOf(m)!=-1){this.indOption[m]=n;this.init().value(this.current_value)}this.indOption[m]=n}};function j(m,n){var o=new k(m,n);o.init();return o}j.defaults={radius:50,barWidth:5,barBgColor:"#eeeeee",barColor:"#99CC33",format:null,frameTime:10,frameNum:null,fontColor:null,fontFamily:null,fontWeight:"bold",fontSize:null,interpolate:true,percentage:false,displayNumber:true,roundCorner:false,minValue:0,maxValue:100,initValue:0};f.radialIndicator=j;if(e){e.fn.radialIndicator=function(m){return this.each(function(){var n=j(this,m);e.data(this,"radialIndicator",n)})};e.fn.radialIndicatorTemp=function(m){var n=j(this,m);e.data(this,"radialIndicator",n);return n}}}(window.jQuery,window,document,void 0));
+/*
+    radialIndicator.js v 1.0.0
+    Author: Sudhanshu Yadav
+    Copyright (c) 2015 Sudhanshu Yadav - ignitersworld.com , released under the MIT license.
+    Demo on: ignitersworld.com/lab/radialIndicator.html
+*/
+
+;(function ($, window, document) {
+    "use strict";
+    //circumfence and quart value to start bar from top
+    var circ = Math.PI * 2,
+        quart = Math.PI / 2;
+
+    //function to convert hex to rgb
+
+    function hexToRgb(hex) {
+        // Expand shorthand form (e.g. "03F") to full form (e.g. "0033FF")
+        var shorthandRegex = /^#?([a-f\d])([a-f\d])([a-f\d])$/i;
+        hex = hex.replace(shorthandRegex, function (m, r, g, b) {
+            return r + r + g + g + b + b;
+        });
+
+        var result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
+        return result ? [parseInt(result[1], 16), parseInt(result[2], 16), parseInt(result[3], 16)] : null;
+    }
+
+    function getPropVal(curShift, perShift, bottomRange, topRange) {
+        return Math.round(bottomRange + ((topRange - bottomRange) * curShift / perShift));
+    }
+
+
+    //function to get current color in case of 
+    function getCurrentColor(curPer, bottomVal, topVal, bottomColor, topColor) {
+        var rgbAryTop = topColor.indexOf('#') != -1 ? hexToRgb(topColor) : topColor.match(/\d+/g),
+            rgbAryBottom = bottomColor.indexOf('#') != -1 ? hexToRgb(bottomColor) : bottomColor.match(/\d+/g),
+            perShift = topVal - bottomVal,
+            curShift = curPer - bottomVal;
+
+        if (!rgbAryTop || !rgbAryBottom) return null;
+
+        return 'rgb(' + getPropVal(curShift, perShift, rgbAryBottom[0], rgbAryTop[0]) + ',' + getPropVal(curShift, perShift, rgbAryBottom[1], rgbAryTop[1]) + ',' + getPropVal(curShift, perShift, rgbAryBottom[2], rgbAryTop[2]) + ')';
+    }
+
+    //to merge object
+    function merge() {
+        var arg = arguments,
+            target = arg[0];
+        for (var i = 1, ln = arg.length; i < ln; i++) {
+            var obj = arg[i];
+            for (var k in obj) {
+                if (obj.hasOwnProperty(k)) {
+                    target[k] = obj[k];
+                }
+            }
+        }
+        return target;
+    }
+
+    //function to apply formatting on number depending on parameter
+    function formatter(pattern) {
+        return function (num) {
+            if(!pattern) return num.toString();
+            num = num || 0
+            var numRev = num.toString().split('').reverse(),
+                output = pattern.split("").reverse(),
+                i = 0,
+                lastHashReplaced = 0;
+
+            //changes hash with numbers
+            for (var ln = output.length; i < ln; i++) {
+                if (!numRev.length) break;
+                if (output[i] == "#") {
+                    lastHashReplaced = i;
+                    output[i] = numRev.shift();
+                }
+            }
+
+            //add overflowing numbers before prefix
+            output.splice(lastHashReplaced+1, output.lastIndexOf('#') - lastHashReplaced, numRev.reverse().join(""));
+
+            return output.reverse().join('');
+        }
+    }
+
+
+    //circle bar class
+    function Indicator(container, indOption) {
+        indOption = indOption || {};
+        indOption = merge({}, radialIndicator.defaults, indOption);
+
+        this.indOption = indOption;
+
+        //create a queryselector if a selector string is passed in container
+        if (typeof container == "string")
+            container = document.querySelector(container);
+
+        //get the first element if container is a node list
+        if (container.length)
+            container = container[0];
+
+        this.container = container;
+
+        //create a canvas element
+        var canElm = document.createElement("canvas");
+        container.appendChild(canElm);
+
+        this.canElm = canElm; // dom object where drawing will happen
+
+        this.ctx = canElm.getContext('2d'); //get 2d canvas context
+
+        //add intial value 
+        this.current_value = indOption.initValue || indOption.minValue || 0;
+
+    }
+
+
+    Indicator.prototype = {
+        constructor: radialIndicator,
+        init: function () {
+            var indOption = this.indOption,
+                canElm = this.canElm,
+                ctx = this.ctx,
+                dim = (indOption.radius + indOption.barWidth) * 2, //elm width and height
+                center = dim / 2; //center point in both x and y axis
+
+
+            //create a formatter function
+            this.formatter = typeof indOption.format == "function" ? indOption.format : formatter(indOption.format);
+
+            //maximum text length;
+            this.maxLength = indOption.percentage ? 4 : this.formatter(indOption.maxValue).length;
+
+            canElm.width = dim;
+            canElm.height = dim;
+
+            //draw a grey circle
+            ctx.strokeStyle = indOption.barBgColor; //background circle color
+            ctx.lineWidth = indOption.barWidth;
+            ctx.beginPath();
+            ctx.arc(center, center, indOption.radius, 0, 2 * Math.PI);
+            ctx.stroke();
+
+            //store the image data after grey circle draw
+            this.imgData = ctx.getImageData(0, 0, dim, dim);
+
+            //put the initial value if defined
+            this.value(this.current_value);
+
+            return this;
+        },
+        //update the value of indicator without animation
+        value: function (val) {
+            //return the val if val is not provided
+            if (val === undefined || isNaN(val)) {
+                return this.current_value;
+            }
+
+            val = parseInt(val);
+            
+            var ctx = this.ctx,
+                indOption = this.indOption,
+                curColor = indOption.barColor,
+                dim = (indOption.radius + indOption.barWidth) * 2,
+                minVal = indOption.minValue,
+                maxVal = indOption.maxValue,
+                center = dim / 2;
+
+            //limit the val in range of 0 to 100
+            val = val < minVal ? minVal : val > maxVal ? maxVal : val;
+
+            var perVal = Math.round(((val - minVal) * 100 / (maxVal - minVal)) * 100) / 100, //percentage value tp two decimal precision
+                dispVal = indOption.percentage ? perVal + '%' : this.formatter(val); //formatted value
+
+            //save val on object
+            this.current_value = val;
+
+
+            //draw the bg circle
+            ctx.putImageData(this.imgData, 0, 0);
+
+            //get current color if color range is set
+            if (typeof curColor == "object") {
+                var range = Object.keys(curColor);
+
+                for (var i = 1, ln = range.length; i < ln; i++) {
+                    var bottomVal = range[i - 1],
+                        topVal = range[i],
+                        bottomColor = curColor[bottomVal],
+                        topColor = curColor[topVal],
+                        newColor = val == bottomVal ? bottomColor : val == topVal ? topColor : val > bottomVal && val < topVal ? indOption.interpolate ? getCurrentColor(val, bottomVal, topVal, bottomColor, topColor) : topColor : false;
+
+                    if (newColor != false) {
+                        curColor = newColor;
+                        break;
+                    }
+                }
+            }
+
+            //draw th circle value
+            ctx.strokeStyle = curColor;
+
+            //add linecap if value setted on options
+            if (indOption.roundCorner) ctx.lineCap = "round";
+
+            ctx.beginPath();
+            ctx.arc(center, center, indOption.radius, -(quart), ((circ) * perVal / 100) - quart, false);
+            ctx.stroke();
+
+            //add percentage text
+            if (indOption.displayNumber) {
+                var cFont = ctx.font.split(' '),
+                    weight = indOption.fontWeight,
+                    fontSize = indOption.fontSize || (dim / (this.maxLength - (Math.floor(this.maxLength*1.4/4)-1)));
+
+                cFont = indOption.fontFamily || cFont[cFont.length - 1];
+
+
+                ctx.fillStyle = indOption.fontColor || curColor;
+                ctx.font = weight +" "+ fontSize + "px " + cFont;
+                ctx.textAlign = "center";
+                ctx.textBaseline = 'middle';
+                ctx.fillText(dispVal, center, center);
+            }
+
+            return this;
+        },
+        //animate progressbar to the value
+        animate: function (val) {
+
+            var indOption = this.indOption,
+                counter = this.current_value || indOption.minValue,
+                self = this,
+                incBy = Math.ceil((indOption.maxValue - indOption.minValue) / (indOption.frameNum || (indOption.percentage ? 100 : 500))), //increment by .2% on every tick and 1% if showing as percentage
+                back = val < counter;
+
+            //clear interval function if already started
+            if (this.intvFunc) clearInterval(this.intvFunc); 
+
+            this.intvFunc = setInterval(function () {
+
+                if ((!back && counter >= val) || (back && counter <= val)) {
+                    if (self.current_value == counter) {
+                        clearInterval(self.intvFunc);
+                        return;
+                    } else {
+                        counter = val;
+                    }
+                }
+
+                self.value(counter); //dispaly the value
+
+                if (counter != val) {
+                    counter = counter + (back ? -incBy : incBy)
+                }; //increment or decrement till counter does not reach  to value
+            }, indOption.frameTime);
+
+            return this;
+        },
+        //method to update options
+        option: function (key, val) {
+            if (val === undefined) return this.option[key];
+
+            if (['radius', 'barWidth', 'barBgColor', 'format', 'maxValue', 'percentage'].indexOf(key) != -1) {
+                this.indOption[key] = val;
+                this.init().value(this.current_value);
+            }
+            this.indOption[key] = val;
+        }
+
+    };
+
+    /** Initializer function **/
+    function radialIndicator(container, options) {
+        var progObj = new Indicator(container, options);
+        progObj.init();
+        return progObj;
+    }
+
+    //radial indicator defaults
+    radialIndicator.defaults = {
+        radius: 50, //inner radius of indicator
+        barWidth: 5, //bar width
+        barBgColor: '#eeeeee', //unfilled bar color
+        barColor: '#99CC33', //filled bar color , can be a range also having different colors on different value like {0 : "#ccc", 50 : '#333', 100: '#000'}
+        format: null, //format indicator numbers, can be a # formator ex (##,###.##) or a function
+        frameTime: 10, //miliseconds to move from one frame to another
+        frameNum: null, //Defines numbers of frame in indicator, defaults to 100 when showing percentage and 500 for other values
+        fontColor: null, //font color
+        fontFamily: null, //defines font family
+        fontWeight: 'bold', //defines font weight
+        fontSize : null, //define the font size of indicator number
+        interpolate: true, //interpolate color between ranges
+        percentage: false, //show percentage of value
+        displayNumber: true, //display indicator number
+        roundCorner: false, //have round corner in filled bar
+        minValue: 0, //minimum value
+        maxValue: 100, //maximum value
+        initValue: 0 //define initial value of indicator
+    };
+    
+    window.radialIndicator = radialIndicator;
+
+    //add as a jquery plugin
+    if ($) {
+        $.fn.radialIndicator = function (options) {
+            return this.each(function () {
+                var newPCObj = radialIndicator(this, options);
+                $.data(this, 'radialIndicator', newPCObj);
+            });
+        };
+        $.fn.radialIndicatorTemp = function (options) {
+        	var progObj = radialIndicator(this, options);
+        	$.data(this, 'radialIndicator', progObj);
+            return progObj;
+        };
+    }
+
+}(window.jQuery, window, document, void 0));

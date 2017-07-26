@@ -1,1 +1,159 @@
-.orange{color:#ffa302}.bolder{font-weight:bolder}.panel{width:100%;padding:10px;margin:0;min-width:1024px}.panel-info{height:50px;line-height:50px;padding-left:10px}.panel-info>div{display:inline-block}.info-img{width:22px;height:22px;vertical-align:text-bottom;background-image:url("../img/detail.png");background-position:0 1px;background-repeat:no-repeat}.tab-pane{width:99%;margin:auto;padding:0}.tab-pane>li{list-style-type:none;width:100%;margin:auto!important;padding:5px 0}.tab-pane>li:first-child{margin:20px 0!important}.tab-pane>li>div{display:inline-block}.label-class{width:12%;text-align:right}.other-label-class{width:16%;text-align:right}.input-class{width:14%}.input-other{width:17%;vertical-align:middle;position:relative}.button-class{width:15%;text-align:center}.button-class>button{width:90px!important}.consume-list-class,.recharge-list-class{width:100%;margin:0;padding:0}.summary-class{width:95%;margin:0;padding:0;text-align:right}.recharge-state>div{display:inline-block;width:14px;height:14px;vertical-align:text-bottom;margin:0 5px;background-repeat:no-repeat}.recharging-class,.fail-class{background-image:url("../img/detail.png");background-position:-23px 0}.success-class{background-image:url("../img/detail.png");background-position:-42px 0}.ui-jqgrid-bdiv{overflow-x:hidden!important}.ui-jqgrid-view{overflow-x:hidden!important}}.acyc-icon{color:#2ec7c9;background-color:#f3f3f3;width:22px!important}.kalendar{float:left;min-width:142px;border-top-right-radius:0!important;border-bottom-right-radius:0!important}.adder{float:left;margin-top:-30px;text-align:center;font-weight:normal;border-radius:4px;vertical-align:middle;white-space:nowrap;display:table-cell;transition:border .25s linear,color .25s linear,background-color .25s linear;color:#2ec7c9;background-color:#fff;width:22px!important;height:22px!important;position:absolute;top:32px;right:1px}
+.orange {
+	color: #ffa302;
+}
+
+.bolder {
+	font-weight:bolder;
+}
+
+.panel {
+	width: 100%;
+	padding: 10px;
+	margin: 0;
+	min-width: 1024px;
+}
+
+.panel-info {
+	height: 50px;
+	line-height: 50px;
+	padding-left: 10px;
+}
+
+.panel-info>div {
+	display: inline-block;
+}
+
+.info-img {
+	width: 22px;
+	height: 22px;
+	vertical-align: text-bottom;
+	background-image: url("../img/detail.png");
+	background-position: 0px 1px;
+	background-repeat: no-repeat;
+}
+
+
+.tab-pane {
+	width: 99%;
+	margin: auto;
+	padding: 0;
+}
+
+.tab-pane>li {
+	list-style-type: none;
+	width: 100%;
+	margin: auto !important;
+	padding: 5px 0px;
+}
+
+.tab-pane>li:first-child {
+	margin: 20px 0 !important;
+}
+
+.tab-pane>li>div {
+	display: inline-block;
+}
+
+.label-class {
+	width: 12%;
+	text-align: right;
+}
+
+.other-label-class{
+	width: 16%;
+	text-align: right;
+}
+
+.input-class {
+	width: 14%;
+}
+
+.input-other {
+	width: 17%;
+	vertical-align:middle;
+	position:relative;
+}
+.button-class {
+	width: 15%;
+	text-align: center;
+}
+
+.button-class>button {
+	width: 90px !important;
+}
+
+.consume-list-class, .recharge-list-class {
+	width: 100%;
+	margin: 0;
+	padding: 0;
+}
+
+.summary-class {
+	width: 95%;
+	margin: 0;
+	padding: 0;
+	text-align: right;
+}
+
+.recharge-state>div {
+	display: inline-block;
+	width: 14px;
+	height: 14px;
+	vertical-align: text-bottom;
+	margin: 0 5px;
+	background-repeat: no-repeat;
+}
+
+.recharging-class, .fail-class {
+	background-image: url("../img/detail.png");
+	background-position: -23px 0px;
+}
+
+.success-class {
+	background-image: url("../img/detail.png");
+	background-position: -42px 0px;
+}
+
+.ui-jqgrid-bdiv {
+	overflow-x:hidden!important;
+}
+
+.ui-jqgrid-view {
+	overflow-x:hidden!important;
+}
+
+
+}
+
+.acyc-icon {
+	color: #2EC7C9;
+	background-color: #f3f3f3;
+	width: 22px !important; 
+}
+.kalendar{
+	float:left;
+	min-width:142px;
+	border-top-right-radius:0px!important;
+	border-bottom-right-radius:0px!important;
+
+}
+
+
+.adder{
+float: left;
+margin-top: -30px;
+text-align:center;
+font-weight:normal;
+border-radius:4px;
+vertical-align:middle;
+white-space:nowrap;
+display:table-cell;
+transition:border 0.25s linear, color 0.25s linear, background-color 0.25s linear;
+color: #2EC7C9;
+background-color: #fff;
+width: 22px !important;
+height: 22px !important;
+position:absolute;
+top: 32px;
+right: 1px;
+}

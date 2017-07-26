@@ -1,1 +1,103 @@
-html,body{height:100%;background:#fff}.page{opacity:.5;width:30px;height:232px;border-radius:50px 50px 50px 50px;text-align:center;padding-top:1px;position:fixed;right:1%;top:50%;margin-top:-116px}#opt{margin-top:6px;background:0}#opt span:hover{color:#fff}.page div{margin-left:-11px;margin-top:15px;font-size:13px;width:22px;height:22px;border-radius:12px;text-align:center;line-height:22px}.page div span{color:#fafafa;cursor:pointer;font-size:15px}.ifrDiv{display:none}.ifrDiv iframe{margin-left:-15px;margin-top:-7px;margin-bottom:10px}.ifrDiv img{display:none;position:absolute;left:50%;margin-left:-327px;width:auto;margin-top:50px}.normalBtn{background-color:#44afe6}.normalBtn span{color:#fafafa;font-weight:normal;font-size:13px}.normalBtn span:hover{color:#415b76}.clickBtn{background-color:#fff!important}.clickBtn span{color:#589fcd!important;font-family:微软雅黑;font-weight:bold}.report-msg{max-width:180px;height:auto;padding:5px;font-size:12px}.report-name{word-break:break-all;font-size:12px;font-weight:bolder;color:#34495e}
+html,body{
+	height:100%;
+	background:#fff;
+}
+
+.page {
+	opacity : .5;
+	width:30px;
+	height:232px;
+	border-radius:50px 50px 50px 50px;
+	text-align:center;
+	padding-top: 1px;
+	position:fixed;
+	right:1%;
+	top:50%;
+	margin-top:-116px;
+}
+
+#opt {
+	margin-top : 6px;
+	background : none;
+}
+
+#opt span:hover {
+	color:#fff;
+}
+
+.page div {
+	margin-left:-11px;
+	margin-top : 15px;
+	font-size :13px;
+	width:22px;
+	height:22px;
+	
+	border-radius:12px;
+	text-align:center;
+	line-height:22px;
+}
+
+.page div span {
+	color :#FAFAFA;
+	cursor : pointer;
+	font-size : 15px;
+}
+
+.ifrDiv{
+	display:none;
+	
+}
+
+.ifrDiv iframe{
+	margin-left:-15px;
+	margin-top:-7px;
+	margin-bottom:10px; 
+}
+
+.ifrDiv img{
+	display:none;
+	position:absolute;
+	left:50%;
+	margin-left:-327px;
+	width :auto;
+	margin-top:50px;
+}
+
+/* 正常的按钮样式 */
+.normalBtn{
+	background-color : #44AFE6;
+}
+
+.normalBtn span{
+	color : #FAFAFA;
+	font-weight : normal;
+	font-size : 13px;
+}
+
+.normalBtn span:hover{
+	color : #415b76;
+}
+
+/* 被点击后的按钮样式 */
+.clickBtn{
+	background-color : #FFFFFF!important;
+}
+
+.clickBtn span{
+	color : #589FCD!important;
+	font-family :微软雅黑;
+	font-weight : bold;
+}
+
+.report-msg{
+	max-width:180px;
+	height:auto;
+	padding : 5px;
+	font-size:12px;
+}
+.report-name{
+	word-break: break-all;
+	font-size: 12px;
+	font-weight: bolder;
+	color: #34495e;
+}

@@ -1,1 +1,109 @@
-.red{color:red}.panel{width:100%;padding:10px;min-width:1024px}.tab-pane{width:98%;margin:auto;padding:0}.tab-pane>li{list-style-type:none;width:100%;margin:auto!important;padding:5px 40px 5px 0}.tab-pane>li:first-child{margin:20px 0!important}.tab-pane>li>div{display:inline-block}.label-class{text-align:right;width:10%;padding:5px 12px;vertical-align:top}.search-class{text-align:left;width:14%;vertical-align:text-top}.search-class input{height:28px!important}.button-class{width:90px}.oper-pane{width:98%;margin:0;padding:0 0 15px 0}.oper-pane>li{list-style-type:none;width:90%;margin:auto!important;padding:0;text-align:right}.oper-pane>li>div{display:inline-block;width:100px}.report-list>li{list-style-type:none;width:100%;margin:auto!important;padding:0}.open-dialog .modal-dialog{width:700px}.open-dialog .modal-body{height:250px}.name-class{text-align:right;width:28%;padding:5px 12px;vertical-align:top}.input-class{text-align:left;width:60%;vertical-align:text-top}#parentDepName{background-color:#f9f9f9!important}.ui-jqgrid-bdiv{overflow-x:hidden!important}.ui-jqgrid-view{overflow-x:hidden!important}
+.red {
+	color: red;
+}
+
+.panel {
+	width: 100%;
+	padding: 10px;
+	min-width: 1024px;
+}
+
+.tab-pane {
+	width: 98%;
+	margin: auto;
+	padding: 0;
+}
+
+.tab-pane>li {
+	list-style-type: none;
+	width: 100%;
+	margin: auto !important;
+	padding: 5px 40px 5px 0px;
+}
+
+.tab-pane>li:first-child {
+	margin: 20px 0 !important;
+}
+
+.tab-pane>li>div {
+	display: inline-block;
+}
+
+.label-class {
+	text-align: right; 
+	width: 10%;
+	padding: 5px 12px;
+	vertical-align: top;
+}
+
+.search-class {
+	text-align: left; 
+	width: 14%;
+	vertical-align: text-top;
+}
+
+.search-class input {
+	height: 28px !important;
+}
+
+.button-class {
+	width: 90px;
+}
+
+.oper-pane {
+	width: 98%;
+	margin: 0;
+	padding: 0 0 15px 0;
+}
+
+.oper-pane>li {
+	list-style-type: none;
+	width: 90%;
+	margin: auto !important;
+	padding: 0;
+	text-align: right;
+}
+
+.oper-pane>li>div {
+	display: inline-block;
+	width: 100px;
+}
+.report-list>li {
+	list-style-type: none;
+	width: 100%;
+	margin: auto !important;
+	padding: 0;
+}
+
+.open-dialog .modal-dialog {
+	width: 700px;
+}
+
+.open-dialog .modal-body {
+	height: 250px;
+}
+
+.name-class {
+	text-align: right; 
+	width: 28%;
+	padding: 5px 12px;
+	vertical-align: top;
+}
+
+.input-class {
+	text-align: left; 
+	width: 60%;
+	vertical-align: text-top;
+}
+
+#parentDepName {
+	background-color: #f9f9f9 !important;
+}
+
+.ui-jqgrid-bdiv {
+	overflow-x:hidden !important;
+}
+
+.ui-jqgrid-view {
+	overflow-x:hidden !important;
+}

@@ -1,1 +1,150 @@
-.panel{width:100%;padding:10px;min-width:1024px}.tab-pane{width:96%;margin:auto;padding:0}.tab-pane>li{list-style-type:none;width:100%;margin:auto!important}.tab-pane>li>div{display:inline-block}.label-class{text-align:right;width:20%;padding:5px 12px;vertical-align:text-top}.img-class{text-align:left;width:25%;vertical-align:text-top}.theme-class{text-align:left;width:78%;vertical-align:text-top;margin-top:10px}.avatar-content{padding-top:15px;text-align:center}#cropImageDiv{border-radius:1px;width:250px;height:50px;text-align:left}.preview-container{width:250px;height:50px;overflow:hidden;margin-right:-20px;display:block;text-align:left}.theme-system-bg-border{height:68px;width:68px;border-radius:6px;display:inline-block}.theme-system-bg-border div{margin:3px auto;width:60px;height:60px;border-radius:6px}.theme-system-bg-border.checked{background:#c6dfff}.theme-system-bg-border #red{background:#db4f4d;border:1px solid #c03937}.theme-system-bg-border #orange{background:#fdc05c;border:1px solid #daa143}.theme-system-bg-border #yellow{background:#cea500;border:1px solid #a98700}.theme-system-bg-border #green{background:#66c55e;border:1px solid #47b03e}.theme-system-bg-border #blue{background:#027ebe;border:1px solid #0570a7}.theme-system-bg-border #paleblue{background:#c6dfff;border:1px solid #8ab5ed}.theme-system-bg-border #magenta{background:#f05cb5;border:1px solid #d8439d}.theme-system-bg-border #pink{background:#fdd8f9;border:1px solid #ebace4}.theme-system-bg-border #purple{background:#a280c1;border:1px solid #855cab}.theme-system-bg-border #palepurple{background:#dac8dc;border:1px solid #cba3cf}.theme-system-bg-border #rosybrown{background:#cec4a8;border:1px solid #c3ae75}.theme-system-bg-border #grey{background:#8b6968;border:1px solid #774b4a}.theme-system-bg-border #black{background:#505050;border:1px solid #2f2f2f}.theme-system-bg-border #white{background:#fff;border:1px solid #d3d3d3}
+.panel {
+	width: 100%;
+	padding: 10px;
+	min-width: 1024px;
+}
+
+.tab-pane {
+	width: 96%;
+	margin: auto;
+	padding: 0;
+}
+
+.tab-pane>li {
+	list-style-type: none;
+	width: 100%;
+	margin: auto !important;
+}
+
+.tab-pane>li>div {
+	display: inline-block;
+}
+
+.label-class {
+	text-align: right; 
+	width: 20%;
+	padding: 5px 12px;
+	vertical-align: text-top;
+}
+
+.img-class {
+	text-align: left; 
+	width: 25%;
+	vertical-align: text-top;
+}
+
+.theme-class {
+	text-align: left; 
+	width: 78%;
+	vertical-align: text-top;
+	margin-top: 10px;
+}
+
+.avatar-content{
+	padding-top: 15px;
+	text-align: center;
+}
+
+#cropImageDiv {
+	border-radius:1px;
+	
+	width: 250px;
+	height:50px;
+	text-align: left;
+}
+
+.preview-container {
+	width: 250px;
+	height: 50px;
+	overflow: hidden;
+	margin-right:-20px;
+	display: block;
+	text-align: left;
+}
+
+.theme-system-bg-border {
+	
+	height: 68px;
+	width: 68px;
+	border-radius: 6px;
+	display: inline-block;
+	
+}
+
+.theme-system-bg-border div{
+	margin: 3px auto;
+	width:60px;
+    height:60px;
+    border-radius: 6px;
+}
+
+.theme-system-bg-border.checked{
+	background: #C6DFFF;
+}
+
+.theme-system-bg-border #red{
+	background:#DB4F4D;
+    border:1px solid #C03937;
+}
+
+.theme-system-bg-border #orange{
+    background: #FDC05C;
+    border: 1px solid #DAA143;
+}
+
+.theme-system-bg-border #yellow{
+    background: #CEA500;
+    border: 1px solid #A98700;
+}
+.theme-system-bg-border #green{
+    background: #66C55E;
+    border: 1px solid #47B03E;
+}
+/* .theme-system-bg-border #deepgreen{
+    background: #66C55E;
+    border: 1px solid #47B03E;
+} */
+.theme-system-bg-border #blue{
+    background: #027EBE;
+    border: 1px solid #0570A7;
+}
+/* .theme-system-bg-border #deepblue{
+    background: #027EBE;
+    border: 1px solid #0570A7;
+} */
+.theme-system-bg-border #paleblue{
+    background: #C6DFFF;
+    border: 1px solid #8AB5ED;
+}
+.theme-system-bg-border #magenta{
+    background: #F05CB5;
+    border: 1px solid #D8439D;
+}
+.theme-system-bg-border #pink{
+    background: #FDD8F9;
+    border: 1px solid #EBACE4;
+}
+.theme-system-bg-border #purple{
+    background: #A280C1;
+    border: 1px solid #855CAB;
+}
+.theme-system-bg-border #palepurple{
+    background: #DAC8DC;
+    border: 1px solid #CBA3CF;
+}
+.theme-system-bg-border #rosybrown{
+    background: #CEC4A8;
+    border: 1px solid #C3AE75;
+}
+.theme-system-bg-border #grey{
+    background: #8B6968;
+    border: 1px solid #774B4A;
+}
+.theme-system-bg-border #black{
+    background: #505050;
+    border: 1px solid #2F2F2F;
+}
+.theme-system-bg-border #white{
+    background: #FFFFFF;
+    border: 1px solid #D3D3D3;
+}

@@ -1,1 +1,103 @@
-.date-my .form-control{background:#fff;color:#34495e;border-color:#d5dbdb}.center{width:auto;display:table;margin-left:180px;margin-right:auto}.avatar{width:140px;height:140px}#cropImageDiv{border-radius:1px;box-shadow:0 0 3px 3px #b9b9ff;background-color:white;width:140px;height:140px;background:url("../img/bg.jpg");position:relative;z-index:0}.preview-container{width:70px;height:70px;overflow:hidden;border-radius:60px;box-shadow:0 0 3px 3px #b9b9ff;margin:0 0 0 36px;display:block}#picker{display:none}.webuploader-pick{padding:2px 15px}#uploadProgress{font-weight:bold;text-align:center;width:140px;height:20px;display:none;background-color:white;position:absolute;top:15px;left:0;filter:alpha(opacity=80);-moz-opacity:.8;-khtml-opacity:.8;opacity:.8}.div-left{float:left}.div-right{float:right}.div-container{width:900px;margin:0 auto}.table-label{padding:5px 20px 5px 0}.avatar-label{text-align:right;padding:5px 20px 0 0;vertical-align:top}.avatar-content{padding-top:15px;text-align:center}.btn-container{text-align:center}.radio-label,.checkBox{cursor:pointer}.checkBox{width:12px}.parent-select{width:100px;float:left}.parent-date{float:left;padding:0 10px}.overdisplay{width:500px;white-space:nowrap;text-overflow:ellipsis;overflow:hidden}
+.date-my .form-control {
+  background: #fff;
+  color: #34495E;
+  border-color: #d5dbdb;
+}
+.center {
+  width: auto;
+  display: table;
+  margin-left: 180px;
+  margin-right: auto;
+}
+
+.avatar{
+	width: 140px;
+	height: 140px;
+}
+
+#cropImageDiv{
+	border-radius:1px;
+	box-shadow:0px 0px 3px 3px #B9B9FF;
+	background-color: white;
+	width: 140px;
+	height:140px;
+	background: url("../img/bg.jpg");
+	position:relative;
+	z-index:0;
+}
+.preview-container {
+  width: 70px;
+  height: 70px;
+  overflow: hidden;
+  border-radius:60px;
+  box-shadow:0px 0px 3px 3px #B9B9FF;
+  margin: 0px 0px 0px 36px;
+  display: block;
+}
+#picker{
+	display: none;
+}
+.webuploader-pick{
+	padding: 2px 15px;
+}
+#uploadProgress{
+	font-weight:bold;
+	text-align:center;
+	width:140px;
+	height:20px;
+	display: none;
+	background-color: white;
+	position: absolute;
+	top: 15px;
+	left: 0px;
+	filter:alpha(opacity=80);  
+    -moz-opacity:0.8;  
+    -khtml-opacity: 0.8;  
+    opacity: 0.8; 
+}
+.div-left{
+	float: left;
+}
+.div-right{
+	float: right;
+}
+.div-container{
+	width: 900px;
+	margin: 0px auto;
+}
+.table-label{
+	padding: 5px 20px 5px 0px;
+}
+.avatar-label{
+	text-align: right;
+	padding: 5px 20px 0px 0px;
+	vertical-align: top;
+}
+.avatar-content{
+	padding-top: 15px;
+	text-align: center;
+}
+.btn-container{
+	text-align: center;
+}
+.radio-label,.checkBox{
+	cursor: pointer;
+}
+.checkBox{
+	width: 12px;
+}
+.parent-select{
+	width: 100px;
+	float: left;
+}
+.parent-date{
+	float: left;
+	padding: 0px 10px;
+}
+
+.overdisplay{
+	width:500px;
+	white-space: nowrap;
+	text-overflow: ellipsis;
+    overflow: hidden;
+}

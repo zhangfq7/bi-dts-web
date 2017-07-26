@@ -1,1 +1,352 @@
-define(["sabace"],function(d){var c={};c.view={init:function(h,g){c.type=h;c.dbId=g;if(c.type=="add"){jQuery("#dataSource").removeClass("hide")}else{jQuery("#dbInfo").removeClass("hide")}jQuery("#dbSelect .pic").on("click",function(){jQuery("#dbSelect .pic .dbCheck").removeClass("check");jQuery("#dbSelect .pic .dbCheck").addClass("hide");jQuery("#dbSelect .pic").css("border","1px solid #E9E9E9");jQuery(this).css("border","1px solid rgba(23,153,236,0.65)");jQuery(this).find(".dbCheck").removeClass("hide");jQuery(this).find(".dbCheck").addClass("check");var j=jQuery(this).attr("id");jQuery("#dbType").val(j);jQuery("#icon-database").removeClass().addClass(j+"-icon");c.view.getDbBaInfo(j)});jQuery("#dbForm").validationEngine({autoHidePrompt:true,autoHideDelay:2000,binded:true,promptPosition:"bottomLeft",showOneMessage:true});jQuery("#projectId").chosen({disable_search:true,width:"280px"});if(c.type=="edit"||c.type=="view"){jQuery("#dbType").attr("disabled",true);jQuery("#dbInterfaceFlag").attr("disabled",true);if(c.type=="view"){jQuery("#dbName,#dbURL,#dbDriver,#dbUser,#dbPassword,#dbSchema,#dbSpace,#dbAlias,#dbDesc,#dbInterfaceFlag,#isDurable").remove();var i=[".dbName-div",".dbURL-div",".dbDriver-div",".dbUser-div",".dbPassword-div",".dbSchema-div",".dbSpace-div",".dbAlias-div",".dbDesc-div",".dbInterfaceFlag-div",".isDurable-div"];jQuery(".dbName-div").append('<label class="lable-v"  id="dbName"></label>');jQuery(".dbURL-div").append('<label class="lable-v" id="dbURL"></label>');jQuery(".dbDriver-div").append('<label class="lable-v"  id="dbDriver"></label>');jQuery(".dbUser-div").append('<label class="lable-v"  id="dbUser"></label>');jQuery(".dbPassword-div").append('<label class="lable-v"  id="dbPassword"></label>');jQuery(".dbSchema-div").append('<label  class="lable-v" id="dbSchema"></label>');jQuery(".dbSpace-div").append('<label  class="lable-v" id="dbSpace"></label>');jQuery(".dbAlias-div").append('<label  class="lable-v" id="dbAlias"></label>');jQuery(".dbInterfaceFlag-div").append('<label  class="lable-v" id="dbInterfaceFlag"></label>');jQuery(".dbDesc-div").append('<label  class="lable-v" id="dbDesc"></label>');jQuery(".isDurable-div").append('<label  class="lable-v" id="isDurable"></label>')}e(c.type)}},next:function(){if(jQuery("#dbSelect .pic .check").length>0){var g=jQuery("#dbSelect .pic .check").parent().attr("id");jQuery("#dbType").val(g);c.view.getDbBaInfo(g);jQuery("#dataSource").addClass("hide");jQuery("#dbInfo").removeClass("hide");c.flag=true}else{bi.dialog.show({type:bi.dialog.TYPE_DANGER,title:d.getMessage("data.db.title.tips"),message:d.getMessage("data.db.message.dataSourceType")});c.flag=false}},reSelect:function(){jQuery("#dbName").val("");jQuery("#dbType").val("");jQuery("#dbURL").val("");jQuery("#dbDriver").val("");jQuery("#dbUser").val("");jQuery("#dbPassword").val("");jQuery("#dataSource").removeClass("hide");jQuery("#dbInfo").addClass("hide")},test:function(){a("test")},save:function(g){a(c.type,g)},getDbBaInfo:function(g){b(g)}};function b(g){var h;var i;switch(g){case"oracle":i="jdbc:oracle:thin:@localhost:1521:databasename";h="oracle.jdbc.driver.OracleDriver";break;case"db2":i="jdbc:db2://localhost:50001/databasename";h="com.ibm.db2.jcc.DB2Driver";break;case"mysql":i="jdbc:mysql://localhost:3306/databasename";h="com.mysql.jdbc.Driver";break;case"postgresql":i="jdbc:postgresql://localhost:5432/databasename";h="org.postgresql.Driver";break;case"spark":i="jdbc:hive2://localhost:10000/databasename";h="org.apache.hive.jdbc.HiveDriver";break;default:h="";i=""}jQuery("#dbURL").val(i);jQuery("#dbDriver").val(h)}function e(g){d.ajax({url:d.handleUrlParam("/platform/resmanage/db/data-db-singleInfo"),data:{dbId:c.dbId},success:function(h){jQuery("#icon-database").removeClass();jQuery("#icon-database").addClass(h.dbInfo.dbType+"-icon");if("view"==g){jQuery("#dbName").prop("title",h.dbInfo.dbName);jQuery("#dbName").html(h.dbInfo.dbName);jQuery("#dbURL").prop("title",h.dbInfo.dbUrl);jQuery("#dbURL").html(h.dbInfo.dbUrl);jQuery("#dbDriver").prop("title",h.dbInfo.dbDriver);jQuery("#dbDriver").html(h.dbInfo.dbDriver);jQuery("#dbUser").prop("title",h.dbInfo.dbUser);jQuery("#dbUser").html(h.dbInfo.dbUser);jQuery("#dbPassword").prop("title",h.dbInfo.dbPassword);jQuery("#dbPassword").html(h.dbInfo.dbPassword);jQuery("#dbSchema").prop("title",h.dbInfo.dbSchema);jQuery("#dbSchema").html(h.dbInfo.dbSchema);jQuery("#dbSpace").prop("title",h.dbInfo.dbSpace);jQuery("#dbSpace").html(h.dbInfo.dbSpace);jQuery("#dbAlias").prop("title",h.dbInfo.dbAlias);jQuery("#dbAlias").html(h.dbInfo.dbAlias);jQuery("#dbInterfaceFlag").prop("title",h.dbInfo.interfaceFlag);if(h.dbInfo.interfaceFlag=="2"){jQuery("#dbInterfaceFlag").html("直连数据库")}else{if(h.dbInfo.interfaceFlag=="1"){jQuery("#dbInterfaceFlag").html("DACP抽取")}else{if(h.dbInfo.interfaceFlag=="0"){jQuery("#dbInterfaceFlag").html("普通抽取")}}}jQuery("#dbDesc").prop("title",h.dbInfo.dbDesc);jQuery("#dbDesc").html(h.dbInfo.dbDesc);jQuery("#isDurable").prop("title",h.dbInfo.isDurable);if(h.dbInfo.isDurable=="0"){jQuery("#isDurable").html("否")}else{if(h.dbInfo.isDurable=="1"){jQuery("#isDurable").html("是")}}}else{jQuery("#dbName").val(h.dbInfo.dbName);jQuery("#dbType").val(h.dbInfo.dbType);jQuery("#dbURL").val(h.dbInfo.dbUrl);jQuery("#dbDriver").val(h.dbInfo.dbDriver);jQuery("#dbUser").val(h.dbInfo.dbUser);jQuery("#dbPassword").val(h.dbInfo.dbPassword);jQuery("#dbSchema").val(h.dbInfo.dbSchema);jQuery("#dbSpace").val(h.dbInfo.dbSpace);jQuery("#dbAlias").val(h.dbInfo.dbAlias);jQuery("#dbInterfaceFlag").val(h.dbInfo.interfaceFlag);jQuery("#dbDesc").val(h.dbInfo.dbDesc);jQuery("#isDurable").val(h.dbInfo.isDurable)}},error:function(h){bi.dialog.show({type:bi.dialog.TYPE_DANGER,title:d.getMessage("data.db.title.tips"),message:h.responseText||d.getMessage("data.db.message.dataSourceError")})}})}function a(n,q){var j=d.getMessage("data.db.message.saveDataSourceError");if("text"==n){j=d.getMessage("data.db.message.connectFail")}var i=jQuery("#dbForm").validationEngine("validate");if(!i){return false}if(jQuery("#dbType").val()==""){bi.dialog.show({type:bi.dialog.TYPE_DANGER,title:d.getMessage("data.db.title.tips"),message:d.getMessage("data.db.message.databaseType")});return false}var y=jQuery.trim(jQuery("#dbName").val());var k=jQuery("#dbType").val();var s=jQuery.trim(jQuery("#dbURL").val());var r=jQuery.trim(jQuery("#dbDriver").val());var x=jQuery.trim(jQuery("#dbUser").val());var m=jQuery.trim(jQuery("#dbPassword").val());var t=jQuery.trim(jQuery("#dbSchema").val());var l=jQuery.trim(jQuery("#dbSpace").val());var w=jQuery.trim(jQuery("#dbAlias").val());var u=jQuery.trim(jQuery("#dbDesc").val());var v=jQuery.trim(jQuery("#dbInterfaceFlag").find("option:selected").val());var g=jQuery.trim(jQuery("#isDurable").find("option:selected").val());var o=jQuery.trim(jQuery("#projectId").find("option:selected").val());var h={dbId:c.dbId,dbName:y,dbUrl:s,dbType:k,dbDriver:r,dbUser:x,dbPassword:m,dbSchema:t,dbSpace:l,dbAlias:w,interfaceFlag:v,dbDesc:u,isDurable:g,type:n,proId:o};var p="";d.ajax({url:d.handleUrlParam("/platform/resmanage/db/data-db-edit"),data:h,loading:{title:d.getMessage("data.db.title.execute"),text:d.getMessage("data.db.loading.text")},success:function(z){f(z);if(q){q()}},error:function(z){bi.dialog.show({type:bi.dialog.TYPE_DANGER,title:d.getMessage("data.db.title.tips"),message:z.responseText||d.getMessage("data.db.message.saveDataSourceError")})}})}function f(g){if(g.retFlag=="0"){msg=d.getMessage("data.db.message.connectFail")}else{if(g.retFlag==1){msg=d.getMessage("data.db.message.connectSuccess")}else{if(g.retFlag==2){msg=d.getMessage("data.db.message.mismatch")}else{if(g.retFlag==3){msg=d.getMessage("data.db.message.saveSuccess")}else{if(g.retFlag==4){msg=d.getMessage("data.db.message.dataNameRepeat")}}}}}bi.dialog.show({title:d.getMessage("data.db.title.tips"),message:msg,onshown:function(h){if(g.retFlag==3){h.setButtons([{label:d.getMessage("data.db.label.sure"),cssClass:"btn-info",action:function(){window.parent.bi.dialog.closeAll()}}])}},})}c.control={init:function(h,g){c.view.init(h,g)},next:function(){c.view.next();return c.flag},reSelect:function(){c.view.reSelect()},test:function(){c.view.test()},save:function(g){c.view.save(g)}};return c.control});
+define(['sabace'], function(sabace) {
+
+
+
+	var DBInfo = {};
+	
+	DBInfo.view = {
+		init:function(type,dbId){
+			DBInfo.type = type;
+			DBInfo.dbId = dbId;
+			
+			if(DBInfo.type == "add"){
+				jQuery('#dataSource').removeClass("hide");
+			}else{
+				jQuery('#dbInfo').removeClass("hide");
+			}
+			
+			//数据库类型选择点击事件
+			jQuery("#dbSelect .pic").on('click',function(){
+				jQuery("#dbSelect .pic .dbCheck").removeClass('check');
+				jQuery("#dbSelect .pic .dbCheck").addClass('hide');
+				jQuery("#dbSelect .pic").css("border","1px solid #E9E9E9");
+				jQuery(this).css("border","1px solid rgba(23,153,236,0.65)");
+				jQuery(this).find(".dbCheck").removeClass('hide');
+				jQuery(this).find(".dbCheck").addClass("check");
+				var db = jQuery(this).attr('id');
+				jQuery("#dbType").val(db);
+				jQuery('#icon-database').removeClass().addClass(db+'-icon');
+				DBInfo.view.getDbBaInfo(db);
+			})
+			
+			//表单校验
+			jQuery('#dbForm').validationEngine({
+				autoHidePrompt: true,
+				autoHideDelay: 2000,
+				binded: true,
+				promptPosition: 'bottomLeft',
+				showOneMessage: true
+			});
+			
+			//'数据库类型'下拉框初始化
+		//	jQuery('#dbType').chosen();
+            jQuery('#projectId').chosen({
+                disable_search: true,
+				width:'280px'
+            });
+			
+			//当为修改时加载页面信息
+			if(DBInfo.type == 'edit' || DBInfo.type == 'view'){
+				jQuery("#dbType").attr("disabled",true); 
+				jQuery("#dbInterfaceFlag").attr("disabled",true); 
+				if(DBInfo.type == 'view'){
+				/*	jQuery("#dbName").attr("disabled",true); 
+					jQuery("#dbURL").attr("disabled",true); 
+					jQuery("#dbDriver").attr("disabled",true); 
+					jQuery("#dbUser").attr("disabled",true); 
+					jQuery("#dbPassword").attr("disabled",true); */
+					jQuery("#dbName,#dbURL,#dbDriver,#dbUser,#dbPassword,#dbSchema,#dbSpace,#dbAlias,#dbDesc,#dbInterfaceFlag,#isDurable").remove(); 
+					var paramArr = ['.dbName-div','.dbURL-div','.dbDriver-div','.dbUser-div','.dbPassword-div','.dbSchema-div','.dbSpace-div','.dbAlias-div','.dbDesc-div','.dbInterfaceFlag-div','.isDurable-div'];
+					
+					jQuery('.dbName-div').append('<label class="lable-v"  id="dbName"></label>');
+					jQuery('.dbURL-div').append('<label class="lable-v" id="dbURL"></label>');
+					jQuery('.dbDriver-div').append('<label class="lable-v"  id="dbDriver"></label>');
+					jQuery('.dbUser-div').append('<label class="lable-v"  id="dbUser"></label>');
+					jQuery('.dbPassword-div').append('<label class="lable-v"  id="dbPassword"></label>');
+					jQuery('.dbSchema-div').append('<label  class="lable-v" id="dbSchema"></label>');
+					jQuery('.dbSpace-div').append('<label  class="lable-v" id="dbSpace"></label>');
+					jQuery('.dbAlias-div').append('<label  class="lable-v" id="dbAlias"></label>');
+					jQuery('.dbInterfaceFlag-div').append('<label  class="lable-v" id="dbInterfaceFlag"></label>');
+					jQuery('.dbDesc-div').append('<label  class="lable-v" id="dbDesc"></label>');
+					jQuery('.isDurable-div').append('<label  class="lable-v" id="isDurable"></label>');
+					
+				}
+				initDataInfo(DBInfo.type);
+			}
+		},
+		next: function(){
+			if(jQuery("#dbSelect .pic .check").length > 0){
+				var db = jQuery("#dbSelect .pic .check").parent().attr('id');
+				jQuery("#dbType").val(db);
+				DBInfo.view.getDbBaInfo(db);
+				jQuery('#dataSource').addClass("hide");
+				jQuery('#dbInfo').removeClass("hide");
+				DBInfo.flag = true;
+			}else{
+				bi.dialog.show({
+					type: bi.dialog.TYPE_DANGER,
+		            title: sabace.getMessage('data.db.title.tips'),
+		            message: sabace.getMessage('data.db.message.dataSourceType')
+			    });
+				DBInfo.flag = false;
+			}
+		},
+		reSelect: function(){
+			jQuery("#dbName").val("");
+			jQuery("#dbType").val("");
+			jQuery("#dbURL").val("");
+			jQuery("#dbDriver").val("");
+			jQuery("#dbUser").val("");
+			jQuery("#dbPassword").val("");
+			jQuery('#dataSource').removeClass("hide");
+			jQuery('#dbInfo').addClass("hide");
+		},
+		test: function(){
+			editDB("test");
+		},
+		save: function(func){
+			editDB(DBInfo.type,func);
+		},
+		getDbBaInfo:function(dbTypeId){
+			getDbInfoByDbType(dbTypeId)
+		}
+	};
+	
+	/**
+	 * 根据不同的数据库类型给它添加基本的信息
+	 */
+	function getDbInfoByDbType(dbTypeId){
+		var dbDriver;
+		var dbUrl;
+		switch(dbTypeId) {
+			case 'oracle':
+				dbUrl = "jdbc:oracle:thin:@localhost:1521:databasename";
+				dbDriver = "oracle.jdbc.driver.OracleDriver";
+				break;
+			case 'db2':
+				dbUrl = "jdbc:db2://localhost:50001/databasename";
+				dbDriver = "com.ibm.db2.jcc.DB2Driver";
+				break;
+			case 'mysql':
+				dbUrl = "jdbc:mysql://localhost:3306/databasename";
+				dbDriver = "com.mysql.jdbc.Driver";
+				break;
+			case 'postgresql':
+				dbUrl = "jdbc:postgresql://localhost:5432/databasename";
+				dbDriver = "org.postgresql.Driver";
+				break;
+			case 'spark':
+				dbUrl = "jdbc:hive2://localhost:10000/databasename";
+				dbDriver ="org.apache.hive.jdbc.HiveDriver"
+				break;
+			default:
+				dbDriver = "";
+			    dbUrl = "";
+		}
+		jQuery('#dbURL').val(dbUrl);
+		jQuery('#dbDriver').val(dbDriver);
+	}
+	
+	//当为修改时加载页面信息
+	function initDataInfo(type){
+		//向后台发送请求获取数据库信息
+		sabace.ajax({
+			url: sabace.handleUrlParam("/platform/resmanage/db/data-db-singleInfo"),
+			data: { 
+				dbId: DBInfo.dbId 
+			},
+			success: function(req) {
+				jQuery("#icon-database").removeClass();
+				jQuery("#icon-database").addClass(req.dbInfo.dbType+'-icon')
+				//查看
+				if('view' == type){
+					jQuery("#dbName").prop('title',req.dbInfo.dbName);
+					jQuery("#dbName").html(req.dbInfo.dbName);
+					jQuery("#dbURL").prop('title',req.dbInfo.dbUrl);
+					jQuery("#dbURL").html(req.dbInfo.dbUrl);
+					jQuery("#dbDriver").prop('title',req.dbInfo.dbDriver);
+					jQuery("#dbDriver").html(req.dbInfo.dbDriver);
+					jQuery("#dbUser").prop('title',req.dbInfo.dbUser);
+					jQuery("#dbUser").html(req.dbInfo.dbUser);
+					jQuery("#dbPassword").prop('title',req.dbInfo.dbPassword);
+					jQuery("#dbPassword").html(req.dbInfo.dbPassword);
+					jQuery("#dbSchema").prop('title',req.dbInfo.dbSchema);
+					jQuery("#dbSchema").html(req.dbInfo.dbSchema);
+					jQuery("#dbSpace").prop('title',req.dbInfo.dbSpace);
+					jQuery("#dbSpace").html(req.dbInfo.dbSpace);
+					jQuery("#dbAlias").prop('title',req.dbInfo.dbAlias);
+					jQuery("#dbAlias").html(req.dbInfo.dbAlias);
+					jQuery("#dbInterfaceFlag").prop('title',req.dbInfo.interfaceFlag);
+					if(req.dbInfo.interfaceFlag=='2'){
+						jQuery("#dbInterfaceFlag").html("直连数据库");
+					}
+					else if(req.dbInfo.interfaceFlag=='1'){
+						jQuery("#dbInterfaceFlag").html("DACP抽取");
+					}
+					else if(req.dbInfo.interfaceFlag=='0'){
+						jQuery("#dbInterfaceFlag").html("普通抽取");
+					}
+					
+					jQuery("#dbDesc").prop('title',req.dbInfo.dbDesc);
+					jQuery("#dbDesc").html(req.dbInfo.dbDesc);
+					jQuery("#isDurable").prop('title',req.dbInfo.isDurable); 
+					if(req.dbInfo.isDurable=='0'){
+						jQuery("#isDurable").html("否");
+					} 
+					else if(req.dbInfo.isDurable=='1'){
+						jQuery("#isDurable").html("是");
+					 }
+				}else{//修改
+					jQuery("#dbName").val(req.dbInfo.dbName);
+					jQuery("#dbType").val(req.dbInfo.dbType);
+					jQuery("#dbURL").val(req.dbInfo.dbUrl);
+					jQuery("#dbDriver").val(req.dbInfo.dbDriver);
+					jQuery("#dbUser").val(req.dbInfo.dbUser);
+					jQuery("#dbPassword").val(req.dbInfo.dbPassword);
+					jQuery("#dbSchema").val(req.dbInfo.dbSchema);
+					jQuery("#dbSpace").val(req.dbInfo.dbSpace);
+					jQuery("#dbAlias").val(req.dbInfo.dbAlias);
+					jQuery("#dbInterfaceFlag").val(req.dbInfo.interfaceFlag);
+					jQuery("#dbDesc").val(req.dbInfo.dbDesc);
+					jQuery("#isDurable").val(req.dbInfo.isDurable);
+				}
+			},
+			error: function(req) {
+				bi.dialog.show({
+					type: bi.dialog.TYPE_DANGER,
+					title: sabace.getMessage('data.db.title.tips'),
+					message: req.responseText || sabace.getMessage('data.db.message.dataSourceError')
+				});
+			}
+		});
+	}
+	
+	//数据库配置连接测试及数据库配置保存
+	function editDB(type,func){
+		var errorMsg = sabace.getMessage('data.db.message.saveDataSourceError');
+		if("text"==type){
+			errorMsg = sabace.getMessage('data.db.message.connectFail');
+		}
+		var isPass = jQuery('#dbForm').validationEngine('validate');
+		if(!isPass){
+			return false;
+		}
+		//判断数据库类型是否有值
+		if(jQuery("#dbType").val()==""){
+			bi.dialog.show({
+				type: bi.dialog.TYPE_DANGER,
+	            title: sabace.getMessage('data.db.title.tips'),
+	            message: sabace.getMessage('data.db.message.databaseType')
+		    });
+			return false;
+		}
+		//获取页面属性值
+		var dbName = jQuery.trim(jQuery("#dbName").val());
+		var dbType = jQuery("#dbType").val();
+		var dbURL = jQuery.trim(jQuery("#dbURL").val());
+		var dbDriver = jQuery.trim(jQuery("#dbDriver").val());
+		var dbUser = jQuery.trim(jQuery("#dbUser").val());
+		var dbPassword = jQuery.trim(jQuery("#dbPassword").val());
+		var dbSchema = jQuery.trim(jQuery("#dbSchema").val());
+		var dbSpace = jQuery.trim(jQuery("#dbSpace").val());
+		var dbAlias = jQuery.trim(jQuery("#dbAlias").val());
+		var dbDesc = jQuery.trim(jQuery('#dbDesc').val());
+		var dbInterfaceFlag = jQuery.trim(jQuery('#dbInterfaceFlag').find("option:selected").val());
+		var isDurable = jQuery.trim(jQuery('#isDurable').find("option:selected").val());
+		var proId = jQuery.trim(jQuery('#projectId').find("option:selected").val())
+		
+		var dataParams={
+			dbId: DBInfo.dbId,
+			dbName: dbName,
+			dbUrl: dbURL,
+			dbType: dbType,
+			dbDriver: dbDriver,
+			dbUser: dbUser,
+			dbPassword: dbPassword,
+			dbSchema: dbSchema,
+			dbSpace: dbSpace,
+			dbAlias: dbAlias,
+			interfaceFlag:dbInterfaceFlag,
+			dbDesc:dbDesc,
+			isDurable: isDurable,
+			type: type,
+            proId:proId
+			
+		};
+		var msg = "";
+		//向后台发送请求
+		sabace.ajax({
+			url: sabace.handleUrlParam("/platform/resmanage/db/data-db-edit"),
+			data: dataParams,
+			loading: {
+				title: sabace.getMessage('data.db.title.execute'),
+				text: sabace.getMessage('data.db.loading.text')
+			},
+			success: function(req) {
+				saveInfoSuccess(req);
+				if(func){
+					func();
+				}
+			},
+			error: function(req) {
+				bi.dialog.show({
+					type: bi.dialog.TYPE_DANGER,
+					title: sabace.getMessage('data.db.title.tips'),
+					message: req.responseText || sabace.getMessage('data.db.message.saveDataSourceError')  
+				});
+			}
+		});
+	}
+	
+	// 保存信息请求成功后处理
+	function saveInfoSuccess(req){
+		if(req.retFlag == "0"){
+			msg = sabace.getMessage('data.db.message.connectFail');
+		} else if(req.retFlag == 1){
+			msg = sabace.getMessage('data.db.message.connectSuccess');
+		} else if(req.retFlag == 2){
+			msg = sabace.getMessage('data.db.message.mismatch');
+		} else if(req.retFlag == 3){
+			msg = sabace.getMessage('data.db.message.saveSuccess');
+		} else if(req.retFlag == 4){
+			msg = sabace.getMessage('data.db.message.dataNameRepeat');
+		}
+		bi.dialog.show({
+            title: sabace.getMessage('data.db.title.tips'),
+            message: msg,
+            onshown:function(dialog){
+            	if(req.retFlag == 3){
+            		dialog.setButtons([{
+		                label: sabace.getMessage('data.db.label.sure'),
+		                cssClass: 'btn-info',
+		                action: function(){
+		                	window.parent.bi.dialog.closeAll();
+		                }
+		            }]);
+            	}
+			},
+	    });
+	}
+	
+	DBInfo.control = { 
+		init:function(type,dbId){
+			DBInfo.view.init(type,dbId);
+		},
+		next:function(){
+			DBInfo.view.next();
+			return DBInfo.flag;
+		},
+		reSelect:function(){
+			DBInfo.view.reSelect();
+		},
+		test:function(){
+			DBInfo.view.test();
+		},
+		save:function(func){
+			DBInfo.view.save(func);
+		}
+	};
+	
+	//返回页面所需方法
+	return DBInfo.control;
+});

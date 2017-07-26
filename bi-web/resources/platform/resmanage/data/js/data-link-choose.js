@@ -1,1 +1,84 @@
-define(["sabace"],function(b){var a={};a.module={nodeIdArray:[]};a.view={initChooseNodejGrid:function(){jQuery("#dataGrid").jqGrid({url:b.handleUrlParam("/platform/resmanage/datalink/query-data-node"),datatype:"json",postData:{dataId:a.module.nodeIdArray.toString()},styleUI:"Bootstrap",colModel:[{label:b.getMessage("data.dataLink.label.dtcoding"),width:75,name:"dataId",align:"left",hlign:"center",hidden:true},{label:b.getMessage("data.dataLink.label.dcode"),width:75,name:"dataName",align:"left",hlign:"center"},{label:b.getMessage("data.dataLink.label.Rupdatetime"),width:75,name:"lastUpdateTime",align:"left",hlign:"center"},{label:b.getMessage("data.dataLink.label.importState"),width:75,name:"importState",align:"left",hlign:"center",hidden:true},{label:b.getMessage("data.dataLink.label.createPersonID"),width:75,name:"createId",align:"left",hidden:true},{label:b.getMessage("data.dataLink.label.createPerson"),width:75,name:"createName",align:"left",hlign:"center"}],width:890,height:285,multiselect:true,multiboxonly:true,rowNum:10,rownumbers:true,jsonReader:{records:"total",total:"totalPages"},pager:"#jqGridPagerTemp",regional:"cn",loadComplete:function(){jQuery("#cb_dataGrid").css("display","none")}})},initDataListSearch:function(){jQuery("#searchDL").on("click",function(){var c=jQuery("#dataNameSearch").val();var e=jQuery("#dataTypeSelect").val();var d={nodeDataName:c,dataId:a.module.nodeIdArray.toString(),dataType:e};jQuery("#dataGrid").jqGrid("setGridParam",{postData:d}).trigger("reloadGrid")});jQuery("#dataseachForLink").validationEngine({autoHidePrompt:true,autoHideDelay:2000,binded:true,promptPosition:"bottomLeft",showOneMessage:true})}};a.controller={init:function(){jQuery(".chosen-select").chosen();a.view.initChooseNodejGrid();a.view.initDataListSearch()},setNodeIdArray:function(c){a.module.nodeIdArray=c},getCheckedNode:function(){var c=jQuery("#dataGrid").jqGrid("getGridParam","selarrrow");var g=[];var f;for(var e=0;e<c.length;e++){var d=$("#dataGrid").getCell(c[e],"dataId");f={};f.dataId=d;g.push(f)}return g}};return a.controller});
+define(['sabace'], function(sabace) {
+	var LinkData = {};
+	LinkData.module = {
+		nodeIdArray:[]
+	};
+	LinkData.view = {
+		initChooseNodejGrid:function(){
+			jQuery('#dataGrid').jqGrid({
+				 url: sabace.handleUrlParam("/platform/resmanage/datalink/query-data-node"),
+				 datatype: "json",
+				 postData: {
+					 dataId:LinkData.module.nodeIdArray.toString()
+				 },
+				 styleUI : 'Bootstrap',
+			     colModel: [ 
+			                  {label: sabace.getMessage('data.dataLink.label.dtcoding'),width: 75 , name : 'dataId', align : 'left',hlign:'center',hidden:true}, 
+			                  {label: sabace.getMessage('data.dataLink.label.dcode'), width: 75 ,name : 'dataName', align : 'left',hlign:'center'}, 
+			                  {label: sabace.getMessage('data.dataLink.label.Rupdatetime'),width: 75 , name : 'lastUpdateTime', align : 'left',hlign:'center'},
+			                  {label: sabace.getMessage('data.dataLink.label.importState'),width: 75 , name : 'importState', align : 'left',hlign:'center',hidden:true},
+			                  {label: sabace.getMessage('data.dataLink.label.createPersonID'),width: 75 , name : 'createId', align : 'left',hidden:true},
+			                  {label: sabace.getMessage('data.dataLink.label.createPerson'),width: 75 , name : 'createName', align : 'left',hlign:'center'}
+			                ],
+			     width: 890,
+			     height: 285,
+			     multiselect: true,
+			     multiboxonly:true,
+			     rowNum: 10,
+				 rownumbers: true,
+				 jsonReader:{records:"total",total:"totalPages"},
+				 pager: "#jqGridPagerTemp",
+				 regional:'cn',
+				 loadComplete: function(){
+					 jQuery('#cb_dataGrid').css('display','none');
+				 }
+			});
+		},
+		initDataListSearch:function(){
+			jQuery('#searchDL').on('click',function(){
+				var dataName = jQuery('#dataNameSearch').val();
+				var dataTypeSelect = jQuery('#dataTypeSelect').val();
+				var postData = {
+					'nodeDataName':dataName,
+					'dataId':LinkData.module.nodeIdArray.toString(),
+					'dataType':dataTypeSelect
+				};
+				jQuery("#dataGrid").jqGrid("setGridParam", {
+					postData: postData
+				}).trigger("reloadGrid");
+			});
+			jQuery('#dataseachForLink').validationEngine({
+				autoHidePrompt: true,
+				autoHideDelay: 2000,
+				binded: true,
+				promptPosition: 'bottomLeft',
+				showOneMessage: true
+			});
+		}
+	};
+	LinkData.controller = {
+		init:function(){
+			//初始化界面
+			jQuery('.chosen-select').chosen();
+			//初始化jGrid
+			LinkData.view.initChooseNodejGrid();
+			LinkData.view.initDataListSearch();
+		},
+		setNodeIdArray:function(param){
+			LinkData.module.nodeIdArray = param;
+		},
+		getCheckedNode:function(){
+			var selectedRowIds = jQuery("#dataGrid").jqGrid('getGridParam','selarrrow');
+			var nodeObjArr = [];
+			var nodeObj;
+			for(var i = 0 ; i < selectedRowIds.length;i++){
+				var dataId = $("#dataGrid").getCell(selectedRowIds[i],"dataId");
+				nodeObj = {};
+				nodeObj.dataId = dataId;
+				nodeObjArr.push(nodeObj);
+			}
+			return nodeObjArr;
+		}
+	};
+	return LinkData.controller;
+});

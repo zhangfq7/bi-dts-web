@@ -1,1 +1,38 @@
-.my-panel{margin-bottom:20px;padding:10px;background-color:#fff;border:1px solid transparent;border-radius:4px;-webkit-box-shadow:0 1px 1px rgba(0,0,0,.05);box-shadow:0 1px 1px rgba(0,0,0,.05)}.validate-content{margin:0 auto;width:700px}.validate-div{height:50px}.validate-div .label{float:left;width:220px;height:36px;line-height:36px;text-align:right;color:inherit}.validate-div .form-control{width:220px;float:left}.validate-div .submit-button{width:100px;margin:0 auto;display:block}
+.my-panel{
+	  margin-bottom:20px;
+	  padding:10px;
+	  background-color: #fff;
+	  border: 1px solid transparent;
+	  border-radius: 4px;
+	  -webkit-box-shadow: 0 1px 1px rgba(0, 0, 0, .05);
+	  box-shadow: 0 1px 1px rgba(0, 0, 0, .05);
+}
+
+.validate-content {
+	margin:0 auto;
+	width:700px;
+}
+
+.validate-div{
+	height: 50px;
+}
+
+.validate-div .label{
+	float: left;
+	width: 220px; 
+	height:36px;
+	line-height:36px;
+    text-align: right; 
+    color:inherit;
+} 
+
+.validate-div .form-control{
+	width:220px;
+	float:left;
+}
+
+.validate-div .submit-button{
+	width:100px;
+	margin:0 auto;
+	display:block;
+}

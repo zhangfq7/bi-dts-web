@@ -1,1 +1,233 @@
-body{background:#f0f0f0;font-family:'微软雅黑'}.download-content{position:absolute;top:0;left:0;right:0;height:157px;border:1px solid #bcbcbc;background-color:#fff}.download-content>div{height:78px;width:100%;border-bottom:1px dashed #add9e6;position:relative}.download-content>div:last-child{border-bottom:0}.download-content>div:hover{background:#e8f7fb;cursor:pointer}.download-content>div>div{position:absolute}.download-content>div .img{left:0;height:100%;width:104px}.download-content>div .desc{left:104px;right:50px;height:100%}.download-content>div .check{right:0;width:50px;height:100%}.download-content>div .img>div{width:58px;height:55px;margin:13px 0 0 30px;overflow:hidden}.download-content>div .img-img{background:url(../img/download-2.png) -58px 0}.download-content>div .img-ppt{background:url(../img/download-2.png) 0 0}.download-content>div .desc>div{white-space:nowrap;text-overflow:ellipsis;overflow:hidden}.download-content>div .desc .desc-top{color:#007db0;margin-top:12px}.download-content>div .desc .desc-bottom{color:#f56f6d;font-size:13px;margin-top:15px}.download-content>div .check>div{width:20px;height:20px;margin:auto;margin-top:32px;background:url(../img/download-3.png) no-repeat;background-position:-98px 0}.download-buttons{position:absolute;left:0;right:0;bottom:20px;height:30px}.download-buttons>div{position:absolute;color:#fff;font-size:13px;letter-spacing:7px;padding:5px 14px 6px 20px;cursor:pointer;border-radius:5px}.download-buttons .sure{right:20px;background:#56b6e7;border:1px solid #379dd1}.download-buttons .sure:hover{background:#389fd3}.download-buttons .cancel{right:105px;background:#ccc;border:1px solid #aaa}.download-buttons .cancel:hover{background:#c3b8b8}.hide{display:none}.phone-check{position:absolute;top:0;left:0;right:0;height:320px;background:#fff}.phone-check .phone-img{width:138px;height:90px;background:url(../img/download-2.png) -116px 0;margin:auto;margin-top:20px}.phone-check .phone-code{position:absolute;left:8px;right:8px;top:130px;height:150px;border-radius:5px;background:#edf3f6}.phone-check .phone-code .tr{margin-top:20px;margin-left:20px}.phone-check .phone-code .tr>div{display:inline-block}.phone-check .phone-code .tr input{height:30px;margin-left:5px;padding-left:10px;width:150px;letter-spacing:1px;font-size:14px}.phone-check .phone-code .tr .phone-btn{color:#fff;font-size:13px;letter-spacing:1px;padding:6px 10px 7px 10px;cursor:pointer;border-radius:5px;background:#56b6e7;border:1px solid #379dd1;margin-left:13px;text-align:center;width:95px}.phone-check .phone-code .tr .phone-cap:hover{background:#389fd3}.phone-check .phone-code .tr .phone-sec{border-color:#a9a9a9;background-color:#d1d5d8;color:#f2f4f4}.phone-check .phone-code .tr .phone-sec:hover{cursor:not-allowed}.phone-check .phone-code .tr .phone-title{text-align:right;width:225px}.checked{background-position:-80px 0!important}.unchecked{background-position-x:-98px!important}#errorInfo{margin-left:10px;color:red}.msgtr{font-size:13px;color:#a1a7ae;margin-left:250px;margin-top:10px;visibility:hidden}
+body{
+	background:#F0F0F0;
+	font-family:'微软雅黑';
+}
+
+.download-content{
+	position:absolute;
+	top:0;
+	left:0;
+	right:0;
+	height:157px;
+	border:1px solid #BCBCBC;
+	background-color:#fff;
+}
+
+.download-content>div{
+	height:78px;
+	width:100%;
+	border-bottom:1px dashed #ADD9E6;
+	position:relative;
+}
+
+.download-content>div:last-child{
+	border-bottom:none;
+}
+
+.download-content>div:hover{
+	background:#E8F7FB;
+	cursor:pointer;
+}
+
+.download-content>div>div{
+	position:absolute;
+}
+
+.download-content>div .img{
+	left:0;
+	height:100%;
+	width:104px;
+}
+
+.download-content>div .desc{
+	left:104px;
+	right:50px;
+	height:100%;
+}
+
+.download-content>div .check{
+	right:0;
+	width:50px;
+	height:100%;
+}
+
+.download-content>div .img>div{
+	width:58px;
+	height:55px;
+	margin: 13px 0px 0px 30px;
+	overflow:hidden;
+}
+
+.download-content>div .img-img{
+	background:url(../img/download-2.png) -58px 0px ;
+}
+
+.download-content>div .img-ppt{
+	background:url(../img/download-2.png) 0px 0px ;
+}
+
+.download-content>div .desc>div{
+	white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+}
+
+.download-content>div .desc .desc-top{
+	color:#007DB0;
+	margin-top:12px;
+}
+
+.download-content>div .desc .desc-bottom{
+	color:#F56F6D;
+	font-size: 13px;
+    margin-top: 15px;
+	
+}
+
+.download-content>div .check>div {
+	width:20px;
+	height:20px;
+	margin: auto;
+    margin-top: 32px;
+	background:url(../img/download-3.png) no-repeat;
+	background-position: -98px 0;
+}
+
+.download-buttons{
+	position:absolute;
+	left:0;
+	right:0;
+	bottom:20px;
+	height:30px;
+}
+
+.download-buttons>div{
+	position:absolute;
+	color:#fff;
+	font-size: 13px;
+	letter-spacing: 7px;
+	padding: 5px 14px 6px 20px;
+	cursor:pointer;
+	border-radius: 5px;
+}
+
+.download-buttons .sure{
+	right:20px;
+	background:#56B6E7;
+	border:1px solid #379DD1;
+}
+
+.download-buttons .sure:hover{
+	background:#389FD3;
+}
+
+.download-buttons .cancel{
+	right:105px;
+	background:#CCCCCC;
+	border:1px solid #AAAAAA;
+}
+
+.download-buttons .cancel:hover{
+	background:#C3B8B8;
+}
+
+.hide{
+	display:none;
+}
+
+.phone-check{
+	position:absolute;
+	top:0;
+	left:0;
+	right:0;
+	height:320px;
+	background:#fff;
+}
+
+.phone-check .phone-img{
+	width: 138px;
+    height: 90px;
+    background: url(../img/download-2.png) -116px 0px;
+	margin : auto;
+	margin-top:20px;
+}
+
+.phone-check .phone-code{
+	position:absolute;
+	left:8px;
+	right:8px;
+	top:130px;
+	height:150px;
+	border-radius: 5px;
+    background: #EDF3F6;
+}
+
+	
+.phone-check .phone-code .tr{
+	margin-top:20px;
+	margin-left:20px;
+}
+
+.phone-check .phone-code .tr>div{
+	display:inline-block;
+}
+
+.phone-check .phone-code .tr input{
+	height:30px;
+	margin-left: 5px;
+	padding-left: 10px;
+	width: 150px;
+    letter-spacing: 1px;
+    font-size: 14px;
+}
+
+.phone-check .phone-code .tr .phone-btn{
+	color:#fff;
+	font-size: 13px;
+	letter-spacing: 1px;
+	padding: 6px 10px 7px 10px;
+	cursor:pointer;
+	border-radius: 5px;
+	background:#56B6E7;
+	border:1px solid #379DD1;
+	margin-left: 13px;
+	text-align:center;
+	width:95px;
+}
+
+.phone-check .phone-code .tr .phone-cap:hover{
+	background:#389FD3;
+}
+.phone-check .phone-code .tr .phone-sec{
+	border-color:#A9A9A9;
+	background-color:#D1D5D8;
+	color:#F2F4F4;
+}
+
+.phone-check .phone-code .tr .phone-sec:hover{
+	cursor:not-allowed;
+}
+
+.phone-check .phone-code .tr .phone-title{
+	text-align:right;
+	width:225px;
+}
+
+.checked{
+	background-position: -80px 0!important;
+}
+
+.unchecked{
+	background-position-x: -98px!important;
+}
+#errorInfo{
+	margin-left:10px;
+	color:red;
+}
+.msgtr{
+	font-size:13px;
+	color:#A1A7AE;
+	margin-left: 250px;
+    margin-top: 10px;
+    visibility: hidden;
+}

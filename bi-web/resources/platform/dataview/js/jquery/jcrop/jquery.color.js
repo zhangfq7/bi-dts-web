@@ -6,4 +6,656 @@
  * Dual licensed under the MIT or GPL Version 2 licenses.
  * http://jquery.org/license
  */
-(function(o,c){var j="backgroundColor borderBottomColor borderLeftColor borderRightColor borderTopColor color outlineColor".split(" "),g=/^([\-+])=\s*(\d+\.?\d*)/,f=[{re:/rgba?\(\s*(\d{1,3})\s*,\s*(\d{1,3})\s*,\s*(\d{1,3})\s*(?:,\s*(\d+(?:\.\d+)?)\s*)?\)/,parse:function(p){return[p[1],p[2],p[3],p[4]]}},{re:/rgba?\(\s*(\d+(?:\.\d+)?)\%\s*,\s*(\d+(?:\.\d+)?)\%\s*,\s*(\d+(?:\.\d+)?)\%\s*(?:,\s*(\d+(?:\.\d+)?)\s*)?\)/,parse:function(p){return[2.55*p[1],2.55*p[2],2.55*p[3],p[4]]}},{re:/#([a-fA-F0-9]{2})([a-fA-F0-9]{2})([a-fA-F0-9]{2})/,parse:function(p){return[parseInt(p[1],16),parseInt(p[2],16),parseInt(p[3],16)]}},{re:/#([a-fA-F0-9])([a-fA-F0-9])([a-fA-F0-9])/,parse:function(p){return[parseInt(p[1]+p[1],16),parseInt(p[2]+p[2],16),parseInt(p[3]+p[3],16)]}},{re:/hsla?\(\s*(\d+(?:\.\d+)?)\s*,\s*(\d+(?:\.\d+)?)\%\s*,\s*(\d+(?:\.\d+)?)\%\s*(?:,\s*(\d+(?:\.\d+)?)\s*)?\)/,space:"hsla",parse:function(p){return[p[1],p[2]/100,p[3]/100,p[4]]}}],d=o.Color=function(q,r,p,s){return new o.Color.fn.parse(q,r,p,s)},i={rgba:{cache:"_rgba",props:{red:{idx:0,type:"byte",empty:true},green:{idx:1,type:"byte",empty:true},blue:{idx:2,type:"byte",empty:true},alpha:{idx:3,type:"percent",def:1}}},hsla:{cache:"_hsla",props:{hue:{idx:0,type:"degrees",empty:true},saturation:{idx:1,type:"percent",empty:true},lightness:{idx:2,type:"percent",empty:true}}}},n={"byte":{floor:true,min:0,max:255},percent:{min:0,max:1},degrees:{mod:360,floor:true}},l=i.rgba.props,m=d.support={},a,k=o.each;i.hsla.props.alpha=l.alpha;function h(r,t,q){var p=n[t.type]||{},s=t.empty||q;if(s&&r==null){return null}if(t.def&&r==null){return t.def}if(p.floor){r=~~r}else{r=parseFloat(r)}if(r==null||isNaN(r)){return t.def}if(p.mod){r=r%p.mod;return r<0?p.mod+r:r}return p.min>r?p.min:p.max<r?p.max:r}function e(p){var r=d(),q=r._rgba=[];p=p.toLowerCase();k(f,function(x,y){var w=y.re.exec(p),v=w&&y.parse(w),u,t=y.space||"rgba",s=i[t].cache;if(v){u=r[t](v);r[s]=u[s];q=r._rgba=u._rgba;return false}});if(q.length!==0){if(Math.max.apply(Math,q)===0){o.extend(q,a.transparent)}return r}if(p=a[p]){return p}}d.fn=d.prototype={constructor:d,parse:function(w,u,p,v){if(w===c){this._rgba=[null,null,null,null];return this}if(w instanceof o||w.nodeType){w=w instanceof o?w.css(u):o(w).css(u);u=c}var t=this,r=o.type(w),q=this._rgba=[],s;if(u!==c){w=[w,u,p,v];r="array"}if(r==="string"){return this.parse(e(w)||a._default)}if(r==="array"){k(l,function(x,y){q[y.idx]=h(w[y.idx],y)});return this}if(r==="object"){if(w instanceof d){k(i,function(x,y){if(w[y.cache]){t[y.cache]=w[y.cache].slice()}})}else{k(i,function(x,y){k(y.props,function(A,B){var z=y.cache;if(!t[z]&&y.to){if(w[A]==null||A==="alpha"){return}t[z]=y.to(t._rgba)}t[z][B.idx]=h(w[A],B,true)})})}return this}},is:function(r){var q=d(r),s=true,p=this;k(i,function(t,v){var u=q[v.cache],w;if(u){w=p[v.cache]||v.to&&v.to(p._rgba)||[];k(v.props,function(x,y){if(u[y.idx]!=null){s=(u[y.idx]===w[y.idx]);return s}})}return s});return s},_space:function(){var p=[],q=this;k(i,function(r,s){if(q[s.cache]){p.push(r)}});return p.pop()},transition:function(q,v){var r=d(q),s=r._space(),t=i[s],u=this[t.cache]||t.to(this._rgba),p=u.slice();r=r[t.cache];k(t.props,function(z,B){var y=B.idx,x=u[y],w=r[y],A=n[B.type]||{};if(w===null){return}if(x===null){p[y]=w}else{if(A.mod){if(w-x>A.mod/2){x+=A.mod}else{if(x-w>A.mod/2){x-=A.mod}}}p[B.idx]=h((w-x)*v+x,B)}});return this[s](p)},blend:function(s){if(this._rgba[3]===1){return this}var r=this._rgba.slice(),q=r.pop(),p=d(s)._rgba;return d(o.map(r,function(t,u){return(1-q)*p[u]+q*t}))},toRgbaString:function(){var q="rgba(",p=o.map(this._rgba,function(r,s){return r==null?(s>2?1:0):r});if(p[3]===1){p.pop();q="rgb("}return q+p.join(",")+")"},toHslaString:function(){var q="hsla(",p=o.map(this.hsla(),function(r,s){if(r==null){r=s>2?1:0}if(s&&s<3){r=Math.round(r*100)+"%"}return r});if(p[3]===1){p.pop();q="hsl("}return q+p.join(",")+")"},toHexString:function(p){var q=this._rgba.slice(),r=q.pop();if(p){q.push(~~(r*255))}return"#"+o.map(q,function(s,t){s=(s||0).toString(16);return s.length===1?"0"+s:s}).join("")},toString:function(){return this._rgba[3]===0?"transparent":this.toRgbaString()}};d.fn.parse.prototype=d.fn;function b(t,s,r){r=(r+1)%1;if(r*6<1){return t+(s-t)*6*r}if(r*2<1){return s}if(r*3<2){return t+(s-t)*((2/3)-r)*6}return t}i.hsla.to=function(t){if(t[0]==null||t[1]==null||t[2]==null){return[null,null,null,t[3]]}var p=t[0]/255,w=t[1]/255,x=t[2]/255,z=t[3],y=Math.max(p,w,x),u=Math.min(p,w,x),A=y-u,B=y+u,q=B*0.5,v,C;if(u===y){v=0}else{if(p===y){v=(60*(w-x)/A)+360}else{if(w===y){v=(60*(x-p)/A)+120}else{v=(60*(p-w)/A)+240}}}if(q===0||q===1){C=q}else{if(q<=0.5){C=A/B}else{C=A/(2-B)}}return[Math.round(v)%360,C,q,z==null?1:z]};i.hsla.from=function(v){if(v[0]==null||v[1]==null||v[2]==null){return[null,null,null,v[3]]}var y=v[0]/360,C=v[1],x=v[2],B=v[3],u=x<=0.5?x*(1+C):x+C-x*C,w=2*x-u,t,z,A;return[Math.round(b(w,u,y+(1/3))*255),Math.round(b(w,u,y)*255),Math.round(b(w,u,y-(1/3))*255),B]};k(i,function(q,s){var r=s.props,p=s.cache,u=s.to,t=s.from;d.fn[q]=function(z){if(u&&!this[p]){this[p]=u(this._rgba)}if(z===c){return this[p].slice()}var y=o.type(z),v=(y==="array"||y==="object")?z:arguments,x=this[p].slice(),w;k(r,function(A,C){var B=v[y==="object"?A:C.idx];if(B==null){B=x[C.idx]}x[C.idx]=h(B,C)});if(t){w=d(t(x));w[p]=x;return w}else{return d(x)}};k(r,function(v,w){if(d.fn[v]){return}d.fn[v]=function(A){var C=o.type(A),z=(v==="alpha"?(this._hsla?"hsla":"rgba"):q),y=this[z](),B=y[w.idx],x;if(C==="undefined"){return B}if(C==="function"){A=A.call(this,B);C=o.type(A)}if(A==null&&w.empty){return this}if(C==="string"){x=g.exec(A);if(x){A=B+parseFloat(x[2])*(x[1]==="+"?1:-1)}}y[w.idx]=A;return this[z](y)}})});k(j,function(p,q){o.cssHooks[q]={set:function(u,v){var s,r,t;if(o.type(v)!=="string"||(s=e(v))){v=d(s||v);if(!m.rgba&&v._rgba[3]!==1){t=q==="backgroundColor"?u.parentNode:u;do{r=o.curCSS(t,"backgroundColor")}while((r===""||r==="transparent")&&(t=t.parentNode)&&t.style);v=v.blend(r&&r!=="transparent"?r:"_default")}v=v.toRgbaString()}u.style[q]=v}};o.fx.step[q]=function(r){if(!r.colorInit){r.start=d(r.elem,q);r.end=d(r.end);r.colorInit=true}o.cssHooks[q].set(r.elem,r.start.transition(r.end,r.pos))}});o(function(){var q=document.createElement("div"),p=q.style;p.cssText="background-color:rgba(1,1,1,.5)";m.rgba=p.backgroundColor.indexOf("rgba")>-1});a=o.Color.names={aqua:"#00ffff",azure:"#f0ffff",beige:"#f5f5dc",black:"#000000",blue:"#0000ff",brown:"#a52a2a",cyan:"#00ffff",darkblue:"#00008b",darkcyan:"#008b8b",darkgrey:"#a9a9a9",darkgreen:"#006400",darkkhaki:"#bdb76b",darkmagenta:"#8b008b",darkolivegreen:"#556b2f",darkorange:"#ff8c00",darkorchid:"#9932cc",darkred:"#8b0000",darksalmon:"#e9967a",darkviolet:"#9400d3",fuchsia:"#ff00ff",gold:"#ffd700",green:"#008000",indigo:"#4b0082",khaki:"#f0e68c",lightblue:"#add8e6",lightcyan:"#e0ffff",lightgreen:"#90ee90",lightgrey:"#d3d3d3",lightpink:"#ffb6c1",lightyellow:"#ffffe0",lime:"#00ff00",magenta:"#ff00ff",maroon:"#800000",navy:"#000080",olive:"#808000",orange:"#ffa500",pink:"#ffc0cb",purple:"#800080",violet:"#800080",red:"#ff0000",silver:"#c0c0c0",white:"#ffffff",yellow:"#ffff00",transparent:[null,null,null,0],_default:"#ffffff"}})(jQuery);
+
+(function( jQuery, undefined ){
+	var stepHooks = "backgroundColor borderBottomColor borderLeftColor borderRightColor borderTopColor color outlineColor".split(" "),
+
+		// plusequals test for += 100 -= 100
+		rplusequals = /^([\-+])=\s*(\d+\.?\d*)/,
+		// a set of RE's that can match strings and generate color tuples.
+		stringParsers = [{
+				re: /rgba?\(\s*(\d{1,3})\s*,\s*(\d{1,3})\s*,\s*(\d{1,3})\s*(?:,\s*(\d+(?:\.\d+)?)\s*)?\)/,
+				parse: function( execResult ) {
+					return [
+						execResult[ 1 ],
+						execResult[ 2 ],
+						execResult[ 3 ],
+						execResult[ 4 ]
+					];
+				}
+			}, {
+				re: /rgba?\(\s*(\d+(?:\.\d+)?)\%\s*,\s*(\d+(?:\.\d+)?)\%\s*,\s*(\d+(?:\.\d+)?)\%\s*(?:,\s*(\d+(?:\.\d+)?)\s*)?\)/,
+				parse: function( execResult ) {
+					return [
+						2.55 * execResult[1],
+						2.55 * execResult[2],
+						2.55 * execResult[3],
+						execResult[ 4 ]
+					];
+				}
+			}, {
+				re: /#([a-fA-F0-9]{2})([a-fA-F0-9]{2})([a-fA-F0-9]{2})/,
+				parse: function( execResult ) {
+					return [
+						parseInt( execResult[ 1 ], 16 ),
+						parseInt( execResult[ 2 ], 16 ),
+						parseInt( execResult[ 3 ], 16 )
+					];
+				}
+			}, {
+				re: /#([a-fA-F0-9])([a-fA-F0-9])([a-fA-F0-9])/,
+				parse: function( execResult ) {
+					return [
+						parseInt( execResult[ 1 ] + execResult[ 1 ], 16 ),
+						parseInt( execResult[ 2 ] + execResult[ 2 ], 16 ),
+						parseInt( execResult[ 3 ] + execResult[ 3 ], 16 )
+					];
+				}
+			}, {
+				re: /hsla?\(\s*(\d+(?:\.\d+)?)\s*,\s*(\d+(?:\.\d+)?)\%\s*,\s*(\d+(?:\.\d+)?)\%\s*(?:,\s*(\d+(?:\.\d+)?)\s*)?\)/,
+				space: "hsla",
+				parse: function( execResult ) {
+					return [
+						execResult[1],
+						execResult[2] / 100,
+						execResult[3] / 100,
+						execResult[4]
+					];
+				}
+			}],
+
+		// jQuery.Color( )
+		color = jQuery.Color = function( color, green, blue, alpha ) {
+			return new jQuery.Color.fn.parse( color, green, blue, alpha );
+		},
+		spaces = {
+			rgba: {
+				cache: "_rgba",
+				props: {
+					red: {
+						idx: 0,
+						type: "byte",
+						empty: true
+					},
+					green: {
+						idx: 1,
+						type: "byte",
+						empty: true
+					},
+					blue: {
+						idx: 2,
+						type: "byte",
+						empty: true
+					},
+					alpha: {
+						idx: 3,
+						type: "percent",
+						def: 1
+					}
+				}
+			},
+			hsla: {
+				cache: "_hsla",
+				props: {
+					hue: {
+						idx: 0,
+						type: "degrees",
+						empty: true
+					},
+					saturation: {
+						idx: 1,
+						type: "percent",
+						empty: true
+					},
+					lightness: {
+						idx: 2,
+						type: "percent",
+						empty: true
+					}
+				}
+			}
+		},
+		propTypes = {
+			"byte": {
+				floor: true,
+				min: 0,
+				max: 255
+			},
+			"percent": {
+				min: 0,
+				max: 1
+			},
+			"degrees": {
+				mod: 360,
+				floor: true
+			}
+		},
+		rgbaspace = spaces.rgba.props,
+		support = color.support = {},
+
+		// colors = jQuery.Color.names
+		colors,
+
+		// local aliases of functions called often
+		each = jQuery.each;
+
+	spaces.hsla.props.alpha = rgbaspace.alpha;
+
+	function clamp( value, prop, alwaysAllowEmpty ) {
+		var type = propTypes[ prop.type ] || {},
+			allowEmpty = prop.empty || alwaysAllowEmpty;
+
+		if ( allowEmpty && value == null ) {
+			return null;
+		}
+		if ( prop.def && value == null ) {
+			return prop.def;
+		}
+		if ( type.floor ) {
+			value = ~~value;
+		} else {
+			value = parseFloat( value );
+		}
+		if ( value == null || isNaN( value ) ) {
+			return prop.def;
+		}
+		if ( type.mod ) {
+			value = value % type.mod;
+			// -10 -> 350
+			return value < 0 ? type.mod + value : value;
+		}
+
+		// for now all property types without mod have min and max
+		return type.min > value ? type.min : type.max < value ? type.max : value;
+	}
+
+	function stringParse( string ) {
+		var inst = color(),
+			rgba = inst._rgba = [];
+
+		string = string.toLowerCase();
+
+		each( stringParsers, function( i, parser ) {
+			var match = parser.re.exec( string ),
+				values = match && parser.parse( match ),
+				parsed,
+				spaceName = parser.space || "rgba",
+				cache = spaces[ spaceName ].cache;
+
+
+			if ( values ) {
+				parsed = inst[ spaceName ]( values );
+
+				// if this was an rgba parse the assignment might happen twice
+				// oh well....
+				inst[ cache ] = parsed[ cache ];
+				rgba = inst._rgba = parsed._rgba;
+
+				// exit each( stringParsers ) here because we matched
+				return false;
+			}
+		});
+
+		// Found a stringParser that handled it
+		if ( rgba.length !== 0 ) {
+
+			// if this came from a parsed string, force "transparent" when alpha is 0
+			// chrome, (and maybe others) return "transparent" as rgba(0,0,0,0)
+			if ( Math.max.apply( Math, rgba ) === 0 ) {
+				jQuery.extend( rgba, colors.transparent );
+			}
+			return inst;
+		}
+
+		// named colors / default - filter back through parse function
+		if ( string = colors[ string ] ) {
+			return string;
+		}
+	}
+
+	color.fn = color.prototype = {
+		constructor: color,
+		parse: function( red, green, blue, alpha ) {
+			if ( red === undefined ) {
+				this._rgba = [ null, null, null, null ];
+				return this;
+			}
+			if ( red instanceof jQuery || red.nodeType ) {
+				red = red instanceof jQuery ? red.css( green ) : jQuery( red ).css( green );
+				green = undefined;
+			}
+
+			var inst = this,
+				type = jQuery.type( red ),
+				rgba = this._rgba = [],
+				source;
+
+			// more than 1 argument specified - assume ( red, green, blue, alpha )
+			if ( green !== undefined ) {
+				red = [ red, green, blue, alpha ];
+				type = "array";
+			}
+
+			if ( type === "string" ) {
+				return this.parse( stringParse( red ) || colors._default );
+			}
+
+			if ( type === "array" ) {
+				each( rgbaspace, function( key, prop ) {
+					rgba[ prop.idx ] = clamp( red[ prop.idx ], prop );
+				});
+				return this;
+			}
+
+			if ( type === "object" ) {
+				if ( red instanceof color ) {
+					each( spaces, function( spaceName, space ) {
+						if ( red[ space.cache ] ) {
+							inst[ space.cache ] = red[ space.cache ].slice();
+						}
+					});
+				} else {
+					each( spaces, function( spaceName, space ) {
+						each( space.props, function( key, prop ) {
+							var cache = space.cache;
+
+							// if the cache doesn't exist, and we know how to convert
+							if ( !inst[ cache ] && space.to ) {
+
+								// if the value was null, we don't need to copy it
+								// if the key was alpha, we don't need to copy it either
+								if ( red[ key ] == null || key === "alpha") {
+									return;
+								}
+								inst[ cache ] = space.to( inst._rgba );
+							}
+
+							// this is the only case where we allow nulls for ALL properties.
+							// call clamp with alwaysAllowEmpty
+							inst[ cache ][ prop.idx ] = clamp( red[ key ], prop, true );
+						});
+					});
+				}
+				return this;
+			}
+		},
+		is: function( compare ) {
+			var is = color( compare ),
+				same = true,
+				myself = this;
+
+			each( spaces, function( _, space ) {
+				var isCache = is[ space.cache ],
+					localCache;
+				if (isCache) {
+					localCache = myself[ space.cache ] || space.to && space.to( myself._rgba ) || [];
+					each( space.props, function( _, prop ) {
+						if ( isCache[ prop.idx ] != null ) {
+							same = ( isCache[ prop.idx ] === localCache[ prop.idx ] );
+							return same;
+						}
+					});
+				}
+				return same;
+			});
+			return same;
+		},
+		_space: function() {
+			var used = [],
+				inst = this;
+			each( spaces, function( spaceName, space ) {
+				if ( inst[ space.cache ] ) {
+					used.push( spaceName );
+				}
+			});
+			return used.pop();
+		},
+		transition: function( other, distance ) {
+			var end = color( other ),
+				spaceName = end._space(),
+				space = spaces[ spaceName ],
+				start = this[ space.cache ] || space.to( this._rgba ),
+				result = start.slice();
+
+			end = end[ space.cache ];
+			each( space.props, function( key, prop ) {
+				var index = prop.idx,
+					startValue = start[ index ],
+					endValue = end[ index ],
+					type = propTypes[ prop.type ] || {};
+
+				// if null, don't override start value
+				if ( endValue === null ) {
+					return;
+				}
+				// if null - use end
+				if ( startValue === null ) {
+					result[ index ] = endValue;
+				} else {
+					if ( type.mod ) {
+						if ( endValue - startValue > type.mod / 2 ) {
+							startValue += type.mod;
+						} else if ( startValue - endValue > type.mod / 2 ) {
+							startValue -= type.mod;
+						}
+					}
+					result[ prop.idx ] = clamp( ( endValue - startValue ) * distance + startValue, prop );
+				}
+			});
+			return this[ spaceName ]( result );
+		},
+		blend: function( opaque ) {
+			// if we are already opaque - return ourself
+			if ( this._rgba[ 3 ] === 1 ) {
+				return this;
+			}
+
+			var rgb = this._rgba.slice(),
+				a = rgb.pop(),
+				blend = color( opaque )._rgba;
+
+			return color( jQuery.map( rgb, function( v, i ) {
+				return ( 1 - a ) * blend[ i ] + a * v;
+			}));
+		},
+		toRgbaString: function() {
+			var prefix = "rgba(",
+				rgba = jQuery.map( this._rgba, function( v, i ) {
+					return v == null ? ( i > 2 ? 1 : 0 ) : v;
+				});
+
+			if ( rgba[ 3 ] === 1 ) {
+				rgba.pop();
+				prefix = "rgb(";
+			}
+
+			return prefix + rgba.join(",") + ")";
+		},
+		toHslaString: function() {
+			var prefix = "hsla(",
+				hsla = jQuery.map( this.hsla(), function( v, i ) {
+					if ( v == null ) {
+						v = i > 2 ? 1 : 0;
+					}
+
+					// catch 1 and 2
+					if ( i && i < 3 ) {
+						v = Math.round( v * 100 ) + "%";
+					}
+					return v;
+				});
+
+			if ( hsla[ 3 ] === 1 ) {
+				hsla.pop();
+				prefix = "hsl(";
+			}
+			return prefix + hsla.join(",") + ")";
+		},
+		toHexString: function( includeAlpha ) {
+			var rgba = this._rgba.slice(),
+				alpha = rgba.pop();
+
+			if ( includeAlpha ) {
+				rgba.push( ~~( alpha * 255 ) );
+			}
+
+			return "#" + jQuery.map( rgba, function( v, i ) {
+
+				// default to 0 when nulls exist
+				v = ( v || 0 ).toString( 16 );
+				return v.length === 1 ? "0" + v : v;
+			}).join("");
+		},
+		toString: function() {
+			return this._rgba[ 3 ] === 0 ? "transparent" : this.toRgbaString();
+		}
+	};
+	color.fn.parse.prototype = color.fn;
+
+	// hsla conversions adapted from:
+	// http://www.google.com/codesearch/p#OAMlx_jo-ck/src/third_party/WebKit/Source/WebCore/inspector/front-end/Color.js&d=7&l=193
+
+	function hue2rgb( p, q, h ) {
+		h = ( h + 1 ) % 1;
+		if ( h * 6 < 1 ) {
+			return p + (q - p) * 6 * h;
+		}
+		if ( h * 2 < 1) {
+			return q;
+		}
+		if ( h * 3 < 2 ) {
+			return p + (q - p) * ((2/3) - h) * 6;
+		}
+		return p;
+	}
+
+	spaces.hsla.to = function ( rgba ) {
+		if ( rgba[ 0 ] == null || rgba[ 1 ] == null || rgba[ 2 ] == null ) {
+			return [ null, null, null, rgba[ 3 ] ];
+		}
+		var r = rgba[ 0 ] / 255,
+			g = rgba[ 1 ] / 255,
+			b = rgba[ 2 ] / 255,
+			a = rgba[ 3 ],
+			max = Math.max( r, g, b ),
+			min = Math.min( r, g, b ),
+			diff = max - min,
+			add = max + min,
+			l = add * 0.5,
+			h, s;
+
+		if ( min === max ) {
+			h = 0;
+		} else if ( r === max ) {
+			h = ( 60 * ( g - b ) / diff ) + 360;
+		} else if ( g === max ) {
+			h = ( 60 * ( b - r ) / diff ) + 120;
+		} else {
+			h = ( 60 * ( r - g ) / diff ) + 240;
+		}
+
+		if ( l === 0 || l === 1 ) {
+			s = l;
+		} else if ( l <= 0.5 ) {
+			s = diff / add;
+		} else {
+			s = diff / ( 2 - add );
+		}
+		return [ Math.round(h) % 360, s, l, a == null ? 1 : a ];
+	};
+
+	spaces.hsla.from = function ( hsla ) {
+		if ( hsla[ 0 ] == null || hsla[ 1 ] == null || hsla[ 2 ] == null ) {
+			return [ null, null, null, hsla[ 3 ] ];
+		}
+		var h = hsla[ 0 ] / 360,
+			s = hsla[ 1 ],
+			l = hsla[ 2 ],
+			a = hsla[ 3 ],
+			q = l <= 0.5 ? l * ( 1 + s ) : l + s - l * s,
+			p = 2 * l - q,
+			r, g, b;
+
+		return [
+			Math.round( hue2rgb( p, q, h + ( 1 / 3 ) ) * 255 ),
+			Math.round( hue2rgb( p, q, h ) * 255 ),
+			Math.round( hue2rgb( p, q, h - ( 1 / 3 ) ) * 255 ),
+			a
+		];
+	};
+
+
+	each( spaces, function( spaceName, space ) {
+		var props = space.props,
+			cache = space.cache,
+			to = space.to,
+			from = space.from;
+
+		// makes rgba() and hsla()
+		color.fn[ spaceName ] = function( value ) {
+
+			// generate a cache for this space if it doesn't exist
+			if ( to && !this[ cache ] ) {
+				this[ cache ] = to( this._rgba );
+			}
+			if ( value === undefined ) {
+				return this[ cache ].slice();
+			}
+
+			var type = jQuery.type( value ),
+				arr = ( type === "array" || type === "object" ) ? value : arguments,
+				local = this[ cache ].slice(),
+				ret;
+
+			each( props, function( key, prop ) {
+				var val = arr[ type === "object" ? key : prop.idx ];
+				if ( val == null ) {
+					val = local[ prop.idx ];
+				}
+				local[ prop.idx ] = clamp( val, prop );
+			});
+
+			if ( from ) {
+				ret = color( from( local ) );
+				ret[ cache ] = local;
+				return ret;
+			} else {
+				return color( local );
+			}
+		};
+
+		// makes red() green() blue() alpha() hue() saturation() lightness()
+		each( props, function( key, prop ) {
+			// alpha is included in more than one space
+			if ( color.fn[ key ] ) {
+				return;
+			}
+			color.fn[ key ] = function( value ) {
+				var vtype = jQuery.type( value ),
+					fn = ( key === 'alpha' ? ( this._hsla ? 'hsla' : 'rgba' ) : spaceName ),
+					local = this[ fn ](),
+					cur = local[ prop.idx ],
+					match;
+
+				if ( vtype === "undefined" ) {
+					return cur;
+				}
+
+				if ( vtype === "function" ) {
+					value = value.call( this, cur );
+					vtype = jQuery.type( value );
+				}
+				if ( value == null && prop.empty ) {
+					return this;
+				}
+				if ( vtype === "string" ) {
+					match = rplusequals.exec( value );
+					if ( match ) {
+						value = cur + parseFloat( match[ 2 ] ) * ( match[ 1 ] === "+" ? 1 : -1 );
+					}
+				}
+				local[ prop.idx ] = value;
+				return this[ fn ]( local );
+			};
+		});
+	});
+
+	// add .fx.step functions
+	each( stepHooks, function( i, hook ) {
+		jQuery.cssHooks[ hook ] = {
+			set: function( elem, value ) {
+				var parsed, backgroundColor, curElem;
+
+				if ( jQuery.type( value ) !== 'string' || ( parsed = stringParse( value ) ) )
+				{
+					value = color( parsed || value );
+					if ( !support.rgba && value._rgba[ 3 ] !== 1 ) {
+						curElem = hook === "backgroundColor" ? elem.parentNode : elem;
+						do {
+							backgroundColor = jQuery.curCSS( curElem, "backgroundColor" );
+						} while (
+							( backgroundColor === "" || backgroundColor === "transparent" ) &&
+							( curElem = curElem.parentNode ) &&
+							curElem.style
+						);
+
+						value = value.blend( backgroundColor && backgroundColor !== "transparent" ?
+							backgroundColor :
+							"_default" );
+					}
+
+					value = value.toRgbaString();
+				}
+				elem.style[ hook ] = value;
+			}
+		};
+		jQuery.fx.step[ hook ] = function( fx ) {
+			if ( !fx.colorInit ) {
+				fx.start = color( fx.elem, hook );
+				fx.end = color( fx.end );
+				fx.colorInit = true;
+			}
+			jQuery.cssHooks[ hook ].set( fx.elem, fx.start.transition( fx.end, fx.pos ) );
+		};
+	});
+
+	// detect rgba support
+	jQuery(function() {
+		var div = document.createElement( "div" ),
+			div_style = div.style;
+
+		div_style.cssText = "background-color:rgba(1,1,1,.5)";
+		support.rgba = div_style.backgroundColor.indexOf( "rgba" ) > -1;
+	});
+
+	// Some named colors to work with
+	// From Interface by Stefan Petre
+	// http://interface.eyecon.ro/
+	colors = jQuery.Color.names = {
+		aqua: "#00ffff",
+		azure: "#f0ffff",
+		beige: "#f5f5dc",
+		black: "#000000",
+		blue: "#0000ff",
+		brown: "#a52a2a",
+		cyan: "#00ffff",
+		darkblue: "#00008b",
+		darkcyan: "#008b8b",
+		darkgrey: "#a9a9a9",
+		darkgreen: "#006400",
+		darkkhaki: "#bdb76b",
+		darkmagenta: "#8b008b",
+		darkolivegreen: "#556b2f",
+		darkorange: "#ff8c00",
+		darkorchid: "#9932cc",
+		darkred: "#8b0000",
+		darksalmon: "#e9967a",
+		darkviolet: "#9400d3",
+		fuchsia: "#ff00ff",
+		gold: "#ffd700",
+		green: "#008000",
+		indigo: "#4b0082",
+		khaki: "#f0e68c",
+		lightblue: "#add8e6",
+		lightcyan: "#e0ffff",
+		lightgreen: "#90ee90",
+		lightgrey: "#d3d3d3",
+		lightpink: "#ffb6c1",
+		lightyellow: "#ffffe0",
+		lime: "#00ff00",
+		magenta: "#ff00ff",
+		maroon: "#800000",
+		navy: "#000080",
+		olive: "#808000",
+		orange: "#ffa500",
+		pink: "#ffc0cb",
+		purple: "#800080",
+		violet: "#800080",
+		red: "#ff0000",
+		silver: "#c0c0c0",
+		white: "#ffffff",
+		yellow: "#ffff00",
+		transparent: [ null, null, null, 0 ],
+		_default: "#ffffff"
+	};
+})( jQuery );

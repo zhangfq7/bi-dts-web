@@ -1,1 +1,96 @@
-#dateFormatPanel{width:100%;height:100%}.formatBox{padding:14px}.formatBox .formatTop{padding-left:20px}.formatTop h2{font-size:18px;color:#333}.form-control{display:inline-block;width:150px}#dateAttr{border:1px solid #77b1d6;width:350px;height:30px}#formatName{border:1px solid #77b1d6;width:350px;height:30px}#attrGroup{border:1px solid #77b1d6;width:350px;height:30px}.formatContent{margin:10px 0 0 10px}.formatRule{position:relative;height:25px;line-height:25px;background:#fafafa;color:#4f4f4f}.formatRuleButton{position:relative;width:110px;height:24px;border:1px solid #ddd;background:#fff;cursor:pointer;text-align:center;letter-spacing:1px;transition:background-color .2s ease;display:none}.formatRuleButton.hide{display:none}.formatRuleButton.show{display:inline-block}.formatRuleButton:hover,.formatRuleButton.active{background:#00bdef;color:#fff}
+#dateFormatPanel{
+	width: 100%;
+	height: 100%;
+	/* margin: 10px; */
+}
+.formatBox{
+	padding:14px;
+	/*background:#ecf5fa; */
+	
+}
+.formatBox .formatTop{
+	padding-left:20px
+}
+.formatTop h2{
+	font-size:18px; 
+	color:#333;
+}
+.form-control {
+	display: inline-block;
+	width:150px;
+}
+#dateAttr {
+	border:1px solid  #77b1d6; 
+	width: 350px;
+	height: 30px;
+}
+#formatName {
+	border:1px solid  #77b1d6; 
+	width: 350px;
+	height: 30px;
+}
+#attrGroup {
+	border:1px solid  #77b1d6; 
+	width: 350px;
+	height: 30px;
+}
+.formatContent{
+	margin: 10px 0 0 10px;
+}
+.formatRule{
+	position: relative;
+	/*top: -24px;*/
+	/*border-top: 1px solid #DDDDDD;*/
+	height: 25px;
+	line-height: 25px;
+	background: #FAFAFA;
+	color: #4F4F4F;
+}
+.formatRuleButton{
+	/*display: inline-block;*/
+	position: relative;
+    width:110px;
+	height: 24px;
+	border: 1px solid #ddd;
+	background: #fff;
+	cursor: pointer;
+	text-align: center;
+	letter-spacing: 1px;
+	transition: background-color .2s ease;
+	display: none;
+}
+.formatRuleButton.hide{
+	display: none;
+}
+.formatRuleButton.show{
+	display: inline-block;
+}
+.formatRuleButton:hover,
+.formatRuleButton.active{
+	background: #00BDEF;
+	color: #fff;
+}
+
+/*.glyphicon {*/
+	/*position: relative;*/
+	/*top: 1px;*/
+	/*display: inline-block;*/
+	/*font-family: 'Glyphicons Halflings';*/
+	/*font-style: normal;*/
+	/*font-weight: normal;*/
+	/*line-height: 1;*/
+	/*-webkit-font-smoothing: antialiased;*/
+	/*-moz-osx-font-smoothing: grayscale;*/
+/*}*/
+
+/*.glyphicon-chevron-down:before {*/
+    /*content: "\e114";*/
+/*}*/
+
+/**:before,*/
+/**:after {*/
+    /*-webkit-box-sizing: border-box;*/
+    /*-moz-box-sizing: border-box;*/
+    /*box-sizing: border-box;*/
+/*}*/
+

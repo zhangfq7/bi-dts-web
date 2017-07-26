@@ -1,1 +1,184 @@
-body{font-family:华文雅黑；}.container{position:relative;top:100px}.container .row{position:relative;top:20px;padding-top:10px;width:970px;margin:0 auto}.container .row .title,.flow{text-align:center}.container .row .title .title-text{margin-left:20px;font-size:22px}.container .row .flow .step{display:inline-block}.container .row .flow .line{margin-bottom:34px;width:200px;height:5px;display:inline-block;border-radius:15px;background:#838b83}.container .row .flow .step-finish{margin-left:18px}.container .row .flow .step .message{color:#838b83}.container .row .circle{margin:0 auto;width:30px;height:30px;text-align:center;line-height:30px;background:#838b83;-moz-border-radius:50px;-webkit-border-radius:50px;border-radius:50px}.container .row .flow .line-color{background:#66cd00}.container .row .flow .circle-color{background:#66cd00}.container .row .circle>span{color:white}.container .row .btn-next{position:relative;margin-left:-15px}.container .row ul li p,ul li label{font-size:15px}.container .row ul li .username-step3{margin-left:333px}.container .row ul li .password-step3{margin-left:320px}.container .row ul li .repassword-step3{margin-left:293px}.container .row ul li .password-step3 .tip-step3{margin-left:79px;margin-bottom:5px;color:#bdc3c7;display:block}.container .row .listmsg{margin-left:130px}.container .row .way{float:left;text-align:center}.container .row .mobile-way{margin-left:320px}.container .row .email-way{margin-left:180px}.container .row .way .circle-way{margin:0 auto;width:100px;height:100px;text-align:center;line-height:30px;background:#838b83;-moz-border-radius:50px;-webkit-border-radius:50px;border-radius:50px}.container .row .way .mobile-picture:hover{margin:0 auto;width:100px;height:100px;background:url(../img/forgetpsd.png) no-repeat -6px -6px}.container .row .way .mobile-picture{margin:0 auto;width:100px;height:100px;background:url(../img/forgetpsd.png) no-repeat -126px -6px}.container .row .way .email-picture:hover{margin:0 auto;width:100px;height:100px;background:url(../img/forgetpsd.png) no-repeat -246px -6px}.container .row .way .email-picture{margin:0 auto;width:100px;height:100px;background:url(../img/forgetpsd.png) no-repeat -366px -6px}.container .row .panel-success{margin-left:30px;width:928px}.container .row .panel .panel-heading{height:50px}.container .row .panel .panel-heading .step4-ok{width:25px;height:25px;display:inline-block;background:#66cd00}.container .row .panel .panel-heading .panel-title{margin-left:20px;display:inline-block}.container .row .panel .panel-body .back-mysys,.other-way{cursor:pointer}.container .row ul li .validate-number,.prompt-message{display:none}
+body {
+	font-family: 华文雅黑；
+}
+
+.container {
+	position: relative;
+	top: 100px;
+}
+
+.container .row {
+	position: relative;
+	top: 20px;
+	padding-top: 10px;
+	width: 970px;
+	margin: 0 auto;
+}
+
+.container .row .title,.flow {
+	text-align: center;
+}
+
+.container .row .title .title-text {
+	margin-left: 20px;
+	font-size: 22px
+}
+
+.container .row .flow .step {
+	display: inline-block;
+}
+
+.container .row .flow .line {
+	margin-bottom: 34px;
+	width: 200px;
+	height: 5px;
+	display: inline-block;
+	border-radius: 15px;
+	background: #838B83;
+}
+
+.container .row .flow .step-finish {
+	margin-left: 18px;
+}
+
+.container .row .flow .step .message {
+	color: #838B83;
+}
+
+.container .row  .circle {
+	margin: 0 auto;
+	width: 30px;
+	height: 30px;
+	text-align: center;
+	line-height: 30px;
+	background: #838B83;
+	-moz-border-radius: 50px;
+	-webkit-border-radius: 50px;
+	border-radius: 50px;
+}
+
+.container .row .flow .line-color {
+	background: #66CD00;
+}
+
+.container .row .flow .circle-color {
+	background: #66CD00;
+}
+
+.container .row .circle>span {
+	color: white;
+}
+
+.container .row .btn-next {
+	position: relative;
+	margin-left: -15px;
+}
+
+.container .row ul li p,ul li label {
+	font-size: 15px;
+}
+
+.container .row ul li .username-step3 {
+	margin-left: 333px;
+}
+
+.container .row ul li .password-step3 {
+	margin-left: 320px;
+}
+
+.container .row ul li .repassword-step3 {
+	margin-left: 293px;
+}
+
+.container .row ul li .password-step3 .tip-step3 {
+	margin-left: 79px;
+	margin-bottom: 5px;
+	color: #bdc3c7;
+	display: block;
+}
+
+.container .row  .listmsg {
+	margin-left: 130px;
+}
+
+.container .row .way {
+	float: left;
+	text-align: center;
+}
+
+.container .row .mobile-way {
+	margin-left: 320px;
+}
+
+.container .row .email-way {
+	margin-left: 180px;
+}
+
+.container .row .way .circle-way {
+	margin: 0 auto;
+	width: 100px;
+	height: 100px;
+	text-align: center;
+	line-height: 30px;
+	background: #838B83;
+	-moz-border-radius: 50px;
+	-webkit-border-radius: 50px;
+	border-radius: 50px;
+}
+
+.container .row .way .mobile-picture:hover {
+	margin: 0 auto;
+	width: 100px;
+	height: 100px;
+	background: url(../img/forgetpsd.png) no-repeat -6px -6px;
+}
+
+.container .row .way .mobile-picture {
+	margin: 0 auto;
+	width: 100px;
+	height: 100px;
+	background: url(../img/forgetpsd.png) no-repeat -126px -6px;
+}
+
+.container .row .way .email-picture:hover {
+	margin: 0 auto;
+	width: 100px;
+	height: 100px;
+	background: url(../img/forgetpsd.png) no-repeat -246px -6px;
+}
+
+.container .row .way .email-picture {
+	margin: 0 auto;
+	width: 100px;
+	height: 100px;
+	background: url(../img/forgetpsd.png) no-repeat -366px -6px;
+}
+
+.container .row .panel-success {
+	margin-left: 30px;
+	width: 928px;
+}
+
+.container .row .panel .panel-heading {
+	height: 50px;
+}
+
+.container .row .panel .panel-heading .step4-ok {
+	width: 25px;
+	height: 25px;
+	display: inline-block;
+	background: #66CD00;
+}
+
+.container .row .panel .panel-heading .panel-title {
+	margin-left: 20px;
+	display: inline-block;
+}
+
+.container .row .panel .panel-body .back-mysys,.other-way {
+	cursor: pointer;
+}
+
+.container .row ul li .validate-number,.prompt-message {
+	display: none;
+}

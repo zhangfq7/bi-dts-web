@@ -1,1 +1,327 @@
-define(["sabace","batchConfig","authorityEdit"],function(f,c,h){var e={};jQuery(function(){i();jQuery("#search").on("click",l);jQuery("#batchConfigBtn").on("click",b);jQuery("#authorityListPanel").on("click",".addDim",function(){g(this)});jQuery("#authorityListPanel").on("click",".editAuthority",function(){a(this)});jQuery("#authorityListPanel").on("click",".deleteAuthority",function(){k(this)})});function k(o){var n=$(o).attr("userId");var m=$(o).attr("dimId");bi.dialog.confirm({title:f.getMessage("authority.title.tips"),message:f.getMessage("authority.message.delete.confirm"),callback:function(p){if(p){f.ajax({type:"post",cache:false,dataType:"json",url:f.handleUrlParam("/platform/resmanage/authority/user-dim-delete"),data:{userIds:n,dimId:m},loading:{title:f.getMessage("authority.title.tips"),text:f.getMessage("authority.message.delete.loading")},success:function(q){bi.dialog.show({title:f.getMessage("authority.title.delete.success"),message:f.getMessage("authority.message.delete.success"),nl2br:false,closable:true,closeByBackdrop:false,closeByKeyboard:false,buttons:[{label:f.getMessage("authority.button.confirm"),cssClass:"btn-info",action:function(r){jQuery("#search").trigger("click");r.close()}}]})},error:function(q){bi.dialog.show({type:bi.dialog.TYPE_DANGER,title:f.getMessage("authority.title.delete.failure"),message:q.responseText||f.getMessage("authority.message.delete.failure")})}})}}})}function a(r){var o=$(r).attr("userId");var p=$(r).attr("userName");var n=$(r).attr("dimId");var q=$(r).attr("dimName");var m=f.handleUrlParam("/platform/resmanage/authority/dim-edit")+"?userId="+o+"&userName="+encodeURI(encodeURI(p))+"&dimId="+n+"&dimName="+encodeURI(encodeURI(q));bi.dialog.show({title:f.getMessage("authority.title.authority"),message:$('<div id="user-dim-config"></div>').load(m),spinicon:"glyphicon glyphicon-refresh",cssClass:"dim-user-dialog",closeByBackdrop:false,closeByKeyboard:false,onshown:function(){h.init()},buttons:[{label:f.getMessage("authority.button.cancel"),cssClass:"btn-default",action:function(s){s.close()}},{label:f.getMessage("authority.button.save"),cssClass:"btn-info",action:function(s){h.saveUserDimConfig(s)}}]})}function g(p){var n=$(p).attr("userId");var o=$(p).attr("userName");var m=f.handleUrlParam("/platform/resmanage/authority/dim-edit")+"?userId="+n+"&userName="+encodeURI(encodeURI(o));bi.dialog.show({title:f.getMessage("authority.title.authority"),message:$('<div id="user-dim-config"></div>').load(m),spinicon:"glyphicon glyphicon-refresh",cssClass:"dim-user-dialog",closeByBackdrop:false,closeByKeyboard:false,onshown:function(){h.init()},buttons:[{label:f.getMessage("authority.button.cancel"),cssClass:"btn-default",action:function(q){q.close()}},{label:f.getMessage("authority.button.save"),cssClass:"btn-info",action:function(q){h.saveUserDimConfig(q)}}]})}function b(){var m=f.handleUrlParam("/platform/resmanage/authority/batch-add");bi.dialog.show({title:f.getMessage("authority.title.authority"),message:$('<div id="user-dim-config"></div>').load(m),spinicon:"glyphicon glyphicon-refresh",cssClass:"dim-user-dialog",closeByBackdrop:false,closeByKeyboard:false,onshown:function(){c.init()},buttons:[{label:f.getMessage("authority.button.cancel"),cssClass:"btn-default",action:function(n){n.close()}},{label:f.getMessage("authority.button.save"),cssClass:"btn-info",action:function(n){c.saveUserDimConfig(n)}}]})}function l(){var m={};var n=jQuery("#userName").val();var o=jQuery("#dimName").val();m.userName=n;m.dimName=o;jQuery("#authorityListGrid").jqGrid("setGridParam",{postData:m}).trigger("reloadGrid")}function i(){var m={};$("#authorityListGrid").jqGrid({url:f.handleUrlParam("/platform/resmanage/authority/authority-list"),styleUI:"Bootstrap",rownumbers:true,autowidth:true,postData:m,height:"auto",mtype:"post",regional:"cn",datatype:"json",viewrecords:true,forceFit:true,colModel:[{label:f.getMessage("authority.label.user.code"),name:"userId",width:80,hlign:"center",sortable:false,cellattr:function(q,o,p,n,r){return"id='userId"+q+"'"}},{label:f.getMessage("authority.label.user.name"),name:"userName",width:100,align:"left",hlign:"center",sortable:false,cellattr:function(q,o,p,n,r){return"id='userName"+q+"'"}},{label:f.getMessage("authority.label.dimId"),name:"dimId",width:80,align:"left",hlign:"center",sortable:false},{label:f.getMessage("authority.label.dimName"),name:"dimName",width:150,align:"left",hlign:"center",sortable:false},{label:f.getMessage("authority.label.dimValues"),name:"dimValueNames",width:230,align:"left",hlign:"center",sortable:false},{label:f.getMessage("authority.label.opt"),name:"opt",width:100,align:"center",hlign:"center",sortable:false,formatter:function(n,o,t){var q=t.userId;var r=t.userName;var p=t.dimId;var s=t.dimName;return"<a href='javascript:void(0)' class='editAuthority' userId='"+q+"' userName='"+r+"' dimId='"+p+"' dimName='"+s+"'>"+f.getMessage("authority.label.modify")+"</a> / <a href='javascript:void(0)' class='deleteAuthority' userId='"+q+"' dimId='"+p+"'>"+f.getMessage("authority.label.delete")+"</a>"}},{label:f.getMessage("authority.label.opt"),name:"operate",width:100,align:"center",hlign:"center",sortable:false,formatter:function(n,o,t){var q=t.userId;var r=t.userName;var p=t.dimId;var s=t.dimName;return"<a href='javascript:void(0)' class='addDim' userId='"+q+"' userName='"+r+"'>"+f.getMessage("authority.label.add")+"</a> "},cellattr:function(q,o,p,n,r){return"id='operate"+q+"'"}}],rowNum:10,rowList:[10,20,30],pager:"#authorityListGridPager",jsonReader:{records:"total",total:"totalPages"},gridComplete:function(){var n="authorityListGrid";d(n,"userId")},afterInsertRow:function(o,n){jQuery(this).jqGrid("setCell",rowid,"operate","<a>"+f.getMessage("authority.label.opt")+"</a>")}})}function d(m,t){var p=$("#"+m+"").getDataIDs();var r=p.length;for(var o=0;o<r;o++){var s=$("#"+m+"").jqGrid("getRowData",p[o]);var q=1;for(j=o+1;j<=r;j++){var n=$("#"+m+"").jqGrid("getRowData",p[j]);if(s[t]==n[t]){q++;$("#"+m+"").setCell(p[j],"userId","",{display:"none"});$("#"+m+"").setCell(p[j],"userName","",{display:"none"});$("#"+m+"").setCell(p[j],"operate","",{display:"none"})}else{q=1;break}$("#userId"+p[o]+"").attr("rowspan",q);$("#userId"+p[o]+"").css("vertical-align","middle");$("#userName"+p[o]+"").attr("rowspan",q);$("#userName"+p[o]+"").css("vertical-align","middle");$("#operate"+p[o]+"").attr("rowspan",q);$("#operate"+p[o]+"").css("vertical-align","middle")}}}});
+define(['sabace', 'batchConfig', 'authorityEdit'], function(sabace, batchConfig, authorityEdit) {
+ 
+	var authorityList = {};
+	
+	jQuery(function(){
+		// 初始化订购记录列表
+		initAuthorityList();
+		
+		// 绑定按钮事件
+		jQuery('#search').on("click", queryAuthorityList);
+		jQuery('#batchConfigBtn').on("click", batchConfigAuthority);
+			
+		
+		jQuery("#authorityListPanel").on("click", '.addDim', function(){
+			addDim(this);
+		});
+		jQuery("#authorityListPanel").on("click", '.editAuthority', function(){
+			modifyAuthority(this);
+		});
+		jQuery("#authorityListPanel").on("click", '.deleteAuthority', function(){
+			deleteAuthority(this);
+		});
+		
+	});
+	
+	function deleteAuthority(obj){
+		var userId = $(obj).attr("userId");
+		var dimId = $(obj).attr("dimId");
+		
+		bi.dialog.confirm({
+			title: sabace.getMessage("authority.title.tips"),
+			message: sabace.getMessage("authority.message.delete.confirm"),
+			callback: function(result) {
+				if (result) {
+					sabace.ajax({
+						type: "post",
+						cache: false,
+						dataType: "json",
+						url: sabace.handleUrlParam("/platform/resmanage/authority/user-dim-delete"),
+						data: {
+							userIds: userId,
+							dimId: dimId
+						},
+						loading: {
+							title: sabace.getMessage('authority.title.tips'),
+							text: sabace.getMessage('authority.message.delete.loading')
+						},
+						success: function(req) {
+							bi.dialog.show({
+								title: sabace.getMessage('authority.title.delete.success'),
+								message: sabace.getMessage("authority.message.delete.success"),
+								nl2br: false,
+								closable: true,
+								closeByBackdrop: false,
+								closeByKeyboard: false,
+								buttons: [{
+									label: sabace.getMessage('authority.button.confirm'),
+									cssClass: 'btn-info',
+									action: function(dialogItself) {
+										jQuery("#search").trigger("click");
+										dialogItself.close();
+									}
+								}]
+							});
+						},
+						error: function(req) {
+							bi.dialog.show({
+								type: bi.dialog.TYPE_DANGER,
+								title: sabace.getMessage('authority.title.delete.failure'),
+								message: req.responseText || sabace.getMessage('authority.message.delete.failure')
+							});
+						}
+					});
+				}
+			}
+		});
+	}
+	
+	function modifyAuthority(obj){
+		var userId = $(obj).attr("userId");
+		var userName = $(obj).attr("userName");
+		var dimId = $(obj).attr("dimId");
+		var dimName = $(obj).attr("dimName");
+		var url = sabace.handleUrlParam('/platform/resmanage/authority/dim-edit') + '?userId=' + userId + '&userName=' + encodeURI(encodeURI(userName)) + '&dimId=' + dimId + '&dimName=' + encodeURI(encodeURI(dimName));
+		bi.dialog.show({
+			title: sabace.getMessage("authority.title.authority"),
+			message: $('<div id="user-dim-config"></div>').load(url),
+			spinicon: 'glyphicon glyphicon-refresh',
+			cssClass: 'dim-user-dialog',
+			closeByBackdrop: false,
+			closeByKeyboard: false,
+			onshown: function() {
+				authorityEdit.init();
+			},
+			buttons: [{
+				label: sabace.getMessage("authority.button.cancel"),
+				//hotkey: 13, // Enter  让键盘回车直接出发此按钮
+				cssClass: 'btn-default',
+				action: function(dialog) {
+					dialog.close();
+				}
+			}, {
+				label: sabace.getMessage("authority.button.save"),
+				//hotkey: 13, // Enter  让键盘回车直接出发此按钮
+				cssClass: 'btn-info',
+				action: function(dialog) {
+					authorityEdit.saveUserDimConfig(dialog);
+				}
+			}]
+		});
+	}
+	
+	function addDim(obj){
+		var userId = $(obj).attr("userId");
+		var userName = $(obj).attr("userName");
+		var url = sabace.handleUrlParam('/platform/resmanage/authority/dim-edit') + '?userId=' + userId + '&userName=' + encodeURI(encodeURI(userName));
+		bi.dialog.show({
+			title: sabace.getMessage("authority.title.authority"),
+			message: $('<div id="user-dim-config"></div>').load(url),
+			spinicon: 'glyphicon glyphicon-refresh',
+			cssClass: 'dim-user-dialog',
+			closeByBackdrop: false,
+			closeByKeyboard: false,
+			onshown: function() {
+				authorityEdit.init();
+			},
+			buttons: [{
+				label: sabace.getMessage("authority.button.cancel"),
+				//hotkey: 13, // Enter  让键盘回车直接出发此按钮
+				cssClass: 'btn-default',
+				action: function(dialog) {
+					dialog.close();
+				}
+			}, {
+				label: sabace.getMessage("authority.button.save"),
+				//hotkey: 13, // Enter  让键盘回车直接出发此按钮
+				cssClass: 'btn-info',
+				action: function(dialog) {
+					authorityEdit.saveUserDimConfig(dialog);
+				}
+			}]
+		});
+	}
+	
+	function batchConfigAuthority(){
+		var url = sabace.handleUrlParam('/platform/resmanage/authority/batch-add');
+		bi.dialog.show({
+			title: sabace.getMessage("authority.title.authority"),
+			message: $('<div id="user-dim-config"></div>').load(url),
+			spinicon: 'glyphicon glyphicon-refresh',
+			cssClass: 'dim-user-dialog',
+			closeByBackdrop: false,
+			closeByKeyboard: false,
+			onshown: function() {
+				batchConfig.init();
+			},
+			buttons: [{
+				label: sabace.getMessage("authority.button.cancel"),
+				//hotkey: 13, // Enter  让键盘回车直接出发此按钮
+				cssClass: 'btn-default',
+				action: function(dialog) {
+					dialog.close();
+				}
+			}, {
+				label: sabace.getMessage("authority.button.save"),
+				//hotkey: 13, // Enter  让键盘回车直接出发此按钮
+				cssClass: 'btn-info',
+				action: function(dialog) {
+					batchConfig.saveUserDimConfig(dialog);
+				}
+			}]
+		});
+	}
+	
+	function queryAuthorityList(){
+		var postData = {};
+		var userName = jQuery("#userName").val();
+		var dimName = jQuery("#dimName").val();
+		postData.userName = userName;
+		postData.dimName = dimName;
+		jQuery("#authorityListGrid").jqGrid('setGridParam', {
+			postData: postData
+		}).trigger("reloadGrid");
+	}
+
+	function initAuthorityList(){
+		var postData = {};
+		$("#authorityListGrid").jqGrid({
+			url: sabace.handleUrlParam('/platform/resmanage/authority/authority-list'),
+			styleUI: 'Bootstrap',
+			rownumbers: true,
+			autowidth: true,
+			postData: postData,
+			height: 'auto',
+			mtype: 'post',
+			regional: 'cn',
+			datatype: "json",
+			viewrecords: true, 
+			forceFit: true,
+			//rownumbers: true,
+			colModel: [{
+				label: sabace.getMessage("authority.label.user.code"),
+				name: 'userId',
+				width: 80,
+				hlign: 'center',
+				sortable: false,
+                cellattr: function(rowId, tv, rawObject, cm, rdata) {
+                    //合并单元格
+                    return 'id=\'userId' + rowId + "\'";
+                }
+			}, {
+				label: sabace.getMessage("authority.label.user.name"),
+				name: 'userName',
+				width: 100,
+				align: 'left',
+				hlign: 'center',
+				sortable: false,
+                cellattr: function(rowId, tv, rawObject, cm, rdata) {
+                    //合并单元格
+                    return 'id=\'userName' + rowId + "\'";
+                }
+			}, {
+				label: sabace.getMessage("authority.label.dimId"),
+				name: 'dimId',
+				width: 80,
+				align: 'left',
+				hlign: 'center',
+				sortable: false
+			}, {
+				label: sabace.getMessage('authority.label.dimName'),
+				name: 'dimName',
+				width: 150,
+				align: 'left',
+				hlign: 'center',
+				sortable: false
+			}, {
+				label: sabace.getMessage("authority.label.dimValues"),
+				name: 'dimValueNames',
+				width: 230,
+				align: 'left',
+				hlign: 'center',
+				sortable: false
+			}, {
+				label: sabace.getMessage("authority.label.opt"),
+				name: 'opt',
+				width: 100,
+				align: 'center',
+				hlign: 'center',
+				sortable: false,
+				formatter: function(cellvalue, options, rowObject) {
+					var userId = rowObject.userId;
+					var userName = rowObject.userName;
+					var dimId = rowObject.dimId;
+					var dimName = rowObject.dimName;
+					return "<a href='javascript:void(0)' class='editAuthority' userId='" + userId + "' userName='" + userName + "' dimId='" + dimId + "' dimName='" + dimName + "'>"+sabace.getMessage("authority.label.modify")+"</a> / " +
+						   "<a href='javascript:void(0)' class='deleteAuthority' userId='" + userId + "' dimId='" + dimId + "'>"+sabace.getMessage("authority.label.delete")+"</a>";
+				}
+			}, {
+				label: sabace.getMessage("authority.label.opt"),
+				name: 'operate',
+				width: 100,
+				align: 'center',
+				hlign: 'center',
+				sortable: false,
+				formatter: function(cellvalue, options, rowObject) {
+					var userId = rowObject.userId;
+					var userName = rowObject.userName;
+					var dimId = rowObject.dimId;
+					var dimName = rowObject.dimName;
+					return "<a href='javascript:void(0)' class='addDim' userId='" + userId + "' userName='" + userName + "'>"+sabace.getMessage("authority.label.add")+"</a> ";
+				},
+                cellattr: function(rowId, tv, rawObject, cm, rdata) {
+                    //合并单元格
+                    return 'id=\'operate' + rowId + "\'";
+                }
+			}],
+			rowNum: 10,
+			rowList: [10, 20, 30],
+			pager: "#authorityListGridPager",
+			jsonReader: {
+				records: "total",
+				total: "totalPages"
+			},
+			gridComplete: function() {
+	            //②在gridComplete调用合并方法
+	            var gridName = "authorityListGrid";
+	            Merger(gridName, "userId");
+	        },
+			afterInsertRow: function(rowId, data) {
+				jQuery(this).jqGrid('setCell', rowid, 'operate', '<a>'+sabace.getMessage('authority.label.opt')+'</a>');
+			}
+		});
+	}
+	
+	function Merger(gridName, CellName) {
+	    //得到显示到界面的id集合
+	    var mya = $("#" + gridName + "").getDataIDs();
+	    //当前显示多少条
+	    var length = mya.length;
+	    for (var i = 0; i < length; i++) {
+	        //从上到下获取一条信息
+	        var before = $("#" + gridName + "").jqGrid('getRowData', mya[i]);
+	        //定义合并行数
+	        var rowSpanTaxCount = 1;
+	        for (j = i + 1; j <= length; j++) {
+	            //和上边的信息对比 如果值一样就合并行数+1 然后设置rowspan 让当前单元格隐藏
+	            var end = $("#" + gridName + "").jqGrid('getRowData', mya[j]);
+	            if (before[CellName] == end[CellName]) {
+	                rowSpanTaxCount++;
+	                $("#" + gridName + "").setCell(mya[j], "userId", '', { display: 'none' });
+	                $("#" + gridName + "").setCell(mya[j], "userName", '', { display: 'none' });
+	                $("#" + gridName + "").setCell(mya[j], "operate", '', { display: 'none' });
+	            } else {
+	                rowSpanTaxCount = 1;
+	                break;
+	            }
+	            $("#userId" + mya[i] + "").attr("rowspan", rowSpanTaxCount);
+	            $("#userId" + mya[i] + "").css("vertical-align", "middle");
+	            $("#userName" + mya[i] + "").attr("rowspan", rowSpanTaxCount);
+	            $("#userName" + mya[i] + "").css("vertical-align", "middle");
+	            $("#operate" + mya[i] + "").attr("rowspan", rowSpanTaxCount);
+	            $("#operate" + mya[i] + "").css("vertical-align", "middle");
+	        }
+	    }
+	}
+	
+});

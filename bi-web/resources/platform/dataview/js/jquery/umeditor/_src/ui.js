@@ -1,1 +1,1433 @@
-(function(g){g.parseTmpl=function h(l,k){var i="var __p=[],print=function(){__p.push.apply(__p,arguments);};with(obj||{}){__p.push('"+l.replace(/\\/g,"\\\\").replace(/'/g,"\\'").replace(/<%=([\s\S]+?)%>/g,function(m,n){return"',"+n.replace(/\\'/g,"'")+",'"}).replace(/<%([\s\S]+?)%>/g,function(m,n){return"');"+n.replace(/\\'/g,"'").replace(/[\r\n\t]/g," ")+"__p.push('"}).replace(/\r/g,"\\r").replace(/\n/g,"\\n").replace(/\t/g,"\\t")+"');}return __p.join('');";var j=new Function("obj",i);return k?j(k):j};g.extend2=function(p,q){var m=arguments,r=g.type(m[m.length-1])=="boolean"?m[m.length-1]:false,l=g.type(m[m.length-1])=="boolean"?m.length-1:m.length;for(var o=1;o<l;o++){var j=m[o];for(var n in j){if(!r||!p.hasOwnProperty(n)){p[n]=j[n]}}}return p};g.IE6=!!window.ActiveXObject&&parseFloat(navigator.userAgent.match(/msie (\d+)/i)[1])==6;var e=[];var b=function(){};var a="edui";b.prototype={on:function(j,i){this.root().on(j,g.proxy(i,this));return this},off:function(j,i){this.root().off(j,g.proxy(i,this));return this},trigger:function(i,j){return this.root().trigger(i,j)===false?false:this},root:function(i){return this._$el||(this._$el=i)},destroy:function(){},data:function(i,j){if(j!==undefined){this.root().data(a+i,j);return this}else{return this.root().data(a+i)}},register:function(i,j,k){e.push({evtname:i,"$els":g.isArray(j)?j:[j],handler:g.proxy(k,j)})}};g.fn.edui=function(i){return i?this.data("eduiwidget",i):this.data("eduiwidget")};function d(m,j,l){m.prototype=g.extend2(g.extend({},j),(UM.ui[l]||b).prototype,true);m.prototype.supper=(UM.ui[l]||b).prototype;if(UM.ui[l]&&UM.ui[l].prototype.defaultOpt){var i=UM.ui[l].prototype.defaultOpt,k=m.prototype.defaultOpt;m.prototype.defaultOpt=g.extend({},i,k||{})}return m}var c=1;function f(j,i){g[a+i]=j;g.fn[a+i]=function(m){var k,l=Array.prototype.slice.call(arguments,1);this.each(function(n,o){var q=g(o);var p=q.edui();if(!p){j(!m||!g.isPlainObject(m)?{}:m,q);q.edui(p)}if(g.type(m)=="string"){if(m=="this"){k=p}else{k=p[m].apply(p,l);if(k!==p&&k!==undefined){return false}k=null}}});return k!==null?k:this}}UM.ui={define:function(j,i,l){var k=UM.ui[j]=d(function(m,n){var q=function(){};g.extend(q.prototype,k.prototype,{guid:j+c++,widgetName:j});var p=new q;if(g.type(m)=="string"){p.init&&p.init({});p.root().edui(p);p.root().find("a").click(function(r){r.preventDefault()});return p.root()[a+j].apply(p.root(),arguments)}else{n&&p.root(n);p.init&&p.init(!m||g.isPlainObject(m)?g.extend2(m||{},p.defaultOpt||{},true):m);try{p.root().find("a").click(function(r){r.preventDefault()})}catch(o){}return p.root().edui(p)}},i,l);f(k,j)}};g(function(){g(document).on("click mouseup mousedown dblclick mouseover",function(i){g.each(e,function(j,k){if(k.evtname==i.type){g.each(k.$els,function(m,l){if(l[0]!==i.target&&!g.contains(l[0],i.target)){k.handler(i)}})}})})})})(jQuery);UM.ui.define("button",{tpl:'<<%if(!texttype){%>div class="edui-btn edui-btn-<%=icon%> <%if(name){%>edui-btn-name-<%=name%><%}%>" unselectable="on" onmousedown="return false" <%}else{%>a class="edui-text-btn"<%}%><% if(title) {%> data-original-title="<%=title%>" <%};%>> <% if(icon) {%><div unselectable="on" class="edui-icon-<%=icon%> edui-icon"></div><% }; %><%if(text) {%><span unselectable="on" onmousedown="return false" class="edui-button-label"><%=text%></span><%}%><%if(caret && text){%><span class="edui-button-spacing"></span><%}%><% if(caret) {%><span unselectable="on" onmousedown="return false" class="edui-caret"></span><% };%></<%if(!texttype){%>div<%}else{%>a<%}%>>',defaultOpt:{text:"",title:"",icon:"",width:"",caret:false,texttype:false,click:function(){}},init:function(a){var b=this;b.root($($.parseTmpl(b.tpl,a))).click(function(c){b.wrapclick(a.click,c)});b.root().hover(function(){if(!b.root().hasClass("edui-disabled")){b.root().toggleClass("edui-hover")}});return b},wrapclick:function(b,a){if(!this.disabled()){this.root().trigger("wrapclick");$.proxy(b,this,a)()}return this},label:function(a){if(a===undefined){return this.root().find(".edui-button-label").text()}else{this.root().find(".edui-button-label").text(a);return this}},disabled:function(a){if(a===undefined){return this.root().hasClass("edui-disabled")}this.root().toggleClass("edui-disabled",a);if(this.root().hasClass("edui-disabled")){this.root().removeClass("edui-hover")}return this},active:function(a){if(a===undefined){return this.root().hasClass("edui-active")}this.root().toggleClass("edui-active",a);return this},mergeWith:function(b){var a=this;a.data("$mergeObj",b);b.edui().data("$mergeObj",a.root());if(!$.contains(document.body,b[0])){b.appendTo(a.root())}a.on("click",function(){a.wrapclick(function(){b.edui().show()})}).register("click",a.root(),function(c){b.hide()})}});(function(){UM.ui.define("toolbar",{tpl:'<div class="edui-toolbar"  ><div class="edui-btn-toolbar" unselectable="on" onmousedown="return false"  ></div></div>',init:function(){var a=this.root($(this.tpl));this.data("$btnToolbar",a.find(".edui-btn-toolbar"))},appendToBtnmenu:function(b){var a=this.data("$btnToolbar");b=$.isArray(b)?b:[b];$.each(b,function(d,c){a.append(c)})}})})();UM.ui.define("menu",{show:function(e,b,a,c,d){a=a||"position";if(this.trigger("beforeshow")===false){return}else{this.root().css($.extend({display:"block"},e?{top:e[a]().top+(b=="right"?0:e.outerHeight())-(c||0),left:e[a]().left+(b=="right"?e.outerWidth():0)-(d||0)}:{}));this.trigger("aftershow")}},hide:function(b){var a;if(this.trigger("beforehide")===false){return}else{if(a=this.root().data("parentmenu")){if(a.data("parentmenu")||b){a.edui().hide()}}this.root().css("display","none");this.trigger("afterhide")}},attachTo:function(b){var a=this;if(!b.data("$mergeObj")){b.data("$mergeObj",a.root());b.on("wrapclick",function(c){a.show()});a.register("click",b,function(c){a.hide()});a.data("$mergeObj",b)}}});UM.ui.define("dropmenu",{tmpl:'<ul class="edui-dropdown-menu" aria-labelledby="dropdownMenu" ><%for(var i=0,ci;ci=data[i++];){%><%if(ci.divider){%><li class="edui-divider"></li><%}else{%><li <%if(ci.active||ci.disabled){%>class="<%= ci.active|| \'\' %> <%=ci.disabled||\'\' %>" <%}%> data-value="<%= ci.value%>"><a href="#" tabindex="-1"><em class="edui-dropmenu-checkbox"><i class="edui-icon-ok"></i></em><%= ci.label%></a></li><%}%><%}%></ul>',defaultOpt:{data:[],click:function(){}},init:function(b){var c=this;var a={click:1,mouseover:1,mouseout:1};this.root($($.parseTmpl(this.tmpl,b))).on("click",'li[class!="edui-disabled edui-divider edui-dropdown-submenu"]',function(d){$.proxy(b.click,c,d,$(this).data("value"),$(this))()}).find("li").each(function(d,e){var g=$(this);if(!g.hasClass("edui-disabled edui-divider edui-dropdown-submenu")){var f=b.data[d];$.each(a,function(h){f[h]&&g[h](function(i){$.proxy(f[h],e)(i,f,c.root)})})}})},disabled:function(a){$("li[class!=edui-divider]",this.root()).each(function(){var b=$(this);if(a===true){b.addClass("edui-disabled")}else{if($.isFunction(a)){b.toggleClass("edui-disabled",a(li))}else{b.removeClass("edui-disabled")}}})},val:function(b){var a;$('li[class!="edui-divider edui-disabled edui-dropdown-submenu"]',this.root()).each(function(){var c=$(this);if(b===undefined){if(c.find("em.edui-dropmenu-checked").length){a=c.data("value");return false}}else{c.find("em").toggleClass("edui-dropmenu-checked",c.data("value")==b)}});if(b===undefined){return a}},addSubmenu:function(d,e,c){c=c||0;var b=$("li[class!=edui-divider]",this.root());var a=$('<li class="edui-dropdown-submenu"><a tabindex="-1" href="#">'+d+"</a></li>").append(e);if(c>=0&&c<b.length){a.insertBefore(b[c])}else{if(c<0){a.insertBefore(b[0])}else{if(c>=b.length){a.appendTo(b)}}}}},"menu");UM.ui.define("splitbutton",{tpl:'<div class="edui-splitbutton <%if (name){%>edui-splitbutton-<%= name %><%}%>"  unselectable="on" <%if(title){%>data-original-title="<%=title%>"<%}%>><div class="edui-btn"  unselectable="on" ><%if(icon){%><div  unselectable="on" class="edui-icon-<%=icon%> edui-icon"></div><%}%><%if(text){%><%=text%><%}%></div><div  unselectable="on" class="edui-btn edui-dropdown-toggle" ><div  unselectable="on" class="edui-caret"></div></div></div>',defaultOpt:{text:"",title:"",click:function(){}},init:function(a){var b=this;b.root($($.parseTmpl(b.tpl,a)));b.root().find(".edui-btn:first").click(function(c){if(!b.disabled()){$.proxy(a.click,b)()}});b.root().find(".edui-dropdown-toggle").click(function(){if(!b.disabled()){b.trigger("arrowclick")}});b.root().hover(function(){if(!b.root().hasClass("edui-disabled")){b.root().toggleClass("edui-hover")}});return b},wrapclick:function(b,a){if(!this.disabled()){$.proxy(b,this,a)()}return this},disabled:function(a){if(a===undefined){return this.root().hasClass("edui-disabled")}this.root().toggleClass("edui-disabled",a).find(".edui-btn").toggleClass("edui-disabled",a);return this},active:function(a){if(a===undefined){return this.root().hasClass("edui-active")}this.root().toggleClass("edui-active",a).find(".edui-btn:first").toggleClass("edui-active",a);return this},mergeWith:function(b){var a=this;a.data("$mergeObj",b);b.edui().data("$mergeObj",a.root());if(!$.contains(document.body,b[0])){b.appendTo(a.root())}a.root().delegate(".edui-dropdown-toggle","click",function(){a.wrapclick(function(){b.edui().show()})});a.register("click",a.root().find(".edui-dropdown-toggle"),function(c){b.hide()})}});UM.ui.define("colorsplitbutton",{tpl:'<div class="edui-splitbutton <%if (name){%>edui-splitbutton-<%= name %><%}%>"  unselectable="on" <%if(title){%>data-original-title="<%=title%>"<%}%>><div class="edui-btn"  unselectable="on" ><%if(icon){%><div  unselectable="on" class="edui-icon-<%=icon%> edui-icon"></div><%}%><div class="edui-splitbutton-color-label" <%if (color) {%>style="background: <%=color%>"<%}%>></div><%if(text){%><%=text%><%}%></div><div  unselectable="on" class="edui-btn edui-dropdown-toggle" ><div  unselectable="on" class="edui-caret"></div></div></div>',defaultOpt:{color:""},init:function(a){var b=this;b.supper.init.call(b,a)},colorLabel:function(){return this.root().find(".edui-splitbutton-color-label")}},"splitbutton");UM.ui.define("popup",{tpl:'<div class="edui-dropdown-menu edui-popup"<%if(!<%=stopprop%>){%>onmousedown="return false"<%}%>><div class="edui-popup-body" unselectable="on" onmousedown="return false"><%=subtpl%></div><div class="edui-popup-caret"></div></div>',defaultOpt:{stopprop:false,subtpl:"",width:"",height:""},init:function(a){this.root($($.parseTmpl(this.tpl,a)));return this},mergeTpl:function(a){return $.parseTmpl(this.tpl,{subtpl:a})},show:function(c,b){if(!b){b={}}var a=b.fnname||"position";if(this.trigger("beforeshow")===false){return}else{this.root().css($.extend({display:"block"},c?{top:c[a]().top+(b.dir=="right"?0:c.outerHeight())-(b.offsetTop||0),left:c[a]().left+(b.dir=="right"?c.outerWidth():0)-(b.offsetLeft||0),position:"absolute"}:{}));this.root().find(".edui-popup-caret").css({top:b.caretTop||0,left:b.caretLeft||0,position:"absolute"}).addClass(b.caretDir||"up")}this.trigger("aftershow")},hide:function(){this.root().css("display","none");this.trigger("afterhide")},attachTo:function(c,b){var a=this;if(!c.data("$mergeObj")){c.data("$mergeObj",a.root());c.on("wrapclick",function(d){a.show(c,b)});a.register("click",c,function(d){a.hide()});a.data("$mergeObj",c)}},getBodyContainer:function(){return this.root().find(".edui-popup-body")}});UM.ui.define("scale",{tpl:'<div class="edui-scale" unselectable="on"><span class="edui-scale-hand0"></span><span class="edui-scale-hand1"></span><span class="edui-scale-hand2"></span><span class="edui-scale-hand3"></span><span class="edui-scale-hand4"></span><span class="edui-scale-hand5"></span><span class="edui-scale-hand6"></span><span class="edui-scale-hand7"></span></div>',defaultOpt:{$doc:$(document),$wrap:$(document)},init:function(a){if(a.$doc){this.defaultOpt.$doc=a.$doc}if(a.$wrap){this.defaultOpt.$wrap=a.$wrap}this.root($($.parseTmpl(this.tpl,a)));this.initStyle();this.startPos=this.prePos={x:0,y:0};this.dragId=-1;return this},initStyle:function(){utils.cssRule("edui-style-scale",".edui-scale{display:none;position:absolute;border:1px solid #38B2CE;cursor:hand;}.edui-scale span{position:absolute;left:0;top:0;width:7px;height:7px;overflow:hidden;font-size:0px;display:block;background-color:#3C9DD0;}.edui-scale .edui-scale-hand0{cursor:nw-resize;top:0;margin-top:-4px;left:0;margin-left:-4px;}.edui-scale .edui-scale-hand1{cursor:n-resize;top:0;margin-top:-4px;left:50%;margin-left:-4px;}.edui-scale .edui-scale-hand2{cursor:ne-resize;top:0;margin-top:-4px;left:100%;margin-left:-3px;}.edui-scale .edui-scale-hand3{cursor:w-resize;top:50%;margin-top:-4px;left:0;margin-left:-4px;}.edui-scale .edui-scale-hand4{cursor:e-resize;top:50%;margin-top:-4px;left:100%;margin-left:-3px;}.edui-scale .edui-scale-hand5{cursor:sw-resize;top:100%;margin-top:-3px;left:0;margin-left:-4px;}.edui-scale .edui-scale-hand6{cursor:s-resize;top:100%;margin-top:-3px;left:50%;margin-left:-4px;}.edui-scale .edui-scale-hand7{cursor:se-resize;top:100%;margin-top:-3px;left:100%;margin-left:-3px;}")},_eventHandler:function(d){var c=this,f=c.defaultOpt.$doc;switch(d.type){case"mousedown":var b=d.target||d.srcElement,b;if(b.className.indexOf("edui-scale-hand")!=-1){c.dragId=b.className.slice(-1);c.startPos.x=c.prePos.x=d.clientX;c.startPos.y=c.prePos.y=d.clientY;f.bind("mousemove",$.proxy(c._eventHandler,c))}break;case"mousemove":if(c.dragId!=-1){c.updateContainerStyle(c.dragId,{x:d.clientX-c.prePos.x,y:d.clientY-c.prePos.y});c.prePos.x=d.clientX;c.prePos.y=d.clientY;c.updateTargetElement()}break;case"mouseup":if(c.dragId!=-1){c.dragId=-1;c.updateTargetElement();var a=c.data("$scaleTarget");if(a.parent()){c.attachTo(c.data("$scaleTarget"))}}f.unbind("mousemove",$.proxy(c._eventHandler,c));break;default:break}},updateTargetElement:function(){var b=this,c=b.root(),a=b.data("$scaleTarget");a.css({width:c.width(),height:c.height()});b.attachTo(a)},updateContainerStyle:function(b,f){var e=this,a=e.root(),c,d=[[0,0,-1,-1],[0,0,0,-1],[0,0,1,-1],[0,0,-1,0],[0,0,1,0],[0,0,-1,1],[0,0,0,1],[0,0,1,1]];if(d[b][0]!=0){c=parseInt(a.offset().left)+f.x;a.css("left",e._validScaledProp("left",c))}if(d[b][1]!=0){c=parseInt(a.offset().top)+f.y;a.css("top",e._validScaledProp("top",c))}if(d[b][2]!=0){c=a.width()+d[b][2]*f.x;a.css("width",e._validScaledProp("width",c))}if(d[b][3]!=0){c=a.height()+d[b][3]*f.y;a.css("height",e._validScaledProp("height",c))}},_validScaledProp:function(e,c){var d=this.root(),a=this.defaultOpt.$doc,b=function(h,g,f){return(h+g)>f?f-g:c};c=isNaN(c)?0:c;switch(e){case"left":return c<0?0:b(c,d.width(),a.width());case"top":return c<0?0:b(c,d.height(),a.height());case"width":return c<=0?1:b(c,d.offset().left,a.width());case"height":return c<=0?1:b(c,d.offset().top,a.height())}},show:function(b){var a=this;if(b){a.attachTo(b)}a.root().bind("mousedown",$.proxy(a._eventHandler,a));a.defaultOpt.$doc.bind("mouseup",$.proxy(a._eventHandler,a));a.root().show();a.trigger("aftershow")},hide:function(){var a=this;a.root().unbind("mousedown",$.proxy(a._eventHandler,a));a.defaultOpt.$doc.unbind("mouseup",$.proxy(a._eventHandler,a));a.root().hide();a.trigger("afterhide")},attachTo:function(f){var d=this,c=f.offset(),e=d.root(),a=d.defaultOpt.$wrap,b=a.offset();d.data("$scaleTarget",f);d.root().css({position:"absolute",width:f.width(),height:f.height(),left:c.left-b.left-parseInt(a.css("border-left-width"))-parseInt(e.css("border-left-width")),top:c.top-b.top-parseInt(a.css("border-top-width"))-parseInt(e.css("border-top-width"))})},getScaleTarget:function(){return this.data("$scaleTarget")[0]}});UM.ui.define("colorpicker",{tpl:function(c){var d=("ffffff,000000,eeece1,1f497d,4f81bd,c0504d,9bbb59,8064a2,4bacc6,f79646,f2f2f2,7f7f7f,ddd9c3,c6d9f0,dbe5f1,f2dcdb,ebf1dd,e5e0ec,dbeef3,fdeada,d8d8d8,595959,c4bd97,8db3e2,b8cce4,e5b9b7,d7e3bc,ccc1d9,b7dde8,fbd5b5,bfbfbf,3f3f3f,938953,548dd4,95b3d7,d99694,c3d69b,b2a2c7,92cddc,fac08f,a5a5a5,262626,494429,17365d,366092,953734,76923c,5f497a,31859b,e36c09,7f7f7f,0c0c0c,1d1b10,0f243e,244061,632423,4f6128,3f3151,205867,974806,c00000,ff0000,ffc000,ffff00,92d050,00b050,00b0f0,0070c0,002060,7030a0,").split(",");var b='<div unselectable="on" onmousedown="return false" class="edui-colorpicker<%if (name){%> edui-colorpicker-<%=name%><%}%>" ><table unselectable="on" onmousedown="return false"><tr><td colspan="10">'+c.lang_themeColor+'</td> </tr><tr class="edui-colorpicker-firstrow" >';for(var a=0;a<d.length;a++){if(a&&a%10===0){b+="</tr>"+(a==60?'<tr><td colspan="10">'+c.lang_standardColor+"</td></tr>":"")+"<tr"+(a==60?' class="edui-colorpicker-firstrow"':"")+">"}b+=a<70?'<td><a unselectable="on" onmousedown="return false" title="'+d[a]+'" class="edui-colorpicker-colorcell" data-color="#'+d[a]+'" style="background-color:#'+d[a]+";border:solid #ccc;"+(a<10||a>=60?"border-width:1px;":a>=10&&a<20?"border-width:1px 1px 0 1px;":"border-width:0 1px 0 1px;")+'"></a></td>':""}b+="</tr></table></div>";return b},init:function(a){var b=this;b.root($($.parseTmpl(b.supper.mergeTpl(b.tpl(a)),a)));b.root().on("click",function(c){b.trigger("pickcolor",$(c.target).data("color"))})}},"popup");(function(){var c="combobox",e="edui-combobox-item",a="edui-combobox-item-hover",d="edui-combobox-checked-icon",b="edui-combobox-item-label";UM.ui.define(c,(function(){return{tpl:'<ul class="dropdown-menu edui-combobox-menu<%if (comboboxName!==\'\') {%> edui-combobox-<%=comboboxName%><%}%>" unselectable="on" onmousedown="return false" role="menu" aria-labelledby="dropdownMenu"><%if(autoRecord) {%><%for( var i=0, len = recordStack.length; i<len; i++ ) {%><%var index = recordStack[i];%><li class="<%=itemClassName%><%if( selected == index ) {%> edui-combobox-checked<%}%>" data-item-index="<%=index%>" unselectable="on" onmousedown="return false"><span class="edui-combobox-icon" unselectable="on" onmousedown="return false"></span><label class="<%=labelClassName%>" style="<%=itemStyles[ index ]%>" unselectable="on" onmousedown="return false"><%=items[index]%></label></li><%}%><%if( i ) {%><li class="edui-combobox-item-separator"></li><%}%><%}%><%for( var i=0, label; label = items[i]; i++ ) {%><li class="<%=itemClassName%><%if( selected == i ) {%> edui-combobox-checked<%}%> edui-combobox-item-<%=i%>" data-item-index="<%=i%>" unselectable="on" onmousedown="return false"><span class="edui-combobox-icon" unselectable="on" onmousedown="return false"></span><label class="<%=labelClassName%>" style="<%=itemStyles[ i ]%>" unselectable="on" onmousedown="return false"><%=label%></label></li><%}%></ul>',defaultOpt:{recordStack:[],items:[],value:[],comboboxName:"",selected:"",autoRecord:true,recordCount:5},init:function(f){var g=this;$.extend(g._optionAdaptation(f),g._createItemMapping(f.recordStack,f.items),{itemClassName:e,iconClass:d,labelClassName:b});this._transStack(f);g.root($($.parseTmpl(g.tpl,f)));this.data("options",f).initEvent()},initEvent:function(){var f=this;f.initSelectItem();this.initItemActive()},initSelectItem:function(){var g=this,f="."+b;g.root().delegate("."+e,"click",function(){var i=$(this),h=i.attr("data-item-index");g.trigger("comboboxselect",{index:h,label:i.find(f).text(),value:g.data("options").value[h]}).select(h);g.hide();return false})},initItemActive:function(){var f={mouseenter:"addClass",mouseleave:"removeClass"};if($.IE6){this.root().delegate("."+e,"mouseenter mouseleave",function(g){$(this)[f[g.type]](a)}).one("afterhide",function(){})}},select:function(g){var h=this.data("options").itemCount,f=this.data("options").autowidthitem;if(f&&!f.length){f=this.data("options").items}if(h==0){return null}if(g<0){g=h+g%h}else{if(g>=h){g=h-1}}this.trigger("changebefore",f[g]);this._update(g);this.trigger("changeafter",f[g]);return null},selectItemByLabel:function(g){var h=this.data("options").itemMapping,i=this,f=null;!$.isArray(g)&&(g=[g]);$.each(g,function(j,k){f=h[k];if(f!==undefined){i.select(f);return false}})},_transStack:function(g){var f=[],i=-1,h=-1;$.each(g.recordStack,function(j,k){i=g.itemMapping[k];if($.isNumeric(i)){f.push(i);if(k==g.selected){h=i}}});g.recordStack=f;g.selected=h;f=null},_optionAdaptation:function(g){if(!("itemStyles" in g)){g.itemStyles=[];for(var h=0,f=g.items.length;h<f;h++){g.itemStyles.push("")}}g.autowidthitem=g.autowidthitem||g.items;g.itemCount=g.items.length;return g},_createItemMapping:function(i,h){var g={},f={recordStack:[],mapping:{}};$.each(h,function(j,k){g[k]=j});f.itemMapping=g;$.each(i,function(j,k){if(g[k]!==undefined){f.recordStack.push(g[k]);f.mapping[k]=g[k]}});return f},_update:function(h){var g=this.data("options"),f=[],i=null;$.each(g.recordStack,function(j,k){if(k!=h){f.push(k)}});f.unshift(h);if(f.length>g.recordCount){f.length=g.recordCount}g.recordStack=f;g.selected=h;i=$($.parseTmpl(this.tpl,g));this.root().html(i.html());i=null;f=null}}})(),"menu")})();(function(){var a="buttoncombobox";UM.ui.define(a,(function(){return{defaultOpt:{label:"",title:""},init:function(b){var c=this;var d=$.eduibutton({caret:true,name:b.comboboxName,title:b.title,text:b.label,click:function(){c.show(this.root())}});c.supper.init.call(c,b);c.on("changebefore",function(g,f){d.eduibutton("label",f)});c.data("button",d);c.attachTo(d)},button:function(){return this.data("button")}}})(),"combobox")})();UM.ui.define("modal",{tpl:'<div class="edui-modal" tabindex="-1" ><div class="edui-modal-header"><div class="edui-close" data-hide="modal"></div><h3 class="edui-title"><%=title%></h3></div><div class="edui-modal-body"  style="<%if(width){%>width:<%=width%>px;<%}%><%if(height){%>height:<%=height%>px;<%}%>"> </div><% if(cancellabel || oklabel) {%><div class="edui-modal-footer"><div class="edui-modal-tip"></div><%if(oklabel){%><div class="edui-btn edui-btn-primary" data-ok="modal"><%=oklabel%></div><%}%><%if(cancellabel){%><div class="edui-btn" data-hide="modal"><%=cancellabel%></div><%}%></div><%}%></div>',defaultOpt:{title:"",cancellabel:"",oklabel:"",width:"",height:"",backdrop:true,keyboard:true},init:function(a){var b=this;b.root($($.parseTmpl(b.tpl,a||{})));b.data("options",a);if(a.okFn){b.on("ok",$.proxy(a.okFn,b))}if(a.cancelFn){b.on("beforehide",$.proxy(a.cancelFn,b))}b.root().delegate('[data-hide="modal"]',"click",$.proxy(b.hide,b)).delegate('[data-ok="modal"]',"click",$.proxy(b.ok,b));$('[data-hide="modal"],[data-ok="modal"]',b.root()).hover(function(){$(this).toggleClass("edui-hover")})},toggle:function(){var a=this;return a[!a.data("isShown")?"show":"hide"]()},show:function(){var a=this;a.trigger("beforeshow");if(a.data("isShown")){return}a.data("isShown",true);a.escape();a.backdrop(function(){a.autoCenter();a.root().show().focus().trigger("aftershow")})},showTip:function(a){$(".edui-modal-tip",this.root()).html(a).fadeIn()},hideTip:function(a){$(".edui-modal-tip",this.root()).fadeOut(function(){$(this).html("")})},autoCenter:function(){!$.IE6&&this.root().css("margin-left",-(this.root().width()/2))},hide:function(){var a=this;a.trigger("beforehide");if(!a.data("isShown")){return}a.data("isShown",false);a.escape();a.hideModal()},escape:function(){var a=this;if(a.data("isShown")&&a.data("options").keyboard){a.root().on("keyup",function(b){b.which==27&&a.hide()})}else{if(!a.data("isShown")){a.root().off("keyup")}}},hideModal:function(){var a=this;a.root().hide();a.backdrop(function(){a.removeBackdrop();a.trigger("afterhide")})},removeBackdrop:function(){this.$backdrop&&this.$backdrop.remove();this.$backdrop=null},backdrop:function(b){var a=this;if(a.data("isShown")&&a.data("options").backdrop){a.$backdrop=$('<div class="edui-modal-backdrop" />').click(a.data("options").backdrop=="static"?$.proxy(a.root()[0].focus,a.root()[0]):$.proxy(a.hide,a))}a.trigger("afterbackdrop");b&&b()},attachTo:function(b){var a=this;if(!b.data("$mergeObj")){b.data("$mergeObj",a.root());b.on("click",function(){a.toggle(b)});a.data("$mergeObj",b)}},ok:function(){var a=this;a.trigger("beforeok");if(a.trigger("ok",a)===false){return}a.hide()},getBodyContainer:function(){return this.root().find(".edui-modal-body")}});UM.ui.define("tooltip",{tpl:'<div class="edui-tooltip" unselectable="on" onmousedown="return false"><div class="edui-tooltip-arrow" unselectable="on" onmousedown="return false"></div><div class="edui-tooltip-inner" unselectable="on" onmousedown="return false"></div></div>',init:function(a){var b=this;b.root($($.parseTmpl(b.tpl,a||{})))},content:function(b){var a=this,c=$(b.currentTarget).attr("data-original-title");a.root().find(".edui-tooltip-inner")["text"](c)},position:function(b){var a=this,c=$(b.currentTarget);a.root().css($.extend({display:"block"},c?{top:c.outerHeight(),left:((c.outerWidth()-a.root().outerWidth())/2)}:{}))},show:function(b){if($(b.currentTarget).hasClass("edui-disabled")){return}var a=this;a.content(b);a.root().appendTo($(b.currentTarget));a.position(b);a.root().css("display","block")},hide:function(){var a=this;a.root().css("display","none")},attachTo:function(c){var b=this;function a(e){var d=this;if(!$.contains(document.body,d.root()[0])){d.root().appendTo(e)}d.data("tooltip",d.root());e.each(function(){if($(this).attr("data-original-title")){$(this).on("mouseenter",$.proxy(d.show,d)).on("mouseleave click",$.proxy(d.hide,d))}})}if($.type(c)==="undefined"){$("[data-original-title]").each(function(d,e){a.call(b,$(e))})}else{if(!c.data("tooltip")){a.call(b,c)}}}});UM.ui.define("tab",{init:function(a){var c=this,b=a.selector;if($.type(b)){c.root($(b,a.context));c.data("context",a.context);$(b,c.data("context")).on("click",function(d){c.show(d)})}},show:function(i){var h=this,c=$(i.target),d=c.closest("ul"),b,g,a,i;b=c.attr("data-context");b=b&&b.replace(/.*(?=#[^\s]*$)/,"");var f=c.parent("li");if(!f.length||f.hasClass("edui-active")){return}g=d.find(".edui-active:last a")[0];i=$.Event("beforeshow",{target:c[0],relatedTarget:g});h.trigger(i);if(i.isDefaultPrevented()){return}a=$(b,h.data("context"));h.activate(c.parent("li"),d);h.activate(a,a.parent(),function(){h.trigger({type:"aftershow",relatedTarget:g})})},activate:function(c,b,d){if(c===undefined){return $(".edui-tab-item.edui-active",this.root()).index()}var a=b.find("> .edui-active");a.removeClass("edui-active");c.addClass("edui-active");d&&d()}});UM.ui.define("separator",{tpl:'<div class="edui-separator" unselectable="on" onmousedown="return false" ></div>',init:function(a){var b=this;b.root($($.parseTmpl(b.tpl,a)));return b}});
+/*******widget部分*********/
+(function ($) {
+    //对jquery的扩展
+    $.parseTmpl = function parse(str, data) {
+        var tmpl = 'var __p=[],print=function(){__p.push.apply(__p,arguments);};' + 'with(obj||{}){__p.push(\'' + str.replace(/\\/g, '\\\\').replace(/'/g, "\\'").replace(/<%=([\s\S]+?)%>/g,function (match, code) {
+            return "'," + code.replace(/\\'/g, "'") + ",'";
+        }).replace(/<%([\s\S]+?)%>/g,function (match, code) {
+                return "');" + code.replace(/\\'/g, "'").replace(/[\r\n\t]/g, ' ') + "__p.push('";
+            }).replace(/\r/g, '\\r').replace(/\n/g, '\\n').replace(/\t/g, '\\t') + "');}return __p.join('');";
+        var func = new Function('obj', tmpl);
+        return data ? func(data) : func;
+    };
+    $.extend2 = function (t, s) {
+        var a = arguments,
+            notCover = $.type(a[a.length - 1]) == 'boolean' ? a[a.length - 1] : false,
+            len = $.type(a[a.length - 1]) == 'boolean' ? a.length - 1 : a.length;
+        for (var i = 1; i < len; i++) {
+            var x = a[i];
+            for (var k in x) {
+                if (!notCover || !t.hasOwnProperty(k)) {
+                    t[k] = x[k];
+                }
+            }
+        }
+        return t;
+    };
+
+    $.IE6 = !!window.ActiveXObject && parseFloat(navigator.userAgent.match(/msie (\d+)/i)[1]) == 6;
+
+    //所有ui的基类
+    var _eventHandler = [];
+    var _widget = function () {
+    };
+    var _prefix = 'edui';
+    _widget.prototype = {
+        on: function (ev, cb) {
+            this.root().on(ev, $.proxy(cb, this));
+            return this;
+        },
+        off: function (ev, cb) {
+            this.root().off(ev, $.proxy(cb, this));
+            return this;
+        },
+        trigger: function (ev, data) {
+            return  this.root().trigger(ev, data) === false ? false : this;
+        },
+        root: function ($el) {
+            return this._$el || (this._$el = $el);
+        },
+        destroy: function () {
+
+        },
+        data: function (key, val) {
+            if (val !== undefined) {
+                this.root().data(_prefix + key, val);
+                return this;
+            } else {
+                return this.root().data(_prefix + key)
+            }
+        },
+        register: function (eventName, $el, fn) {
+            _eventHandler.push({
+                'evtname': eventName,
+                '$els': $.isArray($el) ? $el : [$el],
+                handler: $.proxy(fn, $el)
+            })
+        }
+    };
+
+    //从jq实例上拿到绑定的widget实例
+    $.fn.edui = function (obj) {
+        return obj ? this.data('eduiwidget', obj) : this.data('eduiwidget');
+    };
+
+    function _createClass(ClassObj, properties, supperClass) {
+        ClassObj.prototype = $.extend2(
+            $.extend({}, properties),
+            (UM.ui[supperClass] || _widget).prototype,
+            true
+        );
+        ClassObj.prototype.supper = (UM.ui[supperClass] || _widget).prototype;
+        //父class的defaultOpt 合并
+        if( UM.ui[supperClass] && UM.ui[supperClass].prototype.defaultOpt ) {
+
+            var parentDefaultOptions = UM.ui[supperClass].prototype.defaultOpt,
+                subDefaultOptions = ClassObj.prototype.defaultOpt;
+
+            ClassObj.prototype.defaultOpt = $.extend( {}, parentDefaultOptions, subDefaultOptions || {} );
+
+        }
+        return ClassObj
+    }
+
+    var _guid = 1;
+
+    function mergeToJQ(ClassObj, className) {
+        $[_prefix + className] = ClassObj;
+        $.fn[_prefix + className] = function (opt) {
+            var result, args = Array.prototype.slice.call(arguments, 1);
+
+            this.each(function (i, el) {
+                var $this = $(el);
+                var obj = $this.edui();
+                if (!obj) {
+                    ClassObj(!opt || !$.isPlainObject(opt) ? {} : opt, $this);
+                    $this.edui(obj)
+                }
+                if ($.type(opt) == 'string') {
+                    if (opt == 'this') {
+                        result = obj;
+                    } else {
+                        result = obj[opt].apply(obj, args);
+                        if (result !== obj && result !== undefined) {
+                            return false;
+                        }
+                        result = null;
+                    }
+
+                }
+            });
+
+            return result !== null ? result : this;
+        }
+    }
+
+    UM.ui = {
+        define: function (className, properties, supperClass) {
+            var ClassObj = UM.ui[className] = _createClass(function (options, $el) {
+                    var _obj = function () {
+                    };
+                    $.extend(_obj.prototype, ClassObj.prototype, {
+                            guid: className + _guid++,
+                            widgetName: className
+                        }
+                    );
+                    var obj = new _obj;
+                    if ($.type(options) == 'string') {
+                        obj.init && obj.init({});
+                        obj.root().edui(obj);
+                        obj.root().find('a').click(function (evt) {
+                            evt.preventDefault()
+                        });
+                        return obj.root()[_prefix + className].apply(obj.root(), arguments)
+                    } else {
+                        $el && obj.root($el);
+                        obj.init && obj.init(!options || $.isPlainObject(options) ? $.extend2(options || {}, obj.defaultOpt || {}, true) : options);
+                        try{
+                            obj.root().find('a').click(function (evt) {
+                                evt.preventDefault()
+                            });
+                        }catch(e){
+                        }
+
+                        return obj.root().edui(obj);
+                    }
+
+                },properties, supperClass);
+
+            mergeToJQ(ClassObj, className);
+        }
+    };
+
+    $(function () {
+        $(document).on('click mouseup mousedown dblclick mouseover', function (evt) {
+            $.each(_eventHandler, function (i, obj) {
+                if (obj.evtname == evt.type) {
+                    $.each(obj.$els, function (i, $el) {
+                        if ($el[0] !== evt.target && !$.contains($el[0], evt.target)) {
+                            obj.handler(evt);
+                        }
+                    })
+                }
+            })
+        })
+    })
+})(jQuery);
+	/********button部分*********/
+	//button 类
+UM.ui.define('button', {
+    tpl: '<<%if(!texttype){%>div class="edui-btn edui-btn-<%=icon%> <%if(name){%>edui-btn-name-<%=name%><%}%>" unselectable="on" onmousedown="return false" <%}else{%>a class="edui-text-btn"<%}%><% if(title) {%> data-original-title="<%=title%>" <%};%>> ' +
+        '<% if(icon) {%><div unselectable="on" class="edui-icon-<%=icon%> edui-icon"></div><% }; %><%if(text) {%><span unselectable="on" onmousedown="return false" class="edui-button-label"><%=text%></span><%}%>' +
+        '<%if(caret && text){%><span class="edui-button-spacing"></span><%}%>' +
+        '<% if(caret) {%><span unselectable="on" onmousedown="return false" class="edui-caret"></span><% };%></<%if(!texttype){%>div<%}else{%>a<%}%>>',
+    defaultOpt: {
+        text: '',
+        title: '',
+        icon: '',
+        width: '',
+        caret: false,
+        texttype: false,
+        click: function () {
+        }
+    },
+    init: function (options) {
+        var me = this;
+
+        me.root($($.parseTmpl(me.tpl, options)))
+            .click(function (evt) {
+                me.wrapclick(options.click, evt)
+            });
+
+        me.root().hover(function () {
+            if(!me.root().hasClass("edui-disabled")){
+                me.root().toggleClass('edui-hover')
+            }
+        })
+
+        return me;
+    },
+    wrapclick: function (fn, evt) {
+        if (!this.disabled()) {
+            this.root().trigger('wrapclick');
+            $.proxy(fn, this, evt)()
+        }
+        return this;
+    },
+    label: function (text) {
+        if (text === undefined) {
+            return this.root().find('.edui-button-label').text();
+        } else {
+            this.root().find('.edui-button-label').text(text);
+            return this;
+        }
+    },
+    disabled: function (state) {
+        if (state === undefined) {
+            return this.root().hasClass('edui-disabled')
+        }
+        this.root().toggleClass('edui-disabled', state);
+        if(this.root().hasClass('edui-disabled')){
+            this.root().removeClass('edui-hover')
+        }
+        return this;
+    },
+    active: function (state) {
+        if (state === undefined) {
+            return this.root().hasClass('edui-active')
+        }
+        this.root().toggleClass('edui-active', state)
+
+        return this;
+    },
+    mergeWith: function ($obj) {
+        var me = this;
+        me.data('$mergeObj', $obj);
+        $obj.edui().data('$mergeObj', me.root());
+        if (!$.contains(document.body, $obj[0])) {
+            $obj.appendTo(me.root());
+        }
+        me.on('click',function () {
+            me.wrapclick(function () {
+                $obj.edui().show();
+            })
+        }).register('click', me.root(), function (evt) {
+                $obj.hide()
+            });
+    }
+});
+/*********toolbar部分**********/
+//toolbar 类
+(function () {
+    UM.ui.define('toolbar', {
+        tpl: '<div class="edui-toolbar"  ><div class="edui-btn-toolbar" unselectable="on" onmousedown="return false"  ></div></div>'
+          ,
+        init: function () {
+            var $root = this.root($(this.tpl));
+            this.data('$btnToolbar', $root.find('.edui-btn-toolbar'))
+        },
+        appendToBtnmenu : function(data){
+            var $cont = this.data('$btnToolbar');
+            data = $.isArray(data) ? data : [data];
+            $.each(data,function(i,$item){
+                $cont.append($item)
+            })
+        }
+    });
+})();
+/********menu部分*********/
+//menu 类
+UM.ui.define('menu',{
+    show : function($obj,dir,fnname,topOffset,leftOffset){
+
+        fnname = fnname || 'position';
+        if(this.trigger('beforeshow') === false){
+            return;
+        }else{
+            this.root().css($.extend({display:'block'},$obj ? {
+                top : $obj[fnname]().top + ( dir == 'right' ? 0 : $obj.outerHeight()) - (topOffset || 0),
+                left : $obj[fnname]().left + (dir == 'right' ?  $obj.outerWidth() : 0) -  (leftOffset || 0)
+            }:{}))
+            this.trigger('aftershow');
+        }
+    },
+    hide : function(all){
+        var $parentmenu;
+        if(this.trigger('beforehide') === false){
+            return;
+        } else {
+
+            if($parentmenu = this.root().data('parentmenu')){
+                if($parentmenu.data('parentmenu')|| all)
+                    $parentmenu.edui().hide();
+            }
+            this.root().css('display','none');
+            this.trigger('afterhide');
+        }
+    },
+    attachTo : function($obj){
+        var me = this;
+        if(!$obj.data('$mergeObj')){
+            $obj.data('$mergeObj',me.root());
+            $obj.on('wrapclick',function(evt){
+                me.show()
+            });
+            me.register('click',$obj,function(evt){
+               me.hide()
+            });
+            me.data('$mergeObj',$obj)
+        }
+    }
+});
+/********dropmenu部分*********/
+//dropmenu 类
+UM.ui.define('dropmenu', {
+    tmpl: '<ul class="edui-dropdown-menu" aria-labelledby="dropdownMenu" >' +
+        '<%for(var i=0,ci;ci=data[i++];){%>' +
+        '<%if(ci.divider){%><li class="edui-divider"></li><%}else{%>' +
+        '<li <%if(ci.active||ci.disabled){%>class="<%= ci.active|| \'\' %> <%=ci.disabled||\'\' %>" <%}%> data-value="<%= ci.value%>">' +
+        '<a href="#" tabindex="-1"><em class="edui-dropmenu-checkbox"><i class="edui-icon-ok"></i></em><%= ci.label%></a>' +
+        '</li><%}%>' +
+        '<%}%>' +
+        '</ul>',
+    defaultOpt: {
+        data: [],
+        click: function () {
+
+        }
+    },
+    init: function (options) {
+        var me = this;
+        var eventName = {
+            click: 1,
+            mouseover: 1,
+            mouseout: 1
+        };
+
+        this.root($($.parseTmpl(this.tmpl, options))).on('click', 'li[class!="edui-disabled edui-divider edui-dropdown-submenu"]',function (evt) {
+            $.proxy(options.click, me, evt, $(this).data('value'), $(this))()
+        }).find('li').each(function (i, el) {
+                var $this = $(this);
+                if (!$this.hasClass("edui-disabled edui-divider edui-dropdown-submenu")) {
+                    var data = options.data[i];
+                    $.each(eventName, function (k) {
+                        data[k] && $this[k](function (evt) {
+                            $.proxy(data[k], el)(evt, data, me.root)
+                        })
+                    })
+                }
+            })
+
+    },
+    disabled: function (cb) {
+        $('li[class!=edui-divider]', this.root()).each(function () {
+            var $el = $(this);
+            if (cb === true) {
+                $el.addClass('edui-disabled')
+            } else if ($.isFunction(cb)) {
+                $el.toggleClass('edui-disabled', cb(li))
+            } else {
+                $el.removeClass('edui-disabled')
+            }
+
+        });
+    },
+    val: function (val) {
+        var currentVal;
+        $('li[class!="edui-divider edui-disabled edui-dropdown-submenu"]', this.root()).each(function () {
+            var $el = $(this);
+            if (val === undefined) {
+                if ($el.find('em.edui-dropmenu-checked').length) {
+                    currentVal = $el.data('value');
+                    return false
+                }
+            } else {
+                $el.find('em').toggleClass('edui-dropmenu-checked', $el.data('value') == val)
+            }
+        });
+        if (val === undefined) {
+            return currentVal
+        }
+    },
+    addSubmenu: function (label, menu, index) {
+        index = index || 0;
+
+        var $list = $('li[class!=edui-divider]', this.root());
+        var $node = $('<li class="edui-dropdown-submenu"><a tabindex="-1" href="#">' + label + '</a></li>').append(menu);
+
+        if (index >= 0 && index < $list.length) {
+            $node.insertBefore($list[index]);
+        } else if (index < 0) {
+            $node.insertBefore($list[0]);
+        } else if (index >= $list.length) {
+            $node.appendTo($list);
+        }
+    }
+}, 'menu');
+/**********splitbutton部分************/
+//splitbutton 类
+///import button
+UM.ui.define('splitbutton',{
+    tpl :'<div class="edui-splitbutton <%if (name){%>edui-splitbutton-<%= name %><%}%>"  unselectable="on" <%if(title){%>data-original-title="<%=title%>"<%}%>><div class="edui-btn"  unselectable="on" ><%if(icon){%><div  unselectable="on" class="edui-icon-<%=icon%> edui-icon"></div><%}%><%if(text){%><%=text%><%}%></div>'+
+            '<div  unselectable="on" class="edui-btn edui-dropdown-toggle" >'+
+                '<div  unselectable="on" class="edui-caret"><\/div>'+
+            '</div>'+
+        '</div>',
+    defaultOpt:{
+        text:'',
+        title:'',
+        click:function(){}
+    },
+    init : function(options){
+        var me = this;
+        me.root( $($.parseTmpl(me.tpl,options)));
+        me.root().find('.edui-btn:first').click(function(evt){
+            if(!me.disabled()){
+                $.proxy(options.click,me)();
+            }
+        });
+        me.root().find('.edui-dropdown-toggle').click(function(){
+            if(!me.disabled()){
+                me.trigger('arrowclick')
+            }
+        });
+        me.root().hover(function () {
+            if(!me.root().hasClass("edui-disabled")){
+                me.root().toggleClass('edui-hover')
+            }
+        });
+
+        return me;
+    },
+    wrapclick:function(fn,evt){
+        if(!this.disabled()){
+            $.proxy(fn,this,evt)()
+        }
+        return this;
+    },
+    disabled : function(state){
+        if(state === undefined){
+            return this.root().hasClass('edui-disabled')
+        }
+        this.root().toggleClass('edui-disabled',state).find('.edui-btn').toggleClass('edui-disabled',state);
+        return this;
+    },
+    active:function(state){
+        if(state === undefined){
+            return this.root().hasClass('edui-active')
+        }
+        this.root().toggleClass('edui-active',state).find('.edui-btn:first').toggleClass('edui-active',state);
+        return this;
+    },
+    mergeWith:function($obj){
+        var me = this;
+        me.data('$mergeObj',$obj);
+        $obj.edui().data('$mergeObj',me.root());
+        if(!$.contains(document.body,$obj[0])){
+            $obj.appendTo(me.root());
+        }
+        me.root().delegate('.edui-dropdown-toggle','click',function(){
+            me.wrapclick(function(){
+                $obj.edui().show();
+            })
+        });
+        me.register('click',me.root().find('.edui-dropdown-toggle'),function(evt){
+            $obj.hide()
+        });
+    }
+});
+/************colorspiltbutton部分*************/
+/**
+ * Created with JetBrains PhpStorm.
+ * User: hn
+ * Date: 13-7-10
+ * Time: 下午3:07
+ * To change this template use File | Settings | File Templates.
+ */
+UM.ui.define('colorsplitbutton',{
+
+    tpl : '<div class="edui-splitbutton <%if (name){%>edui-splitbutton-<%= name %><%}%>"  unselectable="on" <%if(title){%>data-original-title="<%=title%>"<%}%>><div class="edui-btn"  unselectable="on" ><%if(icon){%><div  unselectable="on" class="edui-icon-<%=icon%> edui-icon"></div><%}%><div class="edui-splitbutton-color-label" <%if (color) {%>style="background: <%=color%>"<%}%>></div><%if(text){%><%=text%><%}%></div>'+
+            '<div  unselectable="on" class="edui-btn edui-dropdown-toggle" >'+
+            '<div  unselectable="on" class="edui-caret"><\/div>'+
+            '</div>'+
+            '</div>',
+    defaultOpt: {
+        color: ''
+    },
+    init: function( options ){
+
+        var me = this;
+
+        me.supper.init.call( me, options );
+
+    },
+    colorLabel: function(){
+        return this.root().find('.edui-splitbutton-color-label');
+    }
+
+}, 'splitbutton');
+/***********popup部分*************/
+//popup 类
+UM.ui.define('popup', {
+    tpl: '<div class="edui-dropdown-menu edui-popup"'+
+        '<%if(!<%=stopprop%>){%>onmousedown="return false"<%}%>'+
+        '><div class="edui-popup-body" unselectable="on" onmousedown="return false"><%=subtpl%></div>' +
+        '<div class="edui-popup-caret"></div>' +
+        '</div>',
+    defaultOpt: {
+        stopprop:false,
+        subtpl: '',
+        width: '',
+        height: ''
+    },
+    init: function (options) {
+        this.root($($.parseTmpl(this.tpl, options)));
+        return this;
+    },
+    mergeTpl: function (data) {
+        return $.parseTmpl(this.tpl, {subtpl: data});
+    },
+    show: function ($obj, posObj) {
+        if (!posObj) posObj = {};
+
+        var fnname = posObj.fnname || 'position';
+        if (this.trigger('beforeshow') === false) {
+            return;
+        } else {
+            this.root().css($.extend({display: 'block'}, $obj ? {
+                top: $obj[fnname]().top + ( posObj.dir == 'right' ? 0 : $obj.outerHeight()) - (posObj.offsetTop || 0),
+                left: $obj[fnname]().left + (posObj.dir == 'right' ? $obj.outerWidth() : 0) - (posObj.offsetLeft || 0),
+                position: 'absolute'
+            } : {}));
+
+            this.root().find('.edui-popup-caret').css({
+                top: posObj.caretTop || 0,
+                left: posObj.caretLeft || 0,
+                position: 'absolute'
+            }).addClass(posObj.caretDir || "up")
+
+        }
+        this.trigger("aftershow");
+    },
+    hide: function () {
+        this.root().css('display', 'none');
+        this.trigger('afterhide')
+    },
+    attachTo: function ($obj, posObj) {
+        var me = this
+        if (!$obj.data('$mergeObj')) {
+            $obj.data('$mergeObj', me.root());
+            $obj.on('wrapclick', function (evt) {
+                me.show($obj, posObj)
+            });
+            me.register('click', $obj, function (evt) {
+                me.hide()
+            });
+            me.data('$mergeObj', $obj)
+        }
+    },
+    getBodyContainer: function () {
+        return this.root().find(".edui-popup-body");
+    }
+});
+/*********scale部分************/
+//scale 类
+UM.ui.define('scale', {
+    tpl: '<div class="edui-scale" unselectable="on">' +
+        '<span class="edui-scale-hand0"></span>' +
+        '<span class="edui-scale-hand1"></span>' +
+        '<span class="edui-scale-hand2"></span>' +
+        '<span class="edui-scale-hand3"></span>' +
+        '<span class="edui-scale-hand4"></span>' +
+        '<span class="edui-scale-hand5"></span>' +
+        '<span class="edui-scale-hand6"></span>' +
+        '<span class="edui-scale-hand7"></span>' +
+        '</div>',
+    defaultOpt: {
+        $doc: $(document),
+        $wrap: $(document)
+    },
+    init: function (options) {
+        if(options.$doc) this.defaultOpt.$doc = options.$doc;
+        if(options.$wrap) this.defaultOpt.$wrap = options.$wrap;
+        this.root($($.parseTmpl(this.tpl, options)));
+        this.initStyle();
+        this.startPos = this.prePos = {x: 0, y: 0};
+        this.dragId = -1;
+        return this;
+    },
+    initStyle: function () {
+        utils.cssRule('edui-style-scale', '.edui-scale{display:none;position:absolute;border:1px solid #38B2CE;cursor:hand;}' +
+            '.edui-scale span{position:absolute;left:0;top:0;width:7px;height:7px;overflow:hidden;font-size:0px;display:block;background-color:#3C9DD0;}'
+            + '.edui-scale .edui-scale-hand0{cursor:nw-resize;top:0;margin-top:-4px;left:0;margin-left:-4px;}'
+            + '.edui-scale .edui-scale-hand1{cursor:n-resize;top:0;margin-top:-4px;left:50%;margin-left:-4px;}'
+            + '.edui-scale .edui-scale-hand2{cursor:ne-resize;top:0;margin-top:-4px;left:100%;margin-left:-3px;}'
+            + '.edui-scale .edui-scale-hand3{cursor:w-resize;top:50%;margin-top:-4px;left:0;margin-left:-4px;}'
+            + '.edui-scale .edui-scale-hand4{cursor:e-resize;top:50%;margin-top:-4px;left:100%;margin-left:-3px;}'
+            + '.edui-scale .edui-scale-hand5{cursor:sw-resize;top:100%;margin-top:-3px;left:0;margin-left:-4px;}'
+            + '.edui-scale .edui-scale-hand6{cursor:s-resize;top:100%;margin-top:-3px;left:50%;margin-left:-4px;}'
+            + '.edui-scale .edui-scale-hand7{cursor:se-resize;top:100%;margin-top:-3px;left:100%;margin-left:-3px;}');
+    },
+    _eventHandler: function (e) {
+        var me = this,
+            $doc = me.defaultOpt.$doc;
+        switch (e.type) {
+            case 'mousedown':
+                var hand = e.target || e.srcElement, hand;
+                if (hand.className.indexOf('edui-scale-hand') != -1) {
+                    me.dragId = hand.className.slice(-1);
+                    me.startPos.x = me.prePos.x = e.clientX;
+                    me.startPos.y = me.prePos.y = e.clientY;
+                    $doc.bind('mousemove', $.proxy(me._eventHandler, me));
+                }
+                break;
+            case 'mousemove':
+                if (me.dragId != -1) {
+                    me.updateContainerStyle(me.dragId, {x: e.clientX - me.prePos.x, y: e.clientY - me.prePos.y});
+                    me.prePos.x = e.clientX;
+                    me.prePos.y = e.clientY;
+                    me.updateTargetElement();
+                }
+                break;
+            case 'mouseup':
+                if (me.dragId != -1) {
+                    me.dragId = -1;
+                    me.updateTargetElement();
+                    var $target = me.data('$scaleTarget');
+                    if ($target.parent()) me.attachTo(me.data('$scaleTarget'));
+                }
+                $doc.unbind('mousemove', $.proxy(me._eventHandler, me));
+                break;
+            default:
+                break;
+        }
+    },
+    updateTargetElement: function () {
+        var me = this,
+            $root = me.root(),
+            $target = me.data('$scaleTarget');
+        $target.css({width: $root.width(), height: $root.height()});
+        me.attachTo($target);
+    },
+    updateContainerStyle: function (dir, offset) {
+        var me = this,
+            $dom = me.root(),
+            tmp,
+            rect = [
+                //[left, top, width, height]
+                [0, 0, -1, -1],
+                [0, 0, 0, -1],
+                [0, 0, 1, -1],
+                [0, 0, -1, 0],
+                [0, 0, 1, 0],
+                [0, 0, -1, 1],
+                [0, 0, 0, 1],
+                [0, 0, 1, 1]
+            ];
+
+        if (rect[dir][0] != 0) {
+            tmp = parseInt($dom.offset().left) + offset.x;
+            $dom.css('left', me._validScaledProp('left', tmp));
+        }
+        if (rect[dir][1] != 0) {
+            tmp = parseInt($dom.offset().top) + offset.y;
+            $dom.css('top', me._validScaledProp('top', tmp));
+        }
+        if (rect[dir][2] != 0) {
+            tmp = $dom.width() + rect[dir][2] * offset.x;
+            $dom.css('width', me._validScaledProp('width', tmp));
+        }
+        if (rect[dir][3] != 0) {
+            tmp = $dom.height() + rect[dir][3] * offset.y;
+            $dom.css('height', me._validScaledProp('height', tmp));
+        }
+    },
+    _validScaledProp: function (prop, value) {
+        var $ele = this.root(),
+            $wrap = this.defaultOpt.$doc,
+            calc = function(val, a, b){
+                return (val + a) > b ? b - a : value;
+            };
+
+        value = isNaN(value) ? 0 : value;
+        switch (prop) {
+            case 'left':
+                return value < 0 ? 0 : calc(value, $ele.width(), $wrap.width());
+            case 'top':
+                return value < 0 ? 0 : calc(value, $ele.height(),$wrap.height());
+            case 'width':
+                return value <= 0 ? 1 : calc(value, $ele.offset().left, $wrap.width());
+            case 'height':
+                return value <= 0 ? 1 : calc(value, $ele.offset().top, $wrap.height());
+        }
+    },
+    show: function ($obj) {
+        var me = this;
+        if ($obj) me.attachTo($obj);
+        me.root().bind('mousedown', $.proxy(me._eventHandler, me));
+        me.defaultOpt.$doc.bind('mouseup', $.proxy(me._eventHandler, me));
+        me.root().show();
+        me.trigger("aftershow");
+    },
+    hide: function () {
+        var me = this;
+        me.root().unbind('mousedown', $.proxy(me._eventHandler, me));
+        me.defaultOpt.$doc.unbind('mouseup', $.proxy(me._eventHandler, me));
+        me.root().hide();
+        me.trigger('afterhide')
+    },
+    attachTo: function ($obj) {
+        var me = this,
+            imgPos = $obj.offset(),
+            $root = me.root(),
+            $wrap = me.defaultOpt.$wrap,
+            posObj = $wrap.offset();
+
+        me.data('$scaleTarget', $obj);
+        me.root().css({
+            position: 'absolute',
+            width: $obj.width(),
+            height: $obj.height(),
+            left: imgPos.left - posObj.left - parseInt($wrap.css('border-left-width')) - parseInt($root.css('border-left-width')),
+            top: imgPos.top - posObj.top - parseInt($wrap.css('border-top-width')) - parseInt($root.css('border-top-width'))
+        });
+    },
+    getScaleTarget: function () {
+        return this.data('$scaleTarget')[0];
+    }
+});
+/*********colorpicker部分***********/
+//colorpicker 类
+UM.ui.define('colorpicker', {
+    tpl: function (opt) {
+        var COLORS = (
+            'ffffff,000000,eeece1,1f497d,4f81bd,c0504d,9bbb59,8064a2,4bacc6,f79646,' +
+                'f2f2f2,7f7f7f,ddd9c3,c6d9f0,dbe5f1,f2dcdb,ebf1dd,e5e0ec,dbeef3,fdeada,' +
+                'd8d8d8,595959,c4bd97,8db3e2,b8cce4,e5b9b7,d7e3bc,ccc1d9,b7dde8,fbd5b5,' +
+                'bfbfbf,3f3f3f,938953,548dd4,95b3d7,d99694,c3d69b,b2a2c7,92cddc,fac08f,' +
+                'a5a5a5,262626,494429,17365d,366092,953734,76923c,5f497a,31859b,e36c09,' +
+                '7f7f7f,0c0c0c,1d1b10,0f243e,244061,632423,4f6128,3f3151,205867,974806,' +
+                'c00000,ff0000,ffc000,ffff00,92d050,00b050,00b0f0,0070c0,002060,7030a0,').split(',');
+
+        var html = '<div unselectable="on" onmousedown="return false" class="edui-colorpicker<%if (name){%> edui-colorpicker-<%=name%><%}%>" >' +
+            '<table unselectable="on" onmousedown="return false">' +
+            '<tr><td colspan="10">'+opt.lang_themeColor+'</td> </tr>' +
+            '<tr class="edui-colorpicker-firstrow" >';
+
+        for (var i = 0; i < COLORS.length; i++) {
+            if (i && i % 10 === 0) {
+                html += '</tr>' + (i == 60 ? '<tr><td colspan="10">'+opt.lang_standardColor+'</td></tr>' : '') + '<tr' + (i == 60 ? ' class="edui-colorpicker-firstrow"' : '') + '>';
+            }
+            html += i < 70 ? '<td><a unselectable="on" onmousedown="return false" title="' + COLORS[i] + '" class="edui-colorpicker-colorcell"' +
+                ' data-color="#' + COLORS[i] + '"' +
+                ' style="background-color:#' + COLORS[i] + ';border:solid #ccc;' +
+                (i < 10 || i >= 60 ? 'border-width:1px;' :
+                    i >= 10 && i < 20 ? 'border-width:1px 1px 0 1px;' :
+                        'border-width:0 1px 0 1px;') +
+                '"' +
+                '></a></td>' : '';
+        }
+        html += '</tr></table></div>';
+        return html;
+    },
+    init: function (options) {
+        var me = this;
+        me.root($($.parseTmpl(me.supper.mergeTpl(me.tpl(options)),options)));
+
+        me.root().on("click",function (e) {
+            me.trigger('pickcolor',  $(e.target).data('color'));
+        });
+    }
+}, 'popup');
+/********combobox部分*********/
+/**
+ * Created with JetBrains PhpStorm.
+ * User: hn
+ * Date: 13-5-29
+ * Time: 下午8:01
+ * To change this template use File | Settings | File Templates.
+ */
+
+(function(){
+
+    var widgetName = 'combobox',
+        itemClassName = 'edui-combobox-item',
+        HOVER_CLASS = 'edui-combobox-item-hover',
+        ICON_CLASS = 'edui-combobox-checked-icon',
+        labelClassName = 'edui-combobox-item-label';
+
+    UM.ui.define( widgetName, ( function(){
+
+        return {
+            tpl: "<ul class=\"dropdown-menu edui-combobox-menu<%if (comboboxName!=='') {%> edui-combobox-<%=comboboxName%><%}%>\" unselectable=\"on\" onmousedown=\"return false\" role=\"menu\" aria-labelledby=\"dropdownMenu\">" +
+                "<%if(autoRecord) {%>" +
+                "<%for( var i=0, len = recordStack.length; i<len; i++ ) {%>" +
+                "<%var index = recordStack[i];%>" +
+                "<li class=\"<%=itemClassName%><%if( selected == index ) {%> edui-combobox-checked<%}%>\" data-item-index=\"<%=index%>\" unselectable=\"on\" onmousedown=\"return false\">" +
+                "<span class=\"edui-combobox-icon\" unselectable=\"on\" onmousedown=\"return false\"></span>" +
+                "<label class=\"<%=labelClassName%>\" style=\"<%=itemStyles[ index ]%>\" unselectable=\"on\" onmousedown=\"return false\"><%=items[index]%></label>" +
+                "</li>" +
+                "<%}%>" +
+                "<%if( i ) {%>" +
+                "<li class=\"edui-combobox-item-separator\"></li>" +
+                "<%}%>" +
+                "<%}%>" +
+                "<%for( var i=0, label; label = items[i]; i++ ) {%>" +
+                "<li class=\"<%=itemClassName%><%if( selected == i ) {%> edui-combobox-checked<%}%> edui-combobox-item-<%=i%>\" data-item-index=\"<%=i%>\" unselectable=\"on\" onmousedown=\"return false\">" +
+                "<span class=\"edui-combobox-icon\" unselectable=\"on\" onmousedown=\"return false\"></span>" +
+                "<label class=\"<%=labelClassName%>\" style=\"<%=itemStyles[ i ]%>\" unselectable=\"on\" onmousedown=\"return false\"><%=label%></label>" +
+                "</li>" +
+                "<%}%>" +
+                "</ul>",
+            defaultOpt: {
+                //记录栈初始列表
+                recordStack: [],
+                //可用项列表
+                items: [],
+		        //item对应的值列表
+                value: [],
+                comboboxName: '',
+                selected: '',
+                //自动记录
+                autoRecord: true,
+                //最多记录条数
+                recordCount: 5
+            },
+            init: function( options ){
+
+                var me = this;
+
+                $.extend( me._optionAdaptation( options ), me._createItemMapping( options.recordStack, options.items ), {
+                    itemClassName: itemClassName,
+                    iconClass: ICON_CLASS,
+                    labelClassName: labelClassName
+                } );
+
+                this._transStack( options );
+
+                me.root( $( $.parseTmpl( me.tpl, options ) ) );
+
+                this.data( 'options', options ).initEvent();
+
+            },
+            initEvent: function(){
+
+                var me = this;
+
+                me.initSelectItem();
+
+                this.initItemActive();
+
+            },
+            /**
+             * 初始化选择项
+             */
+            initSelectItem: function(){
+
+                var me = this,
+                    labelClass = "."+labelClassName;
+
+                me.root().delegate('.' + itemClassName, 'click', function(){
+
+                    var $li = $(this),
+                        index = $li.attr('data-item-index');
+
+                    me.trigger('comboboxselect', {
+                        index: index,
+                        label: $li.find(labelClass).text(),
+                        value: me.data('options').value[ index ]
+                    }).select( index );
+
+                    me.hide();
+
+                    return false;
+
+                });
+
+            },
+            initItemActive: function(){
+                var fn = {
+                    mouseenter: 'addClass',
+                    mouseleave: 'removeClass'
+                };
+                if ($.IE6) {
+                    this.root().delegate( '.'+itemClassName,  'mouseenter mouseleave', function( evt ){
+                        $(this)[ fn[ evt.type ] ]( HOVER_CLASS );
+                    }).one('afterhide', function(){
+                    });
+                }
+            },
+            /**
+             * 选择给定索引的项
+             * @param index 项索引
+             * @returns {*} 如果存在对应索引的项，则返回该项；否则返回null
+             */
+            select: function( index ){
+
+                var itemCount = this.data('options').itemCount,
+                    items = this.data('options').autowidthitem;
+
+                if ( items && !items.length ) {
+                    items = this.data('options').items;
+                }
+
+                if( itemCount == 0 ) {
+                    return null;
+                }
+
+                if( index < 0 ) {
+
+                    index = itemCount + index % itemCount;
+
+                } else if ( index >= itemCount ) {
+
+                    index = itemCount-1;
+
+                }
+
+                this.trigger( 'changebefore', items[ index ] );
+
+                this._update( index );
+
+                this.trigger( 'changeafter', items[ index ] );
+
+                return null;
+
+            },
+            selectItemByLabel: function( label ){
+
+                var itemMapping = this.data('options').itemMapping,
+                    me = this,
+                    index = null;
+
+                !$.isArray( label ) && ( label = [ label ] );
+
+                $.each( label, function( i, item ){
+
+                    index = itemMapping[ item ];
+
+                    if( index !== undefined ) {
+
+                        me.select( index );
+                        return false;
+
+                    }
+
+                } );
+
+            },
+            /**
+             * 转换记录栈
+             */
+            _transStack: function( options ) {
+
+                var temp = [],
+                    itemIndex = -1,
+                    selected = -1;
+
+                $.each( options.recordStack, function( index, item ){
+
+                    itemIndex = options.itemMapping[ item ];
+
+                    if( $.isNumeric( itemIndex ) ) {
+
+                        temp.push( itemIndex );
+
+                        //selected的合法性检测
+                        if( item == options.selected ) {
+                            selected = itemIndex;
+                        }
+
+                    }
+
+                } );
+
+                options.recordStack = temp;
+                options.selected = selected;
+                temp = null;
+
+            },
+            _optionAdaptation: function( options ) {
+
+                if( !( 'itemStyles' in options ) ) {
+
+                    options.itemStyles = [];
+
+                    for( var i = 0, len = options.items.length; i < len; i++ ) {
+                        options.itemStyles.push('');
+                    }
+
+                }
+
+                options.autowidthitem = options.autowidthitem || options.items;
+                options.itemCount = options.items.length;
+
+                return options;
+
+            },
+            _createItemMapping: function( stackItem, items ){
+
+                var temp = {},
+                    result = {
+                        recordStack: [],
+                        mapping: {}
+                    };
+
+                $.each( items, function( index, item ){
+                    temp[ item ] = index;
+                } );
+
+                result.itemMapping = temp;
+
+                $.each( stackItem, function( index, item ){
+
+                    if( temp[ item ] !== undefined ) {
+                        result.recordStack.push( temp[ item ] );
+                        result.mapping[ item ] = temp[ item ];
+                    }
+
+                } );
+
+                return result;
+
+            },
+            _update: function ( index ) {
+
+                var options = this.data("options"),
+                    newStack = [],
+                    newChilds = null;
+
+                $.each( options.recordStack, function( i, item ){
+
+                    if( item != index ) {
+                        newStack.push( item );
+                    }
+
+                } );
+
+                //压入最新的记录
+                newStack.unshift( index );
+
+                if( newStack.length > options.recordCount ) {
+                    newStack.length = options.recordCount;
+                }
+
+                options.recordStack = newStack;
+                options.selected = index;
+
+                newChilds = $( $.parseTmpl( this.tpl, options ) );
+
+                //重新渲染
+                this.root().html( newChilds.html() );
+
+                newChilds = null;
+                newStack = null;
+
+            }
+        };
+
+    } )(), 'menu' );
+
+})();
+/***********buttoncombobox部分*************/
+/**
+ * Combox 抽象基类
+ * User: hn
+ * Date: 13-5-29
+ * Time: 下午8:01
+ * To change this template use File | Settings | File Templates.
+ */
+
+(function(){
+
+    var widgetName = 'buttoncombobox';
+
+    UM.ui.define( widgetName, ( function(){
+
+        return {
+            defaultOpt: {
+                //按钮初始文字
+                label: '',
+                title: ''
+            },
+            init: function( options ) {
+
+                var me = this;
+
+                var btnWidget = $.eduibutton({
+                    caret: true,
+                    name: options.comboboxName,
+                    title: options.title,
+                    text: options.label,
+                    click: function(){
+                        me.show( this.root() );
+                    }
+                });
+
+                me.supper.init.call( me, options );
+
+                //监听change， 改变button显示内容
+                me.on('changebefore', function( e, label ){
+                    btnWidget.eduibutton('label', label );
+                });
+
+                me.data( 'button', btnWidget );
+
+                me.attachTo(btnWidget)
+
+            },
+            button: function(){
+                return this.data( 'button' );
+            }
+        }
+
+    } )(), 'combobox' );
+
+})();
+/*********modal部分**********/
+/*modal 类*/
+UM.ui.define('modal', {
+    tpl: '<div class="edui-modal" tabindex="-1" >' +
+        '<div class="edui-modal-header">' +
+        '<div class="edui-close" data-hide="modal"></div>' +
+        '<h3 class="edui-title"><%=title%></h3>' +
+        '</div>' +
+        '<div class="edui-modal-body"  style="<%if(width){%>width:<%=width%>px;<%}%>' +
+        '<%if(height){%>height:<%=height%>px;<%}%>">' +
+        ' </div>' +
+        '<% if(cancellabel || oklabel) {%>' +
+        '<div class="edui-modal-footer">' +
+        '<div class="edui-modal-tip"></div>' +
+        '<%if(oklabel){%><div class="edui-btn edui-btn-primary" data-ok="modal"><%=oklabel%></div><%}%>' +
+        '<%if(cancellabel){%><div class="edui-btn" data-hide="modal"><%=cancellabel%></div><%}%>' +
+        '</div>' +
+        '<%}%></div>',
+    defaultOpt: {
+        title: "",
+        cancellabel: "",
+        oklabel: "",
+        width: '',
+        height: '',
+        backdrop: true,
+        keyboard: true
+    },
+    init: function (options) {
+        var me = this;
+
+        me.root($($.parseTmpl(me.tpl, options || {})));
+
+        me.data("options", options);
+        if (options.okFn) {
+            me.on('ok', $.proxy(options.okFn, me))
+        }
+        if (options.cancelFn) {
+            me.on('beforehide', $.proxy(options.cancelFn, me))
+        }
+
+        me.root().delegate('[data-hide="modal"]', 'click', $.proxy(me.hide, me))
+            .delegate('[data-ok="modal"]', 'click', $.proxy(me.ok, me));
+
+        $('[data-hide="modal"],[data-ok="modal"]',me.root()).hover(function(){
+            $(this).toggleClass('edui-hover')
+        });
+    },
+    toggle: function () {
+        var me = this;
+        return me[!me.data("isShown") ? 'show' : 'hide']();
+    },
+    show: function () {
+
+        var me = this;
+
+        me.trigger("beforeshow");
+
+        if (me.data("isShown")) return;
+
+        me.data("isShown", true);
+
+        me.escape();
+
+        me.backdrop(function () {
+            me.autoCenter();
+            me.root()
+                .show()
+                .focus()
+                .trigger('aftershow');
+        })
+    },
+    showTip: function ( text ) {
+        $( '.edui-modal-tip', this.root() ).html( text ).fadeIn();
+    },
+    hideTip: function ( text ) {
+        $( '.edui-modal-tip', this.root() ).fadeOut( function (){
+            $(this).html('');
+        } );
+    },
+    autoCenter: function () {
+        //ie6下不用处理了
+        !$.IE6 && this.root().css("margin-left", -(this.root().width() / 2));
+    },
+    hide: function () {
+        var me = this;
+
+        me.trigger("beforehide");
+
+        if (!me.data("isShown")) return;
+
+        me.data("isShown", false);
+
+        me.escape();
+
+        me.hideModal();
+    },
+    escape: function () {
+        var me = this;
+        if (me.data("isShown") && me.data("options").keyboard) {
+            me.root().on('keyup', function (e) {
+                e.which == 27 && me.hide();
+            })
+        }
+        else if (!me.data("isShown")) {
+            me.root().off('keyup');
+        }
+    },
+    hideModal: function () {
+        var me = this;
+        me.root().hide();
+        me.backdrop(function () {
+            me.removeBackdrop();
+            me.trigger('afterhide');
+        })
+    },
+    removeBackdrop: function () {
+        this.$backdrop && this.$backdrop.remove();
+        this.$backdrop = null;
+    },
+    backdrop: function (callback) {
+        var me = this;
+        if (me.data("isShown") && me.data("options").backdrop) {
+            me.$backdrop = $('<div class="edui-modal-backdrop" />').click(
+                me.data("options").backdrop == 'static' ?
+                    $.proxy(me.root()[0].focus, me.root()[0])
+                    : $.proxy(me.hide, me)
+            )
+        }
+        me.trigger('afterbackdrop');
+        callback && callback();
+
+    },
+    attachTo: function ($obj) {
+        var me = this
+        if (!$obj.data('$mergeObj')) {
+
+            $obj.data('$mergeObj', me.root());
+            $obj.on('click', function () {
+                me.toggle($obj)
+            });
+            me.data('$mergeObj', $obj)
+        }
+    },
+    ok: function () {
+        var me = this;
+        me.trigger('beforeok');
+        if (me.trigger("ok", me) === false) {
+            return;
+        }
+        me.hide();
+    },
+    getBodyContainer: function () {
+        return this.root().find('.edui-modal-body')
+    }
+});
+
+/**********tooltip部分*********/
+/*tooltip 类*/
+UM.ui.define('tooltip', {
+    tpl: '<div class="edui-tooltip" unselectable="on" onmousedown="return false">' +
+        '<div class="edui-tooltip-arrow" unselectable="on" onmousedown="return false"></div>' +
+        '<div class="edui-tooltip-inner" unselectable="on" onmousedown="return false"></div>' +
+        '</div>',
+    init: function (options) {
+        var me = this;
+        me.root($($.parseTmpl(me.tpl, options || {})));
+    },
+    content: function (e) {
+        var me = this,
+            title = $(e.currentTarget).attr("data-original-title");
+
+        me.root().find('.edui-tooltip-inner')['text'](title);
+    },
+    position: function (e) {
+        var me = this,
+            $obj = $(e.currentTarget);
+
+        me.root().css($.extend({display: 'block'}, $obj ? {
+            top: $obj.outerHeight(),
+            left: (($obj.outerWidth() - me.root().outerWidth()) / 2)
+        } : {}))
+    },
+    show: function (e) {
+        if ($(e.currentTarget).hasClass('edui-disabled')) return;
+
+        var me = this;
+        me.content(e);
+        me.root().appendTo($(e.currentTarget));
+        me.position(e);
+        me.root().css('display', 'block');
+    },
+    hide: function () {
+        var me = this;
+        me.root().css('display', 'none')
+    },
+    attachTo: function ($obj) {
+        var me = this;
+
+        function tmp($obj) {
+            var me = this;
+
+            if (!$.contains(document.body, me.root()[0])) {
+                me.root().appendTo($obj);
+            }
+
+            me.data('tooltip', me.root());
+
+            $obj.each(function () {
+                if ($(this).attr("data-original-title")) {
+                    $(this).on('mouseenter', $.proxy(me.show, me))
+                        .on('mouseleave click', $.proxy(me.hide, me))
+
+                }
+            });
+
+        }
+
+        if ($.type($obj) === "undefined") {
+            $("[data-original-title]").each(function (i, el) {
+                tmp.call(me, $(el));
+            })
+
+        } else {
+            if (!$obj.data('tooltip')) {
+                tmp.call(me, $obj);
+            }
+        }
+    }
+});
+/*********tab部分***********/
+/*tab 类*/
+UM.ui.define('tab', {
+    init: function (options) {
+        var me = this,
+            slr = options.selector;
+
+        if ($.type(slr)) {
+            me.root($(slr, options.context));
+            me.data("context", options.context);
+
+            $(slr, me.data("context")).on('click', function (e) {
+                me.show(e);
+            });
+        }
+    },
+    show: function (e) {
+
+        var me = this,
+            $cur = $(e.target),
+            $ul = $cur.closest('ul'),
+            selector,
+            previous,
+            $target,
+            e;
+
+        selector = $cur.attr('data-context');
+        selector = selector && selector.replace(/.*(?=#[^\s]*$)/, '');
+
+        var $tmp = $cur.parent('li');
+
+        if (!$tmp.length || $tmp.hasClass('edui-active')) return;
+
+        previous = $ul.find('.edui-active:last a')[0];
+
+        e = $.Event('beforeshow', {
+            target: $cur[0],
+            relatedTarget: previous
+        });
+
+        me.trigger(e);
+
+        if (e.isDefaultPrevented()) return;
+
+        $target = $(selector, me.data("context"));
+
+        me.activate($cur.parent('li'), $ul);
+        me.activate($target, $target.parent(), function () {
+            me.trigger({
+                type: 'aftershow', relatedTarget: previous
+            })
+        });
+    },
+    activate: function (element, container, callback) {
+        if (element === undefined) {
+            return $(".edui-tab-item.edui-active",this.root()).index();
+        }
+
+        var $active = container.find('> .edui-active');
+
+        $active.removeClass('edui-active');
+
+        element.addClass('edui-active');
+
+        callback && callback();
+    }
+});
+
+/************separator部分*************/
+//button 类
+UM.ui.define('separator', {
+    tpl: '<div class="edui-separator" unselectable="on" onmousedown="return false" ></div>',
+    init: function (options) {
+        var me = this;
+        me.root($($.parseTmpl(me.tpl, options)));
+        return me;
+    }
+});

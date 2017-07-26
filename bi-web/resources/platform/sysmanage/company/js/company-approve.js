@@ -1,1 +1,200 @@
-define(["sabace","message"],function(b,c){function d(){jQuery("#createCompanyButton").on("click",a);jQuery("#joinCompanyButton").on("click",e);jQuery("#companyType").treeselect({height:200,chkStyle:"radio",searchAjaxParam:"companyTypeName",width:(jQuery("#companyType").width()+21),url:b.handleUrlParam("/platform/sysmanage/company/company-type")});jQuery("#create, #join").validationEngine({autoHidePrompt:true,autoHideDelay:2000,binded:true,promptPosition:"bottomLeft",showOneMessage:true});jQuery("#companyId").bind("blur",function(){var h=$("#companyId").validationEngine("validate");if(h){return false}var g=$("#companyId").val();var f={companyId:g.toUpperCase()};b.ajax({url:b.handleUrlParam("/platform/sysmanage/company/company-exist"),data:f,success:function(i){if(i.existFlag=="true"){$(".tip-class").html('<span class="f16 green"><i class="fa fa-check f16"></i></span>')}else{$(".tip-class").html('<span class="f14 red"><i class="fa fa-times-circle f16"></i>&nbsp;'+b.getMessage("company.msg.companyId.noExist"),+"</span>")}$(".tip-class").show()},error:function(i){bi.dialog.show({type:bi.dialog.TYPE_DANGER,title:b.getMessage("company.label.error"),message:i.responseText||b.getMessage("company.label.sendError")})}})});jQuery("#companyId").on("keydown",function(f){$(".tip-class").html("");$(".tip-class").hide()})}function a(){var g=$("#create").validationEngine("validate");if(!g){return false}var f={companyName:$("#companyName").val().trim(),companyType:$("#companyType").attr("truevalue"),companyDesc:$("#companyDesc").val()};bi.dialog.confirm({title:b.getMessage("company.label.confirm"),message:b.getMessage("company.msg.saveCompany.confirm"),callback:function(h){if(!h){return}b.ajax({url:b.handleUrlParam("/platform/sysmanage/company/create-company"),data:f,loading:{title:b.getMessage("company.label.tip"),text:b.getMessage("company.label.pleaseWait")},success:function(i){if(i.createFlag=="true"){bi.dialog.show({title:b.getMessage("company.label.succeed"),message:b.getMessage("company.msg.saveCompany.success"),onhide:function(){setTimeout(function(){document.location.href=webpath+"/platform/frame/login"},200)}})}else{bi.dialog.show({type:bi.dialog.TYPE_DANGER,title:b.getMessage("company.label.error"),message:b.getMessage(i.errorMsg)})}},error:function(i){bi.dialog.show({type:bi.dialog.TYPE_DANGER,title:b.getMessage("company.label.error"),message:i.responseText||b.getMessage("company.msg.saveCompany.error")})}})}})}function e(){var h=$("#join").validationEngine("validate");if(!h){return false}var g=$("#companyId").val();var i=$("#authMsg").val();var f={companyId:g.toUpperCase(),authMsg:i};bi.dialog.confirm({title:b.getMessage("company.label.confirm"),message:b.getMessage("company.msg.joinCompany.confirm"),callback:function(j){if(!j){return}b.ajax({url:b.handleUrlParam("/platform/sysmanage/company/join-company"),data:f,loading:{title:b.getMessage("company.label.tip"),text:b.getMessage("company.label.pleaseWait")},success:function(k){if(k.joinFlag=="9"){bi.dialog.show({title:b.getMessage("company.label.succeed"),message:b.getMessage("company.msg.joinCompany.success")})}else{if(k.joinFlag=="1"){bi.dialog.show({type:bi.dialog.TYPE_WARNING,title:b.getMessage("company.label.tip"),message:b.getMessage("company.msg.joinCompany.alreadyJoin")})}else{if(k.joinFlag=="2"){bi.dialog.show({type:bi.dialog.TYPE_WARNING,title:b.getMessage("company.label.tip"),message:b.getMessage("company.msg.joinCompany.alreadyAgree")})}else{if(k.joinFlag=="3"){bi.dialog.show({type:bi.dialog.TYPE_WARNING,title:b.getMessage("company.label.tip"),message:b.getMessage("company.msg.joinCompany.alreadySend")})}else{bi.dialog.show({type:bi.dialog.TYPE_DANGER,title:b.getMessage("company.label.error"),message:b.getMessage("company.msg.joinCompany.fail")})}}}}},error:function(k){bi.dialog.show({type:bi.dialog.TYPE_DANGER,title:b.getMessage("company.label.error"),message:k.responseText||b.getMessage("company.msg.joinCompany.error")})}})}})}return{init:d}});
+define(['sabace', 'message'], function(sabace, message) {
+
+	function init() {
+		jQuery('#createCompanyButton').on("click", createCompany);
+		jQuery('#joinCompanyButton').on("click", joinCompany);
+
+		// 企业类型
+		jQuery("#companyType").treeselect({
+			height: 200,
+			chkStyle: "radio",
+			searchAjaxParam: "companyTypeName",
+			width: (jQuery('#companyType').width() + 21),
+			url: sabace.handleUrlParam('/platform/sysmanage/company/company-type')
+		});
+		
+		jQuery('#create, #join').validationEngine({
+			autoHidePrompt: true,
+			autoHideDelay: 2000,
+			binded: true,
+			promptPosition: 'bottomLeft',
+			showOneMessage: true
+		});
+		
+		// 校验用户输入的企业编码是否存在
+		jQuery('#companyId').bind("blur", function() {
+			var isError = $('#companyId').validationEngine('validate');
+			if(isError){
+				return false;
+			}
+			
+			var companyId = $("#companyId").val();
+			var paramData = {
+				companyId: companyId.toUpperCase()
+			};
+			
+			sabace.ajax({
+				url: sabace.handleUrlParam("/platform/sysmanage/company/company-exist"),
+				data: paramData,
+				success: function(req) {
+					if (req.existFlag == "true") {
+						$(".tip-class").html('<span class="f16 green"><i class="fa fa-check f16"></i></span>');
+					} else {
+						$(".tip-class").html('<span class="f14 red"><i class="fa fa-times-circle f16"></i>&nbsp;' + sabace.getMessage('company.msg.companyId.noExist'), + '</span>');
+					}
+					$(".tip-class").show();
+				},
+				error: function(req) {
+					bi.dialog.show({
+						type: bi.dialog.TYPE_DANGER,
+						title: sabace.getMessage('company.label.error'),
+						message: req.responseText || sabace.getMessage('company.label.sendError')
+					});
+				}
+			});
+		});
+		
+		jQuery("#companyId").on("keydown",function(evt){
+			$(".tip-class").html('');
+			$(".tip-class").hide();
+		});
+	}
+
+	// 用户创建自己的企业信息
+	function createCompany() {		
+		var isPass = $('#create').validationEngine('validate');
+		if(!isPass){
+			return false;
+		}
+		
+		var paramData = {
+			companyName: $("#companyName").val().trim(),
+			companyType: $("#companyType").attr("truevalue"),
+			companyDesc: $("#companyDesc").val()
+		};
+		
+		bi.dialog.confirm({
+            title: sabace.getMessage('company.label.confirm'),
+            message: sabace.getMessage('company.msg.saveCompany.confirm'),
+            callback: function(result) {
+            	if (!result) {
+            		return;
+            	}
+            	
+        		sabace.ajax({
+        			url: sabace.handleUrlParam("/platform/sysmanage/company/create-company"),
+        			data: paramData,
+        			loading: {
+        				title: sabace.getMessage('company.label.tip'),
+        				text: sabace.getMessage('company.label.pleaseWait')
+        			},
+        			success: function(req) {
+        				if (req.createFlag == "true") {
+        					bi.dialog.show({
+        						title: sabace.getMessage('company.label.succeed'),
+        						message: sabace.getMessage('company.msg.saveCompany.success'),
+        						onhide: function() {
+        							setTimeout(function() {
+        								document.location.href = webpath + "/platform/frame/login";
+        							}, 200);
+        						}
+        					});
+        				} else {
+        					bi.dialog.show({
+        						type: bi.dialog.TYPE_DANGER,
+        						title: sabace.getMessage('company.label.error'),
+        						message: sabace.getMessage(req.errorMsg)
+        					});
+        				}
+        			},
+        			error: function(req) {
+        				bi.dialog.show({
+        					type: bi.dialog.TYPE_DANGER,
+        					title: sabace.getMessage('company.label.error'),
+        					message: req.responseText || sabace.getMessage('company.msg.saveCompany.error')
+        				});
+        			}
+        		});
+            }
+		});
+	}
+	
+	// 用户加入其他的企业
+	function joinCompany() {
+		var isPass = $('#join').validationEngine('validate');
+		if(!isPass){
+			return false;
+		}
+		
+		var companyId = $("#companyId").val();
+		var authMsg = $("#authMsg").val();
+		var paramData = {
+			companyId: companyId.toUpperCase(),
+			authMsg: authMsg
+		};
+		
+		bi.dialog.confirm({
+            title: sabace.getMessage('company.label.confirm'),
+            message: sabace.getMessage('company.msg.joinCompany.confirm'),
+            callback: function(result) {
+            	if (!result) {
+            		return;
+            	}
+            	
+        		sabace.ajax({
+        			url: sabace.handleUrlParam("/platform/sysmanage/company/join-company"),
+        			data: paramData,
+        			loading: {
+        				title: sabace.getMessage('company.label.tip'),
+        				text: sabace.getMessage('company.label.pleaseWait')
+        			},
+        			success: function(req) {
+        				if (req.joinFlag == "9") {
+        					bi.dialog.show({
+        						title: sabace.getMessage('company.label.succeed'),
+        						message: sabace.getMessage('company.msg.joinCompany.success')
+        					});
+        				} else if (req.joinFlag == "1") {
+        					bi.dialog.show({
+        						type: bi.dialog.TYPE_WARNING,
+        						title: sabace.getMessage('company.label.tip'),
+        						message: sabace.getMessage('company.msg.joinCompany.alreadyJoin')
+        					});
+        				} else if (req.joinFlag == "2") {
+        					bi.dialog.show({
+        						type: bi.dialog.TYPE_WARNING,
+        						title: sabace.getMessage('company.label.tip'),
+        						message: sabace.getMessage('company.msg.joinCompany.alreadyAgree')
+        					});
+        				} else if (req.joinFlag == "3") {
+        					bi.dialog.show({
+        						type: bi.dialog.TYPE_WARNING,
+        						title: sabace.getMessage('company.label.tip'),
+        						message: sabace.getMessage('company.msg.joinCompany.alreadySend')
+        					});
+        				} else {
+        					bi.dialog.show({
+        						type: bi.dialog.TYPE_DANGER,
+        						title: sabace.getMessage('company.label.error'),
+        						message: sabace.getMessage('company.msg.joinCompany.fail')
+        					});
+        				}
+        			},
+        			error: function(req) {
+        				bi.dialog.show({
+        					type: bi.dialog.TYPE_DANGER,
+        					title: sabace.getMessage('company.label.error'),
+        					message: req.responseText || sabace.getMessage('company.msg.joinCompany.error')
+        				});
+        			}
+        		});
+            }
+		});
+	}
+
+
+	//返回页面所需方法
+	return {
+		init: init
+	}
+});

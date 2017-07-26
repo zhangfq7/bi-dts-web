@@ -1,1 +1,162 @@
-#dd{padding-left:20px!important}.part{margin-bottom:10px}.part>div{float:left}.part .title{width:100px;line-height:30px}.part span{font-size:13px;font-weight:bold}.part .input{width:30%}.part .mytable{width:84%;height:350px;border-radius:5px;border:1px solid #bababa;box-shadow:0 2px 3px #ccc}.mytable .head{background:#f5f5f5;width:100%;height:9.5%;border-bottom:0;border-top-left-radius:5px;border-top-right-radius:5px;line-height:30px}.mytable .head .tab>label{float:left}.mytable .head .tab>span{float:left;margin-left:-8px;line-height:32px}.mytable .head>div{float:left;text-align:center}.mytable .head .tab{width:20%;border-top-left-radius:2px;border-top-right-radius:2px;height:33px;border-radius:inherit}.mytable .head .tab .checkbox-diy{margin-left:14%}.mytable .head .tabright{width:60%;border-bottom:1px solid #bababa;height:33px}.defaultTab{border:0;border-bottom:1px solid #bababa;background:#f5f5f5}.checkTab{border-bottom:none!important;border-left:1px solid #bababa!important;border-right:1px solid #bababa!important;background:#fff!important}.systab{border-left:none!important}.userNameDiv{margin:5px 10px 5px 20px;float:none!important;width:100%}.myUserDiv{margin:5px 10px 5px 0;float:none!important;width:100%}.myUserInput{-webkit-border-radius:4px;-moz-border-radius:4px;border-radius:4px}.selectList{margin:0 15px 20px 20px}.tableBody>div{float:left}.tableBody .leftDiv{width:40%}.tableBody .leftright{width:50px;margin:110px -5px 0 43px}.tableBody .leftright img{height:26px;width:26px;border-color:#1b7fae;cursor:pointer;display:inline-block}.tableBody .leftright .right{background:#23739a url('../img/tabs_icons.png') no-repeat -10px center;margin-bottom:60px}.tableBody .leftright .left{background:#23739a url('../img/tabs_icons.png') no-repeat 6px center}.tableBody .rightDiv{width:40%}.table-responsive{overflow-x:hidden}.close{display:inline}#reportName,#labelName{color:black}
+#dd{
+	padding-left:20px!important;
+}
+
+.part{
+	margin-bottom:10px;
+}
+
+.part>div{
+	float : left;
+}
+
+.part .title{
+	width:100px;
+	line-height:30px;
+}
+
+.part  span{
+	font-size:13px; 
+	font-weight: bold;
+}
+
+.part .input{
+	width:30%;
+}
+
+.part .mytable{
+	width:84%;
+	height:350px;
+	border-radius:5px;
+	border :1px solid #BABABA;
+	box-shadow: 0 2px 3px #cccccc;
+}
+
+.mytable .head{
+	background:#F5F5F5;
+	width : 100%;
+	height:9.5%;
+	border-bottom :none;
+	border-top-left-radius:5px;
+	border-top-right-radius:5px;
+	line-height:30px;
+}
+
+.mytable .head .tab>label{
+	float:left;
+}
+
+.mytable .head .tab>span{
+	float:left;
+	margin-left: -8px;
+    line-height: 32px;
+}
+
+.mytable .head >div{
+	float:left;
+	text-align:center;
+}
+
+.mytable .head .tab{
+	width : 20%;
+	border-top-left-radius:2px;
+	border-top-right-radius:2px;
+	height:33px;
+	border-radius: inherit;
+}
+
+
+.mytable .head .tab .checkbox-diy{
+	margin-left: 14%;
+}
+
+.mytable .head .tabright{
+	width : 60%;
+	border-bottom: 1px solid #BABABA;
+	height:33px;
+}
+
+/* 默认tab样式 */
+.defaultTab{
+	border:none;
+	border-bottom : 1px solid #BABABA;
+	background :#F5F5F5;
+}
+
+/* 选中tab样式 */
+.checkTab{
+	border-bottom : none!important;
+	border-left : 1px solid #BABABA!important;
+	border-right : 1px solid #BABABA!important;
+	background : #FFFFFF!important;
+}
+
+.systab{
+	border-left:none!important;
+}
+
+.userNameDiv{
+	margin:5px 10px 5px 20px;
+	float:none!important;
+    width: 100%;
+}
+
+.myUserDiv{
+	margin:5px 10px 5px 0px;
+	float:none!important;
+	width: 100%;
+}
+
+.myUserInput
+{
+	-webkit-border-radius:4px;
+	-moz-border-radius:4px;
+	border-radius:4px;
+}
+.selectList{margin:0px 15px 20px 20px;}
+
+.tableBody>div{
+	float:left;
+}
+
+.tableBody .leftDiv{
+	width:40%;
+}
+
+.tableBody .leftright{
+	width:50px;
+	margin: 110px -5px 0 43px;
+}
+
+.tableBody .leftright img{
+	height:26px;
+	width:26px;
+	border-color: #1B7FAE;
+	cursor:pointer;
+	display:inline-block;
+}
+
+.tableBody .leftright .right{
+	background:  #23739a url('../img/tabs_icons.png') no-repeat -10px center;
+	margin-bottom: 60px;
+}
+
+.tableBody .leftright .left{
+	background:  #23739a url('../img/tabs_icons.png') no-repeat 6px center;
+}
+
+.tableBody .rightDiv{
+	width:40%;
+}
+
+.table-responsive{
+	overflow-x:hidden;
+}
+
+.close{
+	display:inline;
+}
+
+#reportName,#labelName{
+	color:black;
+}
