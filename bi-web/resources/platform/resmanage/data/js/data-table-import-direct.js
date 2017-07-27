@@ -656,7 +656,8 @@ define(['sabace'], function(sabace) {
 	 * @param req
 	 */
 	function initClassify(classifyList) {
-		jQuery('#classifySel').append("");
+		jQuery("#classifySel").html(""); 
+		jQuery('#classifySel').chosen("destroy");
 		var classifyLength = classifyList.length;
 		var classifyObj = null;
 		var classifyName = null;
