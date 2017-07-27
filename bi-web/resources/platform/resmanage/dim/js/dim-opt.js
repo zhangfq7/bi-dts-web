@@ -20,15 +20,10 @@ define(['sabace', 'handsontable', 'dimOpt/message'], function(sabace, handsontab
 			scroll: false,
 		});
 		
-		
 		jQuery('#projectId').chosen({
 	                disable_search: true,
 					width:'280px'
 	            });
-
-
-
-
 
 		//  绑定事件
 		bindEvent();
@@ -41,9 +36,12 @@ define(['sabace', 'handsontable', 'dimOpt/message'], function(sabace, handsontab
 		if (!sabace.IsEmpty(dimId)) {
 			initDimInfo();
 		}
+		else
+		{
+			jQuery("#div_projectId").show();
+		}
 
         jQuery("#parentDimName").click();
-
 	});
 
 	/**
@@ -77,6 +75,14 @@ define(['sabace', 'handsontable', 'dimOpt/message'], function(sabace, handsontab
 	 * 初始化维度基本信息
 	 */
 	function initDimBasicInfo(req) {
+		
+		//租户
+		jQuery("#projectId").find("option[value='"+req.proId+"']").attr("selected",true);
+
+        jQuery('#projectId').trigger("chosen:updated");
+        
+        jQuery("#div_projectId").show();
+        
 		// 维度名称
 		jQuery("#dimName").val(req.dimName);
 
@@ -167,10 +173,7 @@ define(['sabace', 'handsontable', 'dimOpt/message'], function(sabace, handsontab
 		// 维度描述
 		jQuery("#dimDesc").val(req.dimDesc);
 		
-		//租户
-		jQuery("#projectId").find("option[value='"+req.proId+"']").attr("selected",true);
-
-        jQuery('#projectId').trigger("chosen:updated");
+		
 	}
 
 	var paramDimObj;

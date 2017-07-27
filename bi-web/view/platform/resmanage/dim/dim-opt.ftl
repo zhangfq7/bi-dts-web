@@ -25,7 +25,7 @@
 	 
 		<fieldset>
 		
-	   <div class="form-group form-group-sm">
+	   <div class="form-group form-group-sm" id="div_projectId" style="display:none">
 	   <label class="my-label-30">选择对应的租户：</label>
 	   		<div class="my-text-40 text-left">
 				 <select id="projectId">
