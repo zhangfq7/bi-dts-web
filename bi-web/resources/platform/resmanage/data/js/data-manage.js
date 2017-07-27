@@ -181,7 +181,7 @@ define(['sabace','dbSource','data-message','userSelect'], function(sabace,dbSour
 								{
 									resHtml += "<a href='javascript:void(0)' class='data-edit' dbId='" + dbId + "'>修改</a> /  " ;
 								}
-								if(!rowObject.addFlag=='9')
+								if(!rowObject.addFlag=='9' || rowObject.addFlag==null || rowObject.addFlag==undefined)
 								{
                                     resHtml += "<a href='javascript:void(0)' class='data-number' interfaceFlag='"+rowObject.interfaceFlag+"' dbId='" + dbId + "' dbName='"+rowObject.dbName+"'>取数</a> /  ";
 								}
