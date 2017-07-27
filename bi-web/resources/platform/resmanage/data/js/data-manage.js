@@ -181,8 +181,11 @@ define(['sabace','dbSource','data-message','userSelect'], function(sabace,dbSour
 								{
 									resHtml += "<a href='javascript:void(0)' class='data-edit' dbId='" + dbId + "'>修改</a> /  " ;
 								}
+								if(!rowObject.addFlag=='9')
+								{
+                                    resHtml += "<a href='javascript:void(0)' class='data-number' interfaceFlag='"+rowObject.interfaceFlag+"' dbId='" + dbId + "' dbName='"+rowObject.dbName+"'>取数</a> /  ";
+								}
 
-								resHtml += "<a href='javascript:void(0)' class='data-number' interfaceFlag='"+rowObject.interfaceFlag+"' dbId='" + dbId + "' dbName='"+rowObject.dbName+"'>取数</a> /  ";
                                 if(rowObject.addFlag=='1' || rowObject.addFlag=='9')
                                 {
                                 	resHtml += "<a href='javascript:void(0)' class='data-del' interfaceFlag='"+rowObject.interfaceFlag+"' dbId='" + dbId + "'>删除</a> ";
