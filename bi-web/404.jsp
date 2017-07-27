@@ -103,7 +103,10 @@ document.getElementById("button").innerText = msgMap.button[lang];
 
 function goLoginPage() {
 	//top.document.location.href = "${webpath}/";
-	top.document.location.href ="http://portal.dev-citic.dataos.io/dts/sso/union-entry";
+        // 测试
+	//top.document.location.href ="http://portal.dev-citic.dataos.io/dts/sso/union-entry";
+        // 生产
+        top.document.location.href ="http://data.c.citic/dts/sso/union-entry";
 }
 </script>
 </html>
