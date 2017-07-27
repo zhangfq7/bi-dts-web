@@ -328,7 +328,10 @@ function ajax(config) {
 					onshown: function(){
 						setTimeout(function() {
 							//top.document.location.href = webpath + "/platform/login/page";
-							top.document.location.href ="http://portal.dev-citic.dataos.io/dts/sso/union-entry";
+							// 测试
+							//top.document.location.href ="http://portal.dev-citic.dataos.io/dts/sso/union-entry";
+  						// 生产
+  						top.document.location.href ="http://data.c.citic/dts/sso/union-entry";
 						},5000);
 					}
 				});

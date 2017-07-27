@@ -114,7 +114,10 @@ function goLoginPage() {
 	var url = pathname.substring('${webpath}'.length + 1);
 	var platName = (url.substring(0, url.indexOf("/")));
 	//top.document.location.href = "${webpath}/" + platName + "/login/page";
-	top.document.location.href ="http://portal.dev-citic.dataos.io/dts/sso/union-entry";
+	// 测试
+	//top.document.location.href ="http://portal.dev-citic.dataos.io/dts/sso/union-entry";
+  // 生产
+  top.document.location.href ="http://data.c.citic/dts/sso/union-entry";
 }
 </script>
 
