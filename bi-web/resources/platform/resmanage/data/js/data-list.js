@@ -1483,18 +1483,19 @@ define(['sabace', 'radialIndicator', 'userSelect'], function(sabace, radialIndic
 				if(req.reportUseList.length>0 ||req.viewCount>0){ 
 					bi.dialog.confirm({
 			            title: sabace.getMessage('data.dataLink.label.prompt'),
-			            message: sabace.getMessage(messageStr),
-			            callback: function(result) {
-			                if(result) {
-			                	if(data_type_link == dataType){
-			                		delLinkDataById(dataId);
-			                	}else if(data_type_openapi == dataType){
-			                		delOpenApiData(dataId);
-			                	}else{
-			                		delData(dataType,dataId);
-			                	}
-			                }
-			            }
+			            message: "该工作表已关联了仪表板，不允许删除"
+//			            message: sabace.getMessage(messageStr),
+//			            callback: function(result) {
+//			                if(result) {
+//			                	if(data_type_link == dataType){
+//			                		delLinkDataById(dataId);
+//			                	}else if(data_type_openapi == dataType){
+//			                		delOpenApiData(dataId);
+//			                	}else{
+//			                		delData(dataType,dataId);
+//			                	}
+//			                }
+//			            }
 				    });
 				}else{
 					bi.dialog.confirm({

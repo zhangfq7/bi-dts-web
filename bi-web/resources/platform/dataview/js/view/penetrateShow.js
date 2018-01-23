@@ -89,7 +89,10 @@ define([
                     success: function(config) {
                         //判断数据源是否删除，0删除，1未删除
                         if(config.dataDeletaFlag==0){
-                            alert("数据源已删除！");
+                        	alert("数据源已删除！");
+							window.close();
+							return;
+                            
                         }
                         Box.main.dataId = config.dataId;
                         Box.main.reportName = config.reportName;

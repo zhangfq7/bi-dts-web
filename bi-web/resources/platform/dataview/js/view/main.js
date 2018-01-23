@@ -6,7 +6,7 @@
 define([
 		'bace', 'view/layout', 'view/attr', 'view/header', 'view/widgets', 'view/box','view/component/keysUtil',
 				'layout', 'poshytip', 'grid', 'date', 'switchButton', 'dialog', 'colpick', 'chosen','ztree','placeholder','dotdotdot','validation'
-				],
+				], 
 				function(Bace, Layout, Attr, Header, Widgets, Box,Keys) {
 					var DataView = {};
 					DataView.control = {
@@ -41,6 +41,8 @@ define([
                             //判断数据源是否删除，0删除，1未删除
 							if(config.dataDeletaFlag==0){
 								alert("数据源已删除！");
+								window.close();
+								return;
 							}
 							
 							var resportConfigObj=$.evalJSON(config.resportConfig);

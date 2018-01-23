@@ -7,7 +7,7 @@ define([
 		'bace', 'view/layout', 'view/pc/contanier','view/pc/serach', 'view/box','view/pc/share',
 		'layout', 'poshytip', 'grid', 'date', 'switchButton', 'dialog', 'colpick', 'chosen','ztree','placeholder','dotdotdot','validation'
 	],
-	function(Bace, Layout,Contanier,Serach,Box,Share) {
+	function(Bace, Layout,Contanier,Serach,Box,Share,dialog) {
 		var DataView = {};
 		DataView.control = {
 			init: function() {
@@ -55,7 +55,9 @@ define([
 						success: function(config) {
 							//判断数据源是否删除，0删除，1未删除
 							if(config.dataDeletaFlag==0){
-								alert("数据源已删除！");
+								alert("数据源已删除!");
+								window.close();
+								return;
 							}
 							Box.main.dataId = config.dataId;
 							Box.main.reportName = config.reportName;
